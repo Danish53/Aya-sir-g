@@ -1,0 +1,69 @@
+.address_Form {
+  border-radius: 10px;
+  font-family: var(--font-poppins), sans-serif;
+  margin: 0 auto;
+}
+.modal-content {
+  padding: 10px 20px;
+}
+.address_Form p {
+  margin-bottom: 0 !important;
+}
+.address_Form .outer_flex {
+  justify-content: space-between;
+}
+.address_Form .inner_flex {
+  gap: 10px;
+}
+.address_Form .inner_flex p {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--red-color);
+}
+.address_Form .plus_icon {
+  color: var(--red-color);
+  font-size: 20px;
+  border: 1px solid var(--red-color);
+  border-radius: 50%;
+  padding: 3px;
+  cursor: pointer;
+}
+.address_Form .cross_icon {
+  font-size: 20px;
+  border: 1px solid #d0d5dd;
+  border-radius: 5px;
+  padding: 3px;
+  cursor: pointer;
+}
+.address_Form .address_card {
+  border-bottom: 1px solid #e7eaee;
+}
+.address_Form .address_card h4 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.address_Form .address_card p {
+  font-size: 20px;
+}
+.address_Form .left_div {
+  width: 70%;
+}
+.address_Form .right_div {
+  width: 30%;
+}
+
+.address_Form .address_card .icon {
+  font-size: 24px;
+  cursor: pointer;
+}
+.address_Form .icon_div {
+  gap: 20px;
+}
+@media screen and (max-width: 576px) {
+  .address_Form .address_card p {
+    font-size: 14px;
+  }
+  .address_Form .address_card .icon {
+    font-size: 18px;
+  }
+}

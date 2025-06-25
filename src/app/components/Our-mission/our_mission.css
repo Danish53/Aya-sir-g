@@ -1,0 +1,98 @@
+.our_mission {
+  font-family: var(--font-poppins), sans-serif;
+}
+span.red_title {
+  color: var(--red-color);
+}
+.our_mission p#para {
+  font-size: 20px;
+}
+.content_parent_div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.our_mission .left_div {
+  flex: 1;
+}
+.our_mission .left_div button {
+  width: 410px;
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.our_mission .right_div {
+  flex: 1;
+}
+.our_mission .right_div .upper_div {
+  margin-top: -50px;
+}
+.our_mission .right_div .Card {
+  width: 247px;
+  height: 143px;
+  border-radius: 10px;
+  border: 1px solid var(--red-color);
+  font-weight: bold;
+  box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.5);
+}
+.our_mission .right_div .Card h1 {
+  font-size: 45px;
+}
+.our_mission .pluse_icon {
+  color: var(--red-color);
+}
+.our_mission .right_div .Card p#details {
+  font-weight: 500;
+  font-size: 23px;
+  margin-bottom: 0 !important;
+}
+@media screen and (max-width: 1024px) {
+  .our_mission p#para {
+    font-size: 18px;
+  }
+  .our_mission .right_div .Card {
+    width: 222px;
+  }
+  .our_mission .right_div .Card h1 {
+    font-size: 41px;
+  }
+  .our_mission .right_div .Card p#details {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .our_mission .right_div {
+    margin-top: 66px;
+    margin-bottom: 20px;
+  }
+  .our_mission .right_div {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 576px) {
+  .our_mission p#para {
+    font-size: 16px;
+  }
+  .our_mission {
+    padding: 0 10px;
+  }
+
+  .our_mission .right_div .Card {
+    width: 155px;
+    height: 98px;
+  }
+  .our_mission .right_div .Card h1 {
+    font-size: 30px;
+  }
+  .our_mission .right_div .Card p#details {
+    font-size: 17px;
+  }
+  .our_mission .left_div button {
+    width: 310px;
+  }
+}

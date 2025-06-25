@@ -1,0 +1,61 @@
+.comments_section {
+  font-family: var(--font-poppins), sans-serif;
+  background-color: white;
+}
+
+.comments_section h3.heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: #191d23;
+  margin-bottom: 0 !important;
+}
+.comments_section .pic_div {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+}
+.comments_section .pic_div img {
+  width: 100%;
+  height: auto;
+}
+.comments_section .single_comment_parent_div {
+  display: flex;
+  gap: 7px;
+}
+.comments_section .comment_div {
+  background-color: #f7f8f9;
+  border-radius: 10px;
+}
+.comments_section .heading_sec {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.comments_section .time {
+  color: #64748b;
+  font-size: 14px;
+}
+.comments_section .comment {
+  font-size: 16px;
+  color: #191d23;
+}
+.comments_section .like_replay_div {
+  gap: 50px;
+}
+.comments_section .like_div,
+.comments_section .reply_div {
+  gap: 6px;
+  cursor: pointer;
+}
+.like_div p,
+.reply_div p {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 576px) {
+  .comments_section .comment {
+    font-size: 13px;
+  }
+}

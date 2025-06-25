@@ -1,0 +1,126 @@
+footer {
+  background-color: var(--black-color);
+  font-family: var(--font-poppins), sans-serif;
+}
+.footer p {
+  margin-bottom: 0 !important;
+}
+.footer p.footer_heading {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: var(--font-poppins), sans-serif;
+  line-height: 52px;
+}
+.footer li {
+  margin-bottom: 16px;
+}
+.footer li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+  font-family: var(--font-poppins), sans-serif;
+}
+.footer .input_div {
+  max-width: 474px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+.footer hr {
+  background-color: var(--light-gray);
+  height: 2px;
+  width: 80%;
+  margin: 0 auto;
+}
+.footer input {
+  height: 100%;
+  width: 354px;
+  outline: none;
+  border: none;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.footer button {
+  width: 130px;
+  height: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+  background-color: var(--red-color);
+  outline: none;
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding: 0 15px;
+}
+
+.footer .margin_top {
+  margin-top: 74px;
+}
+.footer p#terms {
+  font-size: 9px;
+  color: white;
+  font-weight: 400;
+  margin-top: 10px;
+}
+
+.footer .social_icon {
+  height: 30px;
+  width: 35px;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.footer .social-div p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.footer .social_inner {
+  cursor: pointer;
+}
+.footer .social_inner:hover .social_icon {
+  color: var(--red-color);
+}
+
+@media screen and (max-width: 959px) {
+  .footer p.footer_heading {
+    font-size: 18px;
+  }
+  .footer li a {
+    font-size: 16px;
+  }
+  .social_icon {
+    height: 23px !important;
+    width: 23px !important;
+  }
+  .footer .social-div p {
+    font-size: 14px;
+  }
+  .footer .social-div p {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .footer form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .footer .input_div {
+    max-width: 325px;
+    height: 45px;
+  }
+  .footer .input_div input {
+    width: 230px;
+  }
+  .footer button {
+    width: 100px;
+    padding: 0 7px;
+  }
+  .text_center {
+    text-align: center;
+  }
+}

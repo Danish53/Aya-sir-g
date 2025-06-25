@@ -1,0 +1,161 @@
+.login {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+.login .left_div {
+  background-color: var(--light-white);
+  z-index: 9;
+}
+.login a#sign_p {
+  text-decoration: none;
+}
+
+.login .right_div {
+  background-color: var(--red-color);
+  z-index: 9;
+}
+.login .login_heading {
+  font-size: 36px;
+  font-weight: bold;
+}
+.login a#forget {
+  text-decoration: none;
+}
+.login .check_forget {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.login .checkbox_filed {
+  display: flex;
+  align-items: center;
+  gap: 05px;
+}
+
+.login p#forgot {
+  font-size: 15px;
+  margin-bottom: 0 !important;
+  color: #777777;
+  cursor: pointer;
+  gap: 30px;
+}
+
+label#rember {
+  color: var(--red-color);
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  user-select: none;
+  line-height: 20px;
+}
+
+.custom-checkbox::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--red-color);
+  border-radius: 4px;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid red;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.login .logo {
+  max-width: 83px;
+}
+
+.login p#descri {
+  margin-bottom: 0 !important;
+}
+.create_new_account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  display: none;
+}
+.create_new_account p {
+  margin-bottom: 0 !important;
+}
+.create_new_account hr {
+  height: 2px;
+  width: 100px;
+  background-color: var(--red-color);
+  margin-top: 28px;
+}
+.login button.sign_up {
+  margin: 0 auto;
+  color: white !important;
+}
+.login a#a_sign_up {
+  text-decoration: none;
+  color: white !important;
+}
+
+.left_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form {
+  width: 80%;
+}
+@media screen and (max-width: 1200px) {
+  .container_width {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .login .right_div {
+    display: none;
+  }
+  .create_new_account {
+    display: flex;
+    cursor: pointer;
+  }
+  .left_div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .login .container {
+    width: 96% !important;
+  }
+  .create_new_account p {
+    font-size: 14px;
+  }
+  .create_new_account hr {
+    display: none;
+  }
+  .login form {
+    width: 100%;
+  }
+}

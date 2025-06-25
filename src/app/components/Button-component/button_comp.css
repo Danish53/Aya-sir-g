@@ -1,0 +1,55 @@
+.button_comp {
+  font-family: var(--font-poppins), sans-serif;
+  z-index: 999;
+}
+
+.button_comp .btn_div {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+}
+
+.button_comp .individual {
+  /* background-color: var(--red-color); */
+  color: white;
+  text-align: center;
+  flex: 1;
+  cursor: pointer;
+  background-color: #d4d2d2;
+}
+.button_comp .companies {
+  flex: 1;
+  background-color: #d4d2d2;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+.button_comp .active {
+  background-color: var(--red-color) !important;
+}
+
+@media screen and (max-width: 768px) {
+  .button_comp .individual h3 {
+    font-size: 21px;
+  }
+  .button_comp .companies h3 {
+    font-size: 21px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .button_comp .individual h3 {
+    font-size: 19px;
+  }
+  .button_comp .companies h3 {
+    font-size: 19px;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .button_comp .individual h3 {
+    font-size: 15px;
+  }
+  .button_comp .companies h3 {
+    font-size: 15px;
+  }
+}

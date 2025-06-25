@@ -1,0 +1,192 @@
+.contact-us {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
+
+.contact-us .left_div {
+  background-color: var(--light-white);
+  z-index: 9;
+}
+
+.contact-us .right_div {
+  background-color: var(--red-color);
+  z-index: 9;
+}
+.contact-us .login_heading {
+  font-size: 32px;
+  font-weight: 500;
+  color: var(--red-color);
+}
+.contact-us h2.small_heading {
+  font-size: 22px;
+  font-weight: 800;
+  margin-top: 20px;
+}
+
+.contact-us .check_forget {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.contact-us .checkbox_filed {
+  display: flex;
+  align-items: center;
+  gap: 05px;
+}
+
+.contact-us p#forgot {
+  font-size: 15px;
+  margin-bottom: 0 !important;
+  color: #777777;
+  cursor: pointer;
+  gap: 30px;
+}
+
+label#rember {
+  color: var(--red-color);
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.custom-checkbox {
+  position: relative;
+  padding-left: 28px;
+  cursor: pointer;
+  user-select: none;
+  line-height: 20px;
+}
+
+.custom-checkbox::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--red-color);
+  border-radius: 4px;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 6px;
+  height: 12px;
+  border: solid red;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.contact-us .logo {
+  max-width: 83px;
+}
+
+.contact-us p#descri {
+  margin-bottom: 0 !important;
+}
+.create_new_account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  display: none;
+}
+.create_new_account p {
+  margin-bottom: 0 !important;
+}
+.create_new_account hr {
+  height: 2px;
+  width: 100px;
+  background-color: var(--red-color);
+  margin-top: 28px;
+}
+
+.left_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+form {
+  width: 80%;
+}
+@media screen and (max-width: 1200px) {
+  .container_width {
+    width: 100%;
+    height: 100%;
+  }
+  .contact-us .login_heading {
+    margin-bottom: 0;
+    font-size: 29px;
+  }
+  .contact-us.auth_bg .label_auth {
+    margin: 5px 0;
+    font-size: 16px;
+  }
+  .contact-us.auth_bg .input_auth {
+    height: 41px;
+  }
+  .contact-us.sign_in {
+    height: 41px;
+  }
+  .contact-us .logo {
+    max-width: 60px;
+  }
+  .contact-us p#descri {
+    font-size: 7px;
+  }
+  .contact-us h2.small_heading {
+    font-size: 17px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .contact-us .right_div {
+    display: none;
+  }
+  .create_new_account {
+    display: flex;
+    cursor: pointer;
+  }
+  .left_div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .contact-us .container {
+    width: 96% !important;
+  }
+  .create_new_account p {
+    font-size: 14px;
+  }
+  .create_new_account hr {
+    display: none;
+  }
+  .contact-us form {
+    width: 100%;
+  }
+  .contact-us .login_heading {
+    font-size: 23px;
+  }
+  .contact-us.auth_bg .label_auth {
+    font-size: 14px;
+  }
+  .contact-us .sign_in {
+    height: 40px;
+  }
+  .contact-us .logo {
+    font-size: 47px;
+  }
+  p#head {
+    font-size: 14px;
+  }
+}

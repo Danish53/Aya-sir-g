@@ -1,0 +1,35 @@
+.individuals {
+  font-family: var(--font-poppins), sans-serif;
+  width: 100%;
+  background-color: var(--bg-gray);
+}
+
+.individuals .content {
+  z-index: 9;
+}
+
+.individuals .companies h3,
+.individuals .individual h3 {
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 0;
+}
+.individuals .card_wrapper_div {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+@media screen and (max-width: 768px) {
+  /* .col_filter {
+    display: none;
+  } */
+}
+
+@media screen and (max-width: 576px) {
+  .individuals .card_wrapper_div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    justify-items: center;
+  }
+}

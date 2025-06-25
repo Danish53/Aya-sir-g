@@ -1,0 +1,90 @@
+.navbar {
+  background-color: white;
+}
+.navbar .logo {
+  max-width: 92px;
+  max-height: 83px;
+}
+.navbar .navbar-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.navbar p {
+  font-family: var(--font-poppins), sans-serif;
+}
+.navbar p#head {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 0 !important;
+  line-height: 18px;
+}
+.navbar p#descri {
+  font-size: 08px;
+}
+.navbar .active {
+  color: #b50000 !important;
+  font-weight: bold;
+}
+
+.navbar .navbar-nav a {
+  font-size: 16px;
+  color: #393939;
+  font-family: var(--font-poppins), sans-serif;
+  text-transform: uppercase;
+}
+.navbar a.nav-link {
+  margin-right: 20px;
+}
+.navbar .language_div a.nav-link {
+  margin-right: 0 !important;
+}
+.navbar .web_globe_icon {
+  font-size: 22px;
+}
+.navbar .language_div {
+  border-right: 1px solid #9d9d9d;
+}
+.navbar .dropdown-toggle::after {
+  display: none !important;
+}
+.navbar .drop_arrow {
+  font-size: 18px;
+  margin-left: 10px;
+}
+
+.navbar .icon_hearth {
+  /* font-size: 18px; */
+  color: #b50000;
+  width: 26px;
+  cursor: pointer;
+  height: 24px;
+}
+.navbar .icon_person {
+  height: 37px;
+  width: 37px;
+  color: #b50000;
+  cursor: pointer;
+}
+
+.navbar .info_div p {
+  margin-bottom: 0 !important;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.navbar .ml_2 {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 999px) {
+  .navbar-toggler {
+    position: absolute;
+    right: 30px;
+  }
+  .margin_right {
+    margin-right: 60px;
+  }
+}

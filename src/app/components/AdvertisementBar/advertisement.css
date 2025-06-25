@@ -1,0 +1,26 @@
+.advertisementBar {
+  font-family: var(--font-poppins), sans-serif;
+  height: 100%;
+}
+
+.advertiment {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-decoration: underline;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+.ad_bar {
+  background-color: #c7c7c7;
+  text-align: center;
+}
+
+@media screen and (max-width: 992px) {
+  .compnies-details .hide_bar {
+    display: none;
+  }
+}

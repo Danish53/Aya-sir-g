@@ -1,0 +1,111 @@
+.register_provider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: black !important;
+}
+.register_provider .input_auth {
+  width: 100%;
+  margin-bottom: 14px;
+}
+.auth_heading {
+  font-size: 32px;
+}
+/* .register_provider .bg_white {
+    height: fit-content;
+  } */
+
+.register_provider form {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 25px;
+}
+.register_provider .input_one_row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+.register_provider form div {
+  width: 100%;
+}
+.register_provider .bg_white {
+  background-color: white;
+  border-radius: 22px;
+  z-index: 99;
+  position: relative;
+  text-align: center;
+  width: 50%;
+  max-width: 942px;
+  padding: 30px 0 !important;
+}
+.register_provider .input_auth {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+  margin-bottom: 11px;
+}
+.register_provider .checkbox_field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: black;
+}
+.register_provider .checkbox_field label {
+  font-size: 14px;
+}
+span.terms {
+  color: var(--red-color);
+}
+.register_provider .sign_in {
+  margin: 20px;
+  padding: 1px 30px;
+  width: auto;
+}
+.register_provider .margin_bottom {
+  margin-bottom: 0.5rem;
+}
+.register_provider p.register_comp {
+  cursor: pointer;
+  color: var(--red-color);
+}
+
+@media screen and (max-width: 992px) {
+  .register_provider form {
+    width: 60%;
+  }
+  .register_provider .margin_bottom {
+    margin-bottom: 1rem !important;
+  }
+  .auth_heading {
+    font-size: 32px;
+  }
+  button.sign_in {
+    height: 43px;
+  }
+  .register_provider .input_auth {
+    height: 43px;
+  }
+  .checkbox_field label {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .register_provider form {
+    width: 100%;
+  }
+  .register_provider .bg_white {
+    width: 95%;
+  }
+}
+@media screen and (max-width: 470px) {
+  .checkbox_field label {
+    font-size: 12px;
+  }
+}

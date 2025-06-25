@@ -1,0 +1,267 @@
+.compnies-details {
+  background-color: #e5e4e4;
+  width: 100%;
+  font-family: var(--font-poppins), sans-serif;
+}
+.compnies-details .ad_bar {
+  background-color: #c7c7c7;
+  text-align: center;
+}
+.compnies-details .left {
+  background-color: white;
+}
+.compnies-details .advertiment {
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-decoration: underline;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+}
+.compnies-details .flex_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.compnies-details .red_bar {
+  width: 100%;
+  height: 71px;
+  background-color: var(--red-color);
+}
+.compnies-details .left_div {
+  flex: 1;
+}
+.compnies-details .right {
+  flex: 1;
+}
+.compnies-details .icon {
+  color: var(--red-color);
+  width: 27px;
+  height: 25px;
+  cursor: pointer;
+}
+.compnies-details .share {
+  color: black;
+}
+.compnies-details .heart_button {
+  justify-content: end;
+  gap: 14px;
+  display: flex;
+  align-items: center;
+  margin-top: 11px;
+}
+.compnies-details .mic_icon {
+  font-size: 30px;
+  height: 40px;
+  width: 40px;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+}
+.compnies-details .info h4 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.compnies-details .info h4 span {
+  color: var(--red-color);
+  font-weight: 400;
+}
+.compnies-details .info textarea {
+  height: 145px;
+  max-width: 422px;
+  outline: none;
+  border: 3px solid black;
+  padding: 10px;
+  width: 100%;
+}
+.compnies-details .right .img_div {
+  margin-left: 10px;
+}
+
+.compnies-details .right .img_div img {
+  width: 100%;
+  height: auto;
+}
+.compnies-details .flex_parent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.compnies-details .phone_num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--red-color);
+  color: white;
+  padding: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.compnies-details .phone_icon {
+  font-size: 27px;
+}
+.compnies-details p.number {
+  font-size: 19px;
+  font-weight: 500;
+}
+.compnies-details .show_num {
+  font-size: 10px;
+  font-weight: 500;
+}
+.compnies-details .flex_parent .col_1 h4 {
+  font-size: 19px;
+  font-weight: 500;
+  margin-bottom: 0 !important;
+}
+.compnies-details .star {
+  color: var(--stars-color);
+}
+.compnies-details p#respons {
+  font-size: 12px;
+  color: var(--filter-heading_color);
+}
+.compnies-details .comments_div {
+  background-color: white;
+}
+.compnies-details .all_comments {
+  gap: 10px;
+  color: #047857;
+  font-size: 14px;
+  font-weight: 600;
+}
+.arrow_icon {
+  color: #191d23;
+  font-size: 27px;
+  padding: 2px;
+  border: 1px solid #d0d5dd;
+  border-radius: 4px;
+}
+
+.heading_sec {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+h3.heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: #191d23;
+  margin-bottom: 0 !important;
+}
+.compnies-details .input_div {
+  display: flex;
+  height: 40px;
+  gap: 20px;
+}
+.compnies-details .input_div input {
+  width: calc(100%- 60px);
+  height: 100%;
+  padding: 0 30px;
+  outline: none;
+}
+.compnies-details .input_div button {
+  outline: none;
+  border: none;
+  background-color: #047857;
+  border-radius: 6px;
+  width: 40px;
+  height: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  .compnies-details .hide_bar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .compnies-details .name_heading {
+    font-size: 32px;
+  }
+  .compnies-details .mic_icon {
+    height: 37px;
+    width: 37px;
+    font-size: 28px;
+  }
+  .compnies-details .info h4 {
+    font-size: 18px;
+  }
+  .compnies-details .img_div {
+    text-align: right;
+    /* display: none; */
+  }
+  .compnies-details .right .img_div img {
+    width: 90%;
+  }
+  .compnies-details p.number {
+    font-size: 17px;
+  }
+  .compnies-details .flex_parent {
+    position: relative;
+    padding-bottom: 10px;
+  }
+  .compnies-details .col_absoulte {
+    position: absolute;
+    bottom: -16px;
+  }
+  .compnies-details .col_absoulte h4 {
+    font-size: 15px !important;
+  }
+
+  .compnies-details .flex_div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .compnies-details .info textarea {
+    max-width: 100%;
+  }
+  .compnies-details .phone_icon {
+    font-size: 20px;
+  }
+  .compnies-details .phone_num {
+    font-size: 7px;
+  }
+  .compnies-details .flex_parent .col_1 h4 {
+    font-size: 17px;
+  }
+  .compnies-details p#respons {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .compnies-details .flex_div {
+    margin-top: 14px;
+  }
+  .compnies-details .name_heading {
+    font-size: 27px;
+  }
+  .compnies-details .mic_icon {
+    width: 35px;
+    height: 35px;
+  }
+  .compnies-details .info h4 {
+    font-size: 16px;
+  }
+  .compnies-details .phone_icon {
+    font-size: 17px;
+  }
+  .compnies-details p.number {
+    font-size: 15px;
+  }
+  .compnies-details .col_absoulte h4 {
+    font-size: 13px !important;
+  }
+  .compnies-details .phone_num {
+    font-size: 7px;
+  }
+  .compnies-details .flex_parent {
+    flex-wrap: wrap;
+  }
+}

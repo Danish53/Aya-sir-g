@@ -1,0 +1,244 @@
+.profile_section {
+  font-family: var(--font-poppins), sans-serif;
+  background-color: #e5e4e4;
+}
+.red_bar {
+  width: 100%;
+  height: 71px;
+  background-color: var(--red-color);
+}
+
+.profile_section .heart_button {
+  justify-content: end;
+  gap: 14px;
+  display: flex;
+  align-items: center;
+  margin-top: 11px;
+}
+.profile_section .icon {
+  color: var(--red-color);
+  width: 27px;
+  height: 25px;
+  cursor: pointer;
+}
+.profile_section .share {
+  color: black;
+}
+.profile_section .flex_div {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.profile_section .mic_icon {
+  font-size: 30px;
+  height: 40px;
+  width: 40px;
+  background: black;
+  color: white;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+}
+.profile_section .right .img_div {
+  margin-left: 10px;
+}
+.profile_section .right .img_div img {
+  width: 100%;
+  height: auto;
+}
+
+.profile_section .info h4 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile_section .info h4 span {
+  color: var(--red-color);
+  font-weight: 400;
+}
+.profile_section .flex_parent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile_section .flex_parent .col_1 h4 {
+  font-size: 19px;
+  font-weight: 500;
+  margin-bottom: 0 !important;
+}
+
+.profile_section .phone_num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: var(--red-color);
+  color: white;
+  padding: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.profile_section p.number {
+  font-size: 19px;
+  font-weight: 500;
+}
+.profile_section .show_num {
+  font-size: 10px;
+  font-weight: 500;
+}
+.profile_section .phone_icon {
+  font-size: 27px;
+}
+.profile_section .star {
+  color: var(--stars-color);
+}
+.profile_section p#respons {
+  font-size: 12px;
+  color: var(--filter-heading_color);
+}
+.profile_section .cnic {
+  color: #30ef00 !important;
+  font-size: 20px;
+}
+.profile_section .comments_div {
+  background-color: white;
+}
+.profile_section .heading_sec {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.profile_section h3.heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: #191d23;
+  margin-bottom: 0 !important;
+}
+
+.profile_section .arrow_icon {
+  color: #191d23;
+  font-size: 27px;
+  padding: 2px;
+  border: 1px solid #d0d5dd;
+  border-radius: 4px;
+}
+
+.profile_section .all_comments {
+  gap: 10px;
+  color: #047857;
+  font-size: 14px;
+  font-weight: 600;
+}
+.profile_section .input_div {
+  display: flex;
+  height: 40px;
+  gap: 20px;
+}
+.profile_section .input_div input {
+  width: calc(100%- 60px);
+  height: 100%;
+  padding: 0 30px;
+  outline: none;
+}
+.profile_section .input_div button {
+  outline: none;
+  border: none;
+  background-color: #047857;
+  border-radius: 6px;
+  width: 40px;
+  height: 100%;
+}
+
+@media screen and (max-width: 992px) {
+  .profile_section .hide_bar {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .profile_section .name_heading {
+    font-size: 32px;
+  }
+  .profile_section .mic_icon {
+    height: 37px;
+    width: 37px;
+    font-size: 28px;
+  }
+
+  .profile_section .info h4 {
+    font-size: 18px;
+  }
+  .profile_section .img_div {
+    text-align: right;
+    /* display: none; */
+  }
+  .profile_section .right .img_div img {
+    width: 90%;
+  }
+  .profile_section p.number {
+    font-size: 17px;
+  }
+  .profile_section .flex_parent {
+    position: relative;
+    padding-bottom: 10px;
+  }
+  .profile_section .col_absoulte {
+    position: absolute;
+    bottom: -16px;
+  }
+  .profile_section .col_absoulte h4 {
+    font-size: 15px !important;
+  }
+
+  .profile_section .flex_div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .profile_section .info textarea {
+    max-width: 100%;
+  }
+  .profile_section .phone_icon {
+    font-size: 20px;
+  }
+  .profile_section .phone_num {
+    font-size: 7px;
+  }
+  .profile_section .flex_parent .col_1 h4 {
+    font-size: 17px;
+  }
+  .profile_section p#respons {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .profile_section .flex_div {
+    margin-top: 14px;
+  }
+  .profile_section .name_heading {
+    font-size: 27px;
+  }
+  .profile_section .mic_icon {
+    width: 35px;
+    height: 35px;
+  }
+  .profile_section .info h4 {
+    font-size: 16px;
+  }
+  .profile_section .phone_icon {
+    font-size: 17px;
+  }
+  .profile_section p.number {
+    font-size: 15px;
+  }
+  .profile_section .col_absoulte h4 {
+    font-size: 13px !important;
+  }
+  .profile_section .phone_num {
+    font-size: 7px;
+  }
+  .profile_section .flex_parent {
+    flex-wrap: wrap;
+  }
+}

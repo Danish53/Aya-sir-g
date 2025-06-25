@@ -1,0 +1,24 @@
+.blogs {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.blogs .card_div {
+  display: grid;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+@media screen and (max-width: 1200px) {
+  .blogs .card_div {
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+@media screen and (max-width: 1200px) {
+  .blogs .card_div {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+}
