@@ -14,9 +14,7 @@ export default function page() {
     username: "",
     contact_number: "",
     email: "",
-    password: "",
-    city: "",
-    address: "",
+    password: ""
   });
 
   const router = useRouter();
@@ -30,9 +28,10 @@ export default function page() {
     process.env.NEXT_PUBLIC_BASE_URL ||
     "https://staging.hylanmaterialsupply.com";
 
-  const api = `${baseUrl}/api/register`;
+  const api = `${baseUrl}/api/register/send-otp`;
   const postData = async () => {
     setLoader(true);
+
     try {
       const res = await fetch(api, {
         method: "POST",
@@ -42,32 +41,45 @@ export default function page() {
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) {
-        throw new Error("Failed to register");
-      }
-      const data = await res.json();
-      console.log("Response after regestraion ", data);
+      const data = await res.json(); // always read response body
 
-      toast("Registered Successfully");
+      if (!res.ok) {
+        // Handle 422 validation error
+        if (res.status === 422 && data?.errors) {
+          const errorMessages = Object.values(data.errors).flat();
+          errorMessages.forEach((msg) => toast.error(msg));
+        } else {
+          // Generic server error
+          toast.error(data?.message || "Something went wrong");
+        }
+        return; 
+      }
+
+      // localStorage.setItem("phone_number_signUp", phone);
+      // ✅ Success flow
+      toast.success(data?.message);
       setFormData({
         first_name: "",
         last_name: "",
         username: "",
         contact_no: "",
         email: "",
-        password: "",
-        city: "",
-        address: "",
+        password: ""
       });
+
       setTimeout(() => {
-        router.push("/login");
+        router.push("/register-otp");
       }, 1500);
     } catch (error) {
-      console.error("Error:", error.message);
+      // JS-level error (e.g. network error)
+      console.error("Error:", error);
+      toast.error("Network error or unexpected issue occurred");
     } finally {
       setLoader(false);
     }
   };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     postData();
@@ -148,7 +160,7 @@ export default function page() {
               required
             />
           </div>
-          <div className="input_one_row">
+          {/* <div className="input_one_row">
             <input
               type="text"
               className="input_auth"
@@ -167,18 +179,8 @@ export default function page() {
               value={formData.address}
               required
             />
-          </div>
-          <button className="sign_in" type="submit" disabled={loader}>
-            {loader ? (
-              <>
-                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                Signing Up...
-              </>
-            ) : (
-              "Sign Up"
-            )}
-          </button>
-          <div className="checkbox_field mt-1">
+          </div> */}
+          <div className="checkbox_field mt-2">
             <input type="checkbox" id="remember" />
             <label htmlFor="remember" className="custom-checkbox">
               I agree with the
@@ -186,10 +188,23 @@ export default function page() {
               of Clarity
             </label>
           </div>
-          <p>or</p>
+          <button className="sign_in" type="submit" disabled={loader}>
+            {loader ? (
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Sign Up...
+              </>
+            ) : (
+              "Sign Up"
+            )}
+          </button>
+          <Link href="/login" id="sign_p" className="term" style={{ textDecoration: "none" }}>
+            <p className="text-center mt-2 term" style={{ color: "#B50000" }}>Back to sign In</p>
+          </Link>
+          {/* <p>or</p>
           <p onClick={handleClick} className="register_comp">
             Want to register as Individual or Company?
-          </p>
+          </p> */}
         </form>
         <ToastContainer />
 

@@ -53,3 +53,21 @@
     font-size: 15px;
   }
 }
+
+
+.not_found_design{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+
+/* skelton */
+.skeleton_card {
+  width: 280px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fff;
+}
+

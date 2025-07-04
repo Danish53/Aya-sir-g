@@ -29,6 +29,15 @@ export default function CustomNavbar() {
   const handleuserDetailss = () => {
     showuserDetailss(!userDetailss);
   };
+
+  const handleDropdownItemClick = (callback) => {
+    showuserDetailss(false); // dropdown close
+    if (callback && typeof callback === "function") {
+      callback(); // jo bhi action hai usay chalao
+    }
+  };
+
+
   const handleNavbar = () => {
     setMyNavbar(!myNavbar);
   };
@@ -40,15 +49,33 @@ export default function CustomNavbar() {
     router.push("/user-profile");
   };
 
+  const gotoEcenters = () => {
+    router.push("/register-yourself");
+  };
+
+  const gotoEcentersRecords = () => {
+    router.push("/ecenter-record");
+  };
+
   const handleLogout = () => {
     setUserInfo(null);
-    localStorage.removeItem("token");
+    localStorage.clear();
     showuserDetailss(false);
     router.push("/login");
   };
 
+  // const handleClick = (type) => {
+  //   setSelectedType(type);
+  // };
   const handleClick = (type) => {
-    setSelectedType(type);
+    if (selectedType === type) {
+      setSelectedType(null);
+      setTimeout(() => {
+        setSelectedType(type);
+      }, 50);
+    } else {
+      setSelectedType(type);
+    }
   };
 
   return (
@@ -70,14 +97,16 @@ export default function CustomNavbar() {
               <li>
                 <a href="#">About Us</a>
               </li>
-              <li>
+              {userDetails?.user_type == "e-center" ? (
+                ""
+              ) : (<li>
                 <Link
                   href="/register-yourself"
                   className={pathname === "/register-yourself" ? "active" : ""}
                 >
                   Register Yourself
                 </Link>
-              </li>
+              </li>)}
               <li>
                 <Link
                   href="/blogs"
@@ -132,7 +161,12 @@ export default function CustomNavbar() {
             </Dropdown>
             <div className="info_div">
               <div className="head_section d-flex align-items-center gap-2">
-                <IoIosHeartEmpty className="icon_hearth ml_2" />
+                {userToken ? (
+                  <Link href={'/user-wishlist'}><IoIosHeartEmpty className="icon_hearth ml_2" /></Link>
+                ) : (
+                  <Link href={'/login'}><IoIosHeartEmpty className="icon_hearth ml_2" /></Link>
+                )
+                }
                 <IoPersonCircle
                   className="icon_person"
                   onClick={handleuserDetailss}
@@ -150,23 +184,47 @@ export default function CustomNavbar() {
               </div>
               {userToken && (
                 <ul
-                  className={`user_details ${
-                    userDetailss ? "show_user_details" : ""
-                  }`}
+                  className={`user_details ${userDetailss ? "show_user_details" : ""
+                    }`}
                 >
-                  <li onClick={gotoProfile}>Profile</li>
-                  {/* <li>Address</li> */}
-                  <li onClick={() => handleClick("e-centers")}>E-centers</li>
-                  <li onClick={() => handleClick("individual")}>Individuals</li>
-                  <li onClick={() => handleClick("companies")}>Companies</li>
-                  <li onClick={handleLogout}>Logout</li>
+                  <li onClick={() => handleDropdownItemClick(gotoProfile)}>Profile</li>
+                  {
+                    userDetails?.user_type == "e-center" ? (
+                      <li onClick={() => handleDropdownItemClick(gotoEcentersRecords)}>E-center Records</li>
+                    ) : (
+                      <li onClick={() => handleDropdownItemClick(gotoEcenters)}>E-centers</li>
+                    )
+                  }
+                  {userDetails?.user_type == "handyman" && (
+                    <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>
+                      Individuals
+                    </li>
+                  )}
+
+                  {userDetails?.user_type == "provider" && (
+                    <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>
+                      Companies
+                    </li>
+                  )}
+
+                  {userDetails?.user_type == "e-center" && (
+                    <>
+                      <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>
+                        Individuals
+                      </li>
+                      <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>
+                        Companies
+                      </li>
+                    </>
+                  )}
+                  <li onClick={() => handleDropdownItemClick(handleLogout)}>Logout</li>
                 </ul>
               )}
             </div>
           </div>
         </nav>
         <div className="display_form">
-          {selectedType && <Myform openedFrom={selectedType} />}
+          {selectedType && <Myform openedFrom={selectedType} setSelectedType={setSelectedType} />}
         </div>
       </div>
     </section>

@@ -1,56 +1,107 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./button_comp.css";
 import Card from "../Personal-card/Card";
 import CompanyCard from "../compnies-card/CompanyCard";
+import { UserContext } from "@/app/userContext";
+import { useSearchParams, useRouter } from "next/navigation";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 
 export default function ButtonComp() {
-  const [individual, showIndividual] = useState(true);
+  const { filteredUsers, getFilteredUsers, loader } = useContext(UserContext);
+  // console.log(filteredUsers, "filter users...")
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
-  const [showCompnies, setshowCompnies] = useState(true);
-  const handleCompnies = () => {};
-  const handleActive = () => {
-    showIndividual(!individual);
+  // Get params from URL
+  // const role = searchParams.get("role") || (individual ? "handyman" : "company");
+  const role = searchParams.get("role");
+  const category_id = searchParams.get("category_id") || "";
+  const city = searchParams.get("city") || "";
+  const area_code = searchParams.get("area_code") || "";
+
+
+  const [individual, setIndividual] = useState(role !== "provider");
+
+  useEffect(() => {
+    setIndividual(role !== "provider"); // handyman = true, provider = false
+  }, [role]);
+
+  useEffect(() => {
+    const params = {
+      role,
+      category_id,
+      city,
+      area_code,
+    };
+
+    getFilteredUsers(params);
+  }, [role, category_id, city, area_code]);
+
+  // const handleToggle = () => {
+  //   setIndividual((prev) => !prev);
+  // };
+
+  const handleToggle = (targetRole) => {
+    const newParams = new URLSearchParams(searchParams.toString());
+    newParams.set("role", targetRole);
+    router.push(`?${newParams.toString()}`);
   };
+
+
   return (
     <div className="container">
       <div className="button_comp">
         <div className="mb-3 btn_div d-flex align-items-center justify-content-center gap-3 py-3 px-4">
           <div
-            className={`single_btn py-2 px-3 individual ${
-              individual ? "active" : ""
-            } `}
-            onClick={handleActive}
+            className={`single_btn py-2 px-3 individual ${individual ? "active" : ""}`}
+            onClick={() => handleToggle("handyman")}
           >
             <h3>Individuals</h3>
           </div>
           <div
-            className={`single_btn companies py-2 px-3 ${
-              individual ? "" : "active"
-            }`}
-            onClick={handleActive}
+            className={`single_btn companies py-2 px-3 ${!individual ? "active" : ""}`}
+            onClick={() => handleToggle("provider")}
           >
             <h3>Companies</h3>
           </div>
         </div>
-        {individual ? (
-          <>
+        {loader ? (
+          <div className="card_wrapper_div d-flex flex-wrap gap-3">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="card_div py-3 px-4 skeleton_card">
+                <Skeleton circle height={100} width={100} />
+                <Skeleton height={20} width={`60%`} className="mt-3" />
+                <Skeleton height={15} width={`40%`} className="mt-2" />
+                <Skeleton height={15} width={`80%`} className="mt-2" />
+                <Skeleton height={15} width={`50%`} className="mt-2" />
+                <Skeleton height={15} width={`70%`} className="mt-2" />
+                <Skeleton height={30} width={`100%`} className="mt-3" />
+              </div>
+            ))}
+          </div>
+        ) : individual ? (
+          filteredUsers?.length > 0 ? (
             <div className="card_wrapper_div">
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
-              <Card />
+              {filteredUsers.map((user) => (
+                <Card key={user.id} data={user} />
+              ))}
             </div>
-          </>
+          ) : (
+            <h4 className="not_found_design">No individual profiles found.</h4>
+          )
         ) : (
-          <>
-            <CompanyCard />
-            <CompanyCard />
-            <CompanyCard />
-            <CompanyCard />
-          </>
+          filteredUsers?.length > 0 ? (
+            <div>
+              {filteredUsers.map((user) => (
+                <CompanyCard key={user.id} data={user} />
+              ))}
+            </div>
+          ) : (
+            <h4 className="not_found_design">No company profiles found.</h4>
+          )
         )}
       </div>
     </div>

@@ -1,0 +1,78 @@
+.otp {
+  font-family: var(--font-poppins), sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.otp .bg_white {
+  background-color: white;
+  border-radius: 22px;
+  width: 70%;
+  height: 80%;
+  z-index: 99;
+  position: relative;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.otp input.input_box {
+  height: 50px;
+  width: 50px;
+  border-radius: 9px;
+  border: 1px solid var(--red-color);
+  outline: none;
+  padding: 4px 10px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+.otp .input_group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+.otp .logo_div {
+  align-items: baseline;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+@media screen and (max-width: 768px) {
+  .otp .bg_white {
+    width: 85%;
+  }
+  .auth_heading {
+    font-size: 35px;
+  }
+  .otp p.auth_para {
+    font-size: 17px;
+  }
+  .logo_div .logo {
+    width: 70px;
+  }
+  .otp p#head {
+    font-size: 15px;
+    margin-bottom: 0 !important;
+  }
+  .otp .p#descri {
+    margin-bottom: 0 !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .otp .auth_heading {
+    font-size: 30px;
+  }
+  .otp p.auth_para {
+    font-size: 15px;
+  }
+  .otp input.input_box {
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+  }
+}

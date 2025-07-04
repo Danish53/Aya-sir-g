@@ -1,0 +1,11 @@
+.wishlist {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.wishlist .wishlist_card_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* gap: 30px; */
+  flex-wrap: wrap;
+}

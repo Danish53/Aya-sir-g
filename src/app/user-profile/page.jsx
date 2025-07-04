@@ -12,20 +12,21 @@ import { toast, ToastContainer } from "react-toastify";
 
 export default function Page() {
   const [imagePerview, setImagePreview] = useState("/assets/person_img.png");
+
+  const { userDetails, updateUserProfile } = useContext(UserContext);
   // const [isRecording, setIsRecording] = useState(false);
   // const [audioURL, setAudioURL] = useState(null);
   // const mediaRecorderRef = useRef(null);
   // const audioChunksRef = useRef([]);
   const [formData, setFormData] = useState({
-    first_name: "", last_name: "", username: "", contact_number: "",
-    email: "", address: "", user_city: "", role: "handyman"
+    profile_image: "", first_name: "", last_name: "", username: "", contact_number: "",
+    email: "", address: "", user_city: ""
   });
 
   const [loader, setLoader] = useState(false);
 
   const fileInputRef = useRef(null);
   const [show, setShow] = useState(false);
-  const { userDetails, updateUserProfile } = useContext(UserContext);
 
   useEffect(() => {
     if (userDetails) {
@@ -74,22 +75,25 @@ export default function Page() {
     formDataToSend.append("contact_number", formData.contact_number);
     formDataToSend.append("address", formData.address);
     formDataToSend.append("user_city", formData.user_city);
+    formDataToSend.append("role", userDetails?.user_type);
+
+    if (fileInputRef.current?.files?.[0]) {
+      formDataToSend.append("profile_image", fileInputRef.current.files[0]);
+    }
+
 
     // // Profile image (if selected)
     // if (fileInputRef.current?.files?.[0]) {
     //   formDataToSend.append("profile_image", fileInputRef.current.files[0]);
     // }
 
-    // const result = await updateUserProfile(formDataToSend);
-
-
-    // if (result.success) {
-    //   handleClose();
-    //   toast.success("profile update!")
-    // } else {
-    //   // alert(result.message || "Profile update failed");
-    //   toast.error(result.message || "Update failed.");
-    // }
+    const result = await updateUserProfile(formDataToSend);
+    if (result.success) {
+      toast.success("Profile updated successfully!");
+      handleClose();
+    } else {
+      toast.error(result.message || "Update failed.");
+    }
 
     setLoader(false);
   };

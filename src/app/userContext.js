@@ -1,9 +1,10 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
+import axios from "axios";
 export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
-  console.log(userInfo, "get profile")
+  console.log(userInfo?.id, "get profile")
 
   const [apiCategory2, setapiCategories2] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -78,17 +79,16 @@ export const UserProvider = ({ children }) => {
   // };
 
   // 🔹 Fetch Profile Info
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = async (id) => {
     if (!userInfo?.api_token) return;
     setLoader(true);
     try {
-      const res = await fetch(profileUrl, {
-        method: "POST",
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user-detail/${id}`, {
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${userInfo.api_token}`,
         },
-        body: JSON.stringify({role: "handyman"}),
       });
 
       const data = await res.json();
@@ -120,7 +120,7 @@ export const UserProvider = ({ children }) => {
       const result = await res.json();
       // console.log(result, "profile update")
       if (res.ok) {
-        await fetchUserProfile();
+        await fetchUserProfile(userInfo?.id);
         setUserDetails(result.data);
         const updatedUserInfo = {
           ...userInfo,
@@ -147,9 +147,141 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (userInfo?.api_token) {
-      fetchUserProfile();
+      fetchUserProfile(userInfo?.id);
     }
   }, [userInfo?.api_token]);
+
+
+  // get cities
+  const [cities, setCities] = useState([]);
+  const getCities = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/api/city-list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ state_id: 2728 }),
+      });
+
+      const data = await res.json();
+      // console.log(data, "city list")
+      setCities(data.data || []);
+
+      // setTimeout(() => {
+      //   if (cityDropdownRef.current) {
+      //     cityDropdownRef.current.click();
+      //   }
+      // }, 100);
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+      setCities([]);
+    }
+  };
+  useEffect(() => {
+    getCities()
+  }, [])
+  // locations zipcode
+  const [locations, setLocations] = useState([]);
+  const getLocations = async (cityId) => {
+    try {
+      const res = await fetch(`${baseUrl}/api/area-list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ city_id: cityId }),
+      });
+
+      const data = await res.json();
+      setLocations(data.data || []);
+
+      // if (data.data && data.data.length > 0) {
+      //   setTimeout(() => {
+      //     if (locationDropdownRef.current) {
+      //       locationDropdownRef.current.click();
+      //     }
+      //   }, 100);
+      // }
+    } catch (error) {
+      console.error("Error fetching areas:", error);
+      setLocations([]);
+    }
+  };
+
+  useEffect(() => {
+    getLocations()
+  }, [])
+
+
+  // filter api users/ companies
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+  const getFilteredUsers = async (params) => {
+    setLoader(true);
+    try {
+      const response = await axios.get(
+        `${baseUrl}/api/users/filter`,
+        { params }
+      );
+      // setFilteredUsers(response.data.data || []);
+      if (response?.data) {
+        setFilteredUsers(response.data.data || []);
+      } else {
+        setFilteredUsers([]);
+      }
+    } catch (error) {
+      console.error("Filter API error", error);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+
+  // likes api
+  const [likedUsers, setLikedUsers] = useState([]);
+  console.log(likedUsers, "likeeddd..")
+
+  const toggleLike = async (userId, can_like) => {
+    try {
+      const res = await fetch(`${baseUrl}/api/users/${userId}/like`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.api_token}`,
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error("API request failed");
+      }
+
+      setLikedUsers((prev) => {
+        if (can_like) {
+          return [...prev, userId]; // now liked
+        } else {
+          return prev.filter((id) => id !== userId); // now unliked
+        }
+      });
+
+      setFilteredUsers((prevUsers) => {
+        const updatedUsers = prevUsers.map((user) =>
+          user.id === userId ? { ...user, can_like: !can_like } : user
+        );
+        return [...updatedUsers]; // ensure new array reference
+      });
+
+
+
+    } catch (error) {
+      console.error("Error liking/disliking:", error);
+    }
+  };
+
+  // const isUserLiked = (userId, can_like) => {
+  //   return !can_like || likedUsers.includes(userId);
+  // }
+
 
   return (
     <UserContext.Provider
@@ -163,7 +295,16 @@ export const UserProvider = ({ children }) => {
         setUserDetails,
         updateUserProfile,
         fetchUserProfile,
-        loader
+        loader,
+        setCities,
+        cities,
+        setLocations,
+        locations,
+        getLocations,
+        getCities,
+        getFilteredUsers,
+        filteredUsers,
+        toggleLike
       }}
     >
       {children}

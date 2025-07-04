@@ -95,3 +95,11 @@ p#filter_heading {
     font-size: 17px;
   }
 }
+
+
+.see-more-btn{
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}

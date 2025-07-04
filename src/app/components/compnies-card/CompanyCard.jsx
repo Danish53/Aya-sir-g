@@ -1,11 +1,14 @@
+
 import React from "react";
 import "./companycard.css";
 import { RiStarSFill } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
+import Link from "next/link";
 
-export default function CompanyCard() {
+export default function CompanyCard({ data }) {
+  console.log(data, "comapny detail....");
   const fullText =
     "Hazir Jnab, we work as a group of highly skilled and experienced " +
     "professionals. For us, no project is too big or too small.";
@@ -23,14 +26,14 @@ export default function CompanyCard() {
         <div className="parent_div">
           <div className="first_div">
             <div className="img_div">
-              <img src="/assets/hazar.png" alt="" />
+              <img src={data?.profile_image ? data?.profile_image : "/assets/hazar.png"} alt="" />
             </div>
           </div>
           <div className="two_div">
             <div className="content_div">
               <div className="heading_div">
-                <h3>Hazir Janab!</h3>
-                <div className="star_respons_div">
+                <h3>{data?.username}</h3>
+                {/* <div className="star_respons_div">
                   <div className="stars_div">
                     <RiStarSFill className="star" />
                     <RiStarSFill className="star" />
@@ -39,11 +42,11 @@ export default function CompanyCard() {
                     <RiStarSFill className="star" />
                   </div>
                   <p id="respons">34 Responses</p>
-                </div>
+                </div> */}
               </div>
 
-              <h4 id="city">Karachi, Orangi town!</h4>
-              <p id="details">{shortText}</p>
+              <h4 id="city">{data?.user_city || "city"}, {data?.address || "address"} </h4>
+              <p id="details">{data?.description || fullText}</p>
             </div>
           </div>
           <div className="third_div">
@@ -58,9 +61,9 @@ export default function CompanyCard() {
 
               <div className="heart_button">
                 <IoCall className="phone_icon" />
-                <button className="verified_btn card_btn_background">
+                <Link href={`/compnies-details/${data?.id}`} className="verified_btn card_btn_background">
                   More Details
-                </button>
+                </Link>
               </div>
             </div>
           </div>

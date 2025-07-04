@@ -1,0 +1,111 @@
+.all_center_page {
+  font-family: var(--font-poppins), sans-serif;
+}
+.all_center_page .relative_div {
+  position: relative;
+}
+.all_ecenter_flex {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.all_center_page .filters_div h2 {
+  border-left: 5px solid var(--red-color);
+  text-transform: uppercase;
+  color: var(--filter-heading_color);
+  border-bottom: 1px solid var(--bg-gray);
+  font-size: 28px;
+  font-weight: bold;
+  padding: 5px 8px;
+}
+
+.all_center_page .filters_div h3 {
+  color: var(--filter-heading_color);
+  font-size: 23px;
+  font-weight: bold;
+}
+.all_center_page .box h3 {
+  color: var(--filter-heading_color);
+  font-size: 23px;
+  font-weight: bold;
+}
+.all_center_page .box {
+  border-bottom: 1px solid var(--bg-gray);
+}
+.all_center_page .box .form_div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.all_center_page .box input {
+  border: 1px solid var(--filter-heading_color);
+  border-radius: 3px;
+  width: 18px;
+  height: 18px;
+}
+.all_center_page .form_div input.start_date {
+  width: 200px !important;
+  height: 30px !important;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.all_center_page .form_div input.end_date {
+  width: 200px !important;
+  height: 30px !important;
+  padding: 0 10px;
+  cursor: pointer;
+}
+.all_center_page .box label {
+  color: var(--filter-heading_color);
+  font-size: 18px;
+}
+.all_center_page .date_div label {
+  width: 80px;
+  margin-top: 10px;
+}
+.all_center_page .menu_icon {
+  display: none;
+  height: 43px;
+  width: 43px;
+  border-radius: 50%;
+  background-color: black;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  position: fixed;
+  bottom: 50px;
+  right: 12px;
+}
+.all_center_page .pagination_div {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  color: blue;
+  font-size: 18px;
+  justify-content: end;
+}
+.all_center_page .pagination_div p {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .small_div {
+    background-color: white;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.5);
+    transition: 0.9s all;
+    width: 70% !important;
+    position: absolute;
+  }
+  .all_center_page .hide_small {
+    position: absolute;
+    left: -400px !important;
+  }
+  .active {
+    left: 0 !important;
+    transition: 0.9s all !important;
+  }
+  .all_center_page .menu_icon {
+    display: block;
+  }
+}
