@@ -95,7 +95,10 @@ export default function CustomNavbar() {
                 </Link>
               </li>
               <li>
-                <a href="#">About Us</a>
+                {/* <a href="#">About Us</a> */}
+                <Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>
+                  About Us
+                </Link>
               </li>
               {userDetails?.user_type == "e-center" ? (
                 ""

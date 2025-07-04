@@ -14,7 +14,7 @@ export default function page({ params }) {
   const fetchBlogDetails = async () => {
     try {
       const res = await fetch(
-        "https://staging.hylanmaterialsupply.com/api/blog-detail",
+        `${base_url}/api/blog-detail`,
         {
           method: "POST",
           headers: {
