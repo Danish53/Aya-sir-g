@@ -12,7 +12,12 @@ export const UserProvider = ({ children }) => {
 
   const getCategories = async () => {
     try {
-      const res = await fetch(categoryApi);
+      const res = await fetch(categoryApi, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       const data = await res.json();
       setapiCategories2(data.data);
     } catch (error) {
