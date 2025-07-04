@@ -6,6 +6,7 @@ import { FaInstagram } from "react-icons/fa";
 import { AiFillTikTok } from "react-icons/ai";
 import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
+import Link from "next/link";
 
 export default function MyFooter() {
   return (
@@ -16,13 +17,13 @@ export default function MyFooter() {
             <p className="footer_heading ">COMPANY</p>
             <ul className="list-unstyled ">
               <li>
-                <a href="#">About Us</a>
+                <Link href="/about-us">About Us</Link>
               </li>
               <li>
-                <a href="#">Terms and Conditions</a>
+                <Link href="/our-mission">Our Mission</Link>
               </li>
               <li>
-                <a href="#">Privacy Policy</a>
+                <Link href="/privacy-policy">Privacy Policy</Link>
               </li>
             </ul>
           </div>
@@ -100,6 +101,5 @@ export default function MyFooter() {
         </div>
       </div>
     </footer>
-
   );
 }

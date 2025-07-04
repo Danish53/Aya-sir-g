@@ -52,10 +52,11 @@ export default function page() {
           // Generic server error
           toast.error(data?.message || "Something went wrong");
         }
-        return; 
+        return;
       }
 
-      // localStorage.setItem("phone_number_signUp", phone);
+      localStorage.setItem("phone_number_signUp", formData.contact_number);
+
       // ✅ Success flow
       toast.success(data?.message);
       setFormData({

@@ -10,7 +10,7 @@ export default function page() {
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [loader, setLoader] = useState(false);
 
-  const phoneNumber = typeof window !== "undefined" ? localStorage.getItem("forgot_phone") : null;
+  const phoneNumber = typeof window !== "undefined" ? localStorage.getItem("phone_number_signUp") : null;
 
   const handleChange = (index, value) => {
     if (isNaN(value)) return; 
@@ -52,6 +52,7 @@ export default function page() {
         setTimeout(() => {
           router.push("/login");
         }, 1500);
+        localStorage.removeItem("phone_number_signUp")
       } else {
         toast.error(result.message || "Invalid OTP.");
       }
