@@ -1,22 +1,32 @@
 "use client";
 import React, { Suspense } from "react";
 import "./individuals.css";
-import Filterbar from "../components/Filter-bar/Filter-bar";
-import Card from "../components/Personal-card/Card";
-import ButtonComp from "../components/Button-component/ButtonComp";
+// import Filterbar from "../components/Filter-bar/Filter-bar";
+// import ButtonComp from "../components/Button-component/ButtonComp";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import dynamic from "next/dynamic";
+
+const ButtonComp = dynamic(() => import("../components/Button-component/ButtonComp"), {
+  ssr: false,
+});
+
+const Filterbar = dynamic(() => import("../components/Filter-bar/Filter-bar"), {
+  ssr: false,
+});
 
 
-export default function page() {
+export default function Page() {
   return (
-    <section className="individuals margin_navbar ">
+    <section className="individuals margin_navbar">
       <div className="container content pt-5 pb-5">
         <div className="row">
           <div className="col-lg-4 col_filter">
-            <Filterbar />
+            <Suspense fallback={<div>Loading Filters...</div>}>
+              <Filterbar />
+            </Suspense>
           </div>
-          <div className="col-lg-8 col-md-12 col-sm-12 ">
+          <div className="col-lg-8 col-md-12 col-sm-12">
             <Suspense
               fallback={
                 <div className="d-flex flex-wrap gap-3">
@@ -36,7 +46,6 @@ export default function page() {
             >
               <ButtonComp />
             </Suspense>
-
           </div>
         </div>
       </div>

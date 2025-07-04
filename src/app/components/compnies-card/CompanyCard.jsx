@@ -1,4 +1,4 @@
-
+"use client";
 import React from "react";
 import "./companycard.css";
 import { RiStarSFill } from "react-icons/ri";
