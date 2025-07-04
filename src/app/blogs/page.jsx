@@ -1,5 +1,6 @@
 import BlogCard from "../components/Blog-Card/BlogCard";
 import "./blogs.css";
+export const dynamic = 'force-dynamic';
 
 const getData = async function fetchBlogs() {
   const link = process.env.NEXT_PUBLIC_BASE_URL;
