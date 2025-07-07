@@ -79,7 +79,18 @@ footer {
 
 .footer .social_inner {
   cursor: pointer;
+  color: white;
+  text-decoration: none;
 }
+
+.social_inner img {
+  width: 26px !important;
+  height: 26px !important;
+  object-fit: contain;
+  display: inline-block;
+  box-sizing: content-box;
+}
+
 .footer .social_inner:hover .social_icon {
   color: var(--red-color);
 }

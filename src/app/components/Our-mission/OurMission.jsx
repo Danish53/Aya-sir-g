@@ -16,9 +16,8 @@ export default function OurMission() {
             <p id="para">
               Welcome to “Aya Sir G” <br />
               At “Aya Sir G,” we are committed to creating opportunities for individuals who are eager to work, believe in their abilities, and embrace self-reliance. Inspired by the timeless principle, "Allah helps those who help themselves," we empower people to take initiative and strive for a better future.
-              <br /> Our mission goes beyond mere connectivity; we aim to uplift Pakistan’s blue-collar workforce by providing them with a digital platform to showcase their skills, gain recognition, and secure better opportunities. In essence, “Aya Sir G” is like “LinkedIn” for the blue-collar community. We envision a future where workers no longer need to wait at street corners or main chowks for opportunities. Instead, we bring opportunities directly to them, ensuring their “rizq” (sustenance) reaches them with dignity.
             </p>
-            <Button className="mb-3" variant="outline-danger">
+            <Button className="my-3" variant="outline-danger">
               Hire an Employee <FaArrowRight />
             </Button>
           </div>

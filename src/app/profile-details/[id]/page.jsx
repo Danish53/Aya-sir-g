@@ -213,7 +213,7 @@ export default function page() {
     <section className="profile_section margin_navbar">
       <div className="container py-5">
         <div className="row">
-          <div className="col-lg-3 ad_bar py-2 hide_bar">
+          <div className="col-lg-3 ad_bar p-0 hide_bar">
             <Advartisement />
           </div>
           <div className="col-lg-9">

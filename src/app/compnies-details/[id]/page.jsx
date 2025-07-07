@@ -70,7 +70,7 @@ export default function page() {
     <section className="compnies-details margin_navbar">
       <div className="container py-5">
         <div className="row">
-          <div className="col-lg-3 ad_bar py-2 hide_bar">
+          <div className="col-lg-3 ad_bar p-0 hide_bar">
             {/* <p className="advertiment">
               A<br />d<br />v<br />e<br />r<br />t<br />i<br />s<br />e<br />m
               <br />e

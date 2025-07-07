@@ -83,9 +83,9 @@ export default function CustomNavbar() {
       <div className="container">
         <nav className="nav">
           <div className="logo_div">
-            <img src="/assets/logo_header.png" alt="" className="logo" />
-            <p id="head">AYA SIR G!</p>
-            <p id="descri">YOUR TRUSTED EVERYWHERE</p>
+            <img src="/assets/Aya-sir.png" alt="" className="logo" />
+            {/* <p id="head" className="d-flex gap-1"><p style={{letterSpacing:"-2px"}}>AYA</p> SIR G!</p>
+            <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
           </div>
           <div className="nav_items d-flex ">
             <ul className={`list-unstyled list ${myNavbar ? "active" : ""}`}>
@@ -148,7 +148,7 @@ export default function CustomNavbar() {
 
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-1">
-                  <span>
+                  <span>    
                     Urdu
                     <img src="/assets/pak_flag.png" alt="" />
                   </span>

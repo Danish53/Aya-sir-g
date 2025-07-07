@@ -226,7 +226,7 @@
   .navbar .list {
     height: 100vh;
     position: absolute;
-    top: -690px;
+    top: -840px !important;
     display: flex;
     flex-direction: column;
     color: green;

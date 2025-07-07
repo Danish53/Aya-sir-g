@@ -1,12 +1,13 @@
 import React from "react";
 import "./footer.css";
-import { BsYoutube } from "react-icons/bs";
-import { FaFacebook } from "react-icons/fa6";
-import { FaInstagram } from "react-icons/fa";
-import { AiFillTikTok } from "react-icons/ai";
-import { FaTwitter } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
+// import { BsYoutube } from "react-icons/bs";
+// import { FaFacebook } from "react-icons/fa6";
+// import { FaInstagram } from "react-icons/fa";
+// import { AiFillTikTok } from "react-icons/ai";
+// import { FaTwitter } from "react-icons/fa";
+// import { FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
+// import tiktok from "@/public/assets/tik-tok.png";
 
 export default function MyFooter() {
   return (
@@ -74,31 +75,76 @@ export default function MyFooter() {
         </div>
         <hr className="my-4" />
         <div className="margin_top flex-wrap social-div d-flex align-items-center justify-content-center gap-3 mx-auto">
-          <div className="social_inner d-flex align-items-center gap-2">
-            <BsYoutube className="social_icon" />
-            <p>YouTube</p>
-          </div>
-          <div className="social_inner d-flex align-items-center gap-2">
-            <FaFacebook className="social_icon" />
-            <p>Facebook</p>
-          </div>
-          <div className="social_inner d-flex align-items-center gap-2">
-            <FaInstagram className="social_icon" />
-            <p>Instagram</p>
-          </div>
-          <div className="social_inner d-flex align-items-center gap-2">
-            <AiFillTikTok className="social_icon" />
-            <p>TikTok</p>
-          </div>
-          <div className="social_inner d-flex align-items-center gap-2">
-            <FaTwitter className="social_icon" />
-            <p>Twitter</p>
-          </div>
-          <div className="social_inner d-flex align-items-center gap-2">
-            <FaLinkedin className="social_icon" />
-            <p>LinkedIn</p>
-          </div>
+
+          {/* YouTube */}
+          <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.youtube.com/@AyaSirG'} target="_blank">
+            <img
+              src="/assets/youtube.png"
+              alt="YouTube"
+              width="24"
+              height="24"
+            />
+            <p style={{ margin: 0 }}>YouTube</p>
+          </Link>
+
+          {/* Facebook */}
+          <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.facebook.com/profile.php?id=61577785319983'} target="_blank">
+            <img
+              src="/assets/facebook.png"
+              alt="Facebook"
+              width="24"
+              height="24"
+            />
+            <p style={{ margin: 0 }}>Facebook</p>
+          </Link>
+
+          {/* Instagram */}
+          <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.instagram.com/ayasirg_official/?igsh=MXJldGk5ODJqODI2NA%3D%3D#'} target="_blank">
+            <img
+              src="/assets/instagram.png"
+              alt="Instagram"
+              width="24"
+              height="24"
+            />
+            <p style={{ margin: 0 }}>Instagram</p>
+          </Link>
+
+          {/* TikTok */}
+          <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.tiktok.com/@ayasirg?is_from_webapp=1&sender_device=pc'} target="_blank">
+            <img
+              src='/assets/tik-tok.png'
+              alt="TikTok"
+              width="24"
+              height="24"
+            // style={{background:"white", borderRadius:"3px", padding:"2px"}}
+            />
+            <p style={{ margin: 0 }}>TikTok</p>
+          </Link>
+
+          {/* Twitter (X) */}
+          <Link className="social_inner d-flex align-items-center gap-2" href={'https://x.com/Aya_Sir_G'} target="_blank">
+            <img
+              src="/assets/twitter.png"
+              alt="Twitter"
+              width="24"
+              height="24"
+            />
+            <p style={{ margin: 0 }}>Twitter</p>
+          </Link>
+
+          {/* LinkedIn */}
+          <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.linkedin.com/in/aya-sir-g-423981349/'} target="_blank">
+            <img
+              src="/assets/linkedin.png"
+              alt="LinkedIn"
+              width="24"
+              height="24"
+            />
+            <p style={{ margin: 0 }}>LinkedIn</p>
+          </Link>
+
         </div>
+
       </div>
     </footer>
   );

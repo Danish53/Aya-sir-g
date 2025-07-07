@@ -174,51 +174,52 @@
 @media screen and (max-width: 576px) {
   .hero_section p {
     font-size: 16px;
+    text-align: center;
   }
 
   .hero_section h1.hero_heading {
-    font-size: 37px;
-    line-height: 50px;
-  }
-
-  .dropdown button {
-    max-width: 166px;
-  }
-
-  .dropdown button {
-    font-size: 16px;
-  }
-
-  .hero_section .search_btn {
-    max-width: 55px;
-  }
-
-  .our_mission .left_div button {
-    width: 370px;
-    height: 51px;
+    font-size: 32px;
+    line-height: 48px;
+    text-align: center;
   }
 
   .dropdown_parent {
-    flex-direction: column !important;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
-    margin: 0 auto;
-  }
-
-  .dropdown_parent .services_dropdown {
     width: 100%;
-    display: flex;
-    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
   }
 
+  .dropdown_parent .services_dropdown,
   .dropdown_parent .services_dropdown button {
+    width: 100% !important;
     max-width: 100% !important;
-    width: 80%;
   }
-}
 
-@media screen and (max-width: 425px) {
-  .dropdown button {
-    max-width: 146px;
+  .dropdown .dropdown-menu {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+
+  .hero_section .search_btn {
+    width: 90% !important;
+    height: 50px;
+    border-radius: 6px;
+    background-color: var(--red-color);
+    margin-top: 10px;
+  }
+
+  .hero_section .search_icon {
+    font-size: 26px;
+    color: #fff;
+  }
+
+  .error_class {
+    position: static;
+    margin-top: -12px;
+    margin-bottom: -5px;
+    font-size: 13px;
+    text-align: center;
   }
 }

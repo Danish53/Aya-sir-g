@@ -3,6 +3,12 @@
   height: 100%;
 }
 
+.advertisementBar img{
+  height: 100%;
+  width: 100%;
+  padding: 0px;
+}
+
 .advertiment {
   font-size: 40px;
   font-weight: bold;

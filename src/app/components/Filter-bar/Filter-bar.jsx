@@ -14,7 +14,7 @@ export default function Filter_bar() {
     gender: searchParams.get("gender") || "",
     age: searchParams.get("age") || "",
     city: searchParams.get("city") || "",
-    categoryId: searchParams.get("category_id") || "",
+    category_id: searchParams.get("category_id") || "",
   });
 
   const [showAll, setShowAll] = useState(false);
@@ -92,7 +92,7 @@ export default function Filter_bar() {
               <input
                 type="checkbox"
                 id={`category_${cat.id}`}
-                checked={filters.categoryId === String(cat.id)}
+                checked={filters.category_id === String(cat.id)}
                 onChange={() => handleSingleSelect("category_id", String(cat.id))}
               />
               <label htmlFor={`category_${cat.id}`}>{cat.name}</label>

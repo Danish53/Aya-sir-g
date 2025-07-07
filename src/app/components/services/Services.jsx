@@ -34,7 +34,7 @@ export default function Services() {
               </p>
             </div>
           </div>
-          <div className="col-lg-3 col-sm-6" data-aos="fade-up">
+          <div className="col-lg-3 col-sm-6 margin_top" data-aos="fade-up">
             <div className="card p-3 col_height">
               <img src="/assets/card_img3.png" alt="" />
               <p id="heading">Step 3</p>

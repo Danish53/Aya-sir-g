@@ -165,7 +165,12 @@ export default function Hero() {
   const handleLocationSelect = (eventKey) => {
     const [name, id] = eventKey.split("||");
     setSelectedLocation(name); // Display name
-    setLocationId(id);         // Save id for API (make sure locationId state exists)
+    // setLocationId(id);         // Save id for API (make sure locationId state exists)
+    if (name === "Any Location") {
+      setLocationId(null); // 👈 null so we can skip this in URL
+    } else {
+      setLocationId(id);
+    }
   };
 
   const handleSearch = () => {
@@ -185,17 +190,33 @@ export default function Hero() {
       setCityError(false);
     }
 
-    if (!locationId || locationId === "Location") {
+    // if (!locationId || locationId === "Location") {
+    //   setLocationError(true);
+    //   hasError = true;
+    // } else {
+    //   setLocationError(false);
+    // }
+
+    if (!selectedLocation || selectedLocation === "Location") {
       setLocationError(true);
       hasError = true;
     } else {
       setLocationError(false);
     }
 
+
     if (!hasError) {
-      router.push(
-        `/compnies?role=handyman&category_id=${categoryId}&city=${cityId}&area_code=${locationId}`
-      );
+      // router.push(
+      //   `/compnies?role=handyman&category_id=${categoryId}&city=${cityId}&area_code=${locationId}`
+      // );
+      if (!hasError) {
+        let query = `/compnies?role=handyman&category_id=${categoryId}&city=${cityId}`;
+        if (locationId) {
+          query += `&area_code=${locationId}`;
+        }
+        router.push(query);
+      }
+
     }
   };
 
@@ -212,30 +233,30 @@ export default function Hero() {
 
         <div className="dropdown_parent d-flex justify-content-center align-items-center position-relative">
           {/* Category Dropdown */}
-          <div>
-            {categoryError && (
-              <div className="text-danger fw-semibold mb-1 error_class">Please select a category</div>
-            )}
-            <Dropdown onSelect={handleCategorySelect} className="services_dropdown category">
-              <Dropdown.Toggle className={selectedCategory ? "selected_black" : "text-muted"}>
-                {selectedCategory || "Select Category"}
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="list_menu">
-                {apiCategory2.map((cat) => (
-                  <Dropdown.Item key={cat.id} eventKey={`${cat.name}||${cat.id}`}>
-                    {cat.name}
-                  </Dropdown.Item>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
+          <div className="position-relative w-100">
+          {categoryError && (
+            <div className="text-danger fw-semibold mb-1 error_class">Please select a category</div>
+          )}
+          <Dropdown onSelect={handleCategorySelect} className="services_dropdown category">
+            <Dropdown.Toggle className={selectedCategory ? "selected_black" : "text-muted"}>
+              {selectedCategory || "Select Category"}
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="list_menu">
+              {apiCategory2.map((cat) => (
+                <Dropdown.Item key={cat.id} eventKey={`${cat.name}||${cat.id}`}>
+                  {cat.name}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
           </div>
 
           {/* City Dropdown - always show */}
-          <div>
-            {cityError && (
-              <div className="text-danger fw-semibold mb-1 error_class">Please select a city</div>
-            )}
-            <Dropdown onSelect={handleCitySelect} className="services_dropdown category">
+          <div className="position-relative w-100">
+          {cityError && (
+            <div className="text-danger fw-semibold mb-1 error_class">Please select a city</div>
+          )}
+          {/* <Dropdown onSelect={handleCitySelect} className="services_dropdown category">
               <Dropdown.Toggle ref={cityDropdownRef} className={selectedCity ? "selected_black" : "text-muted"}>
                 {selectedCity || "Select City"}
               </Dropdown.Toggle>
@@ -250,35 +271,67 @@ export default function Hero() {
                   <Dropdown.Item disabled>No cities found</Dropdown.Item>
                 )}
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
+          <Dropdown onSelect={handleCitySelect} className="services_dropdown category">
+            <Dropdown.Toggle ref={cityDropdownRef} className={selectedCity ? "selected_black" : "text-muted"}>
+              {selectedCity || "Select City"}
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="list_menu">
+              {cities?.length > 0 ? (
+                cities?.map((city) => (
+                  <Dropdown.Item
+                    key={city.id}
+                    eventKey={`${city.name}||${city.id}`}
+                    disabled={city.name.toLowerCase() !== "lahore"} // 🔥 Only enable Lahore
+                  >
+                    {city.name}
+                  </Dropdown.Item>
+                ))
+              ) : (
+                <Dropdown.Item disabled>No cities found</Dropdown.Item>
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
+
           </div>
 
           {/* Location Dropdown - always show */}
-          <div>
-            {locationError && (
-              <div className="text-danger fw-semibold mb-1 error_class">Please select a location</div>
-            )}
-            <Dropdown onSelect={handleLocationSelect} className="services_dropdown category">
-              <Dropdown.Toggle ref={locationDropdownRef} className={selectedLocation ? "selected_black" : "text-muted"}>
-                {selectedLocation || "Select Location"}
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="list_menu">
-                {locations.length > 0 ? (
-                  locations.map((location, idx) => (
+          <div  className="position-relative w-100">
+          {locationError && (
+            <div className="text-danger fw-semibold mb-1 error_class">Please select a location</div>
+          )}
+          <Dropdown onSelect={handleLocationSelect} className="services_dropdown category">
+            <Dropdown.Toggle
+              ref={locationDropdownRef}
+              className={selectedLocation ? "selected_black" : "text-muted"}
+            >
+              {selectedLocation || "Select Location"}
+            </Dropdown.Toggle>
+            <Dropdown.Menu className="list_menu">
+              {locations.length > 0 ? (
+                <>
+                  <Dropdown.Item key="any-location" eventKey={"Any Location||any"}>
+                    Any Location
+                  </Dropdown.Item>
+                  {locations.map((location) => (
                     <Dropdown.Item key={location.id} eventKey={`${location.name}||${location.id}`}>
                       {location.name}
                     </Dropdown.Item>
-                  ))
-                ) : (
-                  <Dropdown.Item disabled>No locations found</Dropdown.Item>
-                )}
-              </Dropdown.Menu>
-            </Dropdown>
+                  ))}
+                </>
+              ) : (
+                <Dropdown.Item disabled>No locations found</Dropdown.Item>
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
+
           </div>
 
-          <button className="search_btn" onClick={handleSearch}>
-            <IoSearch className="search_icon" />
-          </button>
+          <div className="w-100">
+            <button className="search_btn" onClick={handleSearch}>
+              <IoSearch className="search_icon" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
