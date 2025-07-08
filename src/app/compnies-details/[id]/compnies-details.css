@@ -58,7 +58,7 @@
   background: black;
   color: white;
   border-radius: 50%;
-  padding: 8px;
+  padding: 8px 2px;
   cursor: pointer;
 }
 .compnies-details .info h4 {
@@ -297,4 +297,46 @@ h3.heading {
   height: 120px;
   border-radius: 50%;
   margin-bottom: 20px;
+}
+
+
+
+/* audio */
+
+.wave-animation {
+  display: flex;
+  gap: 2px;
+}
+
+.wave-animation span {
+  display: block;
+  width: 3px;
+  height: 10px;
+  background: #25d366;
+  animation: wave 1s infinite;
+  animation-delay: calc(0.2s * var(--i));
+}
+
+.wave-animation span:nth-child(1) {
+  --i: 1;
+}
+
+.wave-animation span:nth-child(2) {
+  --i: 2;
+}
+
+.wave-animation span:nth-child(3) {
+  --i: 3;
+}
+
+@keyframes wave {
+
+  0%,
+  100% {
+    height: 8px;
+  }
+
+  50% {
+    height: 16px;
+  }
 }

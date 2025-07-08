@@ -17,9 +17,9 @@ export default function OurMission() {
               Welcome to “Aya Sir G” <br />
               At “Aya Sir G,” we are committed to creating opportunities for individuals who are eager to work, believe in their abilities, and embrace self-reliance. Inspired by the timeless principle, "Allah helps those who help themselves," we empower people to take initiative and strive for a better future.
             </p>
-            <Button className="my-3" variant="outline-danger">
+            {/* <Button className="my-3" variant="outline-danger">
               Hire an Employee <FaArrowRight />
-            </Button>
+            </Button> */}
           </div>
           <div className="right_div d-flex gap-4 col-lg-7">
             <div className="normal_div d-flex flex-column gap-4">

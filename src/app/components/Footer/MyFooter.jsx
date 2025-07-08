@@ -31,11 +31,11 @@ export default function MyFooter() {
           <div className="col-lg-2 col-md-6 col-sm-12">
             <p className="footer_heading">SUPPORT</p>
             <ul className="list-unstyled">
-              <li>
+              {/* <li>
                 <a href="#">Help Center</a>
-              </li>
+              </li> */}
               <li>
-                <a href="#">Contact Us</a>
+                <Link href="/contact-us">Contact Us</Link>
               </li>
             </ul>
           </div>
@@ -92,8 +92,8 @@ export default function MyFooter() {
             <img
               src="/assets/facebook.png"
               alt="Facebook"
-              width="24"
-              height="24"
+              width="22"
+              height="22"
             />
             <p style={{ margin: 0 }}>Facebook</p>
           </Link>
@@ -114,8 +114,8 @@ export default function MyFooter() {
             <img
               src='/assets/tik-tok.png'
               alt="TikTok"
-              width="24"
-              height="24"
+              width="26"
+              height="26"
             // style={{background:"white", borderRadius:"3px", padding:"2px"}}
             />
             <p style={{ margin: 0 }}>TikTok</p>
@@ -126,8 +126,8 @@ export default function MyFooter() {
             <img
               src="/assets/twitter.png"
               alt="Twitter"
-              width="24"
-              height="24"
+              width="22"
+              height="22"
             />
             <p style={{ margin: 0 }}>Twitter</p>
           </Link>
@@ -137,8 +137,8 @@ export default function MyFooter() {
             <img
               src="/assets/linkedin.png"
               alt="LinkedIn"
-              width="24"
-              height="24"
+              width="22"
+              height="22"
             />
             <p style={{ margin: 0 }}>LinkedIn</p>
           </Link>

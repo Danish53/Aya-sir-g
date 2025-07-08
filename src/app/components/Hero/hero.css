@@ -159,7 +159,7 @@
   }
 
   .hero_section .search_btn {
-    max-width: 61px;
+    max-width: 100%;
   }
 
   .hero_section .search_icon {
@@ -203,11 +203,9 @@
   }
 
   .hero_section .search_btn {
-    width: 90% !important;
-    height: 50px;
+    width: 100% !important;
     border-radius: 6px;
     background-color: var(--red-color);
-    margin-top: 10px;
   }
 
   .hero_section .search_icon {

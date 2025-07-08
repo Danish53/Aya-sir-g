@@ -1,9 +1,10 @@
 .wishlistcard {
-  width: 350px;
+  /* width: 350px; */
   border: 1px solid var(--red-color);
   border-radius: 10px;
   padding: 10px 14px;
   font-family: var(--font-poppins), sans-serif;
+  background: white;
 }
 .wishlistcard .info_div {
   display: flex;

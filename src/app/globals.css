@@ -87,10 +87,10 @@ p#account {
   gap: 50px;
 }
 
-.logo {
+/* .logo {
   max-width: 92px;
   max-height: 83px;
-}
+} */
 p#head {
   font-size: 18px;
   font-weight: bold;

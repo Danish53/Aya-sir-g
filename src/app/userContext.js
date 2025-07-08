@@ -226,12 +226,25 @@ export const UserProvider = ({ children }) => {
     setLoader(true);
     try {
       const response = await axios.get(
-        `${baseUrl}/api/users/filter`,
-        { params }
+        `${baseUrl}/api/users/filter`, {
+        params,
+        headers: userInfo?.api_token
+          ? {
+            Authorization: `Bearer ${userInfo.api_token}`,
+          }
+          : {},
+      }
       );
+
+      console.log(response.data.data, "ok hai ya")
+
       // setFilteredUsers(response.data.data || []);
       if (response?.data) {
-        setFilteredUsers(response.data.data || []);
+        const updatedData = (response.data.data || []).map((user) => ({
+          ...user,
+          can_like: !!user.can_like,
+        }));
+        setFilteredUsers(updatedData);
       } else {
         setFilteredUsers([]);
       }
@@ -242,10 +255,8 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-
   // likes api
   const [likedUsers, setLikedUsers] = useState([]);
-  console.log(likedUsers, "likeeddd..")
 
   const toggleLike = async (userId, can_like) => {
     try {
@@ -263,20 +274,19 @@ export const UserProvider = ({ children }) => {
 
       setLikedUsers((prev) => {
         if (can_like) {
-          return [...prev, userId]; // now liked
+          return [...prev, userId];
         } else {
-          return prev.filter((id) => id !== userId); // now unliked
+          return prev.filter((id) => id !== userId);
         }
       });
 
-      setFilteredUsers((prevUsers) => {
-        const updatedUsers = prevUsers.map((user) =>
-          user.id === userId ? { ...user, can_like: !can_like } : user
-        );
-        return [...updatedUsers]; // ensure new array reference
-      });
-
-
+      setFilteredUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === userId
+            ? { ...user, can_like: !user.can_like }
+            : user
+        )
+      );
 
     } catch (error) {
       console.error("Error liking/disliking:", error);
@@ -286,6 +296,25 @@ export const UserProvider = ({ children }) => {
   // const isUserLiked = (userId, can_like) => {
   //   return !can_like || likedUsers.includes(userId);
   // }
+
+
+  const [banners, setServices] = useState([]);
+
+  const getAllBanners = async () => {
+    setLoader(true);
+    try {
+      const res = await axios.get(`${baseUrl}/api/slider-list`);
+      if (res?.data?.data) {
+        setServices(res.data.data);
+      } else {
+        setServices([]);
+      }
+    } catch (error) {
+      console.error("Error fetching services:", error);
+    } finally {
+      setServicesLoading(false);
+    }
+  };
 
 
   return (
@@ -309,7 +338,9 @@ export const UserProvider = ({ children }) => {
         getCities,
         getFilteredUsers,
         filteredUsers,
-        toggleLike
+        toggleLike,
+        getAllBanners,
+        banners
       }}
     >
       {children}

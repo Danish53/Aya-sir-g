@@ -10,7 +10,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 
 export default function ButtonComp() {
-  const { filteredUsers, getFilteredUsers, loader } = useContext(UserContext);
+  const { filteredUsers, getFilteredUsers, loader, toggleLike } = useContext(UserContext);
   // console.log(filteredUsers, "filter users...")
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -86,7 +86,7 @@ export default function ButtonComp() {
           filteredUsers?.length > 0 ? (
             <div className="card_wrapper_div">
               {filteredUsers.map((user) => (
-                <Card key={user.id} data={user} />
+                <Card key={user.id} data={user} onLike={toggleLike} />
               ))}
             </div>
           ) : (
@@ -96,7 +96,7 @@ export default function ButtonComp() {
           filteredUsers?.length > 0 ? (
             <div>
               {filteredUsers.map((user) => (
-                <CompanyCard key={user.id} data={user} />
+                <CompanyCard key={user.id} data={user} onLike={toggleLike} />
               ))}
             </div>
           ) : (

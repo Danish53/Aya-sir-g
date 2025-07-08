@@ -1,11 +1,11 @@
 .wishlist {
   font-family: var(--font-poppins), sans-serif;
+  background-color: #e5e4e4;
 }
 
-.wishlist .wishlist_card_div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* gap: 30px; */
-  flex-wrap: wrap;
+
+@media screen and (max-width: 992px) {
+  .profile_section .hide_bar {
+    display: none;
+  }
 }

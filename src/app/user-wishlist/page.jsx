@@ -3,12 +3,11 @@ import React, { useContext, useEffect, useState } from "react";
 import "./wishlist.css";
 import WishlistComponent from "../components/wishlist/WishlistComponent"
 import { UserContext } from "../userContext";
+import Advartisement from "@/app/components/AdvertisementBar/Advartisement";
 
 export default function page() {
 
   const { userInfo } = useContext(UserContext);
-
-  console.log(userInfo?.api_token, "token")
   const [likedUser, setLikedUser] = useState("");
   console.log(likedUser, "......ok")
 
@@ -22,7 +21,6 @@ export default function page() {
         },
       });
 
-      console.log(res, "ddddddatatatat")
       const data = await res.json();
       setLikedUser(data?.i_liked)
 
@@ -38,15 +36,24 @@ export default function page() {
 
   return (
     <section className="wishlist margin_navbar">
-      <div className="container ">
-        <div className="wishlist_card_div py-5">
-          {likedUser.length > 0 ? (
-            likedUser.map((user) => (
-              <WishlistComponent key={user.id} data={user} />
-            ))
-          ) : (
-            <p>No liked users found.</p>
-          )}
+      <div className="container py-5">
+        <div className="row">
+          <div className="col-lg-3 ad_bar p-0 hide_bar">
+            <Advartisement />
+          </div>
+          <div className="col-lg-9">
+            <div className="row">
+              {likedUser.length > 0 ? (
+                likedUser.map((user) => (
+                  <div className="col-lg-4">
+                    <WishlistComponent key={user.id} data={user} />
+                  </div>
+                ))
+              ) : (
+                <p>No liked users found.</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>

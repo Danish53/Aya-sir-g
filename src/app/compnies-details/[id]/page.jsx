@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./compnies-details.css";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
@@ -18,6 +18,8 @@ import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
 
+import { FaPlay, FaPause } from "react-icons/fa";
+
 export default function page() {
 
   const params = useParams();
@@ -35,6 +37,65 @@ export default function page() {
         .catch((err) => console.error("Error loading user:", err));
     }
   }, [id]);
+
+
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = Math.floor(time % 60)
+      .toString()
+      .padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
+
+
+  const handlePlayPause = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const onLoadedMetadata = () => {
+      setDuration(audio.duration || 0);
+    };
+
+    const onTimeUpdate = () => {
+      setCurrentTime(audio.currentTime || 0);
+    };
+
+    const onEnded = () => {
+      console.log("✅ Audio ended");
+      setIsPlaying(false);
+      setCurrentTime(0);
+    };
+
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    audio.addEventListener("timeupdate", onTimeUpdate);
+    audio.addEventListener("ended", onEnded);
+
+    return () => {
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audio.removeEventListener("timeupdate", onTimeUpdate);
+      audio.removeEventListener("ended", onEnded);
+    };
+  }, [company?.audio_sample]);
 
   if (!company) {
     return (
@@ -95,7 +156,65 @@ export default function page() {
                 <div className="left_div ">
                   <h3 className="name_heading">{company?.username}</h3>
                   <div className="recording mt-1 mb-3">
-                    <IoIosMic className="mic_icon" />
+                    {/* <IoIosMic className="mic_icon" /> */}
+
+                    {company?.audio_sample ? (
+                      <div
+                        className="custom-audio-player"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          // background: "#e1ffc7",
+                          // padding: "8px 12px",
+                          // borderRadius: "20px",
+                          // maxWidth: "240px",
+                        }}
+                      >
+                        {/* <button
+                                              onClick={handlePlayPause}
+                                              style={{
+                                                background: "#25d366",
+                                                border: "none",
+                                                borderRadius: "50%",
+                                                width: "35px",
+                                                height: "35px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                color: "#fff",
+                                                marginRight: "10px",
+                                                fontSize: "14px",
+                                                cursor: "pointer",
+                                              }}
+                                            > */}
+                        {isPlaying ? <FaPause className="mic_icon" onClick={handlePlayPause} /> : <FaPlay className="mic_icon" onClick={handlePlayPause} />}
+                        {/* </button> */}
+
+                        <audio ref={audioRef} src={company.audio_sample} preload="auto" />
+
+                        <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
+                          {isPlaying && (
+                            <div className="wave-animation">
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                              <span></span>
+                            </div>
+                          )}
+                        </div>
+
+                        <span style={{ fontSize: "14px" }}>
+                          {formatTime(currentTime)}
+                        </span>
+                      </div>
+                    ) : (
+                      <p style={{ fontSize: "14px" }}>No audio available</p>
+                    )}
                   </div>
                   <div className="info">
                     <h4>
@@ -116,11 +235,11 @@ export default function page() {
                       Current Address: <span>{company?.user_city || ""}</span>
                     </h4>
 
-                    <textarea
+                    {/* <textarea
                       name="text_area"
                       id=""
                       placeholder="Details"
-                    ></textarea>
+                    ></textarea> */}
                   </div>
                 </div>
                 <div className="right">

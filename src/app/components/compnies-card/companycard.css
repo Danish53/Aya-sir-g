@@ -7,6 +7,7 @@
 .company_card .parent_div {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: white;
   padding: 12px 10px;
   height: 138px;

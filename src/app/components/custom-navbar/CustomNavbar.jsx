@@ -83,7 +83,7 @@ export default function CustomNavbar() {
       <div className="container">
         <nav className="nav">
           <div className="logo_div">
-            <img src="/assets/Aya-sir.png" alt="" className="logo" />
+            <img src="/assets/Frame.png" alt="" className="logo" />
             {/* <p id="head" className="d-flex gap-1"><p style={{letterSpacing:"-2px"}}>AYA</p> SIR G!</p>
             <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
           </div>

@@ -8,23 +8,20 @@ import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import { UserContext } from "@/app/userContext";
 
-export default function Card({ data }) {
+export default function Card({ data, onLike }) {
   // console.log(data, "data user ind.")
   // const [isLiked, setLiked] = useState(false);
   // const handleLiked = () => {
   //   setLiked(!isLiked);
   // };
 
-  const { toggleLike } = useContext(UserContext);
-  // const [isLiked, setLiked] = useState(!data?.can_like);
-  const isLiked = !data?.can_like;
-  // toggleLike(data?.id, !isLiked); // just call the API
+  const { userInfo } = useContext(UserContext);
 
-  console.log(isLiked, "check like val...")
-
+  const isLiked = !!data?.can_like;
   const onLikeClick = () => {
-  toggleLike(data?.id, !isLiked); // don't store state, let parent manage
-};
+    onLike(data.id, !!isLiked);
+  };
+
 
   return (
     <section className="personal_card">
@@ -36,11 +33,18 @@ export default function Card({ data }) {
           <p className="person_info">
             {data?.gender || "Gender"}, {data?.age || "Age"} years old
           </p>
-          {data?.can_like == "true" ? (
-            <FaHeart className="icon" onClick={onLikeClick} />
+          {userInfo ? (
+            isLiked ? (
+              <FaHeart className="icon" onClick={onLikeClick} />
+            ) : (
+              <FaRegHeart className="icon" onClick={onLikeClick} />
+            )
           ) : (
-            <FaRegHeart className="icon" onClick={onLikeClick} />
+            <Link href="/login">
+              <FaRegHeart className="icon" />
+            </Link>
           )}
+
         </div>
 
         <div className="details_div mt-3">
