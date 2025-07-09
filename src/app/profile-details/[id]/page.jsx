@@ -30,7 +30,13 @@ export default function page() {
 
   useEffect(() => {
     if (id) {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user-detail/${id}`)
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user-detail/${id}`, {
+        headers: userInfo?.api_token
+          ? {
+            Authorization: `Bearer ${userInfo.api_token}`,
+          }
+          : {},
+    })
         .then((res) => {
           setUser(res.data.data);
         })
@@ -146,7 +152,7 @@ export default function page() {
             <div className="p-4">
               <div className="heart_button">
                 {/* <FaRegHeart className="icon" /> */}
-                {userInfo ? (
+                {/* {userInfo ? (
                   isLiked ? (
                     <FaHeart className="icon" onClick={onLikeClick} />
                   ) : (
@@ -156,7 +162,7 @@ export default function page() {
                   <Link href="/login">
                     <FaRegHeart className="icon" />
                   </Link>
-                )}
+                )} */}
 
                 <button className="verified_btn">
                   Verified <FaCheck className="tik_icon" />
@@ -302,7 +308,7 @@ export default function page() {
               </div>
             </div>
 
-            <div className="comments_div mt-3 pb-3">
+            {/* <div className="comments_div mt-3 pb-3">
               <div className="heading_sec p-3">
                 <IoIosArrowBack className="arrow_icon" />
                 <h3 className="heading">Comments</h3>
@@ -319,7 +325,7 @@ export default function page() {
                   <img src="/assets/Icon.png" alt="send" />
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

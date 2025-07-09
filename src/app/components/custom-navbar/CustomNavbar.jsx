@@ -89,52 +89,43 @@ export default function CustomNavbar() {
           </div>
           <div className="nav_items d-flex ">
             <ul className={`list-unstyled list ${myNavbar ? "active" : ""}`}>
-              <li>
+              <li onClick={() => setMyNavbar(false)}>
                 <Link href="/" className={pathname === "/" ? "active" : ""}>
                   Home
                 </Link>
               </li>
-              <li>
-                {/* <a href="#">About Us</a> */}
+              <li onClick={() => setMyNavbar(false)}>
                 <Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>
                   About Us
                 </Link>
               </li>
-              {userDetails?.user_type == "e-center" ? (
-                ""
-              ) : (<li>
-                <Link
-                  href="/register-yourself"
-                  className={pathname === "/register-yourself" ? "active" : ""}
-                >
-                  Register Yourself
-                </Link>
-              </li>)}
-              <li>
-                <Link
-                  href="/blogs"
-                  className={pathname === "/blogs" ? "active" : ""}
-                >
+              {userDetails?.user_type !== "e-center" && (
+                <li onClick={() => setMyNavbar(false)}>
+                  <Link
+                    href="/register-yourself"
+                    className={pathname === "/register-yourself" ? "active" : ""}
+                  >
+                    Register Yourself
+                  </Link>
+                </li>
+              )}
+              <li onClick={() => setMyNavbar(false)}>
+                <Link href="/blogs" className={pathname === "/blogs" ? "active" : ""}>
                   Blogs
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/faq"
-                  className={pathname === "/faq" ? "active" : ""}
-                >
+              <li onClick={() => setMyNavbar(false)}>
+                <Link href="/faq" className={pathname === "/faq" ? "active" : ""}>
                   FAQ
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/contact-us"
-                  className={pathname === "contact-us" ? "active" : ""}
-                >
+              <li onClick={() => setMyNavbar(false)}>
+                <Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""}>
                   Contact Us
                 </Link>
               </li>
             </ul>
+
 
             <Dropdown className="dropdown_language">
               <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -148,18 +139,18 @@ export default function CustomNavbar() {
 
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-1">
-                  <span>    
+                  <span>
                     Urdu
                     <img src="/assets/pak_flag.png" alt="" />
                   </span>
                 </Dropdown.Item>
-                <Dropdown.Item href="#/action-2">
+                {/* <Dropdown.Item href="#/action-2">
                   <span>
                     Pashto
                     <img src="/assets/afg_flag.png" alt="" />
                   </span>
-                </Dropdown.Item>
-                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                </Dropdown.Item> */}
+                {/* <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
               </Dropdown.Menu>
             </Dropdown>
             <div className="info_div">
@@ -170,10 +161,14 @@ export default function CustomNavbar() {
                   <Link href={'/login'}><IoIosHeartEmpty className="icon_hearth ml_2" /></Link>
                 )
                 }
-                <IoPersonCircle
+                {
+                  userInfo ? (
+                    <IoPersonCircle
                   className="icon_person"
                   onClick={handleuserDetailss}
                 />
+                  ) : ("")
+                }
                 <div className="name_div" onClick={handleuserDetailss}>
                   {userToken ? (
                     <p>{userDetails?.username}</p>

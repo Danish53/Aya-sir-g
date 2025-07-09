@@ -94,6 +94,7 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  width: 100%;
 }
 .modal-body .input_one_row {
   justify-content: space-between;

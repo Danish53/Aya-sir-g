@@ -108,9 +108,9 @@ export default function page() {
         </form>
 
         <div className="logo_div mt-3">
-          <img src="/assets/logo_header.png" alt="logo" className="logo" />
-          <p id="head">AYA SIR G!</p>
-          <p id="descri">YOUR TRUSTED EVERYWHERE</p>
+          <img src="/assets/Frame.png" alt="logo" className="logo" />
+          {/* <p id="head">AYA SIR G!</p>
+          <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
         </div>
       </div>
       <ToastContainer />

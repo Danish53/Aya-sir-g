@@ -56,7 +56,7 @@ export default function Card({ data, onLike }) {
           </p>
           <p>Interested Location: {Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
             ? data.interested_locations.map(item => item.name).join(", ")
-            : "N/A"}</p>
+            : ""}</p>
           {
             data?.address ? <p>Current Address: {data?.user_city || "N/A"}</p> : ""
           }

@@ -46,56 +46,82 @@ p#filter_heading {
   font-weight: bold;
 }
 
+
 @media screen and (max-width: 768px) {
   .filter_bar {
-    max-width: 300px;
+    width: 100%;
     background-color: transparent;
     margin-bottom: 10px;
   }
-  p#filter_heading.filter_small {
-    font-size: 18px;
-    background-color: white;
-    display: inline-block;
-    cursor: pointer;
-  }
+
   .filter_bar .filter_small {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
   }
+
   .filter_bar .filter_greater {
     display: none;
   }
+
   .filter_bar .boxes_parent_div {
-    position: absolute;
-    left: -400px;
-    top: 47px;
-    background-color: white;
-    color: black;
-    z-index: 99;
-    max-width: 400px;
-    width: 100%;
-    box-shadow: 02px 5px 5px rgba(0, 0, 0, 0.5);
-    transition: 0.5s all;
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    z-index: 9999;
+    overflow-y: auto;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.5);
   }
-  .active {
-    left: 0 !important;
+
+  .boxes_parent_div.active {
+    display: flex;
   }
+
+  .close_filter_btn {
+    display: block;
+    background: transparent;
+    font-size: 24px;
+    border: none;
+    align-self: flex-end;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
   .filter_bar .box h3 {
     font-size: 17px;
   }
+
   .filter_bar .box input {
     width: 15px;
     height: 15px;
   }
+
   .filter_bar .box label {
-    font-weight: 15px;
+    font-size: 15px;
   }
+
   .filter_bar .box.city label {
     font-size: 17px;
   }
+  .close_btn{
+  display: block !important;
+  text-align: -webkit-right;
+}
 }
 
+.close_btn{
+  display: none;
+}
 
 .see-more-btn{
   background: transparent;

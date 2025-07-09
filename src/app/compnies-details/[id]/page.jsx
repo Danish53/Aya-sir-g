@@ -145,7 +145,7 @@ export default function page() {
 
             <div className="left p-4">
               <div className="heart_button">
-                <FaRegHeart className="icon" />
+                {/* <FaRegHeart className="icon" /> */}
                 <button className="verified_btn">
                   Verified
                   <FaCheck className="tik_icon" />
@@ -287,7 +287,7 @@ export default function page() {
                 </div>
               </div>
             </div>
-            <div className="comments_div mt-3 pb-3">
+            {/* <div className="comments_div mt-3 pb-3">
               <div className="heading_sec p-3">
                 <IoIosArrowBack className="arrow_icon" />
                 <h3 className="heading">Comments</h3>
@@ -304,7 +304,7 @@ export default function page() {
                   <img src="/assets/Icon.png" />
                 </button>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
