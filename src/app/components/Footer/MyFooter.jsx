@@ -42,7 +42,7 @@ export default function MyFooter() {
           <div className="col-lg-3 col-md-6 col-sm-12">
             <p className="footer_heading">BUSINESS</p>
             <ul className="list-unstyled">
-              <li>
+              {/* <li>
                 <a href="#">Advertise with Us</a>
               </li>
               <li>
@@ -50,7 +50,7 @@ export default function MyFooter() {
               </li>
               <li>
                 <a href="#">Aya Sir G Updates</a>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div className="col-lg-4 col-md-6 col-sm-12">

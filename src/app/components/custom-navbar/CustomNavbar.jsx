@@ -8,54 +8,64 @@ import { IoPersonCircle } from "react-icons/io5";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FaBars } from "react-icons/fa";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { UserContext } from "@/app/userContext";
 import Myform from "../Myform/Myform";
+import dynamic from "next/dynamic";
+
+const TranslateWrapper = dynamic(() => import("../translateWrapper/TranslateWrapper"), { ssr: false });
 
 export default function CustomNavbar() {
-  const [selectedType, setSelectedType] = useState(null);
-
   const router = useRouter();
+  const pathname = usePathname();
+  const { userInfo, setUserInfo, loadingUser, userDetails } = useContext(UserContext);
+
+  const [selectedType, setSelectedType] = useState(null);
   const [userDetailss, showuserDetailss] = useState(false);
   const [myNavbar, setMyNavbar] = useState(false);
-  const { userInfo, setUserInfo, loadingUser, userDetails } = useContext(UserContext);
-  const pathname = usePathname();
-
-  if (loadingUser) return null;
+  const [isTranslateLoaded, setTranslateLoaded] = useState(false);
 
   const userToken = userInfo?.api_token;
 
-  const handleuserDetailss = () => {
-    showuserDetailss(!userDetailss);
-  };
+  //   useEffect(() => {
+  //   const updateLanguageLabel = () => {
+  //     const firstSpan = document.querySelector(".goog-te-gadget span a span:nth-of-type(1)");
+  //     const lang = document.querySelector(".goog-te-combo")?.value;
 
-  const handleDropdownItemClick = (callback) => {
-    showuserDetailss(false); // dropdown close
-    if (callback && typeof callback === "function") {
-      callback(); // jo bhi action hai usay chalao
+  //     if (firstSpan) {
+  //       if (lang === "ur") {
+  //         firstSpan.textContent = "اردو";
+  //       } else {
+  //         firstSpan.textContent = "ENGLISH";
+  //       }
+  //     }
+  //   };
+
+  //   const interval = setInterval(updateLanguageLabel, 1000);
+
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  const handleClick = (type) => {
+    if (selectedType === type) {
+      setSelectedType(null);
+      setTimeout(() => setSelectedType(type), 50);
+    } else {
+      setSelectedType(type);
     }
   };
 
-
-  const handleNavbar = () => {
-    setMyNavbar(!myNavbar);
-  };
-  const gotoLogin = () => {
-    router.push("/login");
+  const handleDropdownItemClick = (callback) => {
+    showuserDetailss(false);
+    if (callback && typeof callback === "function") callback();
   };
 
-  const gotoProfile = () => {
-    router.push("/user-profile");
-  };
+  const handleNavbar = () => setMyNavbar(!myNavbar);
 
-  const gotoEcenters = () => {
-    router.push("/register-yourself");
-  };
-
-  const gotoEcentersRecords = () => {
-    router.push("/ecenter-record");
-  };
+  const gotoLogin = () => router.push("/login");
+  const gotoProfile = () => router.push("/user-profile");
+  const gotoEcenters = () => router.push("/register-yourself");
+  const gotoEcentersRecords = () => router.push("/ecenter-record");
 
   const handleLogout = () => {
     setUserInfo(null);
@@ -64,155 +74,98 @@ export default function CustomNavbar() {
     router.push("/login");
   };
 
-  // const handleClick = (type) => {
-  //   setSelectedType(type);
-  // };
-  const handleClick = (type) => {
-    if (selectedType === type) {
-      setSelectedType(null);
-      setTimeout(() => {
-        setSelectedType(type);
-      }, 50);
-    } else {
-      setSelectedType(type);
-    }
+  const changeLanguage = (lang) => {
+    const interval = setInterval(() => {
+      const select = document.querySelector(".goog-te-combo");
+      if (select) {
+        console.log("Changing language to", lang);
+        select.value = lang;
+        select.dispatchEvent(new Event("change"));
+        clearInterval(interval);
+      } else {
+        console.log("Waiting for select...");
+      }
+    }, 300);
   };
+
+
+
+  useEffect(() => {
+    const check = setInterval(() => {
+      if (document.querySelector(".goog-te-combo")) {
+        setTranslateLoaded(true);
+        clearInterval(check);
+      }
+    }, 300);
+    return () => clearInterval(check);
+  }, []);
+
+  if (loadingUser) return null;
+
+
+
 
   return (
     <section className="navbar">
       <div className="container">
         <nav className="nav">
           <div className="logo_div">
-            <img src="/assets/Frame.png" alt="" className="logo" />
-            {/* <p id="head" className="d-flex gap-1"><p style={{letterSpacing:"-2px"}}>AYA</p> SIR G!</p>
-            <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
+            <img src="/assets/Frame.png" alt="Logo" className="logo" />
           </div>
-          <div className="nav_items d-flex ">
+
+          <div className="nav_items d-flex">
             <ul className={`list-unstyled list ${myNavbar ? "active" : ""}`}>
-              <li onClick={() => setMyNavbar(false)}>
-                <Link href="/" className={pathname === "/" ? "active" : ""}>
-                  Home
-                </Link>
-              </li>
-              <li onClick={() => setMyNavbar(false)}>
-                <Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>
-                  About Us
-                </Link>
-              </li>
+              <li onClick={() => setMyNavbar(false)}><Link href="/" className={pathname === "/" ? "active" : ""}>Home</Link></li>
+              <li onClick={() => setMyNavbar(false)}><Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>About Us</Link></li>
               {userDetails?.user_type !== "e-center" && (
-                <li onClick={() => setMyNavbar(false)}>
-                  <Link
-                    href="/register-yourself"
-                    className={pathname === "/register-yourself" ? "active" : ""}
-                  >
-                    Register Yourself
-                  </Link>
-                </li>
+                <li onClick={() => setMyNavbar(false)}><Link href="/register-yourself" className={pathname === "/register-yourself" ? "active" : ""}>Register Yourself</Link></li>
               )}
-              <li onClick={() => setMyNavbar(false)}>
-                <Link href="/blogs" className={pathname === "/blogs" ? "active" : ""}>
-                  Blogs
-                </Link>
-              </li>
-              <li onClick={() => setMyNavbar(false)}>
-                <Link href="/faq" className={pathname === "/faq" ? "active" : ""}>
-                  FAQ
-                </Link>
-              </li>
-              <li onClick={() => setMyNavbar(false)}>
-                <Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""}>
-                  Contact Us
-                </Link>
-              </li>
+              <li onClick={() => setMyNavbar(false)}><Link href="/blogs" className={pathname === "/blogs" ? "active" : ""}>Blogs</Link></li>
+              <li onClick={() => setMyNavbar(false)}><Link href="/faq" className={pathname === "/faq" ? "active" : ""}>FAQ</Link></li>
+              <li onClick={() => setMyNavbar(false)}><Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""}>Contact Us</Link></li>
             </ul>
 
-
-            <Dropdown className="dropdown_language">
-              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                {
-                  <span>
-                    <CiGlobe className="web_globe_icon" /> EN
-                    <IoIosArrowDown className="drop_arrow" />
-                  </span>
-                }
+            {/* <Dropdown>
+              <Dropdown.Toggle>
+                <CiGlobe /> Language <IoIosArrowDown />
               </Dropdown.Toggle>
-
               <Dropdown.Menu>
-                <Dropdown.Item href="#/action-1">
-                  <span>
-                    Urdu
-                    <img src="/assets/pak_flag.png" alt="" />
-                  </span>
-                </Dropdown.Item>
-                {/* <Dropdown.Item href="#/action-2">
-                  <span>
-                    Pashto
-                    <img src="/assets/afg_flag.png" alt="" />
-                  </span>
-                </Dropdown.Item> */}
-                {/* <Dropdown.Item href="#/action-3">Something else</Dropdown.Item> */}
+                <Dropdown.Item onClick={() => changeLanguage("en")} >English</Dropdown.Item>
+                <Dropdown.Item onClick={() => changeLanguage("ur")} >Urdu</Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
+
+            <TranslateWrapper />
+
             <div className="info_div">
               <div className="head_section d-flex align-items-center gap-2">
-                {userToken ? (
-                  <Link href={'/user-wishlist'}><IoIosHeartEmpty className="icon_hearth ml_2" /></Link>
-                ) : (
-                  <Link href={'/login'}><IoIosHeartEmpty className="icon_hearth ml_2" /></Link>
-                )
-                }
-                {
-                  userInfo ? (
-                    <IoPersonCircle
-                  className="icon_person"
-                  onClick={handleuserDetailss}
-                />
-                  ) : ("")
-                }
-                <div className="name_div" onClick={handleuserDetailss}>
-                  {userToken ? (
-                    <p>{userDetails?.username}</p>
-                  ) : (
-                    <p onClick={gotoLogin}>Login</p>
-                  )}
+                <Link href={userToken ? "/user-wishlist" : "/login"}>
+                  <IoIosHeartEmpty className="icon_hearth ml_2" />
+                </Link>
+                {userInfo && <IoPersonCircle className="icon_person" onClick={() => showuserDetailss(!userDetailss)} />}
+                <div className="name_div" onClick={() => showuserDetailss(!userDetailss)}>
+                  {userToken ? <p>{userDetails?.username}</p> : <p onClick={gotoLogin}>Login</p>}
                 </div>
-                <div className="bars" onClick={handleNavbar}>
-                  <FaBars className="icon_bars" />
-                </div>
+                <div className="bars" onClick={handleNavbar}><FaBars className="icon_bars" /></div>
               </div>
               {userToken && (
-                <ul
-                  className={`user_details ${userDetailss ? "show_user_details" : ""
-                    }`}
-                >
+                <ul className={`user_details ${userDetailss ? "show_user_details" : ""}`}>
                   <li onClick={() => handleDropdownItemClick(gotoProfile)}>Profile</li>
-                  {
-                    userDetails?.user_type == "e-center" ? (
-                      <li onClick={() => handleDropdownItemClick(gotoEcentersRecords)}>E-center Records</li>
-                    ) : (
-                      <li onClick={() => handleDropdownItemClick(gotoEcenters)}>E-centers</li>
-                    )
-                  }
-                  {userDetails?.user_type == "handyman" && (
-                    <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>
-                      Individuals
-                    </li>
+                  {userDetails?.user_type === "e-center" ? (
+                    <li onClick={() => handleDropdownItemClick(gotoEcentersRecords)}>E-center Records</li>
+                  ) : (
+                    <li onClick={() => handleDropdownItemClick(gotoEcenters)}>E-centers</li>
                   )}
-
-                  {userDetails?.user_type == "provider" && (
-                    <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>
-                      Companies
-                    </li>
+                  {userDetails?.user_type === "handyman" && (
+                    <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>Individuals</li>
                   )}
-
-                  {userDetails?.user_type == "e-center" && (
+                  {userDetails?.user_type === "provider" && (
+                    <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>Companies</li>
+                  )}
+                  {userDetails?.user_type === "e-center" && (
                     <>
-                      <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>
-                        Individuals
-                      </li>
-                      <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>
-                        Companies
-                      </li>
+                      <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>Individuals</li>
+                      <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>Companies</li>
                     </>
                   )}
                   <li onClick={() => handleDropdownItemClick(handleLogout)}>Logout</li>
@@ -221,9 +174,7 @@ export default function CustomNavbar() {
             </div>
           </div>
         </nav>
-        <div className="display_form">
-          {selectedType && <Myform openedFrom={selectedType} setSelectedType={setSelectedType} />}
-        </div>
+        {selectedType && <Myform openedFrom={selectedType} setSelectedType={setSelectedType} />}
       </div>
     </section>
   );

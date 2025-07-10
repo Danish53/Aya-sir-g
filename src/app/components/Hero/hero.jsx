@@ -233,7 +233,7 @@ export default function Hero() {
 
         <div className="dropdown_parent d-flex justify-content-center align-items-center position-relative">
           {/* Category Dropdown */}
-          <div className="position-relative w-100 px-lg-0 px-2">
+          <div className="position-relative w-100 px-lg-0 px-md-0 px-2">
           {categoryError && (
             <div className="text-danger fw-semibold mb-1 error_class">Please select a category</div>
           )}
@@ -252,7 +252,7 @@ export default function Hero() {
           </div>
 
           {/* City Dropdown - always show */}
-          <div className="position-relative w-100 px-lg-0 px-2">
+          <div className="position-relative w-100 px-lg-0 px-md-0 px-2">
           {cityError && (
             <div className="text-danger fw-semibold mb-1 error_class">Please select a city</div>
           )}
@@ -296,7 +296,7 @@ export default function Hero() {
           </div>
 
           {/* Location Dropdown - always show */}
-          <div  className="position-relative w-100 px-lg-0 px-2">
+          <div  className="position-relative w-100 px-lg-0 px-md-0 px-2">
           {locationError && (
             <div className="text-danger fw-semibold mb-1 error_class">Please select a location</div>
           )}
@@ -327,7 +327,7 @@ export default function Hero() {
 
           </div>
 
-          <div className="w-100 px-lg-0 px-2">
+          <div className="w-100 px-lg-0 px-md-0 px-2">
             <button className="search_btn" onClick={handleSearch}>
               <IoSearch className="search_icon" />
             </button>

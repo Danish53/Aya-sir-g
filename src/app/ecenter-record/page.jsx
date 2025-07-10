@@ -115,7 +115,7 @@ export default function Page() {
                   </div>
                 ))}
 
-                <p className="my-2 fw-bold">Custom Date Range</p>
+                <p className="mt-4 fw-bold">Custom Date Range</p>
                 <div className="form_div date_div">
                   <label htmlFor="start_date">From:</label>
                   <input
@@ -139,7 +139,7 @@ export default function Page() {
               </div>
 
               <div className="box py-2 px-3">
-                <h3>User Type</h3>
+                <h3 className="mt-4">User Type</h3>
                 {["individual", "company"].map((type) => (
                   <div className="form_div" key={type}>
                     <input

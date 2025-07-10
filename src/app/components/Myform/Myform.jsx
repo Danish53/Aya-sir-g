@@ -11,9 +11,18 @@ import { toast, ToastContainer } from "react-toastify";
 
 export default function Myform({ openedFrom, setSelectedType }) {
   // console.log(openedFrom, setSelectedType, "role update");
+  const {
+    userDetails,
+    updateUserProfile,
+    loader,
+    apiCategory2,
+    cities,
+    locations,
+    getLocations
+  } = useContext(UserContext);
   const [imagePerview, setImagePreview] = useState("/assets/person_img.png");
   const [isRecording, setIsRecording] = useState(false);
-  const [audioURL, setAudioURL] = useState(null);
+  const [audioURL, setAudioURL] = useState(userDetails?.audio_sample);
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
 
@@ -24,18 +33,6 @@ export default function Myform({ openedFrom, setSelectedType }) {
 
   const cnicRegex = /^[0-9]{5}-[0-9]{7}-[0-9]$/;
   const [cnicError, setCnicError] = useState("");
-
-
-  const {
-    userDetails,
-    updateUserProfile,
-    loader,
-    apiCategory2,
-    cities,
-    locations,
-    getLocations
-  } = useContext(UserContext);
-
 
   const [formData, setFormData] = useState({
     profile_picture: "",

@@ -197,3 +197,18 @@ p#forgot {
     margin-top: 105px;
   }
 }
+
+
+
+/* Remove Google Translate top bar and badges */
+iframe.goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; }
+
+/* .goog-logo-link,
+.goog-te-gadget span {
+  display: none !important;
+} */
+.goog-te-gadget {
+  color: transparent !important;
+}
+
