@@ -20,7 +20,7 @@
   flex: 1;
   background-color: #d4d2d2;
   text-align: center;
-  color: white;
+  color: #424242;
   cursor: pointer;
 }
 .button_comp .active {

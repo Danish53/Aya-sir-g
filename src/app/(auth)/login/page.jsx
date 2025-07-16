@@ -6,11 +6,18 @@ import Button from "react-bootstrap/Button";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { UserContext } from "@/app/userContext";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function page() {
   const { userInfo, setUserInfo, fetchUserProfile } = useContext(UserContext);
   const [loader, setLoader] = useState(false);
   const router = useRouter();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
 
   const [formData, setformData] = useState({
     email: "",
@@ -95,14 +102,41 @@ export default function page() {
                 </label>
                 <br />
 
-                <input
+                {/* <input
                   type="password"
                   className="input_auth"
                   placeholder="Password"
                   name="password"
                   onChange={handleChange}
                   value={formData.password}
-                />
+                /> */}
+                <div className="password-wrapper" style={{ position: "relative" }}>
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    className="input_auth"
+                    placeholder="Enter Password"
+                    name="password"
+                    // id="password"
+                    onChange={handleChange}
+                    value={formData.password}
+                    required
+                  />
+                  <span
+                    onClick={togglePassword}
+                    style={{
+                      position: "absolute",
+                      right: "48px",
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      cursor: "pointer",
+                      color: "#888",
+                    }}
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+
+
                 <br />
               </div>
               <button className="sign_in" type="submit" disabled={loader}>

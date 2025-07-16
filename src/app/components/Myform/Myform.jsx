@@ -519,8 +519,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
 
                 </div>
 
-                {
-                  openedFrom == "handyman" ? (
+                {openedFrom === "handyman" && (
                     <div>
                       <label htmlFor="interested_locations">Interested Locations</label>
                       <MultiSelect
@@ -533,7 +532,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
                         isDisabled={!locations.length}
                       />
                     </div>
-                  ) : ("")
+                  )
                 }
 
 
@@ -549,14 +548,11 @@ export default function Myform({ openedFrom, setSelectedType }) {
                   <label htmlFor="description">Description</label>
                   <input type="text" className="input_auth" name="description" onChange={handleChange} value={formData.description} />
                 </div>
-                {
-                  openedFrom == "handyman" ? (
+                {openedFrom === "handyman" && (
                     <div>
                       <label htmlFor="disability_status">Disability Status</label>
                       <input type="text" className="input_auth" name="disability_status" onChange={handleChange} value={formData.disability_status} />
                     </div>
-                  ) : (
-                    ""
                   )
                 }
               </div>
@@ -596,7 +592,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
 
               <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-                <Button variant="primary" type="submit">{loader ? (
+                <Button className="btn_primary" type="submit">{loader ? (
                   <>
                     <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                     Updated...

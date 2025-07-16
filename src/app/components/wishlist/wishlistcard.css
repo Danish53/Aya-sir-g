@@ -5,6 +5,7 @@
   padding: 10px 14px;
   font-family: var(--font-poppins), sans-serif;
   background: white;
+  box-shadow: 4px 4px 7px rgba(0, 0, 0, .5);
 }
 .wishlistcard .info_div {
   display: flex;

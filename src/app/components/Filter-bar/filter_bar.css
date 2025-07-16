@@ -41,10 +41,10 @@ p#filter_heading {
   font-size: 18px;
   color: var(--filter-heading_color);
 }
-.filter_bar .box.city label {
+/* .filter_bar .box.city label {
   font-size: 23px;
   font-weight: bold;
-}
+} */
 
 
 @media screen and (max-width: 768px) {

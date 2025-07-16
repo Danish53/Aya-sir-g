@@ -7,19 +7,19 @@ export default function page() {
       <div className="container py-3">
         <h3>Slogan: Your Trusted Help, Everywhere</h3>
         <p>
-          AYA Sir G, is a platform designed to connect blue-collar job seekers
+          <b>AYA Sir G</b>, is a platform designed to connect blue-collar job seekers
           with users in need of various services, including maids, helpers,
           plumbers, chefs, drivers, security guards, carpenters, and more. Our
           mission is to provide a user-friendly platform that facilitates the
           hiring of trusted individuals for domestic and commercial services.
         </p>
-        <h1>About - AYA Sir G!</h1>
+        <h4>About AYA Sir G!</h4>
         <p>
           At AYA Sir G, we understand the importance of trust when inviting
           someone into your home. Therefore, we prioritize the verification of
           all service providers on our platform. Each individual, whether a man
           or woman, undergoes a thorough verification process that includes
-          essential data such as CNIC (Computerized National Identity Card),
+          essential data such as CNIC <span>(Computerized National Identity Card)</span>,
           photographs, addresses, and registered contact numbers. This ensures
           that users can confidently choose from verified profiles when seeking
           assistance.
@@ -40,7 +40,7 @@ export default function page() {
           utmost trustworthiness of those working in your home.
         </p>
         <p>
-          Our slogan, "Your Trusted Help, Anywhere," encapsulates our dedication
+          Our slogan, <b>"Your Trusted Help, Anywhere,"</b> encapsulates our dedication
           to providing reliable services at your convenience. We strive to be
           the go-to platform where users can find trustworthy assistance from
           verified professionals.

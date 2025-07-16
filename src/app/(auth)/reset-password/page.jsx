@@ -4,9 +4,22 @@ import React, { useState } from "react";
 import "./reset-password.css";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function page() {
   const router = useRouter();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+
+  const togglePasswordConfirm = () => {
+    setShowPasswordConfirm((prev) => !prev);
+  };
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -72,26 +85,82 @@ export default function page() {
           <div>
             <label htmlFor="password" className="label_auth">New Password</label>
             <br />
-            <input
+            {/* <input
               type="password"
               className="input_auth"
               placeholder="New Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            />
+            /> */}
+            <div className="password-wrapper" style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="input_auth"
+                placeholder="New Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              // name="password"
+              // id="password"
+              // onChange={handleChange}
+              // value={formData.password}
+              // required
+              />
+              <span
+                onClick={togglePassword}
+                style={{
+                  position: "absolute",
+                  right: "15px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#888",
+                }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+
             <br />
           </div>
 
           <div>
             <label htmlFor="confirmPassword" className="label_auth">Confirm Password</label>
             <br />
-            <input
+            {/* <input
               type="password"
               className="input_auth"
               placeholder="Confirm Password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-            />
+            /> */}
+            <div className="password-wrapper" style={{ position: "relative" }}>
+              <input
+                type={showPasswordConfirm ? "text" : "password"}
+                className="input_auth"
+                placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              // name="password"
+              // id="password"
+              // onChange={handleChange}
+              // value={formData.password}
+              // required
+              />
+              <span
+                onClick={togglePasswordConfirm}
+                style={{
+                  position: "absolute",
+                  right: "15px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#888",
+                }}
+              >
+                {showPasswordConfirm ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+
             <br />
           </div>
 

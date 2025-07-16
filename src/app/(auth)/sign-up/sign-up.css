@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   color: black !important;
+  margin-top: 30px;
 }
 .sign_up .input_auth {
   width: 100%;
@@ -51,7 +52,7 @@
 }
 .sign_up .checkbox_field {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: center;
   gap: 6px;
   color: black;
@@ -103,6 +104,10 @@ span.terms {
   .sign_up .bg_white {
     width: 95%;
   }
+  .sign_up .input_one_row {
+  flex-direction: column;
+  gap: 0px;
+}
 }
 @media screen and (max-width: 470px) {
   .checkbox_field label {

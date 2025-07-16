@@ -154,7 +154,12 @@ export default function Filter_bar() {
   const [showAll, setShowAll] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false); // <-- 📌 Add mobile sidebar toggle
 
-  const visibleCities = showAll ? cities : cities.slice(0, 10);
+  const visibleCities = showAll ? cities : cities.slice(0, 6);
+
+  const [showAllCat, setShowAllCat] = useState(false);
+
+  // Toggle between showing first 5 and all categories
+  const displayedCategories = showAllCat ? apiCategory2 : apiCategory2.slice(0, 6);
 
   const updateURL = (newFilters) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -220,7 +225,7 @@ export default function Filter_bar() {
         {/* Gender Filter */}
         <div className="box py-2 px-3">
           <h3>Gender</h3>
-          {["male", "female"].map((g) => (
+          {["male", "female", "Both"].map((g) => (
             <div className="form_div" key={g}>
               <input
                 type="checkbox"
@@ -238,7 +243,7 @@ export default function Filter_bar() {
         {/* Age Filter */}
         <div className="box py-2 px-3">
           <h3>Age</h3>
-          {["20-35", "35-50", "50+"].map((ageRange) => (
+          {["18-35", "35-50", "50+"].map((ageRange) => (
             <div className="form_div" key={ageRange}>
               <input
                 type="checkbox"
@@ -254,19 +259,27 @@ export default function Filter_bar() {
         {/* Category Filter */}
         <div className="box py-2 px-3">
           <h3>Categories</h3>
-          {apiCategory2?.map((cat) => (
-            <div className="form_div" key={cat.id}>
-              <input
-                type="checkbox"
-                id={`category_${cat.id}`}
-                checked={filters.category_id === String(cat.id)}
-                onChange={() =>
-                  handleSingleSelect("category_id", String(cat.id))
-                }
-              />
-              <label htmlFor={`category_${cat.id}`}>{cat.name}</label>
-            </div>
-          ))}
+          {displayedCategories?.map((cat) => (
+        <div className="form_div" key={cat.id}>
+          <input
+            type="checkbox"
+            id={`category_${cat.id}`}
+            checked={filters.category_id === String(cat.id)}
+            onChange={() => handleSingleSelect("category_id", String(cat.id))}
+          />
+          <label htmlFor={`category_${cat.id}`}>{cat.name}</label>
+        </div>
+      ))}
+
+      {apiCategory2.length > 6 && (
+        <button
+          type="button"
+          onClick={() => setShowAllCat((prev) => !prev)}
+          className="see-more-btn"
+        >
+          {showAllCat ? "See Less" : "See More"}
+        </button>
+      )}
         </div>
 
         {/* City Filter */}
@@ -284,7 +297,7 @@ export default function Filter_bar() {
             </div>
           ))}
 
-          {cities.length > 10 && (
+          {cities.length > 6 && (
             <button
               className="see-more-btn"
               onClick={() => setShowAll((prev) => !prev)}

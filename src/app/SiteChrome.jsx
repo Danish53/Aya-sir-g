@@ -11,7 +11,7 @@ export default function SiteChrome({ position }) {
     pathname === "/register" ||
     // pathname === "/contact-us" ||
     pathname === "/forgot-password" ||
-    pathname === "/sign-up" ||
+    // pathname === "/sign-up" ||
     pathname === "/otp" ||
     pathname === "/register-service-provider" ||
     pathname === "/reset-password" ||

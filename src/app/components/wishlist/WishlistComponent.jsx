@@ -20,8 +20,16 @@ export default function WishlistComponent({data}) {
         <div className="single_div">
           <p className="field">Current Address: {data?.user_city || ""}</p>
         </div>
-        <Link href={`/profile-details/${data?.id}`}>
-        </Link>
+        {/* <Link href={`/profile-details/${data?.id}`}>
+        </Link> */}
+        <div className="verified_div mt-4 mb-2">
+          {data && (
+            <button className="verified_btn">
+              Verified <FaCheck className="tik_icon" />
+            </button>
+          )}
+          <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
+        </div>
       </div>
     </div>
   );

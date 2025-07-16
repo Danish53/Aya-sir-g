@@ -115,6 +115,12 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 form {
   width: 80%;
 }
+
+.right_div p{
+  color: var(--red-color);
+}
+
+
 @media screen and (max-width: 1200px) {
   .container_width {
     width: 100%;
@@ -146,9 +152,9 @@ form {
 }
 
 @media screen and (max-width: 992px) {
-  .contact-us .right_div {
+  /* .contact-us .right_div {
     display: none;
-  }
+  } */
   .create_new_account {
     display: flex;
     cursor: pointer;
@@ -189,4 +195,23 @@ form {
   p#head {
     font-size: 14px;
   }
+  .sm_two{
+    width: 50%;
+  }
+  .right_div h5{
+  font-size: 14px;
+}
+.right_div p{
+  font-size: 12px;
+}
+
+}
+
+@media (max-width: 992px) {
+  .reverse_sec{
+    flex-direction: column-reverse;
+  }
+  .contact-us {
+  height: 100%;
+}
 }

@@ -72,6 +72,7 @@ export default function CustomNavbar() {
     localStorage.clear();
     showuserDetailss(false);
     router.push("/login");
+    setMyNavbar(false)
   };
 
   const changeLanguage = (lang) => {
@@ -102,6 +103,9 @@ export default function CustomNavbar() {
 
   if (loadingUser) return null;
 
+  const handleClickPage = (type) => {
+    router.push(`/e-center?type=${type}`);
+  };
 
 
 
@@ -110,7 +114,7 @@ export default function CustomNavbar() {
       <div className="container">
         <nav className="nav">
           <div className="logo_div">
-            <img src="/assets/Frame.png" alt="Logo" className="logo" />
+            <Link href={'/'}><img src="/assets/Frame.png" alt="Logo" className="logo" /></Link>
           </div>
 
           <div className="nav_items d-flex">
@@ -123,6 +127,23 @@ export default function CustomNavbar() {
               <li onClick={() => setMyNavbar(false)}><Link href="/blogs" className={pathname === "/blogs" ? "active" : ""}>Blogs</Link></li>
               <li onClick={() => setMyNavbar(false)}><Link href="/faq" className={pathname === "/faq" ? "active" : ""}>FAQ</Link></li>
               <li onClick={() => setMyNavbar(false)}><Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""}>Contact Us</Link></li>
+              <li className="d-block d-md-none" onClick={() => setMyNavbar(false)}>
+                {
+                userToken ? (
+                  <p><Link href={"/user-profile"}><IoPersonCircle /> {userDetails?.first_name}</Link></p>
+                ) : (
+                  ""
+                )
+              }
+              </li>
+              <li className="d-block d-md-none">
+                {userToken ? (
+                  <p onClick={() => handleDropdownItemClick(handleLogout)}><Link href={'/login'}>Logout</Link></p>
+                ) : (
+                  <p onClick={gotoLogin}><Link href={'/login'}>Login</Link></p>
+                )}
+              </li>
+
             </ul>
 
             {/* <Dropdown>
@@ -144,7 +165,7 @@ export default function CustomNavbar() {
                 </Link>
                 {userInfo && <IoPersonCircle className="icon_person" onClick={() => showuserDetailss(!userDetailss)} />}
                 <div className="name_div" onClick={() => showuserDetailss(!userDetailss)}>
-                  {userToken ? <p>{userDetails?.username}</p> : <p onClick={gotoLogin}>Login</p>}
+                  {userToken ? <p>{userDetails?.first_name}</p> : <p onClick={gotoLogin}>Login</p>}
                 </div>
                 <div className="bars" onClick={handleNavbar}><FaBars className="icon_bars" /></div>
               </div>
@@ -162,10 +183,16 @@ export default function CustomNavbar() {
                   {userDetails?.user_type === "provider" && (
                     <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>Companies</li>
                   )}
-                  {userDetails?.user_type === "e-center" && (
+                  {/* {userDetails?.user_type === "e-center" && (
                     <>
                       <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>Individuals</li>
                       <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>Companies</li>
+                    </>
+                  )} */}
+                  {userDetails?.user_type === "e-center" && (
+                    <>
+                      <li onClick={() => handleDropdownItemClick(() => handleClickPage("handyman"))}>Individuals</li>
+                      <li onClick={() => handleDropdownItemClick(() => handleClickPage("provider"))}>Companies</li>
                     </>
                   )}
                   <li onClick={() => handleDropdownItemClick(handleLogout)}>Logout</li>

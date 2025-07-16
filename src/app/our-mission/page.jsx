@@ -49,8 +49,8 @@ export default function page() {
           meaningful impact on the lives of countless individuals.
         </p>
         <ul>
-          <li>+923</li>
-          <li>Help@ayasirg.com</li>
+          <li>0329-2927474</li>
+          <li>ecenter@ayasirg.com</li>
         </ul>
       </div>
     </section>

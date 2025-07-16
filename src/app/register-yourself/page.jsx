@@ -34,24 +34,24 @@ export default function page() {
               <p>
                 If you're a handyman service company, Aya-Sir-G is your strategic partner for sustainable growth. Our robust rating and comment system helps you build invaluable client trust, enhance your brand's reputation, and attract more clients through authentic, positive feedback. Leverage our platform to reduce reliance on expensive commercial spaces like shops and warehouses; a strong profile here will be your primary source for new orders. Join us to expand your market presence and streamline your service delivery, embracing technology as the key to future growth.</p>            </div>
 
-            <p>Ready to Get Started?
-              For personalized assistance or to begin your registration, please don't hesitate to reach out.
+            <h3>Ready to Get Started?</h3>
+              <p>For personalized assistance or to begin your registration, please don't hesitate to reach out.
             </p>
             <div className="card_1 mt-3 mb-2 p-3">
               <div className="flex_div d-flex align-items-center">
                 <h3>For E-center Registration:</h3>
                 <p>E_center@ayasirg.com</p>
               </div>
-              <div className="flex_div d-flex align-items-center">
+              {/* <div className="flex_div d-flex align-items-center">
                 <h3>Contact us:</h3>
                 <p>help@ayasirg.com</p>
-              </div>
-              <div className="flex_div d-flex align-items-center">
-                <h3>Phone Number:</h3>
-                <p>+923098574093 </p>
+              </div> */}
+              <div className="flex_div d-flex align-items-center mt-3">
+                <h3>Call Us Directly:</h3>
+                <p>03292927474</p>
               </div>
             </div>
-            <p>Send a Message or Voice Note: (Mention if you have a specific platform for this, e.g., WhatsApp, or if it's via a website contact form)
+            <p>Send a Message or Voice Note: (Mention if you have a specific platform for this, e.g., WhatsApp, or if it's via a website contact form) <br/>
               Our team in 15-C NFC Ph#1, Lahore, is committed to reaching out to you at the earliest convenience.</p>
             {/* <div className="card_1 mt-3 mb-2 mb-2 p-3">
               <div className="flex_div d-flex align-items-baseline">

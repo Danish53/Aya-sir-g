@@ -5,9 +5,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function page() {
   const [loader, setLoader] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -140,7 +148,7 @@ export default function page() {
           </div>
 
           <div className="input_one_row">
-            <input
+            {/* <input
               type="password"
               className="input_auth"
               placeholder="Create Password"
@@ -149,7 +157,32 @@ export default function page() {
               onChange={handleChange}
               value={formData.password}
               required
-            />
+            /> */}
+            <div className="password-wrapper" style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="input_auth"
+                placeholder="Create Password"
+                name="password"
+                id="password"
+                onChange={handleChange}
+                value={formData.password}
+                required
+              />
+              <span
+                onClick={togglePassword}
+                style={{
+                  position: "absolute",
+                  right: "15px",
+                  top: "38%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#888",
+                }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
             <input
               type="text"
               className="input_auth"

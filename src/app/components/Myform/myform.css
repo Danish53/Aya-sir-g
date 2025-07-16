@@ -4,38 +4,46 @@
   width: 100%;
   position: relative;
 }
+
 .user_profile .profile_flex {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
+
 .user_profile .container {
   margin: 0 auto !important;
 }
+
 .user_profile .name_div {
   align-items: center;
   justify-content: center;
   gap: 40px;
 }
+
 .user_profile .name_div .edit_icon {
   font-size: 24px;
   cursor: pointer;
   cursor: pointer;
 }
+
 .user_profile .profile_img_div {
   height: 355px;
   width: 355px;
   border-radius: 50%;
 }
+
 .user_profile .profile_img_div p#city {
   color: #424242;
   margin-right: 30px;
 }
+
 .user_profile .profile_img_div {
   width: 100%;
   height: auto;
 }
+
 .user_profile .profile_img_div h3 {
   font-size: 25px;
   color: var(--red-color);
@@ -54,21 +62,26 @@
 .user_profile .profile_img_div p {
   font-size: 17px;
 }
+
 .user_profile .flex_div {
   gap: 10px;
   text-align: left;
 }
+
 .user_profile .flex_div h3,
 .user_profile .flex_div p {
   margin-bottom: 0;
 }
+
 .user_profile .flex_div h3 {
   font-size: 20px;
   font-weight: bold;
 }
+
 .user_profile .flex_div p {
   font-size: 20px;
 }
+
 .user_profile .new_address_btn {
   background-color: var(--red-color);
   color: white;
@@ -95,6 +108,7 @@
   align-items: center;
   gap: 20px;
 }
+
 .modal-body .input_one_row {
   justify-content: space-between;
   align-items: center;
@@ -102,9 +116,11 @@
   display: flex;
   width: 100%;
 }
+
 .input_one_row div {
   width: 50%;
 }
+
 .modal-body .input_auth {
   margin-bottom: 11px;
   box-shadow: 4px 4px 10px #00000040;
@@ -125,6 +141,7 @@
   align-items: center;
   justify-content: space-between;
 }
+
 input#image,
 input#audio {
   padding-top: 5px;
@@ -135,12 +152,15 @@ input#audio {
   max-height: 70vh;
   overflow-y: auto;
 }
+
 .model_body img {
   width: 120px;
 }
+
 form .image_div {
   position: relative;
 }
+
 form .image_div .edit_icon {
   color: white;
   font-size: 30px;
@@ -149,35 +169,63 @@ form .image_div .edit_icon {
   left: 50%;
   transform: translateX(-50%);
 }
+
 .audio_icon {
   font-size: 30px;
   cursor: pointer;
 }
+
 .audio_class {
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-between;
 }
+
 .input_row_full {
   width: 100%;
 }
+
 .listen_audio {
   display: flex;
   align-items: center;
   gap: 20px;
 }
+
 .user_profile select {
   width: 100%;
 }
+
 .pad {
   padding-top: 6px !important;
   padding-left: 6px !important;
 }
+
+.audio_class .btn-primary {
+  background-color: var(--red-color);
+  border: 1px solid var(--red-color);
+}
+
+.audio_class .btn-primary:hover {
+  background-color: var(--red-color);
+  border: 1px solid var(--red-color);
+}
+
+.btn_primary {
+  background-color: var(--red-color) !important;
+  border: 1px solid var(--red-color) !important;
+}
+
+.btn_primary:hover {
+  background-color: var(--red-color) !important;
+  border: 1px solid var(--red-color) !important;
+}
+
 @media screen and (max-width: 768px) {
   .user_profile .flex_div p {
     font-size: 17px;
   }
+
   .user_profile .flex_div h3 {
     font-size: 17px;
     font-weight: bold;
@@ -188,12 +236,27 @@ form .image_div .edit_icon {
   .user_profile .flex_div p {
     font-size: 15px;
   }
+
   .user_profile .flex_div h3 {
     font-size: 15px;
     font-weight: bold;
   }
+
   .user_profile .new_address_btn {
     font-size: 14px;
+  }
+
+  .modal-body .input_one_row {
+    flex-direction: column;
+    gap: 0px;
+  }
+
+  .input_one_row div {
+    width: 80%;
+  }
+
+  .audio_class {
+    flex-direction: column;
   }
 }
 
@@ -225,17 +288,16 @@ form .image_div .edit_icon {
 }
 
 .rmsc .dropdown-heading {
-    /* width: 100% !important; */
-    border: none !important;
+  /* width: 100% !important; */
+  border: none !important;
 }
 
 .rmsc .dropdown-container {
   width: 100% !important;
-    background: none !important;
-    border: none !important;
-    border-radius: 0px;
-    min-width: 100% !important;
-
+  background: none !important;
+  border: none !important;
+  border-radius: 0px;
+  min-width: 100% !important;
 }
 
 /* .dropdown-content>div {
@@ -251,10 +313,10 @@ form .image_div .edit_icon {
 }
 
 .rmsc .dropdown-container:focus-within {
-    box-shadow: none !important;
-    border: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
-.rmsc{
+.rmsc {
   --rmsc-main: none;
 }

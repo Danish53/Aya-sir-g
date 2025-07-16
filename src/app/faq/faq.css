@@ -27,10 +27,12 @@
 }
 .faq_sec .accordion-button:after {
   background-image: url("/assets/plus.png") !important;
+  padding: 12px;
 }
 
 .faq_sec .accordion-button:not(.collapsed):after {
   background-image: url("/assets/minus.png") !important;
+  padding: 12px;
 }
 .faq_sec .accordion-button:not(.collapsed) {
   background-color: white;

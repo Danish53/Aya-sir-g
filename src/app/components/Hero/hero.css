@@ -19,8 +19,8 @@
 .hero_section h1.hero_heading {
   color: white;
   font-weight: 800;
-  font-size: 60px;
-  line-height: 90px;
+  font-size: 48px;
+  line-height: 70px;
 }
 
 .hero_section p {
@@ -96,7 +96,8 @@
 }
 
 .list_menu {
-  height: 130px;
+  height: 256px;
+  border-radius: 0px;
   overflow-y: scroll;
 }
 
@@ -173,12 +174,12 @@
 
 @media screen and (max-width: 576px) {
   .hero_section p {
-    font-size: 16px;
+    font-size: 18px;
     text-align: center;
   }
 
   .hero_section h1.hero_heading {
-    font-size: 32px;
+    font-size: 34px;
     line-height: 48px;
     text-align: center;
   }
@@ -187,7 +188,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 16px;
+    gap: 5px;
     margin-top: 20px;
   }
 

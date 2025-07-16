@@ -28,7 +28,7 @@ export default function MyFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-lg-2 col-md-6 col-sm-12">
+          <div className="col-lg-3 col-md-6 col-sm-12">
             <p className="footer_heading">SUPPORT</p>
             <ul className="list-unstyled">
               {/* <li>
@@ -42,6 +42,12 @@ export default function MyFooter() {
           <div className="col-lg-3 col-md-6 col-sm-12">
             <p className="footer_heading">BUSINESS</p>
             <ul className="list-unstyled">
+              <li>
+                <Link href="/register-yourself">Register Yourself</Link>
+              </li>
+              <li>
+                <Link href="/market-business">Market Yourself</Link>
+              </li>
               {/* <li>
                 <a href="#">Advertise with Us</a>
               </li>
@@ -53,10 +59,10 @@ export default function MyFooter() {
               </li> */}
             </ul>
           </div>
-          <div className="col-lg-4 col-md-6 col-sm-12">
-            <p className="footer_heading">
+          <div className="col-lg-3 col-md-6 col-sm-12">
+            {/* <p className="footer_heading">
               Be the first to know about new jobs
-            </p>
+            </p> */}
             <form>
               <div className="input_div">
                 <input
@@ -92,8 +98,8 @@ export default function MyFooter() {
             <img
               src="/assets/facebook.png"
               alt="Facebook"
-              width="22"
-              height="22"
+              width="24"
+              height="24"
             />
             <p style={{ margin: 0 }}>Facebook</p>
           </Link>
@@ -126,8 +132,8 @@ export default function MyFooter() {
             <img
               src="/assets/twitter.png"
               alt="Twitter"
-              width="22"
-              height="22"
+              width="24"
+              height="24"
             />
             <p style={{ margin: 0 }}>Twitter</p>
           </Link>
@@ -137,8 +143,8 @@ export default function MyFooter() {
             <img
               src="/assets/linkedin.png"
               alt="LinkedIn"
-              width="22"
-              height="22"
+              width="24"
+              height="24"
             />
             <p style={{ margin: 0 }}>LinkedIn</p>
           </Link>

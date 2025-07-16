@@ -81,6 +81,11 @@ footer {
   cursor: pointer;
   color: white;
   text-decoration: none;
+  transition: all 1s ease-in-out;
+}
+
+.footer .social_inner:hover img {
+  transform: scale(1.2);
 }
 
 .social_inner img {

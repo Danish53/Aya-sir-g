@@ -1,0 +1,145 @@
+.myform_page {
+  font-family: var(--font-poppins), sans-serif;
+  /* background-color: #f6f6f6; */
+  padding: 30px;
+  padding-top: 140px;
+}
+
+.myform_page h2 {
+  font-weight: 600;
+  color: #b50000;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+form .image_div {
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+form .image_div img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #b50000;
+}
+
+form .image_div .edit_icon {
+  color: white;
+  font-size: 28px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #b50000;
+  border-radius: 50%;
+  padding: 6px;
+}
+
+.input_one_row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.input_one_row input,
+.input_one_row select,
+.input_row_full input,
+.input_row_full select {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #fff;
+}
+
+.input_row_full {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input[type="file"] {
+  padding: 5px;
+}
+
+.audio_class {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.audio_icon {
+  font-size: 30px;
+  color: #b50000;
+}
+
+.listen_audio {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #b50000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+form button:hover {
+  background-color: #a00000;
+}
+
+/* MultiSelect styles */
+.rmsc {
+  --rmsc-main: #b50000;
+}
+
+.rmsc .dropdown-container {
+  width: 100% !important;
+  background: none !important;
+  border: 1px solid #ccc !important;
+  border-radius: 8px;
+  min-width: 100% !important;
+}
+
+.rmsc .dropdown-heading {
+  border: none !important;
+  padding: 10px;
+}
+
+.rmsc .dropdown-container:focus-within {
+  box-shadow: none !important;
+  border: 1px solid #b50000 !important;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .input_one_row {
+    flex-direction: column;
+  }
+  .input_one_row div{
+    width: 100% !important;
+  }
+}
+
