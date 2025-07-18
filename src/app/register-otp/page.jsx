@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./otp.css";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
+import Link from "next/link";
 
 export default function page() {
   const router = useRouter();
@@ -100,7 +101,8 @@ export default function page() {
         </form>
 
         <div className="logo_div mt-3">
-          <img src="/assets/logo_header.png" alt="logo" className="logo" />
+          <Link href={'/'}>
+          <img src="/assets/logo_header.png" alt="logo" className="logo" /></Link>
           <p id="head">AYA SIR G!</p>
           <p id="descri">YOUR TRUSTED EVERYWHERE</p>
         </div>

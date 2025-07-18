@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import "./otp.css";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
+import Link from "next/link";
 
 export default function page() {
   const router = useRouter();
