@@ -213,7 +213,7 @@ export default function Filter_bar() {
         className={`boxes_parent_div ${mobileOpen ? "active" : ""}`}
       >
         {/* Close button for mobile */}
-        <div style={{ textAlign: "right" }}>
+        <div className="d-flex justify-content-end">
           <button
             className="see-more-btn close_btn" 
             onClick={() => setMobileOpen(false)}

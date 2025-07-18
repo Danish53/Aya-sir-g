@@ -133,6 +133,13 @@ form button:hover {
   border: 1px solid #b50000 !important;
 }
 
+.rmsc .dropdown-container {
+  color: black !important;
+  background-color: white !important;
+}
+
+
+
 /* Responsive */
 @media screen and (max-width: 768px) {
   .input_one_row {

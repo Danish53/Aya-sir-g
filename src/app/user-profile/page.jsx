@@ -11,9 +11,12 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { toast, ToastContainer } from "react-toastify";
 
 export default function Page() {
-  const [imagePerview, setImagePreview] = useState("/assets/person_img.png");
 
   const { userDetails, updateUserProfile } = useContext(UserContext);
+  // console.log(userDetails?.profile_image, "oooooo");
+  const [imagePerview, setImagePreview] = useState(userDetails?.profile_image);
+  // console.log(imagePerview, "imagePerview");
+  // console.log(userDetails, ",,..,");
   // const [isRecording, setIsRecording] = useState(false);
   // const [audioURL, setAudioURL] = useState(null);
   // const mediaRecorderRef = useRef(null);
@@ -113,7 +116,13 @@ export default function Page() {
                   />
                   <div className="name_div d-flex">
                     <h3>{userDetails?.username}</h3>
-                    <FaEdit className="edit_icon" onClick={handleShow} />
+                    {
+                      userDetails?.user_type == "e-center" ? (
+                        ""
+                      ) : (
+                        <FaEdit className="edit_icon" onClick={handleShow} />
+                      )
+                    }
                   </div>
                   <p id="city">{userDetails?.user_city}</p>
                 </>
@@ -168,10 +177,9 @@ export default function Page() {
               style={{ cursor: "pointer" }}
             >
               <img
-                // src="/assets/person_img.png"
-                src={imagePerview}
+                src={imagePerview || "/assets/profile.png"}
                 alt="Profile"
-                className="w-32 h-32 rounded-full object-cover"
+                className="w-32 h-32 rounded-full object-cover" style={{borderRadius:"50%", border:"1px solid #B50000"}}
               />
               <FaEdit className="edit_icon" />
             </div>

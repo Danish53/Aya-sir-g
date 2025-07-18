@@ -19,6 +19,7 @@ export default function CustomNavbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { userInfo, setUserInfo, loadingUser, userDetails } = useContext(UserContext);
+  console.log(userInfo, "pic....")
 
   const [selectedType, setSelectedType] = useState(null);
   const [userDetailss, showuserDetailss] = useState(false);
@@ -129,12 +130,12 @@ export default function CustomNavbar() {
               <li onClick={() => setMyNavbar(false)}><Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""}>Contact Us</Link></li>
               <li className="d-block d-md-none" onClick={() => setMyNavbar(false)}>
                 {
-                userToken ? (
-                  <p><Link href={"/user-profile"}><IoPersonCircle /> {userDetails?.first_name}</Link></p>
-                ) : (
-                  ""
-                )
-              }
+                  userToken ? (
+                    <p><Link href={"/user-profile"}><img className="icon_person_pic" src={userInfo?.profile_image} alt="profile" />  {userDetails?.first_name}</Link></p>
+                  ) : (
+                    ""
+                  )
+                }
               </li>
               <li className="d-block d-md-none">
                 {userToken ? (
@@ -163,7 +164,8 @@ export default function CustomNavbar() {
                 <Link href={userToken ? "/user-wishlist" : "/login"}>
                   <IoIosHeartEmpty className="icon_hearth ml_2" />
                 </Link>
-                {userInfo && <IoPersonCircle className="icon_person" onClick={() => showuserDetailss(!userDetailss)} />}
+                {/* {userInfo && <IoPersonCircle className="icon_person" onClick={() => showuserDetailss(!userDetailss)} />} */}
+                {userInfo && <img src={userInfo?.profile_image} className="icon_person_pic" onClick={() => showuserDetailss(!userDetailss)} alt="profile" />}
                 <div className="name_div" onClick={() => showuserDetailss(!userDetailss)}>
                   {userToken ? <p>{userDetails?.first_name}</p> : <p onClick={gotoLogin}>Login</p>}
                 </div>

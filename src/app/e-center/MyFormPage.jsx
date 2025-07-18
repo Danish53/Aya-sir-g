@@ -37,7 +37,7 @@
 //     const [selectedFields, setSelectedFields] = useState([]);
 
 //     const [formData, setFormData] = useState({
-//         profile_picture: "",
+//         profile_image: "",
 //         first_name: "",
 //         last_name: "",
 //         username: "",
@@ -111,7 +111,7 @@
 //         const reader = new FileReader();
 //         reader.onloadend = () => setImagePreview(reader.result);
 //         reader.readAsDataURL(file);
-//         setFormData((prev) => ({ ...prev, profile_picture: file }));
+//         setFormData((prev) => ({ ...prev, profile_image: file }));
 //     };
 
 //     const handleImageChange = (e) => {
@@ -211,7 +211,7 @@
 //                     <img src={imagePerview} alt="Profile" className="w-32 h-32 rounded-full object-cover" />
 //                     <FaEdit className="edit_icon" />
 //                 </div>
-//                 <input type="file" name="profile_picture" accept="image/*" onChange={handleFileChange} ref={fileInputRef} style={{ display: "none" }} />
+//                 <input type="file" name="profile_image" accept="image/*" onChange={handleFileChange} ref={fileInputRef} style={{ display: "none" }} />
 
 //                 <div className="input_one_row">
 //                     <input name="first_name" placeholder="First Name" onChange={handleChange} />
@@ -341,6 +341,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./e-center.css";
 import { UserContext } from "../userContext";
 
+
 export default function MyFormPage() {
     //   const searchParams = useSearchParams();
     //   const userType = searchParams.get("type");
@@ -358,8 +359,10 @@ export default function MyFormPage() {
         cities,
         locations,
         getLocations,
-        updateUserProfile,
+        ecenterAdd,
+        ecenterInfo
     } = useContext(UserContext);
+    console.log(ecenterInfo, "ecenter console...")
 
     const [imagePerview, setImagePreview] = useState("/assets/person_img.png");
     const [isRecording, setIsRecording] = useState(false);
@@ -376,7 +379,7 @@ export default function MyFormPage() {
     const [selectedFields, setSelectedFields] = useState([]);
 
     const [formData, setFormData] = useState({
-        profile_picture: "",
+        profile_image: "",
         first_name: "",
         last_name: "",
         username: "",
@@ -395,6 +398,9 @@ export default function MyFormPage() {
         disability_status: "",
         experience: "",
         audio_sample: "",
+        password: "12345678",
+        city_id:"2",
+        picture:""
     });
 
     const validateForm = () => {
@@ -450,7 +456,7 @@ export default function MyFormPage() {
         const reader = new FileReader();
         reader.onloadend = () => setImagePreview(reader.result);
         reader.readAsDataURL(file);
-        setFormData((prev) => ({ ...prev, profile_picture: file }));
+        setFormData((prev) => ({ ...prev, profile_image: file }));
     };
 
     const handleImageChange = (e) => {
@@ -527,7 +533,7 @@ export default function MyFormPage() {
 
         try {
             setLoader(true);
-            const response = await updateUserProfile(form);
+            const response = await ecenterAdd(form);
             if (response.success) toast.success("Form submitted successfully!");
             else toast.error(response.message || "Form submit failed.");
         } catch (err) {
@@ -565,7 +571,7 @@ export default function MyFormPage() {
                 </div>
                 <input
                     type="file"
-                    name="profile_picture"
+                    name="profile_image"
                     accept="image/*"
                     onChange={handleFileChange}
                     ref={fileInputRef}
@@ -660,6 +666,8 @@ export default function MyFormPage() {
                 <div className="input_one_row">
                     <input name="experience" placeholder="Experience" type="number" onChange={handleChange} />
                     {formErrors.experience && <small style={{ color: "red" }}>{formErrors.experience}</small>}
+                    
+                    <input type="file" name="picture" onChange={handleImageChange} />
                 </div>
 
                 {/* Audio Sample */}

@@ -113,6 +113,15 @@
   cursor: pointer;
 }
 
+.navbar .icon_person_pic {
+  height: 35px;
+  width: 35px;
+  color: #b50000;
+  cursor: pointer;
+  border: 2px solid #b50000;
+  border-radius: 20px;
+}
+
 .navbar .info {
   position: relative;
 }
@@ -400,9 +409,9 @@ body *[title] {
   font-weight: 500;
 }
 
-.VIpgJd-ZVi9od-vH1Gmf{
+.VIpgJd-ZVi9od-vH1Gmf {
   padding: 10px !important;
- }
+}
 
 
 /* .goog-te-gadget span a span:nth-of-type(1)::before {
