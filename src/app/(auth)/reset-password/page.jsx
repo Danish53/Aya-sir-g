@@ -5,6 +5,7 @@ import "./reset-password.css";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Link from "next/link";
 
 export default function page() {
   const router = useRouter();
