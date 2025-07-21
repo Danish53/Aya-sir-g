@@ -19,7 +19,7 @@ export default function CustomNavbar() {
   const router = useRouter();
   const pathname = usePathname();
   const { userInfo, setUserInfo, loadingUser, userDetails } = useContext(UserContext);
-  console.log(userInfo, "pic....")
+  // console.log(userInfo, "pic....")
 
   const [selectedType, setSelectedType] = useState(null);
   const [userDetailss, showuserDetailss] = useState(false);
@@ -93,14 +93,22 @@ export default function CustomNavbar() {
 
 
   useEffect(() => {
-    const check = setInterval(() => {
-      if (document.querySelector(".goog-te-combo")) {
+    const observer = new MutationObserver(() => {
+      const translateCombo = document.querySelector(".goog-te-combo");
+      if (translateCombo) {
         setTranslateLoaded(true);
-        clearInterval(check);
+        observer.disconnect();
       }
-    }, 300);
-    return () => clearInterval(check);
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
   }, []);
+
 
   if (loadingUser) return null;
 
@@ -111,7 +119,7 @@ export default function CustomNavbar() {
 
 
   return (
-    <section className="navbar">
+    <section className="navbar notranslate">
       <div className="container">
         <nav className="nav">
           <div className="logo_div">

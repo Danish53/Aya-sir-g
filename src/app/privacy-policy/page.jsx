@@ -1,12 +1,13 @@
 import React from "react";
+import "./privacy_policy.css"
 
 export default function page() {
   return (
     <section className="privacy_policy margin_navbar">
       <div className="container py-3">
-        <h1>AYA-Sir-G, Privacy Policy</h1>
+        <h3>AYA-Sir-G, Privacy Policy</h3>
         <p>
-          At "Aya Sir G," we value your privacy and have compiled all essential
+          At <b>"Aya Sir G,"</b> we value your privacy and have compiled all essential
           information about how we manage your personal data and your
           corresponding rights. This privacy statement applies to the
           information collected through our website and mobile application.
@@ -20,24 +21,25 @@ export default function page() {
           available to you. Effective Date: March 1, 2025
         </p>
         <ul>
-          <li>Scope and Updates </li>
+          <li><h4>Scope and Updates</h4> </li>
           <p>
-            This privacy policy governs your use of the "Aya Sir G" website and
-            all related applications, services and products (collectively
-            referred to as "Services"), regardless of the platform or device
+            This privacy policy governs your use of the <b>"Aya Sir G!"</b> website and
+            all related applications, services and products <span>
+              (collectively
+            referred to as "Services")</span>, regardless of the platform or device
             used to access them.{" "}
           </p>
-          <li>Data Controller</li>
+          <li><h4>Data Controller</h4></li>
           <p>
             The collection and processing of your personal data are carried out
-            by "Aya Sir G" in connection with the provision of services. Our
+            by <b>"Aya Sir G!"</b> in connection with the provision of services. Our
             official address is:
             <b>
               Aya-Sir-G! (Pvt) Limited, 15-C,Commercial, NFC#1, Lahore,
               Pakistan.
             </b>
           </p>
-          <li>Information We Collect and Process</li>
+          <li><h4>Information We Collect and Process</h4></li>
           <p>
             <b>Personal Information:</b> To deliver our services, we may
             collect, store, and process personal data such as your account ID,
@@ -50,19 +52,19 @@ export default function page() {
             <b>Non-Personal Information:</b> We may collect non-personally
             identifiable data such as:
           </p>
-          <li>Usage Information:</li>
+          <li><h4>Usage Information:</h4></li>
           <p>
             {" "}
             Insights on how you interact with our platform, including content
             views, features used, searches conducted, and time spent.{" "}
           </p>
-          <li>Device Information: </li>
+          <li><h4>Device Information:</h4> </li>
           <p>
             Details about the device used to access our services, including
             geographic location (if permitted), IP address, operating system,
             device ID, browser type, and metadata.{" "}
           </p>
-          <p>Purpose of Data Collection</p>
+          <p><h4>Purpose of Data Collection</h4></p>
           <p>
             The data collected is used exclusively to provide and enhance our
             services, including but not limited to:
@@ -107,7 +109,7 @@ export default function page() {
             Cookies may be stored on your device to enhance navigation and
             prevent the need to re-enter data. These cookies are not intrusive
             and do not access private information. Cookies may also be used for
-            targeted advertisements, although "Aya Sir G" does not control
+            targeted advertisements, although <b>"Aya Sir G!"</b> does not control
             third-party cookies.{" "}
           </p>
           <li>
@@ -139,18 +141,18 @@ export default function page() {
           <li>Third-Party Links</li>
           <p>
             Our platform may contain links to external websites or applications.
-            "Aya Sir G" is not responsible for the privacy practices or content
+            <b>"Aya Sir G!"</b> is not responsible for the privacy practices or content
             of these third-party platforms. We encourage you to review their
             privacy policies.{" "}
           </p>
           <li>Public Forums</li>
           <p>
-            Any information shared in public forums hosted by "Aya Sir G"
+            Any information shared in public forums hosted by <b>"Aya Sir G!"</b>
             becomes public and should be shared with caution.{" "}
           </p>
           <li>Policy Amendments</li>
           <p>
-            "Aya Sir G" reserves the right to modify this privacy policy to
+            <b>"Aya Sir G!"</b> reserves the right to modify this privacy policy to
             reflect changes in legal or operational requirements. Updates will
             be posted here, and continued use of our platform indicates your
             acceptance of these changes.

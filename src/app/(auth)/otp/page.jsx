@@ -69,7 +69,7 @@ export default function page() {
     <section className="otp auth_bg">
       <div className="container p-4 bg_white">
         <h1 className="auth_heading">OTP Authentication</h1>
-        <p className="auth_para mt-3">
+        <p className="auth_para my-2">
           Enter the 6 digit OTP sent to your {phoneNumber ? `+92 ${phoneNumber}` : "number"}
         </p>
 

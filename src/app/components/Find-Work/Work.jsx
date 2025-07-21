@@ -14,7 +14,7 @@ export default function Work() {
               <div className="col_1 ">
                 <h3 className="heading">Find Trusted Professionals</h3>
                 <p>
-                  Easily discover skilled Aya Sir G workers for your needs. Our
+                  Easily discover skilled Aya Sir G! workers for your needs. Our
                   platform connects you with verified service providers across
                   various industries.
                 </p>

@@ -7,6 +7,7 @@ import "./footer.css";
 // import { FaTwitter } from "react-icons/fa";
 // import { FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
+import { FaFacebook, FaFacebookF, FaInstagram, FaLinkedin, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
 // import tiktok from "@/public/assets/tik-tok.png";
 
 export default function MyFooter() {
@@ -80,77 +81,44 @@ export default function MyFooter() {
           </div>
         </div>
         <hr className="my-4" />
-        <div className="margin_top flex-wrap social-div d-flex align-items-center justify-content-center gap-3 mx-auto">
+        <div className=" flex-wrap social-div d-flex align-items-center justify-content-center gap-3 mx-auto">
 
           {/* YouTube */}
           <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.youtube.com/@AyaSirG'} target="_blank">
-            <img
-              src="/assets/youtube.png"
-              alt="YouTube"
-              width="24"
-              height="24"
-            />
-            <p style={{ margin: 0 }}>YouTube</p>
+            <FaYoutube />
           </Link>
 
           {/* Facebook */}
-          <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.facebook.com/profile.php?id=61577785319983'} target="_blank">
-            <img
-              src="/assets/facebook.png"
-              alt="Facebook"
-              width="24"
-              height="24"
-            />
-            <p style={{ margin: 0 }}>Facebook</p>
-          </Link>
+            <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.facebook.com/profile.php?id=61577785319983'} target="_blank">
+              <FaFacebookF />
+            </Link>
 
           {/* Instagram */}
           <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.instagram.com/ayasirg_official/?igsh=MXJldGk5ODJqODI2NA%3D%3D#'} target="_blank">
-            <img
-              src="/assets/instagram.png"
-              alt="Instagram"
-              width="24"
-              height="24"
-            />
-            <p style={{ margin: 0 }}>Instagram</p>
+            <FaInstagram />
           </Link>
 
           {/* TikTok */}
           <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.tiktok.com/@ayasirg?is_from_webapp=1&sender_device=pc'} target="_blank">
-            <img
-              src='/assets/tik-tok.png'
-              alt="TikTok"
-              width="26"
-              height="26"
-            // style={{background:"white", borderRadius:"3px", padding:"2px"}}
-            />
-            <p style={{ margin: 0 }}>TikTok</p>
+            <FaTiktok />
           </Link>
 
           {/* Twitter (X) */}
           <Link className="social_inner d-flex align-items-center gap-2" href={'https://x.com/Aya_Sir_G'} target="_blank">
-            <img
-              src="/assets/twitter.png"
-              alt="Twitter"
-              width="24"
-              height="24"
-            />
-            <p style={{ margin: 0 }}>Twitter</p>
+            <FaTwitter />
           </Link>
 
           {/* LinkedIn */}
-          <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.linkedin.com/in/aya-sir-g-423981349/'} target="_blank">
-            <img
-              src="/assets/linkedin.png"
-              alt="LinkedIn"
-              width="24"
-              height="24"
-            />
-            <p style={{ margin: 0 }}>LinkedIn</p>
+          <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.linkedin.com/company/ayasirg/?viewAsMember=true'} target="_blank">
+            <FaLinkedin />
           </Link>
 
         </div>
-
+        <div className="footer_bottom">
+          <p>Copyright © 2003 - 2023 AYASIRG (Pvt) Ltd. - All Rights Reserved.</p>
+          <p><Link href={'/'}>Terms of Service</Link> | <Link href={'/privacy-policy'}>Privacy Policy</Link></p>
+          <p>Reproduction of material from any ayasirg.com pages without permission is strictly prohibited.</p>
+        </div>
       </div>
     </footer>
   );

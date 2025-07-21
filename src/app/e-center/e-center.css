@@ -9,7 +9,14 @@
   font-weight: 600;
   color: #b50000;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
+}
+
+.input_one_row label{
+  font-size: 15px;
+  font-weight: 500;
+  font-family: var(--font-poppins), sans-serif;
+  text-align: center;
 }
 
 form {
@@ -50,9 +57,18 @@ form .image_div .edit_icon {
 .input_one_row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 20px;
+  gap: 0px;
 }
+
+.input_one_row .input_select {
+  width: 49%;
+  border-radius: 8px;
+}
+
+.multi-select {
+  width: 100% !important;
+}
+
 
 .input_one_row input,
 .input_one_row select,
@@ -64,6 +80,17 @@ form .image_div .edit_icon {
   border-radius: 8px;
   font-size: 16px;
   background-color: #fff;
+  box-shadow: 1px 1px 15px #00000040;
+  width: 98%;
+  margin: 4px 0px;
+}
+
+.input_one_row input:focus,
+.input_one_row select:focus,
+.input_row_full input:focus,
+.input_row_full select:focus {
+  border: 1px solid #ddd;
+  outline: none;
 }
 
 .input_row_full {
@@ -94,17 +121,16 @@ input[type="file"] {
   gap: 15px;
 }
 
-form button {
+/* form button {
   width: 100%;
   padding: 12px;
   font-size: 16px;
   background-color: #b50000;
-  color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s ease;
-}
+} */
 
 form button:hover {
   background-color: #a00000;
@@ -119,18 +145,25 @@ form button:hover {
   width: 100% !important;
   background: none !important;
   border: 1px solid #ccc !important;
-  border-radius: 8px;
+  border-radius: 8px !important;
   min-width: 100% !important;
+  padding: 10px;
+  box-shadow: 1px 1px 15px #00000040;
+  margin: 4px 0px;
 }
 
+.rmsc .dropdown-container input{
+  box-shadow: none;
+}
 .rmsc .dropdown-heading {
   border: none !important;
   padding: 10px;
+  height: auto !important;
 }
 
 .rmsc .dropdown-container:focus-within {
   box-shadow: none !important;
-  border: 1px solid #b50000 !important;
+  border: 1px solid #ccc !important;
 }
 
 .rmsc .dropdown-container {
@@ -139,14 +172,18 @@ form button:hover {
 }
 
 
+.input_one_row div label {
+    width: 100% !important;
+  }
+
 
 /* Responsive */
 @media screen and (max-width: 768px) {
   .input_one_row {
     flex-direction: column;
   }
-  .input_one_row div{
+
+  .input_one_row div {
     width: 100% !important;
   }
 }
-

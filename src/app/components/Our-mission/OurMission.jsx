@@ -14,7 +14,7 @@ export default function OurMission() {
         <div className="row mt-5">
           <div className="left_div col-lg-5 ">
             <p id="para">
-              Welcome to “Aya Sir G” <br />
+              Welcome to “Aya Sir G!” <br />
               At “Aya Sir G,” we are committed to creating opportunities for individuals who are eager to work, believe in their abilities, and embrace self-reliance. Inspired by the timeless principle, "Allah helps those who help themselves," we empower people to take initiative and strive for a better future.
             </p>
             {/* <Button className="my-3" variant="outline-danger">

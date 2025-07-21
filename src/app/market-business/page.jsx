@@ -1,11 +1,11 @@
 import React from "react";
-// import "./our_mission.css";
+import "./market_business.css";
 
 export default function page() {
     return (
         <section className="our_mission margin_navbar">
             <div className="container py-3">
-                <h1>Market Your Business with Aya Sir G!</h1>
+                <h3>Market Your Business with Aya Sir G!</h3>
                 <p>
                     Welcome to Aya Sir G! We are delighted you are exploring how to market your business effectively with us.
                 </p>

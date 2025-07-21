@@ -218,7 +218,7 @@ export default function page() {
             <input type="checkbox" id="remember" />
             <label htmlFor="remember" className="custom-checkbox">
               I agree with the
-              <span className="terms">Terms & Conditions </span>
+              <span className="terms"> <Link style={{color:"#B50000"}} href={"/privacy-policy"}>Privacy Policy</Link> </span>
               of Clarity
             </label>
           </div>

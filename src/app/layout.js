@@ -78,8 +78,8 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "AYA Sir G",
-  description: "AYA Sir G",
+  title: "Aya Sir G!",
+  description: "Aya Sir G!",
   // icons: {
   //   icon: "/logo_header.png",
   //   shortcut: "/logo_header.png",

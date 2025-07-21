@@ -7,15 +7,15 @@ export default function page() {
       <div className="container py-3">
         <h3>Slogan: Your Trusted Help, Everywhere</h3>
         <p>
-          <b>AYA Sir G</b>, is a platform designed to connect blue-collar job seekers
+          <b>Aya Sir G!</b>, is a platform designed to connect blue-collar job seekers
           with users in need of various services, including maids, helpers,
           plumbers, chefs, drivers, security guards, carpenters, and more. Our
           mission is to provide a user-friendly platform that facilitates the
           hiring of trusted individuals for domestic and commercial services.
         </p>
-        <h4>About AYA Sir G!</h4>
+        <h4>About Aya Sir G!</h4>
         <p>
-          At AYA Sir G, we understand the importance of trust when inviting
+          At Aya Sir G!, we understand the importance of trust when inviting
           someone into your home. Therefore, we prioritize the verification of
           all service providers on our platform. Each individual, whether a man
           or woman, undergoes a thorough verification process that includes

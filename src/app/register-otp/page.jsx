@@ -14,7 +14,7 @@ export default function page() {
   const phoneNumber = typeof window !== "undefined" ? localStorage.getItem("phone_number_signUp") : null;
 
   const handleChange = (index, value) => {
-    if (isNaN(value)) return; 
+    if (isNaN(value)) return;
     const updatedOtp = [...otp];
     updatedOtp[index] = value;
     setOtp(updatedOtp);
@@ -69,7 +69,9 @@ export default function page() {
     <section className="otp auth_bg">
       <div className="container p-4 bg_white">
         <h1 className="auth_heading">OTP Authentication</h1>
-
+        <p className="auth_para my-2">
+          Enter the 6 digit OTP sent to your {phoneNumber ? `+92 ${phoneNumber}` : "number"}
+        </p>
         <form onSubmit={handleSubmit}>
           <br />
           <div className="input_group">
@@ -90,19 +92,19 @@ export default function page() {
           <button type="submit" className="sign_in mt-5" disabled={loader}>
             {/* {loading ? "Verifying..." : "Verify Code"} */}
             {loader ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Verifying...
-                  </>
-                ) : (
-                  "Verify Code"
-                )}
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Verifying...
+              </>
+            ) : (
+              "Verify Code"
+            )}
           </button>
         </form>
 
         <div className="logo_div mt-3">
           <Link href={'/'}>
-          <img src="/assets/logo_header.png" alt="logo" className="logo" /></Link>
+            <img src="/assets/logo_header.png" alt="logo" className="logo" /></Link>
           <p id="head">AYA SIR G!</p>
           <p id="descri">YOUR TRUSTED EVERYWHERE</p>
         </div>

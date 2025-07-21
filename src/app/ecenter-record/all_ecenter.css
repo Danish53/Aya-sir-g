@@ -59,20 +59,30 @@
   border-radius: 3px;
   width: 18px;
   height: 18px; 
+  cursor: pointer;
 }
 
 .all_center_page .form_div input.start_date {
-  width: 200px !important;
-  height: 30px !important;
+  width: 220px !important;
+  height: 32px !important;
   padding: 0 10px;
   cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 8px;
+  color: var(--filter-heading_color);
 }
 
 .all_center_page .form_div input.end_date {
-  width: 200px !important;
-  height: 30px !important;
+  width: 220px !important;
+  height: 32px !important;
   padding: 0 10px;
   cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 8px;
+  color: var(--filter-heading_color);
+  margin-bottom: 10px;
 }
 
 .all_center_page .box label {
@@ -81,7 +91,7 @@
 }
 
 .all_center_page .date_div label {
-  width: 80px;
+  width: 50px;
   margin-top: 10px;
 }
 

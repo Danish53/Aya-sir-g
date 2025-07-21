@@ -79,13 +79,41 @@ footer {
 
 .footer .social_inner {
   cursor: pointer;
-  color: white;
-  text-decoration: none;
+  background: #ccc;
   transition: all 1s ease-in-out;
+  border-radius: 50%;
+  padding: 7px;
+  color: #8c8b8b;
 }
 
-.footer .social_inner:hover img {
-  transform: scale(1.2);
+.footer .social_inner:first-child:hover {
+  background: #c4302b;
+  color: white;
+}
+
+.footer .social_inner:nth-child(2):hover {
+  background: #405a94;
+  color: white;
+}
+
+.footer .social_inner:nth-child(3):hover {
+  background: #3f729b;
+  color: white;
+}
+
+.footer .social_inner:nth-child(4):hover {
+  background: #2727278d;
+  color: white;
+}
+
+.footer .social_inner:nth-child(5):hover {
+  background: #00acee;
+  color: white;
+}
+
+.footer .social_inner:nth-child(6):hover {
+  background: #007cad;
+  color: white;
 }
 
 .social_inner img {
@@ -137,4 +165,28 @@ footer {
   .text_center {
     text-align: center;
   }
+}
+
+.footer_bottom{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.footer_bottom p{
+  color: #ccc;
+  font-size: 12px;
+  text-align: center;
+}
+
+.footer_bottom p a{
+  color: #ccc;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.footer_bottom p a:hover{
+  text-decoration: underline;
 }

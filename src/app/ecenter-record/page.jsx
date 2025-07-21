@@ -121,17 +121,17 @@ export default function Page() {
                   <input
                     type="date"
                     id="start_date"
-                    className="start_date"
+                    className="start_date styled_date_input"
                     value={filters.date_from}
                     onChange={(e) => handleDateChange("date_from", e.target.value)}
                   />
                 </div>
-                <div className="form_div date_div mt-2">
+                <div className="form_div date_div my-3">
                   <label htmlFor="end_date">To:</label>
                   <input
                     type="date"
                     id="end_date"
-                    className="end_date"
+                    className="end_date styled_date_input"
                     value={filters.date_to}
                     onChange={(e) => handleDateChange("date_to", e.target.value)}
                   />
