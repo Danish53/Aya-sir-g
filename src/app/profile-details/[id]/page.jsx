@@ -259,7 +259,7 @@ export default function page() {
                       <h4>Current Address: <span>{user?.user_city || ""}</span></h4>
                     }
                     <h4>Experience: {user?.experience || ""}</h4>
-                    <h4>CNIC: <span className="cnic"> {userInfo?.api_token ? "*************" : "*************"}</span></h4>
+                    <h4>CNIC: <span className="cnic"> {userInfo?.api_token ? user?.cnic : "*************"}</span></h4>
                     <h4>Disability: {user?.disability_status || "None"}</h4>
                   </div>
                 </div>

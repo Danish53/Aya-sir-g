@@ -340,6 +340,7 @@ import { useSearchParams } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import "./e-center.css";
 import { UserContext } from "../userContext";
+import { IoMdClose } from "react-icons/io";
 
 
 export default function MyFormPage() {
@@ -364,7 +365,7 @@ export default function MyFormPage() {
     } = useContext(UserContext);
     // console.log(ecenterInfo, "ecenter console...")
 
-    const [imagePerview, setImagePreview] = useState("/assets/person_img.png");
+    const [imagePerview, setImagePreview] = useState("");
     const [isRecording, setIsRecording] = useState(false);
     const [audioURL, setAudioURL] = useState(null);
     const mediaRecorderRef = useRef(null);
@@ -450,13 +451,33 @@ export default function MyFormPage() {
         setFormData((prev) => ({ ...prev, cnic: formatted }));
     };
 
+    // const handleFileChange = (e) => {
+    //     const file = e.target.files[0];
+    //     if (!file) return;
+    //     const reader = new FileReader();
+    //     reader.onloadend = () => setImagePreview(reader.result);
+    //     reader.readAsDataURL(file);
+    //     setFormData((prev) => ({ ...prev, profile_image: file }));
+    // };
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (!file) return;
+
         const reader = new FileReader();
         reader.onloadend = () => setImagePreview(reader.result);
         reader.readAsDataURL(file);
-        setFormData((prev) => ({ ...prev, profile_image: file }));
+
+        setFormData((prev) => ({
+            ...prev,
+            profile_image: file,
+        }));
+    };
+
+    const handleRemoveImage = () => {
+        setImagePreview(null);
+        setFormData((prev) => ({ ...prev, profile_image: null }));
+        fileInputRef.current.value = ""; // reset file input
     };
 
     const handleImageChange = (e) => {
@@ -562,23 +583,42 @@ export default function MyFormPage() {
         <div className="container myform_page">
             <h2>Add New {userType == "handyman" ? "Individual" : userType == "provider" ? "Company" : ""}</h2>
             <form onSubmit={handleSubmit}>
-                <div className="image_div" onClick={() => fileInputRef.current.click()}>
+                <div
+                    className="image_div cursor-pointer relative w-32 h-32"
+                    onClick={() => !imagePerview && fileInputRef.current.click()}
+                >
                     <img
-                        src={imagePerview}
+                        src={
+                            imagePerview ||
+                            "/assets/person_img.png"
+                        }
                         alt="Profile"
                         className="w-32 h-32 rounded-full object-cover"
                     />
-                    <FaEdit className="edit_icon" />
-                </div>
 
-                <input
-                    type="file"
-                    name="profile_image"
-                    accept="image/*"
-                    onChange={handleFileChange}
-                    ref={fileInputRef}
-                    style={{ display: "none" }}
-                />
+                    {/* Show Edit Icon if no image */}
+                    {!imagePerview && (
+                        <FaEdit className="edit_icon absolute bottom-2 right-2 text-white bg-gray-800 p-1 rounded-full" />
+                    )}
+
+                    {/* Show Cross Icon if image selected */}
+                    {imagePerview && (
+                        <IoMdClose
+                            className="edit_icon absolute top-2 right-2 text-white bg-red-600 p-1 rounded-full"
+                            onClick={handleRemoveImage}
+                        />
+                    )}
+
+                    <input
+                        type="file"
+                        name="profile_image"
+                        accept="image/*"
+                        capture="user"
+                        onChange={handleFileChange}
+                        ref={fileInputRef}
+                        style={{ display: "none" }}
+                    />
+                </div>
 
                 {/* First and Last Name */}
                 <div className="row input_one_row">

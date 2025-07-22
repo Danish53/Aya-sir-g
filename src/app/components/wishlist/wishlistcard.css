@@ -36,6 +36,15 @@
   font-weight: bold;
 }
 
+.verified_btn{
+  width: max-content;
+}
+
+.verified_div{
+  display: flex;
+  justify-content: space-between;
+}
+
 @media screen and (max-width: 1200px) {
   .wishlistcard {
     width: 290px;

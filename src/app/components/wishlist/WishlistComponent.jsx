@@ -1,6 +1,7 @@
 import React from "react";
 import "./wishlistcard.css";
 import Link from "next/link";
+import { FaCheck } from "react-icons/fa";
 
 export default function WishlistComponent({data}) {
   return (

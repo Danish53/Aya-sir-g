@@ -25,6 +25,10 @@ export default function ButtonComp() {
 
   const [individual, setIndividual] = useState(role !== "provider");
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const usersPerPage = 6;
+
   useEffect(() => {
     setIndividual(role !== "provider"); // handyman = true, provider = false
   }, [role]);
@@ -49,6 +53,39 @@ export default function ButtonComp() {
     newParams.set("role", targetRole);
     router.push(`?${newParams.toString()}`);
   };
+
+  // Pagination logic
+  const indexOfLastUser = currentPage * usersPerPage;
+  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  const currentUsers = filteredUsers?.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil((filteredUsers?.length || 0) / usersPerPage);
+
+  const renderPagination = () => {
+    if (totalPages <= 1) return null;
+
+    const buttons = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+    return (
+      <div className="pagination d-flex gap-2 justify-content-center mt-4">
+        {buttons.map((page) => (
+          <button
+            key={page}
+            className={`page-btn ${currentPage === page ? "active" : ""}`}
+            onClick={() => setCurrentPage(page)}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
+    );
+  };
+
+  useEffect(() => {
+    setCurrentPage(1); // Reset to page 1 when filters change
+    const params = { role, category_id, city, area_code };
+    getFilteredUsers(params);
+  }, [role, category_id, city, area_code]);
+
 
 
   return (
@@ -83,24 +120,32 @@ export default function ButtonComp() {
             ))}
           </div>
         ) : individual ? (
-          filteredUsers?.length > 0 ? (
-            <div className="card_wrapper_div">
-              {filteredUsers.map((user) => (
-                <Card key={user.id} data={user} onLike={toggleLike} />
-              ))}
-            </div>
+          currentUsers?.length > 0 ? (
+            <>
+              <div className="card_wrapper_div">
+                {currentUsers.map((user) => (
+                  <Card key={user.id} data={user} onLike={toggleLike} />
+                ))}
+              </div>
+              {renderPagination()}
+            </>
           ) : (
             <h4 className="not_found_design">No individual profiles found.</h4>
           )
         ) : (
-          filteredUsers?.length > 0 ? (
-            <div>
-              {filteredUsers.map((user) => (
-                <CompanyCard key={user.id} data={user} onLike={toggleLike} />
-              ))}
-            </div>
+          currentUsers?.length > 0 ? (
+            <>
+              <div>
+                {currentUsers.map((user) => (
+                  <CompanyCard key={user.id} data={user} onLike={toggleLike} />
+                ))}
+              </div>
+              {renderPagination()}
+            </>
           ) : (
-            <h4 className="not_found_design">No company profiles found.</h4>
+            <h4 className="not_found_design">
+              No Company profiles found.
+            </h4>
           )
         )}
       </div>

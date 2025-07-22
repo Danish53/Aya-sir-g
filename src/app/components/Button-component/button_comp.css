@@ -10,7 +10,7 @@
 
 .button_comp .individual {
   /* background-color: var(--red-color); */
-  color: white;
+  color: #424242;
   text-align: center;
   flex: 1;
   cursor: pointer;
@@ -25,6 +25,7 @@
 }
 .button_comp .active {
   background-color: var(--red-color) !important;
+  color: white;
 }
 
 @media screen and (max-width: 768px) {
@@ -71,3 +72,17 @@
   background: #fff;
 }
 
+.page-btn {
+  border: none;
+  padding: 8px 14px;
+  background-color: #eee;
+  color: #333;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+.page-btn.active {
+  background-color: var(--red-color);
+  color: white;
+}

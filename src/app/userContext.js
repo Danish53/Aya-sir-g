@@ -1,10 +1,11 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
-  console.log(userInfo?.id, "get profile")
+  // console.log(userInfo?.id, "get profile")
 
   const [apiCategory2, setapiCategories2] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -288,6 +289,12 @@ export const UserProvider = ({ children }) => {
         )
       );
 
+      if (!can_like) {
+        toast.success("You liked this user!");
+      } else {
+        toast.error("You disliked this user.");
+      }
+
     } catch (error) {
       console.error("Error liking/disliking:", error);
     }
@@ -319,7 +326,7 @@ export const UserProvider = ({ children }) => {
 
   // e-center 
   const [ecenterInfo, setEcenterInfo] = useState();
-   const ecenterAdd = async (formData) => {
+  const ecenterAdd = async (formData) => {
     if (!userInfo?.api_token) return;
     setLoader(true);
     try {

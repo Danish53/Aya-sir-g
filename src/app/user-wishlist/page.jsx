@@ -9,7 +9,7 @@ export default function page() {
 
   const { userInfo } = useContext(UserContext);
   const [likedUser, setLikedUser] = useState("");
-  console.log(likedUser, "......ok")
+  // console.log(likedUser, "......ok")
 
   const getLikedUsers = async () => {
     if (!userInfo?.api_token) return;

@@ -128,7 +128,6 @@ export default function Hero() {
               <p className="fw-medium my-5">Whether you are searching for work or looking to hire, this is the platform you can trust.</p>
             </div>
           </div>
-        </div>
         <div className="row justify-content-center">
           <div className="col-lg-8">
             <div className="dropdown_parent d-flex justify-content-center align-items-center position-relative">
@@ -236,6 +235,7 @@ export default function Hero() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>
