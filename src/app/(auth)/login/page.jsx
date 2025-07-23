@@ -52,6 +52,9 @@ export default function page() {
       await fetchUserProfile(data.data.api_token);
 
       router.push("/");
+      setTimeout(() => {
+        window.location.reload(); // force refresh
+      }, 1000);
     } catch (error) {
       console.log("Error while login ::", error);
       toast.error("Error While Login ");
