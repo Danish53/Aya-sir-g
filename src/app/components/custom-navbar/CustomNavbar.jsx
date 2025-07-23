@@ -128,14 +128,14 @@ export default function CustomNavbar() {
 
           <div className="nav_items d-flex">
             <ul className={`list-unstyled list ${myNavbar ? "active" : ""}`}>
-              <li onClick={() => setMyNavbar(false)}><Link href="/" className={pathname === "/" ? "active" : ""}>Home</Link></li>
-              <li onClick={() => setMyNavbar(false)}><Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>About Us</Link></li>
+              <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/" className={pathname === "/" ? "active" : ""}>Home</Link></li>
+              <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>About Us</Link></li>
               {userDetails?.user_type !== "e-center" && (
-                <li onClick={() => setMyNavbar(false)}><Link href="/register-yourself" className={pathname === "/register-yourself" ? "active" : ""}>Register Yourself</Link></li>
+                <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/register-yourself" className={pathname === "/register-yourself" ? "active" : ""}>Register Yourself</Link></li>
               )}
-              <li onClick={() => setMyNavbar(false)}><Link href="/blogs" className={pathname === "/blogs" ? "active" : ""}>Blogs</Link></li>
-              <li onClick={() => setMyNavbar(false)}><Link href="/faq" className={pathname === "/faq" ? "active" : ""}>FAQ</Link></li>
-              <li onClick={() => setMyNavbar(false)}><Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""}>Contact Us</Link></li>
+              <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/blogs" className={pathname === "/blogs" ? "active" : ""}>Blogs</Link></li>
+              <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/faq" className={pathname === "/faq" ? "active" : ""}>FAQ</Link></li>
+              <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""}>Contact Us</Link></li>
               <li className="d-block d-md-none" onClick={() => setMyNavbar(false)}>
                 {
                   userToken ? (
@@ -165,11 +165,11 @@ export default function CustomNavbar() {
               </Dropdown.Menu>
             </Dropdown> */}
 
-            <TranslateWrapper />
+            <TranslateWrapper onClick={() => { setMyNavbar(false); handleDropdownItemClick() }} />
 
             <div className="info_div">
               <div className="head_section d-flex align-items-center gap-2">
-                <Link href={userToken ? "/user-wishlist" : "/login"}>
+                <Link onClick={() => { setMyNavbar(false); handleDropdownItemClick() }} href={userToken ? "/user-wishlist" : "/login"}>
                   <IoIosHeartEmpty className="icon_hearth ml_2" />
                 </Link>
                 {/* {userInfo && <IoPersonCircle className="icon_person" onClick={() => showuserDetailss(!userDetailss)} />} */}
