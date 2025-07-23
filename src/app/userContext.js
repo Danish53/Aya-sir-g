@@ -319,7 +319,7 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       console.error("Error fetching services:", error);
     } finally {
-      setServicesLoading(false);
+      setLoader(false);
     }
   };
 

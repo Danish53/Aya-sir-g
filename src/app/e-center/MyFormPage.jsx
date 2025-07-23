@@ -341,6 +341,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./e-center.css";
 import { UserContext } from "../userContext";
 import { IoMdClose } from "react-icons/io";
+import { useRouter } from "next/navigation";
 
 
 export default function MyFormPage() {
@@ -348,6 +349,7 @@ export default function MyFormPage() {
     //   const userType = searchParams.get("type");
     const searchParams = useSearchParams();
     const [userType, setUserType] = useState(null);
+    const router = useRouter();
 
     useEffect(() => {
         const type = searchParams.get("type");
@@ -399,13 +401,14 @@ export default function MyFormPage() {
         disability_status: "",
         experience: "",
         audio_sample: "",
+        picture: "",
         password: "12345678",
-        city_id: "2",
-        picture: ""
+        city_id: "2"
     });
 
     const validateForm = () => {
         const requiredFields = [
+            "profile_image",
             "first_name",
             "last_name",
             "username",
@@ -418,6 +421,10 @@ export default function MyFormPage() {
             "age",
             "description",
             "experience",
+            "billing_address_scan",
+            "cnic_scan",
+            "picture",
+            "audio_sample"
         ];
 
         const errors = {};
@@ -555,8 +562,10 @@ export default function MyFormPage() {
         try {
             setLoader(true);
             const response = await ecenterAdd(form);
-            if (response.success) toast.success("Form submitted successfully!");
+            if (response.success) toast.success("Profile has been successfully Created!");
             else toast.error(response.message || "Form submit failed.");
+
+            router.push("ecenter-record")
         } catch (err) {
             console.error("Update error:", err);
             toast.error("Something went wrong during update.");
@@ -618,7 +627,9 @@ export default function MyFormPage() {
                         ref={fileInputRef}
                         style={{ display: "none" }}
                     />
+                    {formErrors.profile_image && <small style={{ color: "red" }}>{formErrors.profile_image}</small>}
                 </div>
+
 
                 {/* First and Last Name */}
                 <div className="row input_one_row">
@@ -684,11 +695,15 @@ export default function MyFormPage() {
 
                     <div className="col-lg-6">
                         <label htmlFor="cnic_scan">CNIC Scan Copy</label>
-                        <input type="file" name="cnic_scan" onChange={handleImageChange} />
+                        <input type="file" name="cnic_scan" accept="image/*"
+                            capture="environment" onChange={handleImageChange} />
+                        {formErrors.cnic_scan && <small style={{ color: "red" }}>{formErrors.cnic_scan}</small>}
                     </div>
                     <div className="col-lg-6">
                         <label htmlFor="billing_address_scan">Billing Address Scan</label>
-                        <input type="file" name="billing_address_scan" onChange={handleImageChange} />
+                        <input type="file" name="billing_address_scan" accept="image/*"
+                            capture="environment" onChange={handleImageChange} />
+                        {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>}
                     </div>
 
                     <div className="col-lg-6">
@@ -739,8 +754,9 @@ export default function MyFormPage() {
                     </div>
 
                     <div className="col-lg-6">
-                        <label htmlFor="experience">Picture</label>
+                        <label htmlFor="experience">Police Verification</label>
                         <input type="file" name="picture" onChange={handleImageChange} />
+                        {formErrors.picture && <small style={{ color: "red" }}>{formErrors.picture}</small>}
                     </div>
 
                 </div>
@@ -759,12 +775,14 @@ export default function MyFormPage() {
                                     Stop Recording
                                 </button>
                             )}
+
+                            {formErrors.audio_sample && <small style={{ color: "red" }}>{formErrors.audio_sample}</small>}
                             {audioURL && (
                                 <>
                                     <div className="d-flex  align-items-center gap-2 mt-lg-0 mt-2">
                                         <audio controls src={audioURL} />
                                         <button type="button" className="btn btn-danger" onClick={handleDeleteAudio}>
-                                            <MdDelete /> Delete
+                                            <MdDelete />
                                         </button>
                                     </div>
                                 </>

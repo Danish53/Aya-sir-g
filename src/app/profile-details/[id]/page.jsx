@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./profile-details.css";
 import { FaRegHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import { IoShareSocial } from "react-icons/io5";
+import { IoCopyOutline, IoShareSocial } from "react-icons/io5";
 import { IoIosMic } from "react-icons/io";
 import { FaPhoneAlt } from "react-icons/fa";
 import { RiStarSFill } from "react-icons/ri";
@@ -21,12 +21,28 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { UserContext } from "@/app/userContext";
 import Link from "next/link";
 import { FaPlay, FaPause } from "react-icons/fa";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  TelegramShareButton,
+  TelegramIcon,
+} from "react-share";
+import { toast } from "react-toastify";
+
 
 export default function page() {
   const params = useParams();
   const { id } = params;
   const [user, setUser] = useState(null);
   const { userInfo, toggleLike } = useContext(UserContext)
+  const [showShare, setShowShare] = useState(false);
+  const currentUrl = window.location.href;
 
   useEffect(() => {
     if (id) {
@@ -36,7 +52,7 @@ export default function page() {
             Authorization: `Bearer ${userInfo.api_token}`,
           }
           : {},
-    })
+      })
         .then((res) => {
           setUser(res.data.data);
         })
@@ -134,9 +150,15 @@ export default function page() {
     );
   }
 
-    const isLiked = !!user?.can_like;
+  const isLiked = !!user?.can_like;
   const onLikeClick = () => {
     toggleLike(user.id, !!isLiked);
+  };
+
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(currentUrl);
+    toast.success("Link copied to clipboard!")
   };
 
 
@@ -167,7 +189,107 @@ export default function page() {
                 <button className="verified_btn">
                   Verified <FaCheck className="tik_icon" />
                 </button>
-                <IoShareSocial className="share icon" />
+                {/* <IoShareSocial className="share icon" /> */}
+                <div>
+                  {/* Share Icon */}
+                  <IoShareSocial
+                    className="share icon"
+                    onClick={() => setShowShare(true)}
+                    style={{ cursor: "pointer", fontSize: 24 }}
+                  />
+
+                  {showShare && (
+                    <div
+                      className="modal-overlay"
+                      onClick={() => setShowShare(false)}
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100vw",
+                        height: "100vh",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        zIndex: 1000,
+                      }}
+                    >
+                      <div
+                        className="modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                          background: "#fff",
+                          width: "100%",
+                          maxWidth: 500,
+                          margin: "10% auto",
+                          padding: 24,
+                          borderRadius: 12,
+                          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                          textAlign: "center",
+                        }}
+                      >
+                        <h3>Share Link</h3>
+                        <div style={{ display: "flex", marginTop: 12, gap: 8 }}>
+                          <input
+                            type="text"
+                            value={currentUrl}
+                            readOnly
+                            style={{ flex: 1, padding: 8, borderRadius: 6, color:"#3c3c3c", border: "1px solid #ccc" }}
+                          />
+                          <button
+                            onClick={handleCopy}
+                            style={{
+                              padding: "8px 12px",
+                              background: "#B50000",
+                              color: "#fff",
+                              border: "none",
+                              borderRadius: 6,
+                              cursor: "pointer",
+                            }}
+                          >
+                            <IoCopyOutline size={18} />
+                          </button>
+                        </div>
+
+                        <div
+                          style={{
+                            marginTop: 20,
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: 12,
+                          }}
+                        >
+                          <FacebookShareButton url={currentUrl}>
+                            <FacebookIcon size={40} round />
+                          </FacebookShareButton>
+                          <TwitterShareButton url={currentUrl}>
+                            <TwitterIcon size={40} round />
+                          </TwitterShareButton>
+                          <WhatsappShareButton url={currentUrl}>
+                            <WhatsappIcon size={40} round />
+                          </WhatsappShareButton>
+                          <LinkedinShareButton url={currentUrl}>
+                            <LinkedinIcon size={40} round />
+                          </LinkedinShareButton>
+                          <TelegramShareButton url={currentUrl}>
+                            <TelegramIcon size={40} round />
+                          </TelegramShareButton>
+                        </div>
+
+                        <button
+                          onClick={() => setShowShare(false)}
+                          style={{
+                            marginTop: 16,
+                            background: "transparent",
+                            border: "none",
+                            color: "#888",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
               <h3 className="name_heading">{user?.username}</h3>
               <p>{user?.gender}, {user?.age} years old</p>
@@ -259,7 +381,13 @@ export default function page() {
                       <h4>Current Address: <span>{user?.user_city || ""}</span></h4>
                     }
                     <h4>Experience: {user?.experience || ""}</h4>
-                    <h4>CNIC: <span className="cnic"> {userInfo?.api_token ? user?.cnic : "*************"}</span></h4>
+                    <h4>
+                      CNIC:{" "}
+                      <span className="cnic">
+                        {userInfo?.api_token ? user?.cnic?.slice(0, 5) + "********" : "*************"}
+                      </span>
+                    </h4>
+
                     <h4>Disability: {user?.disability_status || "None"}</h4>
                   </div>
                 </div>

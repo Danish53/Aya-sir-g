@@ -179,13 +179,14 @@ export default function Page() {
               <img
                 src={imagePerview || "/assets/profile.png"}
                 alt="Profile"
-                className="w-32 h-32 rounded-full object-cover" style={{borderRadius:"50%", border:"1px solid #B50000"}}
+                className="w-32 h-32 rounded-full object-cover" style={{ borderRadius: "50%", border: "1px solid #B50000" }}
               />
               <FaEdit className="edit_icon" />
             </div>
             <input
               type="file"
               accept="image/*"
+              capture="environment"
               onChange={handleFileChange}
               ref={fileInputRef}
               style={{ display: "none" }}

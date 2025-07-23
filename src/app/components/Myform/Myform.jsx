@@ -375,10 +375,11 @@ export default function Myform({ openedFrom, setSelectedType }) {
           <Modal.Body className="model_body d-flex justify-content-center w-100">
             <form onSubmit={handleSubmit}>
               <div className="image_div" onClick={handleImageClick} style={{ cursor: "pointer" }}>
-                <img src={imagePerview} alt="Profile" className="w-32 h-32 rounded-full object-cover" style={{border: '2px solid #B50000', borderRadius:"50%" }} />
+                <img src={imagePerview} alt="Profile"  className="w-32 h-32 rounded-full object-cover" style={{border: '2px solid #B50000', borderRadius:"50%" }} />
                 <FaEdit className="edit_icon" />
               </div>
-              <input type="file" name="profile_picture" accept="image/*" onChange={handleFileChange} ref={fileInputRef} style={{ display: "none" }} />
+              <input type="file" name="profile_picture" accept="image/*"
+                            capture="environment" onChange={handleFileChange} ref={fileInputRef} style={{ display: "none" }} />
 
               <div className="input_one_row">
                 <div>
@@ -469,11 +470,13 @@ export default function Myform({ openedFrom, setSelectedType }) {
               <div className="input_one_row">
                 <div>
                   <label htmlFor="cnic_scan">CNIC Scan Copy</label>
-                  <input className="input_auth pad" type="file" name="cnic_scan" accept="image/*" onChange={handleImageChange} />
+                  <input className="input_auth pad" type="file" name="cnic_scan" accept="image/*"
+                            capture="environment" onChange={handleImageChange} />
                 </div>
                 <div>
                   <label htmlFor="billing_address_scan">Billing Address Scan</label>
-                  <input className="input_auth pad" type="file" name="billing_address_scan" accept="image/*" onChange={handleImageChange} />
+                  <input className="input_auth pad" type="file" name="billing_address_scan" accept="image/*"
+                            capture="environment" onChange={handleImageChange} />
                 </div>
               </div>
 
