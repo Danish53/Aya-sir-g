@@ -332,8 +332,8 @@
 export const dynamic = "force-dynamic"; // ⬅️ Prevents prerender build error
 
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { FaEdit, FaMicrophone } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaEdit, FaMicrophone, FaPause } from "react-icons/fa";
+import { MdDelete, MdPause, MdPlayArrow } from "react-icons/md";
 import { MultiSelect } from "react-multi-select-component";
 import { toast, ToastContainer } from "react-toastify";
 import { useSearchParams } from "next/navigation";
@@ -368,8 +368,11 @@ export default function MyFormPage() {
     // console.log(ecenterInfo, "ecenter console...")
 
     const [imagePerview, setImagePreview] = useState("");
-    const [isRecording, setIsRecording] = useState(false);
-    const [audioURL, setAudioURL] = useState(null);
+    const audioRef = useRef(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [audioURL, setAudioURL] = useState();
+    const [isRecording, setIsRecording] = useState();
+
     const mediaRecorderRef = useRef(null);
     const audioChunksRef = useRef([]);
     const fileInputRef = useRef(null);
@@ -493,36 +496,81 @@ export default function MyFormPage() {
         setFormData((prev) => ({ ...prev, [e.target.name]: file }));
     };
 
+    // const handleStartRecording = async () => {
+    //     try {
+    //         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    //         mediaRecorderRef.current = new MediaRecorder(stream);
+    //         mediaRecorderRef.current.ondataavailable = (event) => {
+    //             if (event.data.size > 0) audioChunksRef.current.push(event.data);
+    //         };
+    //         mediaRecorderRef.current.onstop = () => {
+    //             const audioBlob = new Blob(audioChunksRef.current, {
+    //                 type: "audio/webm",
+    //             });
+    //             setAudioURL(URL.createObjectURL(audioBlob));
+    //             setFormData((prev) => ({ ...prev, audio_sample: audioBlob }));
+    //             audioChunksRef.current = [];
+    //         };
+    //         mediaRecorderRef.current.start();
+    //         setIsRecording(true);
+    //     } catch {
+    //         alert("Microphone permission denied.");
+    //     }
+    // };
+
+    const [mediaRecorder, setMediaRecorder] = useState(null);
+    const [timer, setTimer] = useState(0);
+    const timerRef = useRef(null);
     const handleStartRecording = async () => {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorderRef.current = new MediaRecorder(stream);
-            mediaRecorderRef.current.ondataavailable = (event) => {
-                if (event.data.size > 0) audioChunksRef.current.push(event.data);
+            const recorder = new MediaRecorder(stream);
+            let chunks = [];
+
+            recorder.ondataavailable = (e) => {
+                chunks.push(e.data);
             };
-            mediaRecorderRef.current.onstop = () => {
-                const audioBlob = new Blob(audioChunksRef.current, {
-                    type: "audio/webm",
-                });
-                setAudioURL(URL.createObjectURL(audioBlob));
-                setFormData((prev) => ({ ...prev, audio_sample: audioBlob }));
-                audioChunksRef.current = [];
+
+            recorder.onstop = () => {
+                const blob = new Blob(chunks, { type: "audio/mp3" });
+                const url = URL.createObjectURL(blob);
+                setAudioURL(url);
             };
-            mediaRecorderRef.current.start();
+
+            recorder.start();
+            setMediaRecorder(recorder);
             setIsRecording(true);
-        } catch {
-            alert("Microphone permission denied.");
+            setTimer(0);
+
+            timerRef.current = setInterval(() => {
+                setTimer((prev) => prev + 1);
+            }, 1000);
+        } catch (err) {
+            console.error("Microphone access denied", err);
         }
     };
 
     const handleStopRecording = () => {
-        mediaRecorderRef.current?.stop();
-        setIsRecording(false);
+        if (mediaRecorder) {
+            mediaRecorder.stop();
+            setIsRecording(false);
+            clearInterval(timerRef.current);
+        }
     };
 
     const handleDeleteAudio = () => {
-        setAudioURL(null);
-        setFormData((prev) => ({ ...prev, audio_sample: "" }));
+        setAudioURL("");
+        setIsRecording(false);
+        clearInterval(timerRef.current);
+        setTimer(0);
+    };
+
+    const formatTime = (sec) => {
+        const minutes = Math.floor(sec / 60)
+            .toString()
+            .padStart(2, "0");
+        const seconds = (sec % 60).toString().padStart(2, "0");
+        return `${minutes}:${seconds}`;
     };
 
     const handleFieldsChange = (selected) => {
@@ -762,33 +810,61 @@ export default function MyFormPage() {
                 </div>
 
                 {/* Audio Sample */}
-                <div className="input_row_full">
-                    <div className="audio_class">
-                        <div className="d-lg-flex align-items-center gap-3">
-                            <FaMicrophone className="audio_icon" />
-                            {!isRecording ? (
-                                <button type="button" className="btn btn-primary" onClick={handleStartRecording}>
-                                    Start Recording
-                                </button>
-                            ) : (
-                                <button type="button" className="btn btn-secondary" onClick={handleStopRecording}>
-                                    Stop Recording
-                                </button>
-                            )}
-
-                            {formErrors.audio_sample && <small style={{ color: "red" }}>{formErrors.audio_sample}</small>}
-                            {audioURL && (
-                                <>
-                                    <div className="d-flex  align-items-center gap-2 mt-lg-0 mt-2">
-                                        <audio controls src={audioURL} />
-                                        <button type="button" className="btn btn-danger" onClick={handleDeleteAudio}>
-                                            <MdDelete />
-                                        </button>
+                <div className="w-100">
+                    <div className="audio-recorder-container">
+                        {!audioURL && (
+                            <div className="recorder-box">
+                                <div className={`mic-button ${isRecording ? "recording" : ""}`} onClick={isRecording ? handleStopRecording : handleStartRecording}>
+                                    {
+                                        !isRecording ? (
+                                            <FaMicrophone />
+                                        ) : (<FaPause />)
+                                    }
+                                </div>
+                                {!isRecording && <div><p style={{ fontWeight: "600", marginRight: "10px" }}>Record Voice</p></div>}
+                                {isRecording &&
+                                    <div className="bars-animation">
+                                        {Array.from({ length: 25 }).map((_, index) => (
+                                            <div key={index} style={{ animationDelay: `${index * 0.05}s` }}></div>
+                                        ))}
                                     </div>
-                                </>
-                            )}
-                        </div>
+                                }
+
+                                {isRecording && <div className="timer">{formatTime(timer)}</div>}
+                            </div>
+                        )}
+
+                        {audioURL && (
+                            <div className="audio-bubble-container right">
+                                <div className="play-icon-with-bars" onClick={() => {
+                                    if (audioRef.current.paused) {
+                                        audioRef.current.play();
+                                        setIsPlaying(true);
+                                    } else {
+                                        audioRef.current.pause();
+                                        setIsPlaying(false);
+                                    }
+                                }}>
+                                    {isPlaying ? <div className="play-icon"><MdPause /></div> : <div className="play-icon"><MdPlayArrow /></div>}
+
+                                    <div className={`bars-animation-m ${isPlaying ? 'playing' : ''}`}>
+                                        {[...Array(16)].map((_, i) => <span key={i}></span>)}
+                                    </div>
+                                </div>
+
+                                <MdDelete className="delete-icon" onClick={handleDeleteAudio} />
+                                <audio
+                                    ref={audioRef}
+                                    src={audioURL}
+                                    onEnded={() => setIsPlaying(false)}
+                                    className="custom-audio-player"
+                                ></audio>
+                                
+                            </div>
+                        )}
+                        
                     </div>
+                        {formErrors.audio_sample && <small style={{ color: "red" }}>{formErrors.audio_sample}</small>}
                 </div>
 
                 {/* Submit */}
