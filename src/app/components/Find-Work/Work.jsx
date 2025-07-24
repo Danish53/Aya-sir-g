@@ -28,7 +28,7 @@ export default function Work() {
               </div>
             </div>
             <div className="right_div d-flex gap-3" data-aos="fade-up">
-              <div className="col_1">
+              <div className="col_1 mt-3">
                 <h3 className="heading ">Reliable & Efficient Services</h3>
                 <p>
                   Get quality work done on time. Whether it's home maintenance,
@@ -36,7 +36,7 @@ export default function Work() {
                   your requirements with  ease.
                 </p>
               </div>
-              <div className="col_1 ">
+              <div className="col_1 mt-3">
                 <h3 className="heading">Reliable & Efficient Services</h3>
                 <p>
                   Get quality work done on time. Whether it's home maintenance,
