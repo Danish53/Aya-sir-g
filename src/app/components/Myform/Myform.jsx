@@ -215,7 +215,12 @@ export default function Myform({ openedFrom, setSelectedType }) {
         const blob = new Blob(chunks, { type: "audio/mp3" });
         const url = URL.createObjectURL(blob);
         setAudioURL(url);
+        setFormData((prev) => ({
+          ...prev,
+          audio_sample: blob, // ✅ Add this line
+        }));
       };
+
 
       recorder.start();
       setMediaRecorder(recorder);
