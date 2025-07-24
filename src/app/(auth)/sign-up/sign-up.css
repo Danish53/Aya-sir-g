@@ -33,6 +33,11 @@
   justify-content: space-between;
   gap: 30px;
 }
+
+.sign_up .input_one_row div {
+  width: 50% !important;
+}
+
 .sign_up form div {
   width: 100%;
 }
@@ -107,6 +112,9 @@ span.terms {
   .sign_up .input_one_row {
   flex-direction: column;
   gap: 0px;
+}
+.sign_up .input_one_row div {
+  width: 100% !important;
 }
 }
 @media screen and (max-width: 470px) {

@@ -25,6 +25,11 @@ export default function page() {
     password: ""
   });
 
+  const isValidPhone = (number) => {
+  return /^\+92[0-9]{10}$/.test(number);
+};
+
+
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -183,7 +188,7 @@ export default function page() {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-            <input
+            {/* <input
               type="text"
               className="input_auth"
               placeholder="Phone Number"
@@ -192,7 +197,26 @@ export default function page() {
               onChange={handleChange}
               value={formData.contact_number}
               required
-            />
+            /> */}
+            <div className="d-flex align-items-center">
+              <span style={{ padding: '8px', marginBottom:"11px", borderRadius:"10px 0px 0px 10px", height:'44px', border: '1px solid #afafaf', boxShadow: "4px 4px 10px #00000040", borderRight: 'none' }}>+92</span>
+              <input
+                type="text"
+                className="input_auth"
+                placeholder="3001234567"
+                name="contact_number"
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    contact_number: `+92${e.target.value.replace(/^0+/, "")}`,
+                  }))
+                }
+                value={formData.contact_number.replace("+92", "")}
+                required
+                style={{ flex: 1, borderRadius:"0px 10px 10px 0px" }}
+              />
+            </div>
+
           </div>
           {/* <div className="input_one_row">
             <input
@@ -218,7 +242,7 @@ export default function page() {
             <input type="checkbox" id="remember" />
             <label htmlFor="remember" className="custom-checkbox">
               I agree with the
-              <span className="terms"> <Link style={{color:"#B50000"}} href={"/privacy-policy"}>Privacy Policy</Link> </span>
+              <span className="terms"> <Link style={{ color: "#B50000" }} href={"/privacy-policy"}>Privacy Policy</Link> </span>
               of Clarity
             </label>
           </div>
