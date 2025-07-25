@@ -31,6 +31,11 @@ p#filter_heading {
   border-radius: 3px;
   border: 1px solid var(--filter-heading_color);
 }
+
+input[type=checkbox]{
+  display: block !important;
+}
+
 .filter_bar .box .form_div {
   display: flex;
   align-items: center;
