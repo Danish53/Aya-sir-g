@@ -12,14 +12,14 @@ export default function page() {
           </div>
           <div className="col-lg-9 ">
             <div className="content">
-              <h3>Join Aya-Sir-G: Empowering Handyman Services in Lahore</h3>
+              <h2>Join Aya-Sir-G: Empowering Handyman Services in Lahore</h2>
               <p>
                 Are you a skilled individual, a growing company, or an aspiring E-center looking to thrive in the handyman service industry? Aya-Sir-G is your dedicated platform for growth, visibility, and connecting with a wider client base in Lahore.
                 Explore the categories below to discover how we can help you expand your reach and elevate your service-based business. Our team is ready to assist you every step of the way.
               </p>
               <br />
-              <h3>How You Can Partner with Aya-Sir-G:
-              </h3>
+              <h4>How You Can Partner with Aya-Sir-G:
+              </h4>
               <h3>
                 For E-centers: Become a Community Hub</h3>
               <p>
@@ -34,12 +34,12 @@ export default function page() {
               <p>
                 If you're a handyman service company, Aya-Sir-G is your strategic partner for sustainable growth. Our robust rating and comment system helps you build invaluable client trust, enhance your brand's reputation, and attract more clients through authentic, positive feedback. Leverage our platform to reduce reliance on expensive commercial spaces like shops and warehouses; a strong profile here will be your primary source for new orders. Join us to expand your market presence and streamline your service delivery, embracing technology as the key to future growth.</p>            </div>
 
-            <h3>Ready to Get Started?</h3>
+            <h3 className="mt-3">Ready to Get Started?</h3>
               <p>For personalized assistance or to begin your registration, please don't hesitate to reach out.
             </p>
             <div className="card_1 mt-3 mb-2 p-3">
               <div className="flex_div d-flex align-items-center">
-                <h3>For E-center Registration:</h3>
+                <h3 className="m-0">For E-center Registration:</h3>
                 <p>E_center@ayasirg.com</p>
               </div>
               {/* <div className="flex_div d-flex align-items-center">
@@ -47,7 +47,7 @@ export default function page() {
                 <p>help@ayasirg.com</p>
               </div> */}
               <div className="flex_div d-flex align-items-center mt-3">
-                <h3>Call Us Directly:</h3>
+                <h3 className="m-0">Call Us Directly:</h3>
                 <p>03292927474</p>
               </div>
             </div>

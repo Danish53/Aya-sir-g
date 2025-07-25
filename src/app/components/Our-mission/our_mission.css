@@ -1,13 +1,17 @@
 .our_mission {
   font-family: var(--font-poppins), sans-serif;
+  background: transparent !important;
 }
 
 span.red_title {
   color: var(--red-color);
+  font-size: 30px !important;
+  font-weight: 500 !important;
 }
 
 .our_mission p#para {
-  font-size: 20px;
+  font-size: 16px;
+  color: #212529;
 }
 
 .content_parent_div {

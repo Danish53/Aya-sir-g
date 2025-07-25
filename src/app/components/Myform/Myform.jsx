@@ -411,7 +411,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
                 <FaEdit className="edit_icon" />
               </div>
               <input type="file" name="profile_picture" accept="image/*"
-                capture="environment" onChange={handleFileChange} ref={fileInputRef} style={{ display: "none" }} />
+                capture="user" onChange={handleFileChange} ref={fileInputRef} style={{ display: "none" }} />
               {formErrors.profile_picture && <small style={{ color: "red" }}>{formErrors.profile_picture}</small>}
               <div className="row">
                 <div className="col-md-6">
@@ -489,13 +489,13 @@ export default function Myform({ openedFrom, setSelectedType }) {
                 <div className="col-md-6">
                   <label htmlFor="cnic_scan">CNIC Scan Copy</label>
                   <input className="input_auth pad" type="file" name="cnic_scan" accept="image/*"
-                    capture="environment" onChange={handleImageChange} />
+                     onChange={handleImageChange} />
                   {formErrors.cnic_scan && <small style={{ color: "red" }}>{formErrors.cnic_scan}</small>}
                 </div>
                 <div className="col-md-6">
                   <label htmlFor="billing_address_scan">Billing Address Scan</label>
                   <input className="input_auth pad" type="file" name="billing_address_scan" accept="image/*"
-                    capture="environment" onChange={handleImageChange} />
+                     onChange={handleImageChange} />
                   {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>}
                 </div>
 

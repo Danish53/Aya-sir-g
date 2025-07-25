@@ -5,20 +5,21 @@
 }
 
 .our_mission h3{
-  color: #B50000;
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .our_mission h4{
-  font-size: 26px;
-   font-weight: bold;
+  font-size: 20px;
+   font-weight: 500;
+   color: #667085;
 }
 
 .our_mission p{
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   padding: 10px 0px;
+  color: #212529;
 }
 
 .our_mission span{
@@ -26,7 +27,8 @@
 }
 
 .our_mission li{
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
+  color: #212529;
 }
 

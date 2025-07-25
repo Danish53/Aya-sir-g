@@ -76,21 +76,6 @@ export default function CustomNavbar() {
     setMyNavbar(false)
   };
 
-  const changeLanguage = (lang) => {
-    const interval = setInterval(() => {
-      const select = document.querySelector(".goog-te-combo");
-      if (select) {
-        console.log("Changing language to", lang);
-        select.value = lang;
-        select.dispatchEvent(new Event("change"));
-        clearInterval(interval);
-      } else {
-        console.log("Waiting for select...");
-      }
-    }, 300);
-  };
-
-
 
   useEffect(() => {
     const observer = new MutationObserver(() => {
@@ -123,7 +108,7 @@ export default function CustomNavbar() {
       <div className="container">
         <nav className="nav">
           <div className="logo_div">
-            <Link href={'/'}><img src="/assets/Frame.png" alt="Logo" className="logo" /></Link>
+            <Link href={'/'}><img src="/assets/logo_aya.jpg" alt="Logo" className="logo" /></Link>
           </div>
 
           <div className="nav_items d-flex">

@@ -19,8 +19,8 @@
 }
 
 .logo_div {
-  width: 106px;
-  height: 112px;
+  /* width: 106px; */
+  height: 115px;
 }
 
 .navbar .logo {
@@ -215,7 +215,7 @@
     max-width: 80px;
   } */
   .logo_div {
-    width: 90px;
+    /* width: 90px; */
     height: 90px;
   }
 

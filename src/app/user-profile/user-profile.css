@@ -99,12 +99,12 @@
 .modal-body .input_one_row {
   justify-content: space-between;
   align-items: center;
-  gap: 30px;
+  gap: 10px;
   display: flex;
   width: 100%;
 }
 .input_one_row div {
-  width: 50%;
+  width: 49%;
 }
 .modal-body .input_auth {
   margin-bottom: 11px;
@@ -196,4 +196,7 @@ form .image_div .edit_icon {
   .user_profile .new_address_btn {
     font-size: 14px;
   }
+  .input_one_row div {
+  width: 100%;
+}
 }

@@ -53,7 +53,7 @@ export default function page() {
 
       router.push("/");
       setTimeout(() => {
-        window.location.reload(); // force refresh
+        window.location.reload();
       }, 1000);
     } catch (error) {
       console.log("Error while login ::", error);

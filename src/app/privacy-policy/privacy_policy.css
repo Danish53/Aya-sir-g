@@ -1,24 +1,24 @@
 .privacy_policy {
   font-family: var(--font-poppins), sans-serif;
   padding: 20px 0px;
-  background-color: #E5E4E4;
 }
 
 .privacy_policy h3{
-  color: #B50000;
-  font-size: 32px;
-  font-weight: bold;
+  font-size: 30px;
+  font-weight: 500;
 }
 
 .privacy_policy h4{
   font-size: 20px;
-   font-weight: bold;
+   font-weight: 500;
+   color: #667085;
 }
 
 .privacy_policy p{
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   padding: 10px 0px;
+  color: #212529;
 }
 
 .privacy_policy span{
@@ -26,7 +26,8 @@
 }
 
 .privacy_policy li{
-  font-size: 20px;
+  font-size: 16px;
+  color: #212529;
   font-weight: 500;
   list-style:square;
   margin-bottom: 10px;

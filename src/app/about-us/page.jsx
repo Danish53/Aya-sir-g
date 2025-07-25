@@ -5,7 +5,7 @@ export default function page() {
   return (
     <section className="about_us margin_navbar">
       <div className="container py-3">
-        <h3>Slogan: Your Trusted Help, Everywhere</h3>
+        <h2>Slogan: Your Trusted Help, Everywhere</h2>
         <p>
           <b>Aya Sir G!</b>, is a platform designed to connect blue-collar job seekers
           with users in need of various services, including maids, helpers,

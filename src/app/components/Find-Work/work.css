@@ -1,13 +1,16 @@
 .work {
   font-family: var(--font-poppins), sans-serif;
 }
+
 .work p.section_heading {
   color: var(--red-color);
 }
+
 .work .heading {
-  font-size: 21px;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 500;
 }
+
 .work .img_col img {
   /* max-width: 533px;
   max-height: 443px; */
@@ -15,16 +18,20 @@
   height: auto;
   overflow: none;
 }
+
 .work .col_1 {
   flex: 1;
 }
+
 @media screen and (max-width: 991px) {
   .work p.section_heading {
     font-size: 27px;
   }
+
   .work .heading {
     font-size: 19px;
   }
+
   .work .col_1 p {
     font-size: 15px;
   }
@@ -34,10 +41,12 @@
   .work .col_1 p {
     font-size: 14px;
   }
+
   .work p.section_heading {
     font-size: 23px;
     margin-bottom: 10px !important;
   }
+
   .work .heading {
     font-size: 17px;
   }
