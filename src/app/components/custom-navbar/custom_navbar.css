@@ -19,8 +19,8 @@
 }
 
 .logo_div {
-  /* width: 106px; */
-  height: 115px;
+  width: 230px;
+  height: auto;
 }
 
 .navbar .logo {
@@ -209,14 +209,21 @@
   margin-left: 13px;
 }
 
+@media screen and (max-width: 1400px) {
+  .logo_div {
+    width: 180px;
+    height: auto;
+  }
+}
+
 @media screen and (max-width: 1200px) {
 
   /* .navbar .logo {
     max-width: 80px;
   } */
   .logo_div {
-    /* width: 90px; */
-    height: 90px;
+    width: 180px;
+    height: auto;
   }
 
   .navbar p#head {
