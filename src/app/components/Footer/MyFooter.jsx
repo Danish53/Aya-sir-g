@@ -115,7 +115,7 @@ export default function MyFooter() {
 
         </div>
         <div className="footer_bottom">
-          <p>Copyright © 2003 - 2023 AYASIRG (Pvt) Ltd. - All Rights Reserved.</p>
+          <p>Copyright © 2025 - 2035 AYASIRG (Pvt) Ltd. - All Rights Reserved.</p>
           <p><Link href={'/'}>Terms of Service</Link> | <Link href={'/privacy-policy'}>Privacy Policy</Link></p>
           <p>Reproduction of material from any ayasirg.com pages without permission is strictly prohibited.</p>
         </div>

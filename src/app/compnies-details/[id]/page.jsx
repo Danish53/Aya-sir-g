@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./compnies-details.css";
-import { FaRegHeart } from "react-icons/fa";
+import { FaMicrophone, FaRegHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { IoShareSocial } from "react-icons/io5";
 import { IoIosMic } from "react-icons/io";
@@ -187,7 +187,7 @@ export default function page() {
                                                 cursor: "pointer",
                                               }}
                                             > */}
-                        {isPlaying ? <FaPause className="mic_icon" onClick={handlePlayPause} /> : <FaPlay className="mic_icon" onClick={handlePlayPause} />}
+                        {isPlaying ? <FaPause className="mic_icon" onClick={handlePlayPause} /> : <FaMicrophone className="mic_icon" onClick={handlePlayPause} />}
                         {/* </button> */}
 
                         <audio ref={audioRef} src={company.audio_sample} preload="auto" />
@@ -287,7 +287,7 @@ export default function page() {
                 </div>
               </div>
             </div>
-            {/* <div className="comments_div mt-3 pb-3">
+            <div className="comments_div mt-3 pb-3">
               <div className="heading_sec p-3">
                 <IoIosArrowBack className="arrow_icon" />
                 <h3 className="heading">Comments</h3>
@@ -304,7 +304,7 @@ export default function page() {
                   <img src="/assets/Icon.png" />
                 </button>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

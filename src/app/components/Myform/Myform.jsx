@@ -21,6 +21,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
     locations,
     getLocations
   } = useContext(UserContext);
+  console.log(userDetails, "user detail,.,.,.")
   const [imagePerview, setImagePreview] = useState(userDetails?.profile_image);
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState(userDetails?.audio_sample);
@@ -40,7 +41,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
   const [cnicError, setCnicError] = useState("");
 
   const [formData, setFormData] = useState({
-    profile_picture: "",
+    profile_image: "",
     first_name: "",
     last_name: "",
     username: "",
@@ -64,7 +65,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
 
   const validateForm = () => {
     const requiredFields = [
-      "profile_picture",
+      "profile_image",
       "first_name",
       "last_name",
       "username",
@@ -141,7 +142,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
     if (userDetails) {
       setFormData((prev) => ({
         ...prev,
-        profile_picture: userDetails.profile_picture || "",
+        profile_image: userDetails.profile_image || "",
         first_name: userDetails.first_name || "",
         last_name: userDetails.last_name || "",
         username: userDetails.username || "",
@@ -183,7 +184,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
     // 2. Save file to formData for API
     setFormData((prev) => ({
       ...prev,
-      profile_picture: file, // 👈 this will go in FormData later
+      profile_image: file, // 👈 this will go in FormData later
     }));
   };
 
@@ -204,7 +205,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
   const handleStartRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream);
+      const recorder = new MediaRecorder(stream, { mimeType: "audio/webm" });
       let chunks = [];
 
       recorder.ondataavailable = (e) => {
@@ -212,15 +213,14 @@ export default function Myform({ openedFrom, setSelectedType }) {
       };
 
       recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: "audio/mp3" });
+        const blob = new Blob(chunks, { type: "audio/webm" });
         const url = URL.createObjectURL(blob);
         setAudioURL(url);
         setFormData((prev) => ({
           ...prev,
-          audio_sample: blob, // ✅ Add this line
+          audio_sample: blob, // ✅ Blob in webm format
         }));
       };
-
 
       recorder.start();
       setMediaRecorder(recorder);
@@ -234,6 +234,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
       console.error("Microphone access denied", err);
     }
   };
+
 
   const handleStopRecording = () => {
     if (mediaRecorder) {
@@ -301,8 +302,8 @@ export default function Myform({ openedFrom, setSelectedType }) {
     // console.log(res, "update profile ho?")
 
     if (res.success) {
-      toast.success("Profile updated successfully!");
       handleClose();
+      toast.success("Profile updated successfully!");
     } else {
       toast.error(res.message || "Update failed.");
     }
@@ -410,9 +411,9 @@ export default function Myform({ openedFrom, setSelectedType }) {
                 <img src={imagePerview} alt="Profile" className="w-32 h-32 rounded-full object-cover" style={{ border: '2px solid #B50000', borderRadius: "50%" }} />
                 <FaEdit className="edit_icon" />
               </div>
-              <input type="file" name="profile_picture" accept="image/*"
+              <input type="file" name="profile_image" accept="image/*"
                 capture="user" onChange={handleFileChange} ref={fileInputRef} style={{ display: "none" }} />
-              {formErrors.profile_picture && <small style={{ color: "red" }}>{formErrors.profile_picture}</small>}
+              {formErrors.profile_image && <small style={{ color: "red" }}>{formErrors.profile_image}</small>}
               <div className="row">
                 <div className="col-md-6">
                   <label htmlFor="first_name">First Name</label>
@@ -489,13 +490,13 @@ export default function Myform({ openedFrom, setSelectedType }) {
                 <div className="col-md-6">
                   <label htmlFor="cnic_scan">CNIC Scan Copy</label>
                   <input className="input_auth pad" type="file" name="cnic_scan" accept="image/*"
-                     onChange={handleImageChange} />
+                    onChange={handleImageChange} />
                   {formErrors.cnic_scan && <small style={{ color: "red" }}>{formErrors.cnic_scan}</small>}
                 </div>
                 <div className="col-md-6">
                   <label htmlFor="billing_address_scan">Billing Address Scan</label>
                   <input className="input_auth pad" type="file" name="billing_address_scan" accept="image/*"
-                     onChange={handleImageChange} />
+                    onChange={handleImageChange} />
                   {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>}
                 </div>
 
