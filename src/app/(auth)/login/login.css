@@ -82,6 +82,10 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
   transform: rotate(45deg);
 }
 
+input[type="checkbox"] {
+    display: none !important;
+}
+
 .login .logo {
   max-width: 83px;
 }

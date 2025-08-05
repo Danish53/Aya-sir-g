@@ -80,6 +80,11 @@
   font-weight: 400;
 }
 
+.verified_btn {
+    padding: 2px 5px;
+    font-size: 13px;
+  }
+
 @media screen and (max-width: 768px) {
   .verified_btn {
     padding: 2px 10px;

@@ -1,5 +1,5 @@
-"use client";
-export const dynamic = "force-dynamic"; // ⬅️ Prevents prerender build error
+'use client';
+// export const dynamic = "force-dynamic";
 
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FaEdit, FaMicrophone, FaPause } from "react-icons/fa";
@@ -12,6 +12,9 @@ import "./e-center.css";
 import { UserContext } from "../userContext";
 import { IoMdClose } from "react-icons/io";
 import { useRouter } from "next/navigation";
+// import { Modal } from 'bootstrap';
+import axios from "axios";
+import dynamic from "next/dynamic";
 
 
 export default function MyFormPage() {
@@ -20,6 +23,26 @@ export default function MyFormPage() {
     const searchParams = useSearchParams();
     const [userType, setUserType] = useState(null);
     const router = useRouter();
+    const inputRefs = useRef([]);
+    const [otp, setOtp] = useState(new Array(6).fill(""));
+    const [loading, setLoading] = useState(false);
+
+    // Input change handler
+    const handleChangeOtp = (element, index) => {
+        if (!isNaN(element.value)) {
+            const newOtp = [...otp];
+            newOtp[index] = element.value;
+            setOtp(newOtp);
+
+            // Move to next input automatically
+            if (element.value && index < 5) {
+                if (typeof window !== 'undefined' && inputRefs.current[index + 1]) {
+                    inputRefs.current[index + 1].focus();
+                }
+            }
+        }
+    };
+
 
     useEffect(() => {
         const type = searchParams.get("type");
@@ -42,9 +65,8 @@ export default function MyFormPage() {
     const [isPlaying, setIsPlaying] = useState(false);
     const [audioURL, setAudioURL] = useState();
     const [isRecording, setIsRecording] = useState();
+    const [eCenterOtp, setEcenterOtp] = useState();
 
-    const mediaRecorderRef = useRef(null);
-    const audioChunksRef = useRef([]);
     const fileInputRef = useRef(null);
 
     const cnicRegex = /^[0-9]{5}-[0-9]{7}-[0-9]$/;
@@ -53,18 +75,18 @@ export default function MyFormPage() {
     const [selectedCityId, setSelectedCityId] = useState("");
     const [selectedLocation, setSelectedLocation] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
-    console.log(selectedCityId, "city id")
+    // console.log(selectedCityId, "city id")
 
     const [formData, setFormData] = useState({
         profile_image: "",
-        first_name: "",
-        last_name: "",
+        // first_name: "",
+        // last_name: "",
         username: "",
         contact_number: "",
         email: "",
         address: "",
         gender: "",
-        user_city: "",
+        // user_city: "",
         cnic: "",
         age: "",
         cnic_scan: "",
@@ -73,34 +95,31 @@ export default function MyFormPage() {
         fields_of_interest: [],
         description: "",
         disability_status: "",
-        experience: "",
-        audio_sample: "",
+        // experience: "",
+        audio_sample_blob: "",
         picture: "",
         password: "",
         city_id: ""
     });
 
-    console.log(formData, "form data print")
+    // console.log(formData, "form data print")
 
     const validateForm = () => {
         const requiredFields = [
             "profile_image",
-            "first_name",
-            "last_name",
             "username",
             "email",
             "contact_number",
             "address",
             "gender",
-            "user_city",
+            "city_id",
             "cnic",
             "age",
             "description",
-            "experience",
             "billing_address_scan",
             "cnic_scan",
             "picture",
-            "audio_sample",
+            "audio_sample_blob",
             "password"
         ];
 
@@ -192,6 +211,8 @@ export default function MyFormPage() {
     //     }
     // };
 
+
+    const modalRef = useRef(null);
     const [mediaRecorder, setMediaRecorder] = useState(null);
     const [timer, setTimer] = useState(0);
     const timerRef = useRef(null);
@@ -211,7 +232,7 @@ export default function MyFormPage() {
                 setAudioURL(url);
                 setFormData((prev) => ({
                     ...prev,
-                    audio_sample: blob, // ✅ Add this line
+                    audio_sample_blob: blob, // ✅ Add this line
                 }));
             };
 
@@ -287,19 +308,51 @@ export default function MyFormPage() {
         form.append("role", userType);
         form.append("city_id", selectedCityId);
 
+
+
         try {
             setLoader(true);
             const response = await ecenterAdd(form);
-            if (response.success) toast.success("Profile has been successfully Created!");
+            console.log(response, "e-center log");
+            if (response?.result?.status == true) {
+                setEcenterOtp(response?.result);
+                toast.success(response?.result?.message || "Profile has been successfully Created!");
+                if (modalRef.current) {
+                    const bootstrap = await import('bootstrap')
+                    const modalInstance = new bootstrap.Modal(modalRef.current, {
+                        backdrop: "static",
+                        keyboard: false,
+                    });
+                    modalInstance.show();
+                }
+            }
             else toast.error(response.message || "Form submit failed.");
 
             // router.push("ecenter-record")
         } catch (err) {
-            console.error("Update error:", err);
-            toast.error(err.errors[0].message ||"Something went wrong during update.");
-        } finally {
+            console.log("Full error:", err); // Check this for debugging
+
+            const apiErrors = err?.errors;
+            const apiMessage = err?.message;
+
+            if (apiErrors) {
+                for (const key in apiErrors) {
+                    if (Array.isArray(apiErrors[key])) {
+                        apiErrors[key].forEach((msg) => toast.error(msg));
+                    } else {
+                        toast.error(apiErrors[key]);
+                    }
+                }
+            } else if (apiMessage) {
+                toast.error(apiMessage);
+            } else {
+                toast.error("Something went wrong during update.");
+            }
+        }
+        finally {
             setLoader(false);
         }
+
     };
 
     useEffect(() => {
@@ -315,6 +368,51 @@ export default function MyFormPage() {
         label: loc.name,
         value: loc.id,
     }));
+
+
+    // useEffect(() => {
+    //     if (modalRef.current) {
+    //         const modalInstance = new Modal(modalRef.current, {
+    //             backdrop: "static", // optional
+    //             keyboard: false     // optional
+    //         });
+    //         modalInstance.show();
+    //     }
+    // }, []);
+
+    const handleVerify = async () => {
+        const otpCode = otp.join("");
+
+        if (otpCode.length !== 6) {
+            toast.error("Please enter 6-digit OTP.");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/verify-otp-submit`, {
+                temp_id: eCenterOtp?.otp_id,
+                otp: otpCode,
+            });
+
+            const resData = response?.data;
+
+            if (response.status === 200 && resData?.status === true) {
+                toast.success(resData?.message || "OTP verified successfully!");
+                setOtp(["", "", "", "", "", ""]);
+                // modalInstance.close();
+            } else {
+                toast.error(resData?.message || "Invalid OTP. Please try again.");
+            }
+        } catch (error) {
+            console.error("OTP verification failed", error);
+            const errorMessage = error?.response?.data?.message || "Server error occurred.";
+            toast.error(errorMessage);
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     return (
         <div className="container myform_page">
@@ -361,7 +459,7 @@ export default function MyFormPage() {
 
                 {/* First and Last Name */}
                 <div className="row input_one_row">
-                    <div className="col-lg-6">
+                    {/* <div className="col-lg-6">
                         <label htmlFor="first_name">First Name</label>
                         <input name="first_name" placeholder="First Name" onChange={handleChange} />
                         {formErrors.first_name && <small style={{ color: "red" }}>{formErrors.first_name}</small>}
@@ -370,7 +468,7 @@ export default function MyFormPage() {
                         <label htmlFor="last_name">Last Name</label>
                         <input name="last_name" placeholder="Last Name" onChange={handleChange} />
                         {formErrors.last_name && <small style={{ color: "red" }}>{formErrors.last_name}</small>}
-                    </div>
+                    </div> */}
 
                     <div className="col-lg-6">
                         <label htmlFor="username">Username</label>
@@ -447,7 +545,7 @@ export default function MyFormPage() {
                                 const cityId = e.target.value;
                                 const selectedCity = cities.find((city) => city.id === parseInt(cityId));
                                 setSelectedCityId(cityId);
-                                setFormData((prev) => ({ ...prev, user_city: selectedCity?.name || "", city_id: cityId }));
+                                setFormData((prev) => ({ ...prev, city_id: cityId }));
                             }}
                             value={selectedCityId}
                         >
@@ -481,11 +579,11 @@ export default function MyFormPage() {
                         </div>
                     )}
 
-                    <div className="col-lg-6">
+                    {/* <div className="col-lg-6">
                         <label htmlFor="experience">Experience</label>
                         <input name="experience" placeholder="Experience" type="number" onChange={handleChange} />
                         {formErrors.experience && <small style={{ color: "red" }}>{formErrors.experience}</small>}
-                    </div>
+                    </div> */}
 
                     <div className="col-lg-6">
                         <label htmlFor="experience">Police Verification</label>
@@ -550,7 +648,7 @@ export default function MyFormPage() {
                         )}
 
                     </div>
-                    {formErrors.audio_sample && <small style={{ color: "red" }}>{formErrors.audio_sample}</small>}
+                    {formErrors.audio_sample_blob && <small style={{ color: "red" }}>{formErrors.audio_sample_blob}</small>}
                 </div>
 
                 {/* Submit */}
@@ -568,6 +666,58 @@ export default function MyFormPage() {
                 </div>
             </form>
             <ToastContainer />
+
+            <div
+                className="modal fade"
+                id="otpModal"
+                tabIndex="-1"
+                aria-labelledby="otpModalLabel"
+                aria-hidden="true"
+                ref={modalRef}
+            >
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title" id="otpModalLabel">Enter OTP</h5>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div className="modal-body text-center">
+                            <p>Please enter the 6-digit OTP.</p>
+                            <div className="d-flex justify-content-center gap-2">
+                                {otp.map((data, index) => (
+                                    <input
+                                        key={index}
+                                        type="text"
+                                        maxLength="1"
+                                        ref={(el) => inputRefs.current[index] = el}
+                                        className="form-control text-center"
+                                        style={{ width: "40px", height: "40px", fontSize: "1.5rem" }}
+                                        value={otp[index]}
+                                        onChange={(e) => handleChangeOtp(e.target, index)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <button
+                                className="btn btn_primary w-100 text-white"
+                                onClick={handleVerify}
+                                disabled={loading}
+                            >
+                                {loading ? "Verifying..." : "Verify OTP"}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
     );
 }

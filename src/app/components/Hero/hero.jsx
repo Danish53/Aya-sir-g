@@ -62,7 +62,7 @@ export default function Hero() {
       setLocations([]);
     } else {
       setCityId(id);
-      await getLocations(id);
+      await getLocations(id); 
     }
   };
 

@@ -105,7 +105,7 @@ export default function page() {
         <div className="logo_div mt-3">
           <Link href={'/'}>
             <img src="/assets/logo_header.png" alt="logo" className="logo" /></Link>
-          <p id="head">AYA SIR G!</p>
+          <p id="head">Aya Sir G!</p>
           <p id="descri">YOUR TRUSTED EVERYWHERE</p>
         </div>
       </div>

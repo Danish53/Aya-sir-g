@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext } from "react";
 import "./companycard.css";
-import { RiStarSFill } from "react-icons/ri";
+import { RiStarFill, RiStarHalfFill, RiStarLine, RiStarSFill } from "react-icons/ri";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
@@ -9,13 +9,27 @@ import Link from "next/link";
 import { UserContext } from "@/app/userContext";
 
 export default function CompanyCard({ data, onLike }) {
-
+  console.log(data, "data user ind.")
   const { userInfo } = useContext(UserContext);
 
   const isLiked = !!data?.can_like;
   const onLikeClick = () => {
     onLike(data.id, !!isLiked);
   };
+
+  // rating
+  const ratingView = data?.handyman_rating || 0;
+  const stars = [];
+
+  for (let i = 1; i <= 5; i++) {
+    if (ratingView >= i) {
+      stars.push(<RiStarFill key={i} className="star text-warning" />);
+    } else if (ratingView >= i - 0.5) {
+      stars.push(<RiStarHalfFill key={i} className="star text-warning" />);
+    } else {
+      stars.push(<RiStarLine key={i} className="star text-warning" />);
+    }
+  }
 
   const fullText =
     "Hazir Jnab, we work as a group of highly skilled and experienced " +
@@ -42,16 +56,10 @@ export default function CompanyCard({ data, onLike }) {
               <div className="content_div">
                 <div className="heading_div">
                   <h3>{data?.username}</h3>
-                  {/* <div className="star_respons_div">
-                  <div className="stars_div">
-                    <RiStarSFill className="star" />
-                    <RiStarSFill className="star" />
-                    <RiStarSFill className="star" />
-                    <RiStarSFill className="star" />
-                    <RiStarSFill className="star" />
+                  <div className="star_respons_div">
+                    <div className="stars_div d-flex gap-1">{stars}</div>
+                    <p id="respons">{data?.responses || 0} Responses</p>
                   </div>
-                  <p id="respons">34 Responses</p>
-                </div> */}
                 </div>
 
                 <h4 id="city">{data?.user_city || "city"}, {data?.address || "address"} </h4>
@@ -75,14 +83,16 @@ export default function CompanyCard({ data, onLike }) {
                   </Link>
                 )}
 
-                <button className="verified_btn">
-                  Verified
-                  <FaCheck className="tik_icon" />
-                </button>
+                  <button className="verified_btn">
+                    {data?.verification}
+                    {data?.verification === "Non Verified" ? "" : <FaCheck className="tik_icon" />}
+                  </button>
               </div>
 
               <div className="heart_button">
-                <IoCall className="phone_icon" />
+                <a href={`tel:${data?.contact_number}`}>
+                  <IoCall className="phone_icon" />
+                </a>
                 <Link href={`/compnies-details/${data?.id}`} className="verified_btn card_btn_background">
                   More Details
                 </Link>

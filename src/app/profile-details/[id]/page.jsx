@@ -3,12 +3,12 @@
 'use client';
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./profile-details.css";
-import { FaMicrophone, FaRegHeart } from "react-icons/fa";
+import { FaMicrophone, FaRegHeart, FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { IoCopyOutline, IoShareSocial } from "react-icons/io5";
-import { IoIosMic } from "react-icons/io";
+import { IoIosArrowForward, IoIosMic } from "react-icons/io";
 import { FaPhoneAlt } from "react-icons/fa";
-import { RiStarSFill } from "react-icons/ri";
+import { RiStarFill, RiStarHalfFill, RiStarLine, RiStarSFill } from "react-icons/ri";
 
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
@@ -40,9 +40,66 @@ export default function page() {
   const params = useParams();
   const { id } = params;
   const [user, setUser] = useState(null);
-  const { userInfo, toggleLike } = useContext(UserContext)
+  // console.log(user, "profile data res.")
+  const [reviewsRating, setReviewsRating] = useState();
+  const reviewCount = reviewsRating?.length;
+  const { userInfo, toggleLike, reviews, addReviews } = useContext(UserContext)
   const [showShare, setShowShare] = useState(false);
   const currentUrl = window.location.href;
+  const [reloadUserData, setReloadUserData] = useState(false);
+  const [loading, setloading] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const commentsPerPage = 3;
+
+  const indexOfLast = currentPage * commentsPerPage;
+  const indexOfFirst = indexOfLast - commentsPerPage;
+  const currentComments = reviewsRating?.slice(indexOfFirst, indexOfLast);
+
+  const totalPages = Math.ceil(reviewsRating?.length / commentsPerPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
+  const [review, setReview] = useState("");
+
+  const handleRating = (value) => {
+    setRating(value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // move this to top
+    setloading(true);
+
+    const formData = new FormData();
+    formData.append("handyman_id", id);
+    formData.append("customer_id", userInfo?.id);
+    formData.append("rating", rating);
+    formData.append("review", review);
+
+    console.log("formData okkkk", formData);
+
+    const response = await addReviews(formData);
+
+    if (response?.success) {
+      toast.success(response?.message || "Review/Rating added!");
+      setReview("");
+      setRating(0);
+      setReloadUserData(prev => !prev); // trigger user re-fetch
+    } else {
+      toast.error(response?.message || "Something went wrong.");
+    }
+
+    setloading(false); // move outside of if/else to always stop loading
+  };
+
 
   useEffect(() => {
     if (id) {
@@ -55,10 +112,11 @@ export default function page() {
       })
         .then((res) => {
           setUser(res.data.data);
+          setReviewsRating(res.data.handyman_rating_review);
         })
         .catch((err) => console.error("Error loading user:", err));
     }
-  }, [id]);
+  }, [id, reloadUserData]);
 
 
   const audioRef = useRef(null);
@@ -162,6 +220,21 @@ export default function page() {
   };
 
 
+  const ratingView = user?.handyman_rating || 0;
+  const stars = [];
+
+  for (let i = 1; i <= 5; i++) {
+    if (ratingView >= i) {
+      stars.push(<RiStarFill key={i} className="star text-warning" />);
+    } else if (ratingView >= i - 0.5) {
+      stars.push(<RiStarHalfFill key={i} className="star text-warning" />);
+    } else {
+      stars.push(<RiStarLine key={i} className="star text-warning" />);
+    }
+  }
+
+
+
   return (
     <section className="profile_section margin_navbar">
       <div className="container py-5">
@@ -171,7 +244,7 @@ export default function page() {
           </div>
           <div className="col-lg-9">
             <div className="red_bar"></div>
-            <div className="p-4">
+            <div className="left p-4">
               <div className="heart_button">
                 {/* <FaRegHeart className="icon" /> */}
                 {/* {userInfo ? (
@@ -187,7 +260,8 @@ export default function page() {
                 )} */}
 
                 <button className="verified_btn">
-                  Verified <FaCheck className="tik_icon" />
+                  {user?.verification}
+                  {user?.verification === "Non Verified" ? "" : <FaCheck className="tik_icon" />}
                 </button>
                 {/* <IoShareSocial className="share icon" /> */}
                 <div>
@@ -232,7 +306,7 @@ export default function page() {
                             type="text"
                             value={currentUrl}
                             readOnly
-                            style={{ flex: 1, padding: 8, borderRadius: 6, color:"#3c3c3c", border: "1px solid #ccc" }}
+                            style={{ flex: 1, padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
                           />
                           <button
                             onClick={handleCopy}
@@ -292,7 +366,7 @@ export default function page() {
                 </div>
               </div>
               <h3 className="name_heading">{user?.username}</h3>
-              <p>{user?.gender}, {user?.age} years old</p>
+              <p>{user?.gender === "male" ? "Male" : user?.gender === "female" ? "Female" : ""}, {user?.age} years old</p>
 
               <div className="flex_div">
                 <div className="left_div">
@@ -308,30 +382,16 @@ export default function page() {
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          // background: "#e1ffc7",
-                          // padding: "8px 12px",
-                          // borderRadius: "20px",
-                          // maxWidth: "240px",
+                          background: "#e1ffc7",
+                          padding: "8px 12px",
+                          borderRadius: "20px",
+                          maxWidth: "240px",
+                          height: "50px",
+
                         }}
                       >
-                        {/* <button
-                          onClick={handlePlayPause}
-                          style={{
-                            background: "#25d366",
-                            border: "none",
-                            borderRadius: "50%",
-                            width: "35px",
-                            height: "35px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            color: "#fff",
-                            marginRight: "10px",
-                            fontSize: "14px",
-                            cursor: "pointer",
-                          }}
-                        > */}
-                        {isPlaying ? <FaPause className="mic_icon" onClick={handlePlayPause} /> : <FaMicrophone className="mic_icon" onClick={handlePlayPause} />}
+                        <p className="me-2">Taaruf:</p>
+                        {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
                         {/* </button> */}
 
                         <audio ref={audioRef} src={user.audio_sample} preload="auto" />
@@ -377,18 +437,80 @@ export default function page() {
                         : ""}
                     </h4>
 
-                    {
+                    {/* {
                       <h4>Current Address: <span>{user?.user_city || ""}</span></h4>
-                    }
+                    } */}
                     <h4>Experience: {user?.experience || ""}</h4>
                     <h4>
                       CNIC:{" "}
                       <span className="cnic">
-                        {userInfo?.api_token ? user?.cnic?.slice(0, 5) + "********" : "*************"}
+                        {userInfo?.api_token && user?.cnic ? (
+                          user.cnic
+                            .split('')
+                            .map((char, index) => {
+                              // Keep hyphens as-is
+                              if (char === '-') return '-';
+
+                              // Show digits at specific indexes
+                              if ([4, 6, 8, 10, 14].includes(index)) return char;
+
+                              // Replace other digits with *
+                              return '*';
+                            })
+                            .join('')
+                            // Add * only between digits (not after hyphens)
+                            .replace(/(?<=\d)(?=\d)/g, '*')
+                        ) : (
+                          '*'.repeat(user?.cnic?.length || 15)
+                        )}
+
+
                       </span>
                     </h4>
 
-                    <h4>Disability: {user?.disability_status || "None"}</h4>
+                    <h4>Disability: {user?.disability_status === "non" ? "None" : ""}</h4>
+
+                    <div className="" style={{ maxWidth: "600px" }}>
+
+                      <form onSubmit={handleSubmit}>
+                        <div className="mb-2">
+                          <textarea
+                            className="form-control"
+                            rows="4"
+                            placeholder="Write your review here..."
+                            value={review}
+                            onChange={(e) => setReview(e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div className="mb-3 d-flex align-items-center gap-2">
+                          {[...Array(5)].map((_, index) => {
+                            const fullValue = (index + 1);
+                            const halfValue = index + 0.5;
+
+                            return (
+                              <span key={index} style={{ cursor: "pointer", fontSize: "1.8rem", color: "#f1c40f" }}>
+                                {hover >= fullValue || rating >= fullValue ? (
+                                  <FaStar onClick={() => handleRating(fullValue)} onMouseEnter={() => setHover(fullValue)} onMouseLeave={() => setHover(0)} />
+                                ) : hover >= halfValue || rating >= halfValue ? (
+                                  <FaStarHalfAlt onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
+                                ) : (
+                                  <FaRegStar onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
+                                )}
+                              </span>
+                            );
+                          })}
+                          {/* <span className="ms-2 text-muted">{rating} Star{rating !== 1 ? "s" : ""}</span> */}
+                        </div>
+
+                        {
+                          review ? <button className="btn btn_primary text-white" type="submit" disabled={rating === 0}>
+                            {!loading ? "Submit Review" : "Submit Review.."}
+                          </button> : ("")
+                        }
+                      </form>
+                    </div>
                   </div>
                 </div>
                 <div className="right">
@@ -402,7 +524,7 @@ export default function page() {
                 <div className="col_1">
                   {
                     userInfo?.api_token ? (
-                      <Link href={`tel:${user?.phone}`} className="phone_num" style={{ textDecoration: "none" }}>
+                      <Link href={`tel:${user?.contact_number}`} className="phone_num" style={{ textDecoration: "none" }}>
                         <FaPhoneAlt className="phone_icon" />
                         <div className="number">
                           <p className="number">{user?.contact_number}</p>
@@ -426,34 +548,47 @@ export default function page() {
                 <div className="col_1">
                   <div className="star_respons_div">
                     <div className="stars_div">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <RiStarSFill key={i} className="star" />
-                      ))}
+                      <div className="stars_div d-flex gap-1">{stars}</div>
                     </div>
-                    <p id="respons">34 Responses</p>
+                    <p id="respons">{reviewCount} Responses</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="comments_div mt-3 pb-3">
-              <div className="heading_sec p-3">
-                <IoIosArrowBack className="arrow_icon" />
-                <h3 className="heading">Comments</h3>
-              </div>
-              <Comments />
-              <div className="all_comments p-3 d-flex">
-                <p>View all 124 comments</p>
-                <IoIosArrowDown />
-              </div>
-              <Comments />
-              <div className="input_div px-3">
-                <input type="text" placeholder="Start typing..." />
-                <button>
-                  <img src="/assets/Icon.png" alt="send" />
-                </button>
-              </div>
-            </div>
+            {
+              userInfo ? (<div className="comments_div mt-3 pb-3">
+                <div className="heading_sec p-3">
+                  {/* <IoIosArrowBack className="arrow_icon" /> */}
+                  <h3 className="heading">Comments</h3>
+                </div>
+                <div className="comments_list_wrapper">
+                  {currentComments?.map((item) => (
+                    <Comments key={item.id} reviewPass={item.review} ratingPass={item.rating} image={userInfo?.profile_image} />
+                  ))}
+
+                  <div className="pagination_controls my-3">
+                    <button
+                      onClick={handlePrev}
+                      className="btn btn-sm btn_primary text-white mx-2"
+                      disabled={currentPage === 1}
+                    >
+                      <IoIosArrowBack style={{ fontSize: "22px" }} />
+                    </button>
+                    <span className="px-2">{currentPage} / {totalPages}</span>
+                    <button
+                      onClick={handleNext}
+                      className="btn btn-sm btn_primary text-white mx-2"
+                      disabled={currentPage === totalPages}
+                    >
+                      <IoIosArrowForward style={{ fontSize: "22px" }} />
+                    </button>
+                  </div>
+                </div>
+
+              </div>) : ("")
+            }
+
           </div>
         </div>
       </div>

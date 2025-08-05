@@ -15,7 +15,7 @@ export default function MyFooter() {
     <footer className="text-white py-4 footer">
       <div className="container">
         <div className="row footer-row text_center">
-          <div className="col-lg-3 col-md-6 col-sm-12">
+          <div className="col-lg-2 col-md-6 col-sm-12">
             <p className="footer_heading ">COMPANY</p>
             <ul className="list-unstyled ">
               <li>
@@ -29,7 +29,7 @@ export default function MyFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-12">
+          <div className="col-lg-2 col-md-6 col-sm-12">
             <p className="footer_heading">SUPPORT</p>
             <ul className="list-unstyled">
               {/* <li>
@@ -40,7 +40,7 @@ export default function MyFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-12">
+          <div className="col-lg-2 col-md-6 col-sm-12">
             <p className="footer_heading">BUSINESS</p>
             <ul className="list-unstyled">
               <li>
@@ -60,10 +60,8 @@ export default function MyFooter() {
               </li> */}
             </ul>
           </div>
-          <div className="col-lg-3 col-md-6 col-sm-12">
-            {/* <p className="footer_heading">
-              Be the first to know about new jobs
-            </p> */}
+          {/* <div className="col-lg-3 col-md-6 col-sm-12">
+            
             <form>
               <div className="input_div">
                 <input
@@ -78,7 +76,7 @@ export default function MyFooter() {
               By clicking “Get Invite” button you agree to our Terms and
               Conditions and that you have read our Data Use Policy.
             </p>
-          </div>
+          </div> */}
         </div>
         <hr className="my-4" />
         <div className=" flex-wrap social-div d-flex align-items-center justify-content-center gap-3 mx-auto">

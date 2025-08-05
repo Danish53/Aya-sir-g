@@ -94,7 +94,7 @@ export default function page() {
                       <FaMap style={{ fontSize: "26px" }} />
                       <h5>Location</h5>
                       <p style={{ fontSize: "12px" }} className="ps-1">
-                        Aya-Sir-G! (pvt) Limited, 15C, Commercial, NFC#1, Lahore, Pakistan
+                        Aya Sir G! (pvt) Limited, 15C, Commercial, NFC#1, Lahore, Pakistan
                       </p>
                     </div>
                   </a>

@@ -3,10 +3,10 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./compnies-details.css";
 import { FaMicrophone, FaRegHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import { IoShareSocial } from "react-icons/io5";
-import { IoIosMic } from "react-icons/io";
+import { IoCopyOutline, IoShareSocial } from "react-icons/io5";
+import { IoIosArrowForward, IoIosMic } from "react-icons/io";
 import { FaPhoneAlt } from "react-icons/fa";
-import { RiStarSFill } from "react-icons/ri";
+import { RiStarFill, RiStarHalfFill, RiStarLine, RiStarSFill } from "react-icons/ri";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import Comments from "@/app/components/Comments/Comments";
@@ -17,26 +17,98 @@ import axios from "axios";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
-
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  WhatsappIcon,
+  LinkedinShareButton,
+  LinkedinIcon,
+  TelegramShareButton,
+  TelegramIcon,
+} from "react-share";
 import { FaPlay, FaPause } from "react-icons/fa";
+import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export default function page() {
 
   const params = useParams();
   const { id } = params;
   const [company, setCompany] = useState(null);
-  const { userInfo } = useContext(UserContext)
+  // console.log(company, "company response")
+  const [reviewsRating, setReviewsRating] = useState();
+  const reviewCount = reviewsRating?.length;
+  const { userInfo, addReviews } = useContext(UserContext)
   // console.log(userInfo, "userInfo,,,,,,")
+  const [showShare, setShowShare] = useState(false);
+  const currentUrl = window.location.href;
+  const [reloadUserData, setReloadUserData] = useState(false);
+  const [loading, setloading] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const commentsPerPage = 3;
+
+  const indexOfLast = currentPage * commentsPerPage;
+  const indexOfFirst = indexOfLast - commentsPerPage;
+  const currentComments = reviewsRating?.slice(indexOfFirst, indexOfLast);
+
+  const totalPages = Math.ceil(reviewsRating?.length / commentsPerPage);
+
+  const handleNext = () => {
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
+  };
+
+  const [rating, setRating] = useState(0); // 0.5 to 5
+  const [hover, setHover] = useState(0);
+  const [review, setReview] = useState("");
+
+  const handleRating = (value) => {
+    setRating(value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setloading(true);
+
+    const formData = new FormData();
+    formData.append("handyman_id", id);
+    formData.append("customer_id", userInfo?.id);
+    formData.append("rating", rating);
+    formData.append("review", review);
+
+    // console.log("formData okkkk", formData);
+
+    const response = await addReviews(formData);
+
+    if (response?.success) {
+      toast.success(response?.message || "Review/Rating added!");
+      setReview("");
+      setRating(0);
+      setReloadUserData(prev => !prev); // trigger user re-fetch
+    } else {
+      toast.error(response?.message || "Something went wrong.");
+    }
+
+    setloading(false); // move outside of if/else to always stop loading
+  };
 
   useEffect(() => {
     if (id) {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user-detail/${id}`)
         .then((res) => {
           setCompany(res.data.data);
+          setReviewsRating(res.data.handyman_rating_review);
         })
         .catch((err) => console.error("Error loading user:", err));
     }
-  }, [id]);
+  }, [id, reloadUserData]);
 
 
   const audioRef = useRef(null);
@@ -97,6 +169,26 @@ export default function page() {
     };
   }, [company?.audio_sample]);
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(currentUrl);
+    toast.success("Link copied to clipboard!")
+  };
+
+
+  const ratingView = company?.handyman_rating || 0;
+  const stars = [];
+
+  for (let i = 1; i <= 5; i++) {
+    if (ratingView >= i) {
+      stars.push(<RiStarFill key={i} className="star text-warning" />);
+    } else if (ratingView >= i - 0.5) {
+      stars.push(<RiStarHalfFill key={i} className="star text-warning" />);
+    } else {
+      stars.push(<RiStarLine key={i} className="star text-warning" />);
+    }
+  }
+
+
   if (!company) {
     return (
       <section className="profile_section margin_navbar">
@@ -144,13 +236,112 @@ export default function page() {
             <div className="red_bar"></div>
 
             <div className="left p-4">
-              <div className="heart_button">
+              <div className="heart_button mb-3">
                 {/* <FaRegHeart className="icon" /> */}
                 <button className="verified_btn">
-                  Verified
-                  <FaCheck className="tik_icon" />
+                  {company?.verification}
+                  {company?.verification === "Non Verified" ? "" : <FaCheck className="tik_icon" />}
                 </button>
-                <IoShareSocial className="share icon" />
+                <div>
+                  {/* Share Icon */}
+                  <IoShareSocial
+                    className="share icon"
+                    onClick={() => setShowShare(true)}
+                    style={{ cursor: "pointer", fontSize: 24 }}
+                  />
+
+                  {showShare && (
+                    <div
+                      className="modal-overlay"
+                      onClick={() => setShowShare(false)}
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100vw",
+                        height: "100vh",
+                        backgroundColor: "rgba(0, 0, 0, 0.5)",
+                        zIndex: 1000,
+                      }}
+                    >
+                      <div
+                        className="modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                        style={{
+                          background: "#fff",
+                          width: "100%",
+                          maxWidth: 500,
+                          margin: "10% auto",
+                          padding: 24,
+                          borderRadius: 12,
+                          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                          textAlign: "center",
+                        }}
+                      >
+                        <h3>Share Link</h3>
+                        <div style={{ display: "flex", marginTop: 12, gap: 8 }}>
+                          <input
+                            type="text"
+                            value={currentUrl}
+                            readOnly
+                            style={{ flex: 1, padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
+                          />
+                          <button
+                            onClick={handleCopy}
+                            style={{
+                              padding: "8px 12px",
+                              background: "#B50000",
+                              color: "#fff",
+                              border: "none",
+                              borderRadius: 6,
+                              cursor: "pointer",
+                            }}
+                          >
+                            <IoCopyOutline size={18} />
+                          </button>
+                        </div>
+
+                        <div
+                          style={{
+                            marginTop: 20,
+                            display: "flex",
+                            justifyContent: "center",
+                            gap: 12,
+                          }}
+                        >
+                          <FacebookShareButton url={currentUrl}>
+                            <FacebookIcon size={40} round />
+                          </FacebookShareButton>
+                          <TwitterShareButton url={currentUrl}>
+                            <TwitterIcon size={40} round />
+                          </TwitterShareButton>
+                          <WhatsappShareButton url={currentUrl}>
+                            <WhatsappIcon size={40} round />
+                          </WhatsappShareButton>
+                          <LinkedinShareButton url={currentUrl}>
+                            <LinkedinIcon size={40} round />
+                          </LinkedinShareButton>
+                          <TelegramShareButton url={currentUrl}>
+                            <TelegramIcon size={40} round />
+                          </TelegramShareButton>
+                        </div>
+
+                        <button
+                          onClick={() => setShowShare(false)}
+                          style={{
+                            marginTop: 16,
+                            background: "transparent",
+                            border: "none",
+                            color: "#888",
+                            cursor: "pointer",
+                          }}
+                        >
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="flex_div">
                 <div className="left_div ">
@@ -164,30 +355,14 @@ export default function page() {
                         style={{
                           display: "flex",
                           alignItems: "center",
-                          // background: "#e1ffc7",
-                          // padding: "8px 12px",
-                          // borderRadius: "20px",
-                          // maxWidth: "240px",
+                          background: "#e1ffc7",
+                          padding: "8px 12px",
+                          borderRadius: "20px",
+                          maxWidth: "240px",
                         }}
                       >
-                        {/* <button
-                                              onClick={handlePlayPause}
-                                              style={{
-                                                background: "#25d366",
-                                                border: "none",
-                                                borderRadius: "50%",
-                                                width: "35px",
-                                                height: "35px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                color: "#fff",
-                                                marginRight: "10px",
-                                                fontSize: "14px",
-                                                cursor: "pointer",
-                                              }}
-                                            > */}
-                        {isPlaying ? <FaPause className="mic_icon" onClick={handlePlayPause} /> : <FaMicrophone className="mic_icon" onClick={handlePlayPause} />}
+                        <p className="me-2">Taaruf:</p>
+                        {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
                         {/* </button> */}
 
                         <audio ref={audioRef} src={company.audio_sample} preload="auto" />
@@ -231,18 +406,56 @@ export default function page() {
                         : ""}
                     </h4>
 
-                    <h4>
+                    {/* <h4>
                       Current Address: <span>{company?.user_city || ""}</span>
-                    </h4>
+                    </h4> */}
 
-                    {/* <textarea
-                      name="text_area"
-                      id=""
-                      placeholder="Details"
-                    ></textarea> */}
+                    <div className="" style={{ maxWidth: "600px" }}>
+
+                      <form onSubmit={handleSubmit}>
+                        <div className="mb-2">
+                          <textarea
+                            className="form-control"
+                            rows="4"
+                            placeholder="Write your review here..."
+                            value={review}
+                            onChange={(e) => setReview(e.target.value)}
+                            required
+                          />
+                        </div>
+
+                        <div className="mb-3 d-flex align-items-center gap-2">
+                          {[...Array(5)].map((_, index) => {
+                            const fullValue = (index + 1);
+                            const halfValue = index + 0.5;
+
+                            return (
+                              <span key={index} style={{ cursor: "pointer", fontSize: "1.8rem", color: "#f1c40f" }}>
+                                {hover >= fullValue || rating >= fullValue ? (
+                                  <FaStar onClick={() => handleRating(fullValue)} onMouseEnter={() => setHover(fullValue)} onMouseLeave={() => setHover(0)} />
+                                ) : hover >= halfValue || rating >= halfValue ? (
+                                  <FaStarHalfAlt onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
+                                ) : (
+                                  <FaRegStar onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
+                                )}
+                              </span>
+                            );
+                          })}
+                          {/* <span className="ms-2 text-muted">{rating} Star{rating !== 1 ? "s" : ""}</span> */}
+                        </div>
+
+                        {
+                          review ? <button className="btn btn_primary text-white" type="submit" disabled={rating === 0}>
+                            {
+                              !loading ? "Submit Review" : "Submit Review..."
+                            }
+                          </button> : ("")
+                        }
+                      </form>
+                    </div>
                   </div>
                 </div>
-                <div className="right">
+                <div className="right mb-2">
                   <div className="img_div">
                     <img src={company?.profile_image || "/assets/hazar_2.png"} alt="" />
                   </div>
@@ -252,7 +465,7 @@ export default function page() {
                 <div className="col_1">
                   {
                     userInfo?.api_token ? (
-                      <Link href={`tel:${company?.phone}`} className="phone_num" style={{ textDecoration: "none" }}>
+                      <Link href={`tel:${company?.contact_number}`} className="phone_num" style={{ textDecoration: "none" }}>
                         <FaPhoneAlt className="phone_icon" />
                         <div className="number">
                           <p className="number">{company?.contact_number}</p>
@@ -276,35 +489,47 @@ export default function page() {
                 <div className="col_1">
                   <div className="star_respons_div">
                     <div className="stars_div">
-                      <RiStarSFill className="star" />
-                      <RiStarSFill className="star" />
-                      <RiStarSFill className="star" />
-                      <RiStarSFill className="star" />
-                      <RiStarSFill className="star" />
+                      <div className="stars_div d-flex gap-1">{stars}</div>
                     </div>
-                    <p id="respons">34 Responses</p>
+                    <p id="respons">{reviewCount}  Responses</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="comments_div mt-3 pb-3">
-              <div className="heading_sec p-3">
-                <IoIosArrowBack className="arrow_icon" />
-                <h3 className="heading">Comments</h3>
-              </div>
-              <Comments />
-              <div className="all_comments p-3 d-flex">
-                <p>View all 124 comments</p>
-                <IoIosArrowDown />
-              </div>
-              <Comments />
-              <div className="input_div px-3">
-                <input type="text" placeholder="Start typing..." />
-                <button>
-                  <img src="/assets/Icon.png" />
-                </button>
-              </div>
-            </div>
+
+            {
+              userInfo ? <div className="comments_div mt-3 pb-3">
+                <div className="heading_sec p-3">
+                  {/* <IoIosArrowBack className="arrow_icon" /> */}
+                  <h3 className="heading">Comments</h3>
+                </div>
+                <div className="comments_list_wrapper">
+                  {currentComments?.map((item) => (
+                    <Comments key={item.id} reviewPass={item.review} ratingPass={item.rating} image={userInfo?.profile_image} />
+                  ))}
+
+                  <div className="pagination_controls my-3">
+                    <button
+                      onClick={handlePrev}
+                      className="btn btn-sm btn_primary text-white mx-2"
+                      disabled={currentPage === 1}
+                    >
+                      <IoIosArrowBack style={{ fontSize: "22px" }} />
+                    </button>
+                    <span className="px-2">{currentPage} / {totalPages}</span>
+                    <button
+                      onClick={handleNext}
+                      className="btn btn-sm btn_primary text-white mx-2"
+                      disabled={currentPage === totalPages}
+                    >
+                      <IoIosArrowForward style={{ fontSize: "22px" }} />
+                    </button>
+                  </div>
+                </div>
+
+              </div> : ("")
+            }
+
           </div>
         </div>
       </div>

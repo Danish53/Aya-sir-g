@@ -1,10 +1,10 @@
 .advertisementBar {
   font-family: var(--font-poppins), sans-serif;
-  height: 100%;
+  height: 945px;
   width: 100%;
 }
 
-.advertisementBar img{
+.advertisementBar img {
   height: 100%;
   width: 100%;
   padding: 0px;
@@ -28,6 +28,7 @@
   height: 100%;
   justify-content: center;
 }
+
 .ad_bar {
   background-color: #c7c7c7;
   text-align: center;

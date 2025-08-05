@@ -17,13 +17,13 @@ export default function Page() {
               <Accordion defaultActiveKey="0" className="mt-5">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
-                    Join Aya-Sir-G: Empowering Handyman Services in Lahore
+                    Join Aya Sir G! Empowering Handyman Services in Lahore
                   </Accordion.Header>
                   <Accordion.Body>
                     <p>
                       Are you a skilled individual, a growing company, or an
                       aspiring E-center looking to thrive in the handyman
-                      service industry? Aya-Sir-G is your dedicated platform for
+                      service industry? Aya Sir G! is your dedicated platform for
                       growth, visibility, and connecting with a wider client
                       base in Lahore.
                     </p>
@@ -38,14 +38,14 @@ export default function Page() {
 
                 <Accordion.Item eventKey="1">
                   <Accordion.Header>
-                    How You Can Partner with Aya-Sir-G
+                    How You Can Partner with Aya Sir G!
                   </Accordion.Header>
                   <Accordion.Body>
                     <p>
                       <strong>For E-centers:</strong> Become a Community Hub
                     </p>
                     <p>
-                      Earn daily by becoming an Aya-Sir-G E-center. You'll play
+                      Earn daily by becoming an Aya Sir G! E-center. You'll play
                       a vital role in connecting your local community to
                       reliable handyman services by helping individuals and
                       companies register and utilize our platform. We will
@@ -65,7 +65,7 @@ export default function Page() {
                   <Accordion.Body>
                     <p>
                       Are you a talented handyman eager to find consistent work
-                      and highlight your unique skills? Register with Aya-Sir-G
+                      and highlight your unique skills? Register with Aya Sir G!
                       to connect directly with clients seeking your specific
                       talents. Build a strong professional reputation through
                       verified jobs and client feedback, ensuring your skills
@@ -80,7 +80,7 @@ export default function Page() {
                   </Accordion.Header>
                   <Accordion.Body>
                     <p>
-                      Register your company on Aya-Sir-G and get access to a
+                      Register your company on Aya Sir G! and get access to a
                       broader client base in Lahore. Our platform helps you
                       attract new business, track performance, and build
                       credibility through verified reviews.
@@ -93,7 +93,7 @@ export default function Page() {
                   </Accordion.Header>
                   <Accordion.Body>
                     <p>
-                      If you're a handyman service company, Aya-Sir-G is your
+                      If you're a handyman service company, Aya Sir G! is your
                       strategic partner for sustainable growth. Our robust
                       rating and comment system helps you build invaluable
                       client trust, enhance your brand's reputation, and attract

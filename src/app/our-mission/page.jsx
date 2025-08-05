@@ -8,7 +8,7 @@ export default function page() {
         <h3>Our Mission</h3>
         <h4>Welcome to “Aya Sir G!”</h4>
         <p>
-          At <b>“Aya Sir G,”</b> we are committed to creating opportunities for
+          At <b>“Aya Sir G!”</b> we are committed to creating opportunities for
           individuals who are eager to work, believe in their abilities, and
           embrace self-reliance. Inspired by the timeless principle, "Allah
           helps those who help themselves," we empower people to take initiative

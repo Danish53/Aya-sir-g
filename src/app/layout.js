@@ -91,8 +91,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/logo_header.png" sizes="any" />
-        <link rel="apple-touch-icon" href="/logo_header.png" />
+        <link rel="icon" href="/logo_header.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/logo_header.ico" />
       </head>
       <body className={poppins.variable}>
         <UserProvider>

@@ -9,7 +9,7 @@ export default function WishlistComponent({data}) {
       <div className="info_div">
         <img src={data?.profile_image || "/assets/raza.png"} alt="" />
         <h2>{data?.username || ""}</h2>
-        <p>{data?.gender || ""}, {data?.age || ""} years old</p>
+        <p>{data?.gender === "male" ? "Male" : data?.gender === "female" ? "Female" : ""}, {data?.age || ""} years old</p>
       </div>
       <div className="details_div">
         <div className="single_div">

@@ -237,8 +237,6 @@ export const UserProvider = ({ children }) => {
       }
       );
 
-      console.log(response.data.data, "ok hai ya")
-
       // setFilteredUsers(response.data.data || []);
       if (response?.data) {
         const updatedData = (response.data.data || []).map((user) => ({
@@ -330,7 +328,7 @@ export const UserProvider = ({ children }) => {
     if (!userInfo?.api_token) return;
     setLoader(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/create`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/send-otp`, {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -344,12 +342,42 @@ export const UserProvider = ({ children }) => {
       // console.log(result, "profile update")
       if (res.ok) {
         setEcenterInfo(result);
-        return { success: true };
+        return { result };
       } else {
         return { success: false, message: result.message || "add failed." };
       }
     } catch (error) {
       // console.error("Update failed:", error);
+      return { success: false, message: "Something went wrong." };
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  // rating/reviews
+  const [reviews, setReviews] = useState();
+  const addReviews = async (formData) => {
+    if (!userInfo?.api_token) return;
+    setLoader(true);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/save-handyman-rating`, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.api_token}`,
+        },
+        body: formData,
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        setReviews(result);
+        return { success: true };
+      } else {
+        return { success: false, message: result.message || "add failed." };
+      }
+    } catch (error) {
       return { success: false, message: "Something went wrong." };
     } finally {
       setLoader(false);
@@ -382,7 +410,9 @@ export const UserProvider = ({ children }) => {
         getAllBanners,
         banners,
         ecenterAdd,
-        ecenterInfo
+        ecenterInfo,
+        reviews,
+        addReviews
       }}
     >
       {children}

@@ -12,27 +12,27 @@ export default function page() {
           </div>
           <div className="col-lg-9 ">
             <div className="content">
-              <h2>Join Aya-Sir-G: Empowering Handyman Services in Lahore</h2>
+              <h2>Join Aya Sir G! Empowering Handyman Services in Lahore</h2>
               <p>
-                Are you a skilled individual, a growing company, or an aspiring E-center looking to thrive in the handyman service industry? Aya-Sir-G is your dedicated platform for growth, visibility, and connecting with a wider client base in Lahore.
+                Are you a skilled individual, a growing company, or an aspiring E-center looking to thrive in the handyman service industry? Aya Sir G! is your dedicated platform for growth, visibility, and connecting with a wider client base in Lahore.
                 Explore the categories below to discover how we can help you expand your reach and elevate your service-based business. Our team is ready to assist you every step of the way.
               </p>
               <br />
-              <h4>How You Can Partner with Aya-Sir-G:
+              <h4>How You Can Partner with Aya Sir G!
               </h4>
               <h3>
                 For E-centers: Become a Community Hub</h3>
               <p>
-                Earn daily by becoming an Aya-Sir-G E-center. You'll play a vital role in connecting your local community to reliable handyman services by helping individuals and companies register and utilize our platform. We will compensate E-centers for each individual they successfully register, especially supporting blue-collar workers who may require assistance in creating their profiles on our website. It's a rewarding way to contribute to local economic growth while building your own income stream.
+                Earn daily by becoming an Aya Sir G! E-center. You'll play a vital role in connecting your local community to reliable handyman services by helping individuals and companies register and utilize our platform. We will compensate E-centers for each individual they successfully register, especially supporting blue-collar workers who may require assistance in creating their profiles on our website. It's a rewarding way to contribute to local economic growth while building your own income stream.
               </p>
               <br />
               <h3>For Individuals: Showcase Your Expertise</h3>
               <p>
-                Are you a talented handyman eager to find consistent work and highlight your unique skills? Register with Aya-Sir-G to connect directly with clients seeking your specific talents. Build a strong professional reputation through verified jobs and client feedback, ensuring your skills are recognized and rewarded.</p>
+                Are you a talented handyman eager to find consistent work and highlight your unique skills? Register with Aya Sir G! to connect directly with clients seeking your specific talents. Build a strong professional reputation through verified jobs and client feedback, ensuring your skills are recognized and rewarded.</p>
               <br />
               <h3>For Companies: Scale Your Service Business</h3>
               <p>
-                If you're a handyman service company, Aya-Sir-G is your strategic partner for sustainable growth. Our robust rating and comment system helps you build invaluable client trust, enhance your brand's reputation, and attract more clients through authentic, positive feedback. Leverage our platform to reduce reliance on expensive commercial spaces like shops and warehouses; a strong profile here will be your primary source for new orders. Join us to expand your market presence and streamline your service delivery, embracing technology as the key to future growth.</p>            </div>
+                If you're a handyman service company, Aya Sir G! is your strategic partner for sustainable growth. Our robust rating and comment system helps you build invaluable client trust, enhance your brand's reputation, and attract more clients through authentic, positive feedback. Leverage our platform to reduce reliance on expensive commercial spaces like shops and warehouses; a strong profile here will be your primary source for new orders. Join us to expand your market presence and streamline your service delivery, embracing technology as the key to future growth.</p>            </div>
 
             <h3 className="mt-3">Ready to Get Started?</h3>
               <p>For personalized assistance or to begin your registration, please don't hesitate to reach out.

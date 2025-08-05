@@ -19,7 +19,7 @@ export default function Page() {
   });
 
   const [data, setData] = useState([]);
-  console.log(data, "data ,,,,,")
+  // console.log(data, "data ,,,,,")
 
   const handleActive = () => {
     setDisplay(!display);

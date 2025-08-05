@@ -5,9 +5,9 @@ export default function page() {
   return (
     <section className="privacy_policy margin_navbar">
       <div className="container py-3">
-        <h3>AYA-Sir-G, Privacy Policy</h3>
+        <h3>Aya Sir G! Privacy Policy</h3>
         <p>
-          At <b>"Aya Sir G,"</b> we value your privacy and have compiled all essential
+          At <b>"Aya Sir G!"</b> we value your privacy and have compiled all essential
           information about how we manage your personal data and your
           corresponding rights. This privacy statement applies to the
           information collected through our website and mobile application.
@@ -35,7 +35,7 @@ export default function page() {
             by <b>"Aya Sir G!"</b> in connection with the provision of services. Our
             official address is:
             <b>
-              Aya-Sir-G! (Pvt) Limited, 15-C,Commercial, NFC#1, Lahore,
+              Aya Sir G! (Pvt) Limited, 15-C,Commercial, NFC#1, Lahore,
               Pakistan.
             </b>
           </p>
