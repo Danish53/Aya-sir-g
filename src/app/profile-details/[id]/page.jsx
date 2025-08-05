@@ -444,8 +444,8 @@ export default function page() {
                     <h4>
                       CNIC:{" "}
                       <span className="cnic">
-                        {userInfo?.api_token && user?.cnic ? (
-                          user.cnic
+                        {
+                          user?.cnic
                             .split('')
                             .map((char, index) => {
                               // Keep hyphens as-is
@@ -460,9 +460,7 @@ export default function page() {
                             .join('')
                             // Add * only between digits (not after hyphens)
                             .replace(/(?<=\d)(?=\d)/g, '*')
-                        ) : (
-                          '*'.repeat(user?.cnic?.length || 15)
-                        )}
+                          }
 
 
                       </span>
