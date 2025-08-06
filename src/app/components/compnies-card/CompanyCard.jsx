@@ -83,10 +83,17 @@ export default function CompanyCard({ data, onLike }) {
                   </Link>
                 )}
 
+                {data?.verification === "Non Verified" ? (
                   <button className="verified_btn">
                     {data?.verification}
-                    {data?.verification === "Non Verified" ? "" : <FaCheck className="tik_icon" />}
                   </button>
+                ) : (
+                  <button className="verified_btn bg-success">
+                    {data?.verification}
+                    <FaCheck className="tik_icon" />
+                  </button>
+                )
+                }
               </div>
 
               <div className="heart_button">

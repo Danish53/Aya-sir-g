@@ -259,10 +259,17 @@ export default function page() {
                   </Link>
                 )} */}
 
-                <button className="verified_btn">
-                  {user?.verification}
-                  {user?.verification === "Non Verified" ? "" : <FaCheck className="tik_icon" />}
-                </button>
+                {user?.verification === "Non Verified" ? (
+                  <button className="verified_btn">
+                    {user?.verification}
+                  </button>
+                ) : (
+                  <button className="verified_btn bg-success">
+                    {user?.verification}
+                    <FaCheck className="tik_icon" />
+                  </button>
+                )
+                }
                 {/* <IoShareSocial className="share icon" /> */}
                 <div>
                   {/* Share Icon */}
@@ -479,32 +486,32 @@ export default function page() {
                   </div>
 
                   <div className="info">
-                    <div  className="d-flex align-items-start gap-2 me-lg-2 ">
+                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                      Field:{" "}
-                      
-                    </h4>
-                    <h4 className="sub_head">{Array.isArray(user?.fields_of_interest)
+                        Field:{" "}
+
+                      </h4>
+                      <h4 className="sub_head">{Array.isArray(user?.fields_of_interest)
                         ? user.fields_of_interest.map((item) => item.name).join(", ")
                         : "N/A"}</h4>
                     </div>
 
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                      Interested Location:{" "}
-                    </h4>
-                    <h4 className="sub_head">
-                      {Array.isArray(user?.interested_locations)
-                        ? user.interested_locations.map((loc) => loc.name).join(", ")
-                        : ""}
-                    </h4>
+                        Interested Location:{" "}
+                      </h4>
+                      <h4 className="sub_head">
+                        {Array.isArray(user?.interested_locations)
+                          ? user.interested_locations.map((loc) => loc.name).join(", ")
+                          : ""}
+                      </h4>
                     </div>
 
                     {/* {
                       <h4>Current Address: <span>{user?.user_city || ""}</span></h4>
                     } */}
-                    <div  className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>Experience: </h4> <h4  className="sub_head">{user?.experience || ""}</h4>
+                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>Experience: </h4> <h4 className="sub_head">{user?.experience || ""}</h4>
                     </div>
                     <h4>
                       CNIC:{" "}

@@ -85,12 +85,17 @@ export default function Card({ data, onLike }) {
         </div>
 
         <div className="verified_div mt-4 mb-2">
-          {data && (
+          {data?.verification === "Non Verified" ? (
             <button className="verified_btn">
-              {data?.verification} 
-              {data?.verification === "Non Verified" ? "" : <FaCheck className="tik_icon" />}
+              {data?.verification}
             </button>
-          )}
+          ) : (
+            <button className="verified_btn bg-success">
+              {data?.verification}
+              <FaCheck className="tik_icon" />
+            </button>
+          )
+          }
           <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
         </div>
       </div>

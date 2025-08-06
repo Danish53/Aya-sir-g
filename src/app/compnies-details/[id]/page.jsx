@@ -238,10 +238,17 @@ export default function page() {
             <div className="left p-4">
               <div className="heart_button mb-3">
                 {/* <FaRegHeart className="icon" /> */}
-                <button className="verified_btn">
-                  {company?.verification}
-                  {company?.verification === "Non Verified" ? "" : <FaCheck className="tik_icon" />}
-                </button>
+                {company?.verification === "Non Verified" ? (
+                  <button className="verified_btn">
+                    {company?.verification}
+                  </button>
+                ) : (
+                  <button className="verified_btn bg-success">
+                    {company?.verification}
+                    <FaCheck className="tik_icon" />
+                  </button>
+                )
+                }
                 <div>
                   {/* Share Icon */}
                   <IoShareSocial
@@ -453,18 +460,18 @@ export default function page() {
                   <div className="info">
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                      Field:{" "}
-                    </h4>
-                    <h4 className="sub_head">{Array.isArray(company?.fields_of_interest)
-                      ? company.fields_of_interest.map((item) => item.name).join(", ")
-                      : "N/A"}</h4>
+                        Field:{" "}
+                      </h4>
+                      <h4 className="sub_head">{Array.isArray(company?.fields_of_interest)
+                        ? company.fields_of_interest.map((item) => item.name).join(", ")
+                        : "N/A"}</h4>
                     </div>
 
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                      Interested Location:{" "}
-                    </h4>
-                    <h4 className="sub_head">{Array.isArray(company?.interested_locations)
+                        Interested Location:{" "}
+                      </h4>
+                      <h4 className="sub_head">{Array.isArray(company?.interested_locations)
                         ? company.interested_locations.map((loc) => loc.name).join(", ")
                         : ""}</h4>
                     </div>
