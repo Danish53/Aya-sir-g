@@ -3,7 +3,7 @@
 'use client';
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./profile-details.css";
-import { FaMicrophone, FaRegHeart, FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { FaMicrophone, FaMusic, FaRegHeart, FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { IoCopyOutline, IoShareSocial } from "react-icons/io5";
 import { IoIosArrowForward, IoIosMic } from "react-icons/io";
@@ -377,70 +377,135 @@ export default function page() {
                     {/* <IoIosMic className="mic_icon" /> */}
 
                     {user?.audio_sample ? (
-                      <div
-                        className="custom-audio-player"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          background: "#e1ffc7",
-                          padding: "8px 12px",
-                          borderRadius: "20px",
-                          maxWidth: "240px",
-                          height: "50px",
-
-                        }}
-                      >
-                        <p className="me-2">Taaruf:</p>
-                        {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
-                        {/* </button> */}
-
-                        <audio ref={audioRef} src={user.audio_sample} preload="auto" />
-
-                        <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
-                          {isPlaying && (
-                            <div className="wave-animation">
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                              <span></span>
-                              <span></span>
+                      <div className="d-flex flex-column">
+                        <p className="me-2">Taaruf</p>
+                        <div
+                          className="custom-audio-player"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            flexDirection: "column",
+                            background: "#ecececff",
+                            padding: "8px 12px",
+                            borderRadius: "5px",
+                            maxWidth: "240px",
+                            height: "65px",
+                            width: "230px"
+                          }}
+                        >
+                          <div className="d-flex align-items-center justify-content-between w-100">
+                            {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
+                            <audio ref={audioRef} src={user.audio_sample} preload="auto" />
+                            <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
+                              {isPlaying ? (
+                                <div className="wave-animation">
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                </div>
+                              ) : (
+                                <div className="wave-animation-light">
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                  <span></span>
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
 
-                        <span style={{ fontSize: "14px" }}>
-                          {formatTime(currentTime)}
-                        </span>
+                            <div className="d-flex align-items-center">
+                              <div>
+                                <FaMusic className="mic_icon" />
+                              </div>
+                            </div>
+                          </div>
+                          {/* </button> */}
+
+                          <div className="w-100">
+                            <p style={{ fontSize: "12px" }}>
+                              {formatTime(currentTime)}
+                            </p>
+                          </div>
+
+                        </div>
                       </div>
                     ) : (
-                      <p style={{ fontSize: "14px" }}>No audio available</p>
+                      <p style={{ fontSize: "14px" }}></p>
                     )}
 
                   </div>
 
                   <div className="info">
-                    <h4>
+                    <div  className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>
                       Field:{" "}
-                      {Array.isArray(user?.fields_of_interest)
-                        ? user.fields_of_interest.map((item) => item.name).join(", ")
-                        : "N/A"}
+                      
                     </h4>
+                    <h4 className="sub_head">{Array.isArray(user?.fields_of_interest)
+                        ? user.fields_of_interest.map((item) => item.name).join(", ")
+                        : "N/A"}</h4>
+                    </div>
 
-                    <h4>
+                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>
                       Interested Location:{" "}
+                    </h4>
+                    <h4 className="sub_head">
                       {Array.isArray(user?.interested_locations)
                         ? user.interested_locations.map((loc) => loc.name).join(", ")
                         : ""}
                     </h4>
+                    </div>
 
                     {/* {
                       <h4>Current Address: <span>{user?.user_city || ""}</span></h4>
                     } */}
-                    <h4>Experience: {user?.experience || ""}</h4>
+                    <div  className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>Experience: </h4> <h4  className="sub_head">{user?.experience || ""}</h4>
+                    </div>
                     <h4>
                       CNIC:{" "}
                       <span className="cnic">
@@ -460,55 +525,60 @@ export default function page() {
                             .join('')
                             // Add * only between digits (not after hyphens)
                             .replace(/(?<=\d)(?=\d)/g, '*')
-                          }
+                        }
 
 
                       </span>
                     </h4>
 
-                    <h4>Disability: {user?.disability_status === "non" ? "None" : ""}</h4>
-
-                    <div className="" style={{ maxWidth: "600px" }}>
-
-                      <form onSubmit={handleSubmit}>
-                        <div className="mb-2">
-                          <textarea
-                            className="form-control"
-                            rows="4"
-                            placeholder="Write your review here..."
-                            value={review}
-                            onChange={(e) => setReview(e.target.value)}
-                            required
-                          />
-                        </div>
-
-                        <div className="mb-3 d-flex align-items-center gap-2">
-                          {[...Array(5)].map((_, index) => {
-                            const fullValue = (index + 1);
-                            const halfValue = index + 0.5;
-
-                            return (
-                              <span key={index} style={{ cursor: "pointer", fontSize: "1.8rem", color: "#f1c40f" }}>
-                                {hover >= fullValue || rating >= fullValue ? (
-                                  <FaStar onClick={() => handleRating(fullValue)} onMouseEnter={() => setHover(fullValue)} onMouseLeave={() => setHover(0)} />
-                                ) : hover >= halfValue || rating >= halfValue ? (
-                                  <FaStarHalfAlt onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
-                                ) : (
-                                  <FaRegStar onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
-                                )}
-                              </span>
-                            );
-                          })}
-                          {/* <span className="ms-2 text-muted">{rating} Star{rating !== 1 ? "s" : ""}</span> */}
-                        </div>
-
-                        {
-                          review ? <button className="btn btn_primary text-white" type="submit" disabled={rating === 0}>
-                            {!loading ? "Submit Review" : "Submit Review.."}
-                          </button> : ("")
-                        }
-                      </form>
+                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>Disability: </h4> <h4 className="sub_head">{user?.disability_status === "non" ? "None" : ""}</h4>
                     </div>
+
+                    {
+                      userInfo?.api_token ? <div className="" style={{ maxWidth: "600px" }}>
+
+                        <form onSubmit={handleSubmit}>
+                          <div className="mb-2">
+                            <textarea
+                              className="form-control"
+                              rows="4"
+                              placeholder="Write your review here..."
+                              value={review}
+                              onChange={(e) => setReview(e.target.value)}
+                              required
+                            />
+                          </div>
+
+                          <div className="mb-3 d-flex align-items-center gap-2">
+                            {[...Array(5)].map((_, index) => {
+                              const fullValue = (index + 1);
+                              const halfValue = index + 0.5;
+
+                              return (
+                                <span key={index} style={{ cursor: "pointer", fontSize: "1.8rem", color: "#f1c40f" }}>
+                                  {hover >= fullValue || rating >= fullValue ? (
+                                    <FaStar onClick={() => handleRating(fullValue)} onMouseEnter={() => setHover(fullValue)} onMouseLeave={() => setHover(0)} />
+                                  ) : hover >= halfValue || rating >= halfValue ? (
+                                    <FaStarHalfAlt onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
+                                  ) : (
+                                    <FaRegStar onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
+                                  )}
+                                </span>
+                              );
+                            })}
+                            {/* <span className="ms-2 text-muted">{rating} Star{rating !== 1 ? "s" : ""}</span> */}
+                          </div>
+
+                          {
+                            review ? <button className="btn btn_primary text-white" type="submit" disabled={rating === 0}>
+                              {!loading ? "Submit Review" : "Submit Review.."}
+                            </button> : ("")
+                          }
+                        </form>
+                      </div> : ""
+                    }
+
                   </div>
                 </div>
                 <div className="right">

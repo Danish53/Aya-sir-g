@@ -39,9 +39,9 @@
 }
 
 .profile_section .mic_icon {
-  font-size: 30px;
-  height: 40px;
-  width: 40px;
+  font-size: 26px;
+  height: 35px;
+  width: 35px;
   background: black;
   color: white;
   border-radius: 50%;
@@ -52,9 +52,9 @@
   align-items: center;
 }
 
-.profile_section .info {
+/* .profile_section .info {
   width: 400px;
-}
+} */
 
 .profile_section .info textarea {
   height: 100px;
@@ -83,6 +83,11 @@
 .profile_section .info h4 {
   font-size: 20px;
   font-weight: bold;
+}
+
+.profile_section .info .sub_head{
+  font-size: 19px;
+  font-weight: 500;
 }
 
 .profile_section .info h4 span {
@@ -359,12 +364,26 @@
 
 .wave-animation span {
   display: block;
-  width: 3px;
+  width: 2px;
   height: 10px;
   background: #25d366;
   animation: wave 1s infinite;
   animation-delay: calc(0.2s * var(--i));
 }
+
+.wave-animation-light {
+  display: flex;
+  gap: 2px;
+}
+
+.wave-animation-light span {
+  display: block;
+  width: 2px;
+  height: 10px;
+  background: lightgray;
+  animation-delay: calc(0.2s * var(--i));
+}
+
 
 .wave-animation span:nth-child(1) {
   --i: 1;
@@ -376,6 +395,42 @@
 
 .wave-animation span:nth-child(3) {
   --i: 3;
+}
+
+.wave-animation span:nth-child(4) {
+  --i: 4;
+}
+
+.wave-animation span:nth-child(5) {
+  --i: 5;
+}
+
+.wave-animation span:nth-child(6) {
+  --i: 6;
+}
+
+.wave-animation span:nth-child(7) {
+  --i: 7;
+}
+
+.wave-animation span:nth-child(8) {
+  --i: 8;
+}
+
+.wave-animation span:nth-child(9) {
+  --i: 9;
+}
+
+.wave-animation span:nth-child(12) {
+  --i: 12;
+}
+
+.wave-animation span:nth-child(14) {
+  --i: 14;
+}
+
+.wave-animation span:nth-child(16) {
+  --i: 16;
 }
 
 @keyframes wave {
