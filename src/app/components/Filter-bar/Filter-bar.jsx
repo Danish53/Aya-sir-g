@@ -7,18 +7,18 @@ import { UserContext } from "@/app/userContext";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Filter_bar() {
-  const { apiCategory2, cities, locations, getLocations, } = useContext(UserContext);
-  console.log(locations, "location area")
+  const { apiCategory2, cities, locations, getLocations, getFilteredUsers } = useContext(UserContext);
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const [filters, setFilters] = useState({
+    role: searchParams.get("role") || "handyman",
     gender: searchParams.get("gender") || "",
-    age: searchParams.get("age") || "",
+    age_range: searchParams.get("age_range") || "",
     city: searchParams.get("city") || "",
     category_id: searchParams.get("category_id") || "",
     area_code: searchParams.get("area_code") || "",
-    verification_status: searchParams.get("verification_status") || "",
+    verified_status: searchParams.get("verified_status") || "",
   });
 
   useEffect(() => {
@@ -71,6 +71,19 @@ export default function Filter_bar() {
     });
   };
 
+  useEffect(() => {
+    const role = searchParams.get("role") || "handyman";
+    const gender = searchParams.get("gender");
+    const age_range = searchParams.get("age_range");
+    const city = searchParams.get("city");
+    const category_id = searchParams.get("category_id");
+    const area_code = searchParams.get("area_code");
+    const verified_status = searchParams.get("verified_status");
+
+    getFilteredUsers({ role, gender, age_range, city, category_id, area_code, verified_status });
+  }, [searchParams]);
+
+
   return (
     <section className="filter_bar">
       {/* Mobile filter icon */}
@@ -120,18 +133,18 @@ export default function Filter_bar() {
           ))}
         </div>
 
-        {/* Age Filter */}
+        {/* age_range Filter */}
         <div className="box py-2 px-3">
           <h3>Age</h3>
-          {["18-35", "35-50", "50+"].map((ageRange) => (
-            <div className="form_div" key={ageRange}>
+          {["18-35", "35-50", "50+"].map((age_rangeRange) => (
+            <div className="form_div" key={age_rangeRange}>
               <input
                 type="checkbox"
-                id={`age_${ageRange}`}
-                checked={filters.age === ageRange}
-                onChange={() => handleSingleSelect("age", ageRange)}
+                id={`age_range_${age_rangeRange}`}
+                checked={filters.age_range === age_rangeRange}
+                onChange={() => handleSingleSelect("age_range", age_rangeRange)}
               />
-              <label htmlFor={`age_${ageRange}`}>{ageRange} Years</label>
+              <label htmlFor={`age_range_${age_rangeRange}`}>{age_rangeRange} Years</label>
             </div>
           ))}
         </div>
@@ -215,15 +228,15 @@ export default function Filter_bar() {
         {/* verofication filter */}
         <div className="box py-2 px-3">
           <h3>Verification Status</h3>
-          {["Verified", "Non-Verified"].map((g) => (
+          {["Verified", "Non Verified"].map((g) => (
             <div className="form_div" key={g}>
               <input
                 type="checkbox"
-                id={`verification_status_${g}`}
-                checked={filters.verification_status === g}
-                onChange={() => handleSingleSelect("verification_status", g)}
+                id={`verified_status_${g}`}
+                checked={filters.verified_status === g}
+                onChange={() => handleSingleSelect("verified_status", g)}
               />
-              <label htmlFor={`verification_status_${g}`}>
+              <label htmlFor={`verified_status_${g}`}>
                 {g.charAt(0).toUpperCase() + g.slice(1)}
               </label>
             </div>

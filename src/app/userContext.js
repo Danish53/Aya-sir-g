@@ -328,9 +328,10 @@ export const UserProvider = ({ children }) => {
     if (!userInfo?.api_token) return;
     setLoader(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/send-otp`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/create`, {
         method: "POST",
         headers: {
+          // 'Content-Type': 'multipart/form-data',
           "Accept": "application/json",
           // "Content-Type": "application/json",
           Authorization: `Bearer ${userInfo.api_token}`,

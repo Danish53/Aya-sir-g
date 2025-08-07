@@ -45,7 +45,7 @@ export default function ButtonComp() {
 
   // City/category/area change → reset to page 1 only on user interaction
   useEffect(() => {
-    if (filtersChanged) {
+    if (filtersChanged) { 
       setCurrentPage(1);
     } else {
       setFiltersChanged(true); // skip first run

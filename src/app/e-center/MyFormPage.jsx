@@ -2,7 +2,7 @@
 // export const dynamic = "force-dynamic";
 
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { FaEdit, FaMicrophone, FaPause } from "react-icons/fa";
+import { FaCloudUploadAlt, FaEdit, FaFileAudio, FaMicrophone, FaPause, FaUpload } from "react-icons/fa";
 import { MdDelete, MdPause, MdPlayArrow } from "react-icons/md";
 import { MultiSelect } from "react-multi-select-component";
 import { toast, ToastContainer } from "react-toastify";
@@ -42,6 +42,16 @@ export default function MyFormPage() {
             }
         }
     };
+
+    const blobToBase64 = (blob) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result);
+            reader.onerror = reject;
+            reader.readAsDataURL(blob);
+        });
+    };
+
 
 
     useEffect(() => {
@@ -95,11 +105,11 @@ export default function MyFormPage() {
         fields_of_interest: [],
         description: "",
         disability_status: "",
-        // experience: "",
+        experience: "",
         audio_sample_blob: "",
         picture: "",
         password: "",
-        city_id: ""
+        // city_id: ""
     });
 
     // console.log(formData, "form data print")
@@ -265,6 +275,24 @@ export default function MyFormPage() {
         setTimer(0);
     };
 
+    const handleAudioUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const url = URL.createObjectURL(file);
+            setAudioURL(url);
+            setIsRecording(false);
+            setIsPlaying(false);
+
+            // Yeh file hi blob hota hai
+            setFormData((prev) => ({
+                ...prev,
+                audio_sample_blob: file, // ✅ file as blob
+            }));
+        }
+    };
+
+
+
     const formatTime = (sec) => {
         const minutes = Math.floor(sec / 60)
             .toString()
@@ -287,6 +315,7 @@ export default function MyFormPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (!validateForm()) {
             toast.error("Please fix errors in form.");
             return;
@@ -294,66 +323,79 @@ export default function MyFormPage() {
 
         const form = new FormData();
 
-        for (const key in formData) {
-            if (userType === "provider" && key === "disability_status") continue;
-            if (userType === "provider" && key === "interested_locations") continue;
-
-            if (Array.isArray(formData[key])) {
-                formData[key].forEach((val) => form.append(`${key}[]`, val));
-            } else {
-                form.append(key, formData[key]);
-            }
-        }
-
+        // Append role and city
         form.append("role", userType);
         form.append("city_id", selectedCityId);
 
+        // Append form data
+        for (const key in formData) {
+            const value = formData[key];
 
+            // Skip keys based on userType
+            if (userType === "provider" && (key === "disability_status" || key === "interested_locations")) {
+                continue;
+            }
+
+            // Files
+            if (
+                key === "profile_image" ||
+                key === "cnic_scan" ||
+                key === "picture" ||
+                key === "billing_address_scan"
+            ) {
+                if (value instanceof File) {
+                    form.append(key, value);
+                }
+                continue;
+            }
+
+            // Audio blob (must be a string according to error)
+            if (key === "audio_sample_blob") {
+                if (typeof value === "string") {
+                    form.append(key, value); // already base64 or string
+                } else if (value instanceof Blob || value instanceof File) {
+                    // convert to base64 string
+                    const base64 = await blobToBase64(value);
+                    form.append(key, base64);
+                }
+                continue;
+            }
+
+            // Arrays (e.g., checkboxes/multi-select)
+            if (Array.isArray(value)) {
+                value.forEach((v) => form.append(`${key}[]`, v));
+            } else {
+                form.append(key, value);
+            }
+        }
 
         try {
             setLoader(true);
             const response = await ecenterAdd(form);
-            console.log(response, "e-center log");
-            if (response?.result?.status == true) {
+
+            if (response?.result?.status === true) {
                 setEcenterOtp(response?.result);
-                toast.success(response?.result?.message || "Profile has been successfully Created!");
-                if (modalRef.current) {
-                    const bootstrap = await import('bootstrap')
-                    const modalInstance = new bootstrap.Modal(modalRef.current, {
-                        backdrop: "static",
-                        keyboard: false,
-                    });
-                    modalInstance.show();
-                }
+                toast.success(response?.result?.message || "Profile successfully created!");
+            } else {
+                toast.error(response.message || "Form submission failed.");
             }
-            else toast.error(response.message || "Form submit failed.");
-
-            // router.push("ecenter-record")
         } catch (err) {
-            console.log("Full error:", err); // Check this for debugging
+            console.log("Full error:", err);
 
-            const apiErrors = err?.errors;
-            const apiMessage = err?.message;
-
+            // Laravel-style validation error display
+            const apiErrors = err?.response?.data?.errors;
             if (apiErrors) {
                 for (const key in apiErrors) {
-                    if (Array.isArray(apiErrors[key])) {
-                        apiErrors[key].forEach((msg) => toast.error(msg));
-                    } else {
-                        toast.error(apiErrors[key]);
-                    }
+                    toast.error(apiErrors[key][0]); // Show first error per field
                 }
-            } else if (apiMessage) {
-                toast.error(apiMessage);
             } else {
-                toast.error("Something went wrong during update.");
+                toast.error("Something went wrong.");
             }
-        }
-        finally {
+        } finally {
             setLoader(false);
         }
-
     };
+
 
     useEffect(() => {
         if (selectedCityId) getLocations(selectedCityId);
@@ -380,38 +422,38 @@ export default function MyFormPage() {
     //     }
     // }, []);
 
-    const handleVerify = async () => {
-        const otpCode = otp.join("");
+    // const handleVerify = async () => {
+    //     const otpCode = otp.join("");
 
-        if (otpCode.length !== 6) {
-            toast.error("Please enter 6-digit OTP.");
-            return;
-        }
+    //     if (otpCode.length !== 6) {
+    //         toast.error("Please enter 6-digit OTP.");
+    //         return;
+    //     }
 
-        setLoading(true);
-        try {
-            const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/verify-otp-submit`, {
-                temp_id: eCenterOtp?.otp_id,
-                otp: otpCode,
-            });
+    //     setLoading(true);
+    //     try {
+    //         const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/verify-otp-submit`, {
+    //             temp_id: eCenterOtp?.otp_id,
+    //             otp: otpCode,
+    //         });
 
-            const resData = response?.data;
+    //         const resData = response?.data;
 
-            if (response.status === 200 && resData?.status === true) {
-                toast.success(resData?.message || "OTP verified successfully!");
-                setOtp(["", "", "", "", "", ""]);
-                // modalInstance.close();
-            } else {
-                toast.error(resData?.message || "Invalid OTP. Please try again.");
-            }
-        } catch (error) {
-            console.error("OTP verification failed", error);
-            const errorMessage = error?.response?.data?.message || "Server error occurred.";
-            toast.error(errorMessage);
-        } finally {
-            setLoading(false);
-        }
-    };
+    //         if (response.status === 200 && resData?.status === true) {
+    //             toast.success(resData?.message || "OTP verified successfully!");
+    //             setOtp(["", "", "", "", "", ""]);
+    //             // modalInstance.close();
+    //         } else {
+    //             toast.error(resData?.message || "Invalid OTP. Please try again.");
+    //         }
+    //     } catch (error) {
+    //         console.error("OTP verification failed", error);
+    //         const errorMessage = error?.response?.data?.message || "Server error occurred.";
+    //         toast.error(errorMessage);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
 
     return (
@@ -516,7 +558,7 @@ export default function MyFormPage() {
 
                     <div className="col-lg-6">
                         <label htmlFor="cnic">CNIC</label>
-                        <input name="cnic" value={formData.cnic} placeholder="CNIC e.g. 12345-1234567-1" onChange={handleChangeCnic} />
+                        <input name="cnic" accept="image/*" value={formData.cnic} placeholder="CNIC e.g. 12345-1234567-1" onChange={handleChangeCnic} />
                         {formErrors.cnic && <small style={{ color: "red" }}>{formErrors.cnic}</small>}
                     </div>
                     <div className="col-lg-6">
@@ -579,15 +621,15 @@ export default function MyFormPage() {
                         </div>
                     )}
 
-                    {/* <div className="col-lg-6">
+                    <div className="col-lg-6">
                         <label htmlFor="experience">Experience</label>
                         <input name="experience" placeholder="Experience" type="number" onChange={handleChange} />
                         {formErrors.experience && <small style={{ color: "red" }}>{formErrors.experience}</small>}
-                    </div> */}
+                    </div>
 
                     <div className="col-lg-6">
-                        <label htmlFor="experience">Police Verification</label>
-                        <input type="file" name="picture" onChange={handleImageChange} />
+                        <label htmlFor="picture">Police Verification</label>
+                        <input type="file" name="picture" accept="image/*" onChange={handleImageChange} />
                         {formErrors.picture && <small style={{ color: "red" }}>{formErrors.picture}</small>}
                     </div>
 
@@ -596,42 +638,65 @@ export default function MyFormPage() {
                 {/* Audio Sample */}
                 <div className="w-100">
                     <div className="audio-recorder-container">
+
+                        {/* Recorder Section */}
                         {!audioURL && (
                             <div className="recorder-box">
-                                <div className={`mic-button ${isRecording ? "recording" : ""}`} onClick={isRecording ? handleStopRecording : handleStartRecording}>
-                                    {
-                                        !isRecording ? (
-                                            <FaMicrophone />
-                                        ) : (<FaPause />)
-                                    }
+                                <div
+                                    className={`mic-button ${isRecording ? "recording" : ""}`}
+                                    onClick={isRecording ? handleStopRecording : handleStartRecording}
+                                >
+                                    {!isRecording ? <FaMicrophone /> : <FaPause />}
                                 </div>
-                                {!isRecording && <div><p style={{ fontWeight: "600", marginRight: "10px" }}>Record Voice</p></div>}
-                                {isRecording &&
+                                {!isRecording && (
+                                    <div>
+                                        <p style={{ fontWeight: "600", marginRight: "10px" }}>Record Voice</p>
+                                    </div>
+                                )}
+                                {/* Audio File Upload */}
+                                {!audioURL && !isRecording && (
+                                    <div className="p-2">
+                                        <input
+                                            type="file"
+                                            accept="audio/*"
+                                            id="audioUpload"
+                                            onChange={handleAudioUpload}
+                                            style={{ display: "none" }}
+                                        />
+                                        <label htmlFor="audioUpload" className="upload-label">
+                                            <FaFileAudio size={22} style={{ color: "gray" }} />
+                                            <span className="tooltip-text">Upload audio file</span>
+                                        </label>
+                                    </div>
+                                )}
+                                {isRecording && (
                                     <div className="bars-animation">
                                         {Array.from({ length: 25 }).map((_, index) => (
                                             <div key={index} style={{ animationDelay: `${index * 0.05}s` }}></div>
                                         ))}
                                     </div>
-                                }
-
+                                )}
                                 {isRecording && <div className="timer">{formatTime(timer)}</div>}
                             </div>
                         )}
 
+                        {/* Playback Section */}
                         {audioURL && (
                             <div className="audio-bubble-container right">
-                                <div className="play-icon-with-bars" onClick={() => {
-                                    if (audioRef.current.paused) {
-                                        audioRef.current.play();
-                                        setIsPlaying(true);
-                                    } else {
-                                        audioRef.current.pause();
-                                        setIsPlaying(false);
-                                    }
-                                }}>
+                                <div
+                                    className="play-icon-with-bars"
+                                    onClick={() => {
+                                        if (audioRef.current.paused) {
+                                            audioRef.current.play();
+                                            setIsPlaying(true);
+                                        } else {
+                                            audioRef.current.pause();
+                                            setIsPlaying(false);
+                                        }
+                                    }}
+                                >
                                     {isPlaying ? <div className="play-icon"><MdPause /></div> : <div className="play-icon"><MdPlayArrow /></div>}
-
-                                    <div className={`bars-animation-m ${isPlaying ? 'playing' : ''}`}>
+                                    <div className={`bars-animation-m ${isPlaying ? "playing" : ""}`}>
                                         {[...Array(16)].map((_, i) => <span key={i}></span>)}
                                     </div>
                                 </div>
@@ -643,13 +708,15 @@ export default function MyFormPage() {
                                     onEnded={() => setIsPlaying(false)}
                                     className="custom-audio-player"
                                 ></audio>
-
                             </div>
                         )}
-
                     </div>
-                    {formErrors.audio_sample_blob && <small style={{ color: "red" }}>{formErrors.audio_sample_blob}</small>}
+
+                    {formErrors.audio_sample_blob && (
+                        <small style={{ color: "red" }}>{formErrors.audio_sample_blob}</small>
+                    )}
                 </div>
+
 
                 {/* Submit */}
                 <div className="form-footer mt-4 text-center w-100">
@@ -667,7 +734,7 @@ export default function MyFormPage() {
             </form>
             <ToastContainer />
 
-            <div
+            {/* <div
                 className="modal fade"
                 id="otpModal"
                 tabIndex="-1"
@@ -714,7 +781,7 @@ export default function MyFormPage() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
         </div>
 

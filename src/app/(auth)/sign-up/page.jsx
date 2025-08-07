@@ -48,6 +48,7 @@ export default function page() {
     try {
       const res = await fetch(api, {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
