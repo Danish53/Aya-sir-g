@@ -19,7 +19,7 @@ export default function BlogCard({ content }) {
   return (
     <section className="blog_card">
       <div className="img_div">
-        <img src={content?.attchments || "/assets/blog_img.jpg"} alt="blog image" />
+        <img src={content?.attchments || "/assets/blog_img.jpg"} alt="blog  image" />
       </div>
 
       <div className="body"> 
