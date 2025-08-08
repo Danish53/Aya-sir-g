@@ -26,8 +26,8 @@ export default function page() {
   });
 
   const isValidPhone = (number) => {
-  return /^\+92[0-9]{10}$/.test(number);
-};
+    return /^\+92[0-9]{10}$/.test(number);
+  };
 
 
   const router = useRouter();
@@ -48,14 +48,14 @@ export default function page() {
     try {
       const res = await fetch(api, {
         method: "POST",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json(); // always read response body
+      const data = await res.json();
+      console.log(data, "register data");
 
       if (!res.ok) {
         // Handle 422 validation error
@@ -77,7 +77,7 @@ export default function page() {
         first_name: "",
         last_name: "",
         username: "",
-        contact_no: "",
+        contact_number: "",
         email: "",
         password: ""
       });
@@ -98,7 +98,6 @@ export default function page() {
   const handleSubmit = (e) => {
     e.preventDefault();
     postData();
-    console.log("form Data", formData);
   };
   const handleClick = () => {
     router.push("/register-service-provider");
@@ -189,34 +188,36 @@ export default function page() {
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
               </span>
             </div>
-            {/* <input
-              type="text"
-              className="input_auth"
-              placeholder="Phone Number"
-              name="contact_number"
-              id="contact_no"
-              onChange={handleChange}
-              value={formData.contact_number}
-              required
-            /> */}
-            <div className="d-flex align-items-center">
+            <div>
+              <input
+                type="text"
+                className="input_auth"
+                placeholder="Phone Number"
+                name="contact_number"
+                id="contact_number"
+                onChange={handleChange}
+                value={formData.contact_number}
+                required
+              />
+            </div>
+            {/* <div className="d-flex align-items-center">
               <span style={{ padding: '8px', marginBottom:"11px", borderRadius:"10px 0px 0px 10px", height:'44px', border: '1px solid #afafaf', boxShadow: "4px 4px 10px #00000040", borderRight: 'none' }}>+92</span>
               <input
                 type="text"
                 className="input_auth"
-                placeholder="3001234567"
+                placeholder="03001234567"
                 name="contact_number"
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    contact_number: `+92${e.target.value.replace(/^0+/, "")}`,
+                    // contact_number: `+92${e.target.value.replace(/^0+/, "")}`,
+                    contact_number: e.target.value,
                   }))
                 }
                 value={formData.contact_number.replace("+92", "")}
                 required
-                style={{ flex: 1, borderRadius:"0px 10px 10px 0px" }}
               />
-            </div>
+            </div> */}
 
           </div>
           {/* <div className="input_one_row">
@@ -257,13 +258,21 @@ export default function page() {
               "Sign Up"
             )}
           </button>
-          <Link href="/login" id="sign_p" className="term" style={{ textDecoration: "none" }}>
-            <p className="text-center mt-2 term" style={{ color: "#B50000" }}>Back to sign In</p>
-          </Link>
+          <div className="d-flex">
+            <div className="logo_div" style={{width:"fit-content"}}>
+              <Link href={'/'}><img src="/assets/Frame.png" alt="" className="logo" /></Link>
+            </div>
+            <div>
+              <Link href="/login" id="sign_p" className="term" style={{ textDecoration: "none", textAlign:"center" }}>
+              <p className="text-center mt-2 term" style={{ color: "#B50000", marginLeft:"-76ypx" }}>Back to sign In</p>
+            </Link>
+            </div>
+          </div>
           {/* <p>or</p>
           <p onClick={handleClick} className="register_comp">
             Want to register as Individual or Company?
           </p> */}
+
         </form>
         <ToastContainer />
 

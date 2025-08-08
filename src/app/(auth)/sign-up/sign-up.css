@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: center;
   color: black !important;
-  margin-top: 30px;
 }
 .sign_up .input_auth {
   width: 100%;
@@ -13,9 +12,13 @@
 .auth_heading {
   font-size: 32px;
 }
-/* .sign_up .bg_white {
-  height: fit-content;
-} */
+ .logo_div {
+  text-align: left;
+}
+
+ .logo_div img{
+  width: 80px;
+}
 
 .sign_up form {
   width: 100%;
