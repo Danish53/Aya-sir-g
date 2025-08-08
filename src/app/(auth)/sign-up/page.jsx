@@ -264,7 +264,7 @@ export default function page() {
             </div>
             <div>
               <Link href="/login" id="sign_p" className="term" style={{ textDecoration: "none", textAlign:"center" }}>
-              <p className="text-center mt-2 term" style={{ color: "#B50000", marginLeft:"-76ypx" }}>Back to sign In</p>
+              <p className="text-center mt-2 term" style={{ color: "#B50000", marginLeft:"-76px" }}>Back to sign In</p>
             </Link>
             </div>
           </div>
