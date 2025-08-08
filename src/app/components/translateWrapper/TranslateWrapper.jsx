@@ -12,7 +12,7 @@ export default function TranslateWrapper() {
       const element = document.getElementById("google_translate_element");
       if (element) {
         element.innerHTML = ""; // 💥 clear previous content
-      }
+      } 
 
       new window.google.translate.TranslateElement(
         {

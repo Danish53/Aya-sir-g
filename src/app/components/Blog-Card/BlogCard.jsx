@@ -14,12 +14,12 @@ export default function BlogCard({ content }) {
     const words = str.split(" ");
     return words.slice(0, 20).join(" ") + (words.length > 20 ? "..." : "");
   };
-  // console.log("content is ", content);
+  console.log(content, "blogs")
 
   return (
     <section className="blog_card">
       <div className="img_div">
-        <img src="/assets/blog_img.jpg" alt="blog image" />
+        <img src={content?.attchments || "/assets/blog_img.jpg"} alt="blog image" />
       </div>
 
       <div className="body">

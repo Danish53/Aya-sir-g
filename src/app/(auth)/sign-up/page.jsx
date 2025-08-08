@@ -84,7 +84,7 @@ export default function page() {
 
       setTimeout(() => {
         router.push("/register-otp");
-      }, 1500);
+      }, 1000);
     } catch (error) {
       // JS-level error (e.g. network error)
       console.error("Error:", error);
