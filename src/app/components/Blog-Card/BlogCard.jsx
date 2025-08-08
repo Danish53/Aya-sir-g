@@ -14,7 +14,7 @@ export default function BlogCard({ content }) {
     const words = str.split(" ");
     return words.slice(0, 20).join(" ") + (words.length > 20 ? "..." : "");
   };
-  console.log(content, "blogs")
+  // console.log(content, "blogs")
 
   return (
     <section className="blog_card">
@@ -22,7 +22,7 @@ export default function BlogCard({ content }) {
         <img src={content?.attchments || "/assets/blog_img.jpg"} alt="blog image" />
       </div>
 
-      <div className="body">
+      <div className="body"> 
         <h3>{getWords(content.title)}</h3>
         <p className="mb-3">{getWordsTitle(content.description)}</p>
         <Link href={`/blogdetails/${content.id}`}>Continue reading</Link>
