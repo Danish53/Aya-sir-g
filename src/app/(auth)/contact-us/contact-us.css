@@ -83,9 +83,9 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
   transform: rotate(45deg);
 }
 
-.contact-us .logo {
+/* .contact-us .logo {
   max-width: 83px;
-}
+} */
 
 .contact-us p#descri {
   margin-bottom: 0 !important;
@@ -116,6 +116,14 @@ form {
   width: 80%;
 }
 
+.logo_div{
+  width: 170px;
+}
+
+.logo_div img{
+  width: 100% !important;
+}
+
 .right_div p{
   color: var(--red-color);
 }
@@ -140,9 +148,9 @@ form {
   .contact-us.sign_in {
     height: 41px;
   }
-  .contact-us .logo {
+  /* .contact-us .logo {
     max-width: 60px;
-  }
+  } */
   .contact-us p#descri {
     font-size: 7px;
   }
@@ -189,9 +197,9 @@ form {
   .contact-us .sign_in {
     height: 40px;
   }
-  .contact-us .logo {
+  /* .contact-us .logo {
     font-size: 47px;
-  }
+  } */
   p#head {
     font-size: 14px;
   }

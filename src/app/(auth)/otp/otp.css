@@ -37,8 +37,12 @@
 .otp .logo_div {
   align-items: baseline;
   display: flex;
-  width: 100%;
+  width: 170px;
   flex-direction: column;
+}
+
+.otp .logo_div img {
+  width: 100%;
 }
 
 @media screen and (max-width: 768px) {
@@ -51,9 +55,9 @@
   .otp p.auth_para {
     font-size: 17px;
   }
-  .logo_div .logo {
+  /* .logo_div .logo {
     width: 70px;
-  }
+  } */
   .otp p#head {
     font-size: 15px;
     margin-bottom: 0 !important;

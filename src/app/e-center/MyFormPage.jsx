@@ -2,7 +2,7 @@
 // export const dynamic = "force-dynamic";
 
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { FaCloudUploadAlt, FaEdit, FaFileAudio, FaMicrophone, FaPause, FaUpload } from "react-icons/fa";
+import { FaCloudUploadAlt, FaEdit, FaEye, FaEyeSlash, FaFileAudio, FaMicrophone, FaPause, FaUpload } from "react-icons/fa";
 import { MdDelete, MdPause, MdPlayArrow } from "react-icons/md";
 import { MultiSelect } from "react-multi-select-component";
 import { toast, ToastContainer } from "react-toastify";
@@ -12,6 +12,7 @@ import "./e-center.css";
 import { UserContext } from "../userContext";
 import { IoMdClose } from "react-icons/io";
 import { useRouter } from "next/navigation";
+import Select from "react-select";
 // import { Modal } from 'bootstrap';
 import axios from "axios";
 import dynamic from "next/dynamic";
@@ -76,6 +77,7 @@ export default function MyFormPage() {
     const [audioURL, setAudioURL] = useState();
     const [isRecording, setIsRecording] = useState();
     const [eCenterOtp, setEcenterOtp] = useState();
+    const [showPassword, setShowPassword] = useState(false);
 
     const fileInputRef = useRef(null);
 
@@ -115,17 +117,20 @@ export default function MyFormPage() {
     // console.log(formData, "form data print")
 
     const validateForm = () => {
+        const currentRole = (userType || "").toLowerCase();
         const requiredFields = [
             "profile_image",
             "username",
-            "email",
+            // "email",
             "contact_number",
             "address",
             "gender",
             "city_id",
             "cnic",
             "age",
-            "description",
+            "fields_of_interest",
+            // "description",
+            ...(currentRole === "handyman" ? ["description", "experience", "disability_status", "interested_locations"] : []),
             "billing_address_scan",
             "cnic_scan",
             "picture",
@@ -135,8 +140,12 @@ export default function MyFormPage() {
 
         const errors = {};
         requiredFields.forEach((field) => {
-            if (!formData[field]) errors[field] = "This field is required.";
+            console.log("Checking field:", field, "Value:", formData[field]);
+            if (!formData[field] || String(formData[field]).trim() === "") {
+                errors[field] = "This field is required.";
+            }
         });
+
 
         if (!cnicRegex.test(formData.cnic)) {
             errors.cnic = "CNIC must be in format xxxxx-xxxxxxx-x";
@@ -156,8 +165,12 @@ export default function MyFormPage() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
+        setFormData((prev) => ({
+            ...prev,
+            [name]: name === "username" ? value.toUpperCase() : value
+        }));
     };
+
 
     const handleChangeCnic = (e) => {
         const formatted = formatCNIC(e.target.value);
@@ -242,7 +255,7 @@ export default function MyFormPage() {
                 setAudioURL(url);
                 setFormData((prev) => ({
                     ...prev,
-                    audio_sample_blob: blob, // ✅ Add this line
+                    audio_sample_blob: blob,
                 }));
             };
 
@@ -317,7 +330,7 @@ export default function MyFormPage() {
         e.preventDefault();
 
         if (!validateForm()) {
-            toast.error("Please fix errors in form.");
+            toast.error("Please fill all required fields.");
             return;
         }
 
@@ -377,23 +390,49 @@ export default function MyFormPage() {
                 setEcenterOtp(response?.result);
                 toast.success(response?.result?.message || "Profile successfully created!");
             } else {
-                toast.error(response.message || "Form submission failed.");
+                // Laravel-style validation errors direct response me ho sakte hain
+                const apiErrors = response?.errors || response?.data?.errors || response?.result?.errors;
+                if (apiErrors) {
+                    // First error message for toast
+                    const firstErrorKey = Object.keys(apiErrors)[0];
+                    const firstErrorMsg = apiErrors[firstErrorKey][0];
+                    toast.error(firstErrorMsg);
+
+                    // All errors for inline form display
+                    const mappedErrors = {};
+                    Object.keys(apiErrors).forEach((field) => {
+                        mappedErrors[field] = apiErrors[field][0];
+                    });
+                    setFormErrors(mappedErrors);
+                } else {
+                    toast.error(response?.message || "Something went wrong.");
+                }
             }
         } catch (err) {
             console.log("Full error:", err);
 
-            // Laravel-style validation error display
+            // Laravel 422 validation errors in catch block
             const apiErrors = err?.response?.data?.errors;
             if (apiErrors) {
-                for (const key in apiErrors) {
-                    toast.error(apiErrors[key][0]); // Show first error per field
-                }
+                // First error for toast
+                const firstErrorKey = Object.keys(apiErrors)[0];
+                const firstErrorMsg = apiErrors[firstErrorKey][0];
+                toast.error(firstErrorMsg);
+
+                // All errors for inline
+                const mappedErrors = {};
+                Object.keys(apiErrors).forEach((field) => {
+                    mappedErrors[field] = apiErrors[field][0];
+                });
+                setFormErrors(mappedErrors);
             } else {
                 toast.error("Something went wrong.");
             }
         } finally {
             setLoader(false);
         }
+
+
     };
 
 
@@ -407,6 +446,11 @@ export default function MyFormPage() {
     }));
 
     const optionsLocation = locations.map((loc) => ({
+        label: loc.name,
+        value: loc.id,
+    }));
+
+    const optionsCity = cities.map((loc) => ({
         label: loc.name,
         value: loc.id,
     }));
@@ -469,6 +513,7 @@ export default function MyFormPage() {
                             imagePerview ||
                             "/assets/person_img.png"
                         }
+                        accept="image/*"
                         alt="Profile"
                         className="w-32 h-32 rounded-full object-cover"
                     />
@@ -514,7 +559,7 @@ export default function MyFormPage() {
 
                     <div className="col-lg-6">
                         <label htmlFor="username">Username</label>
-                        <input name="username" placeholder="Username" onChange={handleChange} />
+                        <input name="username" placeholder="Username" value={formData.username || ""} onChange={handleChange} />
                         {formErrors.username && <small style={{ color: "red" }}>{formErrors.username}</small>}
                     </div>
                     <div className="col-lg-6">
@@ -522,13 +567,33 @@ export default function MyFormPage() {
                         <input name="email" placeholder="Email" type="email" onChange={handleChange} />
                         {formErrors.email && <small style={{ color: "red" }}>{formErrors.email}</small>}
                     </div>
-
                     <div className="col-lg-6">
                         <label htmlFor="password">Password</label>
-                        <input name="password" placeholder="Password" type="password" onChange={handleChange} />
-                        {formErrors.password && <small style={{ color: "red" }}>{formErrors.password}</small>}
+                        <div className="w-100" style={{ position: "relative" }}>
+                            <input
+                                name="password"
+                                placeholder="Password"
+                                type={showPassword ? "text" : "password"}
+                                onChange={handleChange}
+                                style={{ paddingRight: "40px" }}
+                            />
+                            <span
+                                onClick={() => setShowPassword((prev) => !prev)}
+                                style={{
+                                    position: "absolute",
+                                    right: "32px",
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                {showPassword ? <FaEyeSlash /> : <FaEye />}
+                            </span>
+                        </div>
+                        {formErrors.password && (
+                            <small style={{ color: "red" }}>{formErrors.password}</small>
+                        )}
                     </div>
-
                     <div className="col-lg-6">
                         <label htmlFor="contact_number">Contact Number</label>
                         <input name="contact_number" placeholder="Contact Number" onChange={handleChange} />
@@ -554,6 +619,7 @@ export default function MyFormPage() {
                     <div className="input_select col-lg-6">
                         <label htmlFor="">Fields of Interest</label>
                         <MultiSelect options={options} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" />
+                        {formErrors.fields_of_interest && <small style={{ color: "red" }}>{formErrors.fields_of_interest}</small>}
                     </div>
 
                     <div className="col-lg-6">
@@ -582,50 +648,54 @@ export default function MyFormPage() {
 
                     <div className="col-lg-6">
                         <label htmlFor="city">City</label>
-                        <select
-                            onChange={(e) => {
-                                const cityId = e.target.value;
-                                const selectedCity = cities.find((city) => city.id === parseInt(cityId));
+                        <Select
+                            id="city"
+                            options={optionsCity}
+                            value={options.find(opt => opt.value === parseInt(selectedCityId))}
+                            onChange={(selectedOption) => {
+                                const cityId = selectedOption ? selectedOption.value : "";
                                 setSelectedCityId(cityId);
-                                setFormData((prev) => ({ ...prev, city_id: cityId }));
+                                setFormData(prev => ({ ...prev, city_id: cityId }));
                             }}
-                            value={selectedCityId}
-                        >
-                            <option value="">Select City</option>
-                            {cities.map((city) => (
-                                <option key={city.id} value={city.id}>{city.name}</option>
-                            ))}
-                        </select>
-                        {formErrors.user_city && <small style={{ color: "red" }}>{formErrors.user_city}</small>}
+                            placeholder="Select City"
+                            isClearable
+                            isSearchable
+                        />
+                        {formErrors.city_id && <small style={{ color: "red" }}>{formErrors.city_id}</small>}
                     </div>
 
                     {userType !== "provider" && (
                         <div className="input_select col-lg-6">
                             <><label htmlFor="">Interested Locations</label>
                                 <MultiSelect options={optionsLocation} hasSelectAll={false} value={selectedLocation} onChange={handleLocationChange} labelledBy="Interested Locations" /></>
+                            {formErrors.interested_locations && <small style={{ color: "red" }}>{formErrors.interested_locations}</small>}
                         </div>
                     )}
 
-                    <div className="col-lg-6">
-                        <label htmlFor="description">Description</label>
-                        <input name="description" placeholder="Description" onChange={handleChange} />
-                        {formErrors.description && <small style={{ color: "red" }}>{formErrors.description}</small>}
-                    </div>
+                    {userType !== "provider" && (
+                        <div className="col-lg-6">
+                            <label htmlFor="description">Description</label>
+                            <input name="description" placeholder="Description" onChange={handleChange} />
+                            {formErrors.description && <small style={{ color: "red" }}>{formErrors.description}</small>}
+                        </div>
+                    )}
 
 
                     {userType !== "provider" && (
                         <div className="col-lg-6">
                             <><label htmlFor="disability_status">Disability Status</label>
                                 <input name="disability_status" placeholder="Disability Status" onChange={handleChange} /></>
-
+                            {formErrors.disability_status && <small style={{ color: "red" }}>{formErrors.disability_status}</small>}
                         </div>
                     )}
 
-                    <div className="col-lg-6">
-                        <label htmlFor="experience">Experience</label>
-                        <input name="experience" placeholder="Experience" type="number" onChange={handleChange} />
-                        {formErrors.experience && <small style={{ color: "red" }}>{formErrors.experience}</small>}
-                    </div>
+                    {userType !== "provider" && (
+                        <div className="col-lg-6">
+                            <label htmlFor="experience">Experience</label>
+                            <input name="experience" placeholder="Experience" type="number" onChange={handleChange} />
+                            {formErrors.experience && <small style={{ color: "red" }}>{formErrors.experience}</small>}
+                        </div>
+                    )}
 
                     <div className="col-lg-6">
                         <label htmlFor="picture">Police Verification</label>

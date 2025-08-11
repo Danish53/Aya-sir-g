@@ -65,14 +65,35 @@ form .image_div .edit_icon {
   border-radius: 8px;
 }
 
+.css-hlgwow{
+  width: calc(100% - 70px);
+}
+.css-1wy0on6{
+  width: 70px;
+}
+
 .multi-select {
   width: 100% !important;
 }
 
+.css-13cymwt-control{
+  border: none !important;
+  width: 100% !important;
+  border-width: 0px !important;
+  border-style: none !important;
+  min-height: auto !important;
+  padding: 2px !important;
+}
+
+.css-t3ipsp-control:hover {
+    border-color: hsl(0, 0%, 70%) !important;
+}
 
 .input_one_row input,
+.input_one_row .css-b62m3t-container,
 .input_one_row select,
 .input_row_full input,
+.input_row_full .css-b62m3t-container,
 .input_row_full select {
   flex: 1;
   padding: 10px;
@@ -81,8 +102,13 @@ form .image_div .edit_icon {
   font-size: 16px;
   background-color: #fff;
   box-shadow: 1px 1px 15px #00000040;
-  width: 98%;
+  width: 98% !important;
   margin: 4px 0px;
+}
+
+.input_one_row .css-b62m3t-container,
+.input_row_full .css-b62m3t-container {
+  padding: 2px;
 }
 
 .input_one_row input:focus,
@@ -152,6 +178,20 @@ form button:hover {
   margin: 4px 0px;
 }
 
+.dropdown-content .item-renderer {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start !important; /* Left side align */
+  gap: 8px; /* Checkbox aur text ke beech space */
+  text-align: left !important;
+}
+
+/* Text ko normal flow me lane ke liye */
+.dropdown-content .item-renderer span {
+  margin-left: 4px;
+}
+
+
 .rmsc .dropdown-container input{
   box-shadow: none;
 }
@@ -175,7 +215,7 @@ form button:hover {
 .input_one_row div label {
     width: 100% !important;
   }
-
+  
 
 /* Responsive */
 @media screen and (max-width: 768px) {

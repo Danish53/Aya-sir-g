@@ -5,20 +5,30 @@
 .blogs .card_div {
   display: grid;
   justify-content: center;
-  gap: 10px;
+  gap: 25px;
   margin: 0 auto;
   grid-template-columns: repeat(4, 1fr);
 }
 
 @media screen and (max-width: 1200px) {
   .blogs .card_div {
-    gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
-@media screen and (max-width: 1200px) {
+
+@media screen and (max-width: 991px) {
   .blogs .card_div {
-    grid-template-columns: 1fr;
+    gap: 15px;
     width: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .blogs .card_div {
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
   }
 }

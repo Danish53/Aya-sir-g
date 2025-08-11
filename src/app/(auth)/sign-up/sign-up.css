@@ -12,12 +12,14 @@
 .auth_heading {
   font-size: 32px;
 }
- .logo_div {
+.logo_div{
+  width: 230px !important;
+  height: auto;
   text-align: left;
 }
 
  .logo_div img{
-  width: 80px;
+  width: 100%;
 }
 
 .sign_up form {
@@ -87,6 +89,12 @@ span.terms {
 @media screen and (max-width: 992px) {
   .sign_up form {
     width: 60%;
+  }
+  .hide_logo{
+    display: none;
+  }
+  .term p{
+    margin: 0px !important;
   }
   .sign_up .margin_bottom {
     margin-bottom: 1rem !important;

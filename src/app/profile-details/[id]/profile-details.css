@@ -42,10 +42,10 @@
   font-size: 26px;
   height: 35px;
   width: 35px;
-  background: black;
-  color: white;
+  /* background: black;
+  color: white; */
   border-radius: 50%;
-  padding: 10px 0px;
+  /* padding: 10px 0px; */
   cursor: pointer;
   display: "flex";
   justify-content: center;

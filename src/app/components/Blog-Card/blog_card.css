@@ -1,6 +1,6 @@
 .blog_card {
   font-family: var(--font-poppins), sans-serif;
-  width: 250px;
+  /* width: 250px; */
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
   margin-bottom: 20px;
@@ -46,11 +46,11 @@
   text-decoration: none;
 }
 
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
   .blog_card {
     width: 220px;
   }
-}
+} */
 
 @media screen and (max-width: 768px) {
   .blog_card {

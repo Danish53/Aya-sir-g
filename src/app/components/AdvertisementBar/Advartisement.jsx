@@ -42,10 +42,10 @@ export default function Advertisement() {
 
   return (
     <section className="advertisementBar">
-      <Link href={banners[currentImage].description} target="_blank">
+      <Link href={banners[currentImage]?.description || "#"} target="_blank">
       <img
-        src={banners[currentImage].slider_image}
-        alt={banners[currentImage].title || `banner-${currentImage}`}
+        src={banners[currentImage]?.slider_image}
+        alt={banners[currentImage]?.title || `banner-${currentImage}`}
       />
       </Link>
     </section>

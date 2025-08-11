@@ -59,6 +59,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { UserProvider } from "./userContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Script from "next/script";
+import GlobalTranslate from "./components/translateWrapper/TranslateWrapper";
 // import TranslateWrapper from "./components/translateWrapper/TranslateWrapper";
 
 const geistSans = Geist({
@@ -91,13 +93,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/png" href="/logo_header.png"/>
+        <link rel="icon" type="image/png" href="/logo_header.png" />
         <link rel="apple-touch-icon" href="/logo_header.png" />
       </head>
       <body className={poppins.variable}>
         <UserProvider>
           <AosWrapper>
             {/* {/* <TranslateWrapper />  */}
+            {/* <Script
+              id="google-translate-script"
+              src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+              strategy="afterInteractive"
+            /> */}
+            {/* <GlobalTranslate /> */}
             <SiteChrome position="top" />
             {children}
             <SiteChrome position="bottom" />

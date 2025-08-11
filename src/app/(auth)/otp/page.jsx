@@ -15,7 +15,7 @@ export default function page() {
   const phoneNumber = typeof window !== "undefined" ? localStorage.getItem("forgot_phone") : null;
 
   const handleChange = (index, value) => {
-    if (isNaN(value)) return; 
+    if (isNaN(value)) return;
     const updatedOtp = [...otp];
     updatedOtp[index] = value;
     setOtp(updatedOtp);
@@ -93,18 +93,18 @@ export default function page() {
           <button type="submit" className="sign_in mt-5" disabled={loader}>
             {/* {loading ? "Verifying..." : "Verify Code"} */}
             {loader ? (
-                  <>
-                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                    Verifying...
-                  </>
-                ) : (
-                  "Verify Code"
-                )}
+              <>
+                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Verifying...
+              </>
+            ) : (
+              "Verify Code"
+            )}
           </button>
         </form>
 
         <div className="logo_div mt-3">
-          <Link href={'/'}><img src="/assets/Frame.png" alt="" className="logo" /></Link>
+          <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
           {/* <p id="head">AYA SIR G!</p>
           <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
         </div>

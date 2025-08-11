@@ -465,7 +465,8 @@ export default function page() {
 
                             <div className="d-flex align-items-center">
                               <div>
-                                <FaMusic className="mic_icon" />
+                                {/* <FaMusic className="mic_icon" /> */}
+                                <img className="mic_icon" src="/assets/plainword.svg" alt="" />
                               </div>
                             </div>
                           </div>

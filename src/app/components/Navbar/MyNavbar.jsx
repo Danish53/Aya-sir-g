@@ -18,7 +18,7 @@ export default function MyNavbar() {
           <Navbar.Brand href="#home">
             <img
               className="logo"
-              src="/assets/logo_header.png"
+              src="/assets/logo_aya_sir_g.png"
               alt="logo iamge"
             />
             <p id="head">Aya Sir G!</p>

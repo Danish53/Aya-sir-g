@@ -13,7 +13,7 @@ import { UserContext } from "@/app/userContext";
 import Myform from "../Myform/Myform";
 import dynamic from "next/dynamic";
 
-const TranslateWrapper = dynamic(() => import("../translateWrapper/TranslateWrapper"), { ssr: false });
+const GlobalTranslate = dynamic(() => import("../translateWrapper/TranslateWrapper"), { ssr: false });
 
 export default function CustomNavbar() {
   const router = useRouter();
@@ -150,7 +150,13 @@ export default function CustomNavbar() {
               </Dropdown.Menu>
             </Dropdown> */}
 
-            <TranslateWrapper onClick={() => { setMyNavbar(false); handleDropdownItemClick() }} />
+            <GlobalTranslate onClick={() => { setMyNavbar(false); handleDropdownItemClick() }} />
+            {/* <div style={{ border: "1px solid gray" }}>
+              <div id="google_translate_element"></div> 
+            </div> */}
+            {/* <GlobalTranslate /> */}
+
+
 
             <div className="info_div">
               <div className="head_section d-flex align-items-center gap-2">

@@ -87,18 +87,18 @@ export default function page() {
       }, 1000);
     } catch (error) {
       // JS-level error (e.g. network error)
-      console.error("Error:", error);
-      toast.error("Network error or unexpected issue occurred");
+      console.error("Error:", error.message);
+      toast.error(error.message || "Network error or unexpected issue occurred");
     } finally {
       setLoader(false);
     }
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     postData();
   };
+
   const handleClick = () => {
     router.push("/register-service-provider");
   };
@@ -259,13 +259,13 @@ export default function page() {
             )}
           </button>
           <div className="d-flex">
-            <div className="logo_div" style={{width:"fit-content"}}>
-              <Link href={'/'}><img src="/assets/Frame.png" alt="" className="logo" /></Link>
+            <div className="logo_div hide_logo" style={{ width: "fit-content", zIndex:99 }}>
+              <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
             </div>
             <div>
-              <Link href="/login" id="sign_p" className="term" style={{ textDecoration: "none", textAlign:"center" }}>
-              <p className="text-center mt-2 term" style={{ color: "#B50000", marginLeft:"-76px" }}>Back to sign In</p>
-            </Link>
+              <Link href="/login" id="sign_p" className="term" style={{ textDecoration: "none", textAlign: "center" }}>
+                <p className="text-center mt-2 term" style={{ color: "#B50000", marginLeft: "-170px" }}>Back to sign In</p>
+              </Link>
             </div>
           </div>
           {/* <p>or</p>

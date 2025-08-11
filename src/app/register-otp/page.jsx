@@ -102,11 +102,13 @@ export default function page() {
           </button>
         </form>
 
-        <div className="logo_div mt-3">
+        <div className="widd">
+          <div className="logo_div mt-3">
           <Link href={'/'}>
-            <img src="/assets/logo_header.png" alt="logo" className="logo" /></Link>
-          <p id="head">Aya Sir G!</p>
-          <p id="descri">YOUR TRUSTED EVERYWHERE</p>
+            <img src="/assets/logo_aya_sir_g.png" alt="logo" className="logo" /></Link>
+          {/* <p id="head">Aya Sir G!</p>
+          <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
+        </div>
         </div>
       </div>
       <ToastContainer />

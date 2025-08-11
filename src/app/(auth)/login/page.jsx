@@ -52,12 +52,12 @@ export default function page() {
       await fetchUserProfile(data.data.api_token);
 
       router.push("/");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 2000);
     } catch (error) {
-      console.log("Error while login ::", error);
-      toast.error("Error While Login ");
+      console.log("Error while login:", error.message);
+      toast.error(error.message || "Error While Login failed to fetch");
     } finally {
       setLoader(false);
     }
@@ -170,8 +170,8 @@ export default function page() {
                 </Link>
                 <hr />
               </div>
-              <div className="logo_div mt-3">
-                <Link href={'/'}><img src="/assets/Frame.png" alt="" className="logo" /></Link>
+              <div className="logo_div mt-5">
+                <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
                 {/* <p id="head">AYA SIR G!</p>
                 <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
               </div>
