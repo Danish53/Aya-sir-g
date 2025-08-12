@@ -67,9 +67,10 @@ export default function MyFormPage() {
         locations,
         getLocations,
         ecenterAdd,
+        userInfo,
         ecenterInfo
     } = useContext(UserContext);
-    // console.log(ecenterInfo, "ecenter console...")
+    // console.log(userInfo, "ecenter console...")
 
     const [imagePerview, setImagePreview] = useState("");
     const audioRef = useRef(null);
@@ -111,6 +112,7 @@ export default function MyFormPage() {
         audio_sample_blob: "",
         picture: "",
         password: "",
+        e_center_id: ""
         // city_id: ""
     });
 
@@ -121,7 +123,7 @@ export default function MyFormPage() {
         const requiredFields = [
             "profile_image",
             "username",
-            // "email",
+            "email",
             "contact_number",
             "address",
             "gender",
@@ -176,6 +178,15 @@ export default function MyFormPage() {
         const formatted = formatCNIC(e.target.value);
         setFormData((prev) => ({ ...prev, cnic: formatted }));
     };
+
+    useEffect(() => {
+        if (userInfo?.id) {
+            setFormData(prev => ({
+                ...prev,
+                e_center_id: userInfo.id,
+            }));
+        }
+    }, [userInfo]);
 
     // const handleFileChange = (e) => {
     //     const file = e.target.files[0];
@@ -336,47 +347,35 @@ export default function MyFormPage() {
 
         const form = new FormData();
 
-        // Append role and city
+        // Append static fields
         form.append("role", userType);
         form.append("city_id", selectedCityId);
 
-        // Append form data
+        // Append dynamic fields with checks for files, blobs, arrays
         for (const key in formData) {
             const value = formData[key];
 
-            // Skip keys based on userType
             if (userType === "provider" && (key === "disability_status" || key === "interested_locations")) {
                 continue;
             }
 
-            // Files
-            if (
-                key === "profile_image" ||
-                key === "cnic_scan" ||
-                key === "picture" ||
-                key === "billing_address_scan"
-            ) {
-                if (value instanceof File) {
-                    form.append(key, value);
-                }
+            if (key === "profile_image" || key === "cnic_scan" || key === "picture" || key === "billing_address_scan") {
+                if (value instanceof File) form.append(key, value);
                 continue;
             }
 
-            // Audio blob (must be a string according to error)
             if (key === "audio_sample_blob") {
                 if (typeof value === "string") {
-                    form.append(key, value); // already base64 or string
+                    form.append(key, value);
                 } else if (value instanceof Blob || value instanceof File) {
-                    // convert to base64 string
                     const base64 = await blobToBase64(value);
                     form.append(key, base64);
                 }
                 continue;
             }
 
-            // Arrays (e.g., checkboxes/multi-select)
             if (Array.isArray(value)) {
-                value.forEach((v) => form.append(`${key}[]`, v));
+                value.forEach(v => form.append(`${key}[]`, v));
             } else {
                 form.append(key, value);
             }
@@ -385,55 +384,61 @@ export default function MyFormPage() {
         try {
             setLoader(true);
             const response = await ecenterAdd(form);
+            console.log("API response:", response);
 
-            if (response?.result?.status === true) {
-                setEcenterOtp(response?.result);
-                toast.success(response?.result?.message || "Profile successfully created!");
-            } else {
-                // Laravel-style validation errors direct response me ho sakte hain
-                const apiErrors = response?.errors || response?.data?.errors || response?.result?.errors;
-                if (apiErrors) {
-                    // First error message for toast
-                    const firstErrorKey = Object.keys(apiErrors)[0];
-                    const firstErrorMsg = apiErrors[firstErrorKey][0];
-                    toast.error(firstErrorMsg);
-
-                    // All errors for inline form display
-                    const mappedErrors = {};
-                    Object.keys(apiErrors).forEach((field) => {
-                        mappedErrors[field] = apiErrors[field][0];
-                    });
-                    setFormErrors(mappedErrors);
-                } else {
-                    toast.error(response?.message || "Something went wrong.");
-                }
-            }
-        } catch (err) {
-            console.log("Full error:", err);
-
-            // Laravel 422 validation errors in catch block
-            const apiErrors = err?.response?.data?.errors;
-            if (apiErrors) {
-                // First error for toast
+            if (response.success === false && response.result?.status === false && response.result?.errors) {
+                // Validation errors hain
+                const apiErrors = response.result.errors;
                 const firstErrorKey = Object.keys(apiErrors)[0];
                 const firstErrorMsg = apiErrors[firstErrorKey][0];
                 toast.error(firstErrorMsg);
 
-                // All errors for inline
                 const mappedErrors = {};
-                Object.keys(apiErrors).forEach((field) => {
+                Object.keys(apiErrors).forEach(field => {
                     mappedErrors[field] = apiErrors[field][0];
                 });
                 setFormErrors(mappedErrors);
-            } else {
-                toast.error("Something went wrong.");
+                return;
             }
+
+
+            if (response?.result?.status === true) {
+                setEcenterOtp(response.result);
+                toast.success(response.result.message || "Profile successfully created!");
+                setFormData({
+                    profile_image: "",
+                    username: "",
+                    contact_number: "",
+                    email: "",
+                    address: "",
+                    gender: "",
+                    cnic: "",
+                    age: "",
+                    cnic_scan: "",
+                    billing_address_scan: "",
+                    interested_locations: [],
+                    fields_of_interest: [],
+                    description: "",
+                    disability_status: "",
+                    experience: "",
+                    audio_sample_blob: "",
+                    picture: "",
+                    password: "",
+                });
+                setFormErrors({});
+            } else {
+                toast.error(response.result?.message || "Something went wrong.");
+            }
+        } catch (err) {
+            console.error("Catch error:", err);
+            toast.error("Something went wrong.");
         } finally {
             setLoader(false);
         }
 
 
     };
+
 
 
     useEffect(() => {
@@ -596,7 +601,7 @@ export default function MyFormPage() {
                     </div>
                     <div className="col-lg-6">
                         <label htmlFor="contact_number">Contact Number</label>
-                        <input name="contact_number" placeholder="Contact Number" onChange={handleChange} />
+                        <input name="contact_number" placeholder="03009900999" onChange={handleChange} />
                         {formErrors.contact_number && <small style={{ color: "red" }}>{formErrors.contact_number}</small>}
                     </div>
                     <div className="col-lg-6">
@@ -802,7 +807,7 @@ export default function MyFormPage() {
                     </button>
                 </div>
             </form>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
 
             {/* <div
                 className="modal fade"

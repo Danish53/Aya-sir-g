@@ -111,7 +111,7 @@ export default function CustomNavbar() {
             <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="Logo" className="logo" /></Link>
           </div>
 
-          <div className="nav_items d-flex">
+          <div className="nav_items d-flex align-items-center">
             <ul className={`list-unstyled list ${myNavbar ? "active" : ""}`}>
               <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/" className={pathname === "/" ? "active" : ""}>Home</Link></li>
               <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>About Us</Link></li>

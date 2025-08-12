@@ -254,7 +254,7 @@ export default function Page() {
                 <input
                   type="text"
                   className="input_auth"
-                  placeholder="Phone Number"
+                  placeholder="03009900999"
                   name="contact_number"
                   id="contact_no"
                   onChange={handleChange}
@@ -310,7 +310,7 @@ export default function Page() {
           </form>
         </Modal.Body>
       </Modal>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </section>
   );
 }

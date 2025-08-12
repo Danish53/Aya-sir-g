@@ -93,7 +93,6 @@ export default function page() {
     }
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     postData();
@@ -241,7 +240,7 @@ export default function page() {
             />
           </div> */}
           <div className="checkbox_field mt-2">
-            <input type="checkbox" id="remember" />
+            {/* <input type="checkbox" id="remember" /> */}
             <label htmlFor="remember" className="custom-checkbox">
               I agree with the
               <span className="terms"> <Link style={{ color: "#B50000" }} href={"/privacy-policy"} target="_blank">Privacy Policy</Link> </span>

@@ -50,7 +50,7 @@ export default function page() {
   const [loading, setloading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 3;
+  const commentsPerPage = 2;
 
   const indexOfLast = currentPage * commentsPerPage;
   const indexOfFirst = indexOfLast - commentsPerPage;
@@ -88,7 +88,7 @@ export default function page() {
 
     const response = await addReviews(formData);
 
-    if (response?.success) {
+    if (response?.success === true || response?.success === "true") {
       toast.success(response?.message || "Review/Rating added!");
       setReview("");
       setRating(0);
@@ -97,7 +97,7 @@ export default function page() {
       toast.error(response?.message || "Something went wrong.");
     }
 
-    setloading(false); // move outside of if/else to always stop loading
+    setloading(false);
   };
 
 

@@ -109,7 +109,7 @@ export default function page() {
           <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
         </div>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
     </section>
   );
 }

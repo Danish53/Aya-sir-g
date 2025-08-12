@@ -9,7 +9,8 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-export default function ButtonComp() {
+export default function ButtonComp({ searchParamdata }) {
+  const { gender, age_range, verified_status } = searchParamdata;
   const { filteredUsers, getFilteredUsers, loader, toggleLike } = useContext(UserContext);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -43,14 +44,14 @@ export default function ButtonComp() {
     }
   }, [role, searchParams]);
 
-  // City/category/area change → reset to page 1 only on user interaction
+  // City/category/area change → reset to page 1
   useEffect(() => {
-    if (filtersChanged) { 
+    if (filtersChanged) {
       setCurrentPage(1);
     } else {
       setFiltersChanged(true); // skip first run
     }
-  }, [category_id, city, area_code]);
+  }, [category_id, city, area_code, verified_status, age_range, gender]);
 
   // Always fetch filtered users
   useEffect(() => {

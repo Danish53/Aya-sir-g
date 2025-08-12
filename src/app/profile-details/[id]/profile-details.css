@@ -19,6 +19,8 @@
   display: flex;
   align-items: center;
   margin-top: 11px;
+  margin-bottom: 12px;
+
 }
 
 .profile_section .icon {
@@ -85,7 +87,7 @@
   font-weight: bold;
 }
 
-.profile_section .info .sub_head{
+.profile_section .info .sub_head {
   font-size: 19px;
   font-weight: 500;
 }
@@ -199,6 +201,10 @@
   border-radius: 6px;
   width: 40px;
   height: 100%;
+}
+
+.left_div {
+  align-items: start !important;
 }
 
 @media screen and (max-width: 992px) {

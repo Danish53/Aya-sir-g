@@ -196,7 +196,7 @@ export default function RegisterPage() {
           </div>
         </form>
 
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </div>
     </div>
   );

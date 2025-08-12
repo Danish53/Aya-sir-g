@@ -154,7 +154,7 @@ export default function page() {
               </button>
               <div className="check_forget mt-2">
                 <div className="checkbox_field">
-                  <input type="checkbox" id="remember" />
+                  {/* <input type="checkbox" id="remember" /> */}
                   <label htmlFor="remember" className="custom-checkbox">
                     Remember Me
                   </label>
@@ -190,7 +190,7 @@ export default function page() {
             </div>
           </div>
         </div>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </div>
     </section>
   );

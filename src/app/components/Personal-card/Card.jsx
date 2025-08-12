@@ -80,7 +80,7 @@ export default function Card({ data, onLike }) {
           <p>Ratings</p>
           <div className="star_respons_div">
             <div className="stars_div d-flex gap-1">{stars}</div>
-            <p id="respons">{data?.responses || 0} Responses</p>
+            {/* <p id="respons">{data?.responses || 0} Responses</p> */}
           </div>
         </div>
 

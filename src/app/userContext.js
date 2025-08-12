@@ -347,7 +347,7 @@ export const UserProvider = ({ children }) => {
         setEcenterInfo(result);
         return { result };
       } else {
-        return { success: false, message: result.message || "add failed." };
+        return { success: false, result: result || "add failed." };
       }
     } catch (error) {
       // console.error("Update failed:", error);

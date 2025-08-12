@@ -49,7 +49,7 @@ export default function page() {
   const [loading, setloading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 3;
+  const commentsPerPage = 2;
 
   const indexOfLast = currentPage * commentsPerPage;
   const indexOfFirst = indexOfLast - commentsPerPage;
@@ -235,7 +235,7 @@ export default function page() {
           <div className="col-lg-9 ">
             <div className="red_bar"></div>
 
-            <div className="left p-4">
+            <div className="left px-lg-4 py-lg-4 px-2 py-4">
               <div className="heart_button mb-3">
                 {/* <FaRegHeart className="icon" /> */}
                 {company?.verification === "Non Verified" ? (

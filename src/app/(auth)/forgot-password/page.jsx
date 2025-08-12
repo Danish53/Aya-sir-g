@@ -95,7 +95,7 @@ export default function Page() {
           {/* <p id="head">AYA SIR G!</p>
           <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
         </div>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
       </div>
     </section>
   );

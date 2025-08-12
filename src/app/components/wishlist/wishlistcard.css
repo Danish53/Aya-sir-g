@@ -45,6 +45,11 @@
   justify-content: space-between;
 }
 
+.verified_btn {
+    padding: 2px 5px;
+    font-size: 13px;
+  }
+
 @media screen and (max-width: 1200px) {
   .wishlistcard {
     width: 290px;
@@ -77,3 +82,5 @@
     width: 100%;
   }
 }
+
+

@@ -9,3 +9,59 @@
     display: none;
   }
 }
+
+.bg_gray{
+  background: lightgray !important;
+  border: 1px solid gray;
+}
+
+.bg_gray:hover{
+  color: white;
+}
+
+/* Skeleton Loader Styling */
+.skeleton-box {
+  background-color: #e0e0e0;
+  border-radius: 6px;
+  animation: shimmer 1.5s infinite linear;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f8f8f8 50%, #e0e0e0 75%);
+  background-size: 400% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  pointer-events: none;
+}
+
+.img_skeleton {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.text_skeleton {
+  width: 150px;
+  height: 20px;
+  margin: 10px 0;
+}
+
+.star_skeleton {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+}
+
+.btn_skeleton {
+  width: 120px;
+  height: 36px;
+  margin-right: 10px;
+  display: inline-block;
+}

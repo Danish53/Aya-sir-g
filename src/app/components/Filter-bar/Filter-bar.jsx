@@ -6,19 +6,20 @@ import { IoFilter } from "react-icons/io5";
 import { UserContext } from "@/app/userContext";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function Filter_bar() {
+export default function Filter_bar({ dataSearch }) {
+  const { role, gender, age_range, city, category_id, area_code, verified_status } = dataSearch;
   const { apiCategory2, cities, locations, getLocations, getFilteredUsers } = useContext(UserContext);
   const searchParams = useSearchParams();
   const router = useRouter();
 
   const [filters, setFilters] = useState({
-    role: searchParams.get("role") || "handyman",
-    gender: searchParams.get("gender") || "",
-    age_range: searchParams.get("age_range") || "",
-    city: searchParams.get("city") || "",
-    category_id: searchParams.get("category_id") || "",
-    area_code: searchParams.get("area_code") || "",
-    verified_status: searchParams.get("verified_status") || "",
+    role,
+    gender,
+    age_range,
+    city,
+    category_id,
+    area_code,
+    verified_status,
   });
 
   useEffect(() => {
@@ -86,7 +87,6 @@ export default function Filter_bar() {
 
   return (
     <section className="filter_bar">
-      {/* Mobile filter icon */}
       <p
         id="filter_heading"
         className="p-2 filter_small"
