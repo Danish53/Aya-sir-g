@@ -19,7 +19,7 @@ export default function Page() {
   });
 
   const [data, setData] = useState([]);
-  // console.log(data, "data ,,,,,")
+  console.log(data, "data ,,,,,")
 
   const handleActive = () => {
     setDisplay(!display);
@@ -170,7 +170,7 @@ export default function Page() {
               ) : data.length > 0 ? (
                 data.map((item, index) => <IndividualCard key={index} data={item} />)
               ) : (
-                <h4 className="p-5">No data found.</h4>
+                <h4 className="p-5">No data found.</h4>  
               )}
             </div>
           </div>

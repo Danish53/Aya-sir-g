@@ -216,7 +216,7 @@
 
   .error_class {
     position: static;
-    margin-top: -12px;
+    margin-top: 0px;
     margin-bottom: -5px;
     font-size: 13px;
     text-align: center;

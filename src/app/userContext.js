@@ -345,7 +345,7 @@ export const UserProvider = ({ children }) => {
       // console.log(result, "profile update")
       if (res.ok) {
         setEcenterInfo(result);
-        return { result };
+        return { success: true, result };
       } else {
         return { success: false, result: result || "add failed." };
       }

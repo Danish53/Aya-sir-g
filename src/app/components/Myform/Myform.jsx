@@ -453,7 +453,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
                     <option value="">-- Select --</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
-                    <option value="others">Others</option>
+                    {/* <option value="others">Others</option> */}
                   </select>
                   {formErrors.gender && <small style={{ color: "red" }}>{formErrors.gender}</small>}
                 </div>

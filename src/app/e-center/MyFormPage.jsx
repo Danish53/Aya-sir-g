@@ -132,7 +132,7 @@ export default function MyFormPage() {
             "age",
             "fields_of_interest",
             // "description",
-            ...(currentRole === "handyman" ? ["description", "experience", "disability_status", "interested_locations"] : []),
+            ...(currentRole === "handyman" ? ["description", "experience", "interested_locations"] : []),
             "billing_address_scan",
             "cnic_scan",
             "picture",
@@ -402,10 +402,10 @@ export default function MyFormPage() {
             }
 
 
-            if (response?.result?.status === true) {
+            if (response && (response.success === true || response.success === "true" || response.success === 1)) {
                 setEcenterOtp(response.result);
                 toast.success(response.result.message || "Profile successfully created!");
-                setFormData({
+                setFormData({ 
                     profile_image: "",
                     username: "",
                     contact_number: "",
@@ -413,7 +413,7 @@ export default function MyFormPage() {
                     address: "",
                     gender: "",
                     cnic: "",
-                    age: "",
+                    age: "", 
                     cnic_scan: "",
                     billing_address_scan: "",
                     interested_locations: [],
@@ -616,7 +616,7 @@ export default function MyFormPage() {
                             <option value="">Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
-                            <option value="others">Others</option>
+                            {/* <option value="others">Others</option> */}
                         </select>
                         {formErrors.gender && <small style={{ color: "red" }}>{formErrors.gender}</small>}
                     </div>
@@ -690,7 +690,7 @@ export default function MyFormPage() {
                         <div className="col-lg-6">
                             <><label htmlFor="disability_status">Disability Status</label>
                                 <input name="disability_status" placeholder="Disability Status" onChange={handleChange} /></>
-                            {formErrors.disability_status && <small style={{ color: "red" }}>{formErrors.disability_status}</small>}
+                            {/* {formErrors.disability_status && <small style={{ color: "red" }}>{formErrors.disability_status}</small>} */}
                         </div>
                     )}
 
