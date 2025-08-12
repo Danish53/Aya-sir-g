@@ -44,6 +44,7 @@ export default function page() {
   const api = `${baseUrl}/api/register/send-otp`;
   const postData = async () => {
     setLoader(true);
+    let toastFired = false;
 
     try {
       const res = await fetch(api, {
@@ -55,23 +56,20 @@ export default function page() {
       });
 
       const data = await res.json();
-      // console.log(data, "register data");
 
       if (!res.ok) {
-        // Handle 422 validation error
         if (res.status === 422 && data?.errors) {
-          const errorMessages = Object.values(data.errors).flat();
-          errorMessages.forEach((msg) => toast.error(msg));
+          const firstError = Object.values(data.errors).flat()[0];
+          toast.error(firstError);
         } else {
-          // Generic server error
           toast.error(data?.message || "Something went wrong");
         }
+        toastFired = true;
         return;
       }
 
       localStorage.setItem("phone_number_signUp", formData.contact_number);
 
-      // ✅ Success flow
       toast.success(data?.message);
       setFormData({
         first_name: "",
@@ -86,13 +84,15 @@ export default function page() {
         router.push("/register-otp");
       }, 1000);
     } catch (error) {
-      // JS-level error (e.g. network error)
       console.error("Error:", error.message);
-      toast.error(error.message || "Network error or unexpected issue occurred");
+      if (!toastFired) {
+        toast.error(error.message || "Network error or unexpected issue occurred");
+      }
     } finally {
       setLoader(false);
     }
   };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -192,7 +192,7 @@ export default function page() {
               <input
                 type="text"
                 className="input_auth"
-                placeholder="Phone Number"
+                placeholder="03009900999"
                 name="contact_number"
                 id="contact_number"
                 onChange={handleChange}
@@ -259,7 +259,7 @@ export default function page() {
             )}
           </button>
           <div className="d-flex">
-            <div className="logo_div hide_logo" style={{ width: "fit-content", zIndex:99 }}>
+            <div className="logo_div hide_logo" style={{ width: "fit-content", zIndex: 99 }}>
               <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
             </div>
             <div>
@@ -274,7 +274,7 @@ export default function page() {
           </p> */}
 
         </form>
-        <ToastContainer />
+        {/* <ToastContainer /> */}
 
         {/* <div className="logo_div mt-3">
           <img src="/assets/logo_header.png" alt="" className="logo" />

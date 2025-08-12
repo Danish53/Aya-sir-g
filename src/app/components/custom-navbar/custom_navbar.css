@@ -383,13 +383,13 @@ body *[title] {
   align-items: center;
 }
 
-.goog-te-gadget-simple img:nth-child(1){
+/* .goog-te-gadget-simple img:nth-child(1){
   display: none !important;
 }
 
 .goog-te-gadget-simple span:nth-child(2){
   display: none !important;
-}
+} */
 
 .goog-te-gadget-simple img {
   background-image: url('/assets/globe.png') !important;
