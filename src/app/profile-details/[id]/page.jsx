@@ -84,7 +84,7 @@ export default function page() {
     formData.append("rating", rating);
     formData.append("review", review);
 
-    console.log("formData okkkk", formData);
+    // console.log("formData okkkk", formData);
 
     const response = await addReviews(formData);
 
@@ -161,7 +161,7 @@ export default function page() {
     };
 
     const onEnded = () => {
-      console.log("✅ Audio ended");
+      // console.log("✅ Audio ended");
       setIsPlaying(false);
       setCurrentTime(0);
     };

@@ -9,7 +9,7 @@ import Link from "next/link";
 import { UserContext } from "@/app/userContext";
 
 export default function Card({ data, onLike }) {
-  console.log(data, "data user ind.")
+  // console.log(data, "data user ind.")
   // const [isLiked, setLiked] = useState(false);
   // const handleLiked = () => {
   //   setLiked(!isLiked);

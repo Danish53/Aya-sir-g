@@ -383,6 +383,14 @@ body *[title] {
   align-items: center;
 }
 
+.goog-te-gadget-simple img:nth-child(1){
+  display: none !important;
+}
+
+.goog-te-gadget-simple span:nth-child(2){
+  display: none !important;
+}
+
 .goog-te-gadget-simple img {
   background-image: url('/assets/globe.png') !important;
   background-size: cover;
@@ -433,6 +441,7 @@ body *[title] {
 #google_translate_element {
   margin: auto;
 }
+
 
 iframe .VIpgJd-ZVi9od-vH1Gmf {
   background-color: #FFF !important;

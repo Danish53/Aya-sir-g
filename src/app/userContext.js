@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [userInfo, setUserInfo] = useState(null);
-  // console.log(userInfo?.id, "get profile")
 
   const [apiCategory2, setapiCategories2] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -29,6 +28,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     getCategories();
   }, []);
+  
   const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export const UserProvider = ({ children }) => {
 
   //code for user profile
   const [userDetails, setUserDetails] = useState(null);
-  console.log(userDetails, "fetch profile data");
+  // console.log(userDetails, "fetch profile data");
 
   const [loader, setLoader] = useState(false);
   const token = userInfo?.api_token;
@@ -187,9 +187,11 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     getCities()
   }, [])
+
   // locations zipcode
   const [locations, setLocations] = useState([]);
   const getLocations = async (cityId) => {
+    if (!cityId) return;
     try {
       const res = await fetch(`${baseUrl}/api/area-list`, {
         method: "POST",
@@ -216,8 +218,8 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    getLocations()
-  }, [])
+    getLocations();
+  }, []);
 
 
   // filter api users/ companies

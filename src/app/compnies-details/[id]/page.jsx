@@ -153,7 +153,7 @@ export default function page() {
     };
 
     const onEnded = () => {
-      console.log("✅ Audio ended");
+      // console.log("✅ Audio ended");
       setIsPlaying(false);
       setCurrentTime(0);
     };

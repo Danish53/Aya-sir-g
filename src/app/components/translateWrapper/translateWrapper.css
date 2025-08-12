@@ -24,3 +24,20 @@
     background-position: 200% 0;
   }
 }
+
+
+#google_translate_element select {
+  background: #f0f0f0;
+  border-radius: 6px;
+  padding: 4px 8px;
+  border: none;
+  outline: none;
+}
+
+/* styles/globals.css */
+
+div[title="Translate"] {
+  display: none !important;
+}
+
+

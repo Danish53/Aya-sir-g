@@ -72,10 +72,10 @@ export default function Page() {
   return (
     <section className="container margin_navbar">
       <div className="row py-3">
-        <div className="col-md-9 img_div">
+        <div className="col-md-12 img_div">
           <img src={blogData.attchments[0]} alt={blogData.title} />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-12">
           <div className="flex_div_parent">
             <div className="flex_div">
               <img src={blogData.author_image} className="rounded_circle" alt="" />
@@ -96,7 +96,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="container py-3">
+      <div className="container pb-3">
         <div className="content">
           <div className="heading_div">
             <h2 className="heading">{blogData.title}</h2>

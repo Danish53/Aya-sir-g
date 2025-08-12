@@ -21,7 +21,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
     locations,
     getLocations
   } = useContext(UserContext);
-  console.log(userDetails, "user detail,.,.,.")
+  // console.log(userDetails, "user detail,.,.,.")
   const [imagePerview, setImagePreview] = useState(userDetails?.profile_image);
   const [isRecording, setIsRecording] = useState(false);
   const [audioURL, setAudioURL] = useState(userDetails?.audio_sample);

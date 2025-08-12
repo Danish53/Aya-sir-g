@@ -9,7 +9,7 @@ import Link from "next/link";
 import { UserContext } from "@/app/userContext";
 
 export default function CompanyCard({ data, onLike }) {
-  console.log(data, "data user ind.")
+  // console.log(data, "data user ind.")
   const { userInfo } = useContext(UserContext);
 
   const isLiked = !!data?.can_like;

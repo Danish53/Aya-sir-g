@@ -34,7 +34,7 @@ export default function Page() {
       );
 
       const result = await response.json();
-      console.log("OTP API Response:", result);
+      // console.log("OTP API Response:", result);
 
 
       if (response.ok) {

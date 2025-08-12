@@ -55,7 +55,7 @@ export default function page() {
       });
 
       const data = await res.json();
-      console.log(data, "register data");
+      // console.log(data, "register data");
 
       if (!res.ok) {
         // Handle 422 validation error
