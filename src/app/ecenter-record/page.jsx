@@ -127,7 +127,7 @@ export default function Page() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(); 
   }, [filters]);
 
   // ✅ Pagination calculations

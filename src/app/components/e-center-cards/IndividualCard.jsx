@@ -7,7 +7,7 @@ import { FaCheck } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import { toast } from "react-toastify";
-import { Modal } from "bootstrap";
+// import { Modal } from "bootstrap";
 import axios from "axios";
 
 export default function individualcard({ data, fetchData }) {
@@ -81,9 +81,11 @@ export default function individualcard({ data, fetchData }) {
         setOtpId(json.data?.id);
         toast.success("OTP sent successfully!");
         if (modalRef.current) {
+          // Dynamically import Bootstrap Modal only in browser
+          const { Modal } = await import("bootstrap");
           const modalInstance = new Modal(modalRef.current, {
-            backdrop: "static", // optional
-            keyboard: false     // optional
+            backdrop: "static",
+            keyboard: false
           });
           modalInstance.show();
         }
