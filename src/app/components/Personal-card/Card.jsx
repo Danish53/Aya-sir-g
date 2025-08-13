@@ -66,7 +66,7 @@ export default function Card({ data, onLike }) {
             Field:{" "}
             {Array.isArray(data?.fields_of_interest) && data.fields_of_interest.length > 0
               ? data.fields_of_interest.map(item => item.name).join(", ")
-              : "N/A"}
+              : "N/A"} 
           </p>
           <p>Interested Location: {Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
             ? data.interested_locations.map(item => item.name).join(", ")

@@ -326,6 +326,15 @@
   .profile_section .flex_parent {
     flex-wrap: wrap;
   }
+
+  .profile_section .right {
+    width: 100%;
+  }
+
+  .profile_section .right .img_div {
+    width: 100%;
+    height: auto;
+  }
 }
 
 

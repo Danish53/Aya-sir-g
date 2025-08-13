@@ -58,11 +58,11 @@ export default function CompanyCard({ data, onLike }) {
                   <h3>{data?.username}</h3>
                   <div className="star_respons_div">
                     <div className="stars_div d-flex gap-1">{stars}</div>
-                    <p id="respons">{data?.responses || 0} Responses</p>
+                    {/* <p id="respons">{data?.responses || 0} Responses</p> */}
                   </div>
                 </div>
 
-                <h4 id="city">{data?.user_city || "city"}, {data?.address || "address"} </h4>
+                <h4 id="city">{data?.city_name || "city"} </h4>
                 <p id="details">{data?.description || fullText}</p>
               </div>
             </div>

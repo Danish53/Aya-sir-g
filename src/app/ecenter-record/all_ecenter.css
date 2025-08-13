@@ -13,6 +13,7 @@
 
 .bg_filter {
   background-color: white;
+  height: fit-content;
 }
 
 input[type=checkbox]{
@@ -21,7 +22,7 @@ input[type=checkbox]{
 
 .all_ecenter_flex {
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -54,8 +55,7 @@ input[type=checkbox]{
 
 .all_center_page .box .form_div {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  /* gap: 10px; */
 }
 
 .all_center_page .box input {
@@ -67,7 +67,7 @@ input[type=checkbox]{
 }
 
 .all_center_page .form_div input.start_date {
-  width: 220px !important;
+  width: 150px !important;
   height: 32px !important;
   padding: 0 10px;
   cursor: pointer;
@@ -78,7 +78,7 @@ input[type=checkbox]{
 }
 
 .all_center_page .form_div input.end_date {
-  width: 220px !important;
+  width: 150px !important;
   height: 32px !important;
   padding: 0 10px;
   cursor: pointer;
@@ -180,6 +180,15 @@ input[type=checkbox]{
     border-radius: 50%;
     z-index: 9999;
   }
+
+  .all_center_page .form_div input.start_date {
+  width: 100% !important;
+}
+
+.all_center_page .form_div input.end_date {
+  width: 100% !important;
+}
+
 }
 
 

@@ -80,7 +80,7 @@
   font-weight: bold;
 }
 
-.compnies-details .info .sub_head{
+.compnies-details .info .sub_head {
   font-size: 19px;
   font-weight: 500;
 }
@@ -107,7 +107,7 @@
 }
 
 .compnies-details .right .img_div {
-    width: 350px;
+  width: 350px;
   height: 350px;
 }
 
@@ -327,6 +327,11 @@ h3.heading {
   .compnies-details .flex_parent {
     flex-wrap: wrap;
   }
+
+  .compnies-details .right .img_div {
+    width: 100%;
+    height: auto;
+  }
 }
 
 
@@ -442,6 +447,7 @@ h3.heading {
 .wave-animation span:nth-child(16) {
   --i: 16;
 }
+
 @keyframes wave {
 
   0%,

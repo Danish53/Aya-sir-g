@@ -28,21 +28,21 @@ export default function MyFormPage() {
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const [loading, setLoading] = useState(false);
 
-    // Input change handler
-    const handleChangeOtp = (element, index) => {
-        if (!isNaN(element.value)) {
-            const newOtp = [...otp];
-            newOtp[index] = element.value;
-            setOtp(newOtp);
+    // // Input change handler
+    // const handleChangeOtp = (element, index) => {
+    //     if (!isNaN(element.value)) {
+    //         const newOtp = [...otp];
+    //         newOtp[index] = element.value;
+    //         setOtp(newOtp);
 
-            // Move to next input automatically
-            if (element.value && index < 5) {
-                if (typeof window !== 'undefined' && inputRefs.current[index + 1]) {
-                    inputRefs.current[index + 1].focus();
-                }
-            }
-        }
-    };
+    //         // Move to next input automatically
+    //         if (element.value && index < 5) {
+    //             if (typeof window !== 'undefined' && inputRefs.current[index + 1]) {
+    //                 inputRefs.current[index + 1].focus();
+    //             }
+    //         }
+    //     }
+    // };
 
     const blobToBase64 = (blob) => {
         return new Promise((resolve, reject) => {
@@ -132,7 +132,7 @@ export default function MyFormPage() {
             "age",
             "fields_of_interest",
             // "description",
-            ...(currentRole === "handyman" ? ["description", "experience", "interested_locations"] : []),
+            ...(currentRole === "handyman" ? ["interested_locations"] : []),
             "billing_address_scan",
             "cnic_scan",
             "picture",
@@ -222,28 +222,6 @@ export default function MyFormPage() {
         if (!file) return;
         setFormData((prev) => ({ ...prev, [e.target.name]: file }));
     };
-
-    // const handleStartRecording = async () => {
-    //     try {
-    //         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    //         mediaRecorderRef.current = new MediaRecorder(stream);
-    //         mediaRecorderRef.current.ondataavailable = (event) => {
-    //             if (event.data.size > 0) audioChunksRef.current.push(event.data);
-    //         };
-    //         mediaRecorderRef.current.onstop = () => {
-    //             const audioBlob = new Blob(audioChunksRef.current, {
-    //                 type: "audio/webm",
-    //             });
-    //             setAudioURL(URL.createObjectURL(audioBlob));
-    //             setFormData((prev) => ({ ...prev, audio_sample: audioBlob }));
-    //             audioChunksRef.current = [];
-    //         };
-    //         mediaRecorderRef.current.start();
-    //         setIsRecording(true);
-    //     } catch {
-    //         alert("Microphone permission denied.");
-    //     }
-    // };
 
 
     const modalRef = useRef(null);
@@ -613,7 +591,7 @@ export default function MyFormPage() {
                     <div className="col-lg-6">
                         <label htmlFor="gender">Gender</label>
                         <select name="gender" onChange={handleChange}>
-                            <option value="">Select Gender</option>
+                            <option value="">Select Gender</option> 
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             {/* <option value="others">Others</option> */}
