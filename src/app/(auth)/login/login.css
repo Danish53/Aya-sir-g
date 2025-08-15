@@ -32,7 +32,15 @@
 .login .checkbox_filed {
   display: flex;
   align-items: center;
-  gap: 05px;
+  gap: 5px;
+}
+
+.login .checkbox_field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: black;
 }
 
 .login p#forgot {
@@ -48,7 +56,7 @@ label#rember {
 }
 
 input[type="checkbox"] {
-  display: none;
+  display: block;
 }
 
 .custom-checkbox {
@@ -80,10 +88,6 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
   border: solid red;
   border-width: 0 2px 2px 0;
   transform: rotate(45deg);
-}
-
-input[type="checkbox"] {
-    display: none !important;
 }
 
 .logo_div{

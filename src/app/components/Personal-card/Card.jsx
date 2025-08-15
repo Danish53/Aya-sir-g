@@ -9,6 +9,7 @@ import Link from "next/link";
 import { UserContext } from "@/app/userContext";
 
 export default function Card({ data, onLike }) {
+  // console.log(data, "user data");
   // console.log(data, "data user ind.")
   // const [isLiked, setLiked] = useState(false);
   // const handleLiked = () => {
@@ -35,6 +36,23 @@ export default function Card({ data, onLike }) {
   const onLikeClick = () => {
     onLike(data.id, !!isLiked);
   };
+
+  // location more button
+  const [showFullFields, setShowFullFields] = useState(false);
+  const [showFullLocations, setShowFullLocations] = useState(false);
+
+  const fieldsText =
+    Array.isArray(data?.fields_of_interest) && data.fields_of_interest.length > 0
+      ? data.fields_of_interest.map(item => item.name).join(", ")
+      : "N/A";
+
+  // const locationsText =
+  //   Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
+  //     ? data.interested_locations.map(item => item.name).join(", ")
+  //     : "N/A";
+
+  // Limit for initial display
+  const charLimit = 50;
 
 
   return (
@@ -63,16 +81,48 @@ export default function Card({ data, onLike }) {
 
         <div className="details_div mt-3">
           <p>
-            Field:{" "}
-            {Array.isArray(data?.fields_of_interest) && data.fields_of_interest.length > 0
-              ? data.fields_of_interest.map(item => item.name).join(", ")
-              : "N/A"} 
+            <strong>Field: </strong>
+            {showFullFields || fieldsText.length <= charLimit
+              ? fieldsText
+              : fieldsText.slice(0, charLimit) + "..."}
+            {fieldsText.length > charLimit && (
+              <button
+                onClick={() => setShowFullFields(prev => !prev)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#B50000",
+                  cursor: "pointer",
+                  marginLeft: "5px",
+                }}
+              >
+                {showFullFields ? "Less" : "More"}
+              </button>
+            )}
           </p>
-          <p>Interested Location: {Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
-            ? data.interested_locations.map(item => item.name).join(", ")
-            : ""}</p>
+
+          {/* <p>
+            <strong>Interested Location: </strong>
+            {showFullLocations || locationsText.length <= charLimit
+              ? locationsText
+              : locationsText.slice(0, charLimit) + "..."}
+            {locationsText.length > charLimit && (
+              <button
+                onClick={() => setShowFullLocations(prev => !prev)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#B50000",
+                  cursor: "pointer",
+                  marginLeft: "5px",
+                }}
+              >
+                {showFullLocations ? "Less" : "More"}
+              </button>
+            )}
+          </p> */}
           {
-            data?.address ? <p>Current Address: {data?.user_city || "N/A"}</p> : ""
+            data?.address ? <p>Current Address: {data?.address || "N/A"}</p> : ""
           }
         </div>
 

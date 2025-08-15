@@ -11,6 +11,8 @@ export default function page() {
   const [loader, setLoader] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState("");
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -80,9 +82,7 @@ export default function page() {
         password: ""
       });
 
-      setTimeout(() => {
-        router.push("/register-otp");
-      }, 1000);
+      router.push("/register-otp");
     } catch (error) {
       console.error("Error:", error.message);
       if (!toastFired) {
@@ -95,6 +95,11 @@ export default function page() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!termsAccepted) {
+      setTermsError("Please agree to the Privacy Policy before signing up");
+      return;
+    }
+    setTermsError(""); // Clear error
     postData();
   };
 
@@ -240,13 +245,27 @@ export default function page() {
             />
           </div> */}
           <div className="checkbox_field mt-2">
-            {/* <input type="checkbox" id="remember" /> */}
-            <label htmlFor="remember" className="custom-checkbox">
-              I agree with the
-              <span className="terms"> <Link style={{ color: "#B50000" }} href={"/privacy-policy"} target="_blank">Privacy Policy</Link> </span>
+            <input
+              type="checkbox"
+              id="privacy"
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+            />
+            <label htmlFor="privacy">
+              I agree with the 
+              <span className="terms">
+                <Link style={{ color: "#B50000" }} href={"/privacy-policy"} target="_blank">
+                   Privacy Policy
+                </Link>
+              </span> 
               of Clarity
             </label>
           </div>
+          {termsError && (
+            <div style={{ color: "red", fontSize: "14px", marginTop: "4px" }}>
+              {termsError}
+            </div>
+          )}
           <button className="sign_in" type="submit" disabled={loader}>
             {loader ? (
               <>

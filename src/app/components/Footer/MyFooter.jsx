@@ -87,7 +87,7 @@ export default function MyFooter() {
           </Link>
 
           {/* Facebook */}
-            <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.facebook.com/profile.php?id=61577785319983'} target="_blank">
+            <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.facebook.com/share/1BNgdCAE9L/'} target="_blank">
               <FaFacebookF />
             </Link>
 

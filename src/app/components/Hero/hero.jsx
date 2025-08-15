@@ -80,14 +80,14 @@ export default function Hero() {
   const handleSearch = () => {
     let hasError = false;
 
-    if (!categoryId && selectedCategory !== "Any") {
+    if (!categoryId && selectedCategory !== "Any Category") {
       setCategoryError(true);
       hasError = true;
     } else {
       setCategoryError(false);
     }
 
-    if (!cityId && selectedCity !== "Any") {
+    if (!cityId && selectedCity !== "Any City") {
       setCityError(true);
       hasError = true;
     } else {
@@ -136,12 +136,12 @@ export default function Hero() {
                 {categoryError && (
                   <div className="text-danger fw-semibold mb-1 error_class">Please select a category</div>
                 )}
-                <Dropdown onSelect={handleCategorySelect} className="services_dropdown category">
+                <Dropdown onSelect={handleCategorySelect} className="services_dropdown category" drop="down">
                   <Dropdown.Toggle className={selectedCategory ? "selected_black" : "text-muted"}>
                     {selectedCategory || "Select Category"}
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="list_menu">
-                    <Dropdown.Item eventKey={"Any||any"}>Any Category</Dropdown.Item>
+                    <Dropdown.Item eventKey={"Any Category||any"}>Any Category</Dropdown.Item>
                     {apiCategory2.map((cat) => (
                       <Dropdown.Item key={cat.id} eventKey={`${cat.name}||${cat.id}`}>
                         {cat.name}
@@ -177,7 +177,7 @@ export default function Hero() {
                     {selectedCity || "Select City"}
                   </Dropdown.Toggle>
                   <Dropdown.Menu className="list_menu">
-                    <Dropdown.Item eventKey={"Any||any"}>Any City</Dropdown.Item>
+                    <Dropdown.Item eventKey={"Any City||any"}>Any City</Dropdown.Item>
                     {cities?.length > 0 ? (
                       cities?.map((city) => (
                         <Dropdown.Item

@@ -62,7 +62,7 @@
 }
 .sign_up .checkbox_field {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
   gap: 6px;
   color: black;

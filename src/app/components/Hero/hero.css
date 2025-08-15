@@ -3,7 +3,7 @@
   height: calc(100vh - 10px);
   background-image: url("/assets/Image-banner.png");
   background-size: cover;
-  background-position: top;
+  background-position: center 30%;
   color: white;
   position: relative;
   font-family: var(--font-poppins), sans-serif;
@@ -63,6 +63,13 @@
   color: black;
   cursor: pointer;
 }
+
+.services_dropdown.category .dropdown-menu {
+  top: 100% !important;
+  bottom: auto !important;
+  transform: none !important;
+}
+
 
 .padding_2 {
   padding: 7px 32px;

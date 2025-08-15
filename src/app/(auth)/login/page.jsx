@@ -12,6 +12,8 @@ export default function page() {
   const { userInfo, setUserInfo, fetchUserProfile } = useContext(UserContext);
   const [loader, setLoader] = useState(false);
   const router = useRouter();
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -73,6 +75,11 @@ export default function page() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!termsAccepted) {
+      setTermsError("remember me before login");
+      return;
+    }
+    setTermsError("");
     login();
   };
 
@@ -153,11 +160,19 @@ export default function page() {
                 )}
               </button>
               <div className="check_forget mt-2">
-                <div className="checkbox_field">
-                  {/* <input type="checkbox" id="remember" /> */}
-                  <label htmlFor="remember" className="custom-checkbox">
-                    Remember Me
-                  </label>
+                <div>
+                  <div className="checkbox_field">
+                    <input type="checkbox" id="remember" checked={termsAccepted}
+                      onChange={(e) => setTermsAccepted(e.target.checked)} />
+                    <label htmlFor="remember" >
+                      Remember Me
+                    </label>
+                  </div>
+                  {termsError && (
+                    <div style={{ color: "red", fontSize: "14px", marginTop: "4px" }}>
+                      {termsError}
+                    </div>
+                  )}
                 </div>
                 <Link href="/forgot-password" passHref id="forget">
                   <p id="forgot">Forgot Password</p>

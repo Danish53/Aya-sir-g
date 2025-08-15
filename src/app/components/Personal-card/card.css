@@ -11,6 +11,7 @@
   align-items: center;
   border: 1px solid var(--red-color);
   box-shadow: 4px 4px 07px rgba(0, 0, 0, 0.5);
+  height: 500px;
 }
 
 .personal_card .card_div img {
