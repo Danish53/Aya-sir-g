@@ -19,7 +19,7 @@ export default function WishlistComponent({ data }) {
     }
   }
   return (
-    <div className="wishlistcard py-3 mb-3">
+    <div className="wishlistcard py-3 mb-3 h-100">
       <div className="info_div">
         <img src={data?.profile_image || "/assets/raza.png"} alt="" />
         <h2>{data?.username || ""}</h2>

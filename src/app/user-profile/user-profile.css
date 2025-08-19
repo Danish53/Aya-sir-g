@@ -3,6 +3,7 @@
   background-color: #e5e4e4;
   width: 100%;
   position: relative;
+  padding-bottom: 120px;
 }
 .user_profile .profile_flex {
   display: flex;

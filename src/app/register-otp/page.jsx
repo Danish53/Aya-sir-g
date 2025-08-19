@@ -1,17 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./otp.css";
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import Link from "next/link";
+import { UserContext } from "../userContext";
 
-export default function page() {
+export default function Page() {
   const router = useRouter();
+  const { otp, setOtp, timer, handleResend, resendLoading } = useContext(UserContext);
 
-  const [otp, setOtp] = useState(Array(6).fill(""));
-  const [loader, setLoader] = useState(false);
+  const phoneNumber =
+    typeof window !== "undefined"
+      ? localStorage.getItem("phone_number_signUp")
+      : null;
 
-  const phoneNumber = typeof window !== "undefined" ? localStorage.getItem("phone_number_signUp") : null;
+  // Timer countdown
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
 
   const handleChange = (index, value) => {
     if (isNaN(value)) return;
@@ -36,29 +48,31 @@ export default function page() {
 
     setLoader(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/register/verify-otp`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contact_number: phoneNumber,
-          otp: code,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/register/verify-otp`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contact_number: phoneNumber,
+            otp: code,
+          }),
+        }
+      );
 
       const result = await res.json();
 
       if (res.ok) {
-        toast.success("OTP verified User register succesfully!");
+        toast.success("OTP verified! User registered successfully.");
 
         setTimeout(() => {
           router.push("/login");
         }, 1500);
-        localStorage.removeItem("phone_number_signUp")
+        localStorage.removeItem("phone_number_signUp");
       } else {
         toast.error(result.message || "Invalid OTP.");
       }
     } catch (error) {
-      // console.error("OTP Verify Error:", error);
       toast.error("Something went wrong.");
     } finally {
       setLoader(false);
@@ -70,8 +84,10 @@ export default function page() {
       <div className="container p-4 bg_white">
         <h1 className="auth_heading">OTP Authentication</h1>
         <p className="auth_para my-2">
-          Enter the 6 digit OTP sent to your {phoneNumber ? `+92 ${phoneNumber}` : "number"}
+          Enter the 6 digit OTP sent to your{" "}
+          {phoneNumber ? `${phoneNumber}` : "number"}
         </p>
+
         <form onSubmit={handleSubmit}>
           <br />
           <div className="input_group">
@@ -89,11 +105,14 @@ export default function page() {
           </div>
 
           <br />
-          <button type="submit" className="sign_in mt-5" disabled={loader}>
-            {/* {loading ? "Verifying..." : "Verify Code"} */}
+          <button type="submit" className="sign_in mt-4" disabled={loader}>
             {loader ? (
               <>
-                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                <span
+                  className="spinner-border spinner-border-sm me-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
                 Verifying...
               </>
             ) : (
@@ -102,16 +121,35 @@ export default function page() {
           </button>
         </form>
 
+        {/* Timer & Resend */}
+        <div className="text-center mt-3">
+          {timer > 0 ? (
+            <p className="text-muted">
+              OTP Expire in <b>{timer}s</b>
+            </p>
+          ) : (
+            <button
+              className="btn"
+              onClick={() => handleResend(phoneNumber)}
+              disabled={resendLoading}
+            >
+              {resendLoading ? "Resending..." : "Resend OTP"}
+            </button>
+          )}
+        </div>
+
         <div className="widd">
           <div className="logo_div mt-3">
-          <Link href={'/'}>
-            <img src="/assets/logo_aya_sir_g.png" alt="logo" className="logo" /></Link>
-          {/* <p id="head">Aya Sir G!</p>
-          <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
-        </div>
+            <Link href={"/"}>
+              <img
+                src="/assets/logo_aya_sir_g.png"
+                alt="logo"
+                className="logo"
+              />
+            </Link>
+          </div>
         </div>
       </div>
-      {/* <ToastContainer /> */}
     </section>
   );
 }

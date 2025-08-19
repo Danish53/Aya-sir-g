@@ -2,8 +2,14 @@
   font-family: var(--font-poppins), sans-serif;
 }
 
-.work p.section_heading {
+/* .work p.section_heading {
   color: var(--red-color);
+} */
+
+span.red_title {
+  color: var(--red-color);
+  font-size: 32px !important;
+  font-weight: bold !important;
 }
 
 .work .heading {
@@ -20,8 +26,14 @@
 }
 
 .work .col_1 {
-  flex: 1;
+  flex: 1 !important;
 }
+
+  .work .col_1 p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #212529;
+  }
 
 @media screen and (max-width: 991px) {
   .work p.section_heading {
@@ -32,14 +44,13 @@
     font-size: 19px;
   }
 
-  .work .col_1 p {
-    font-size: 15px;
-  }
+
 }
 
 @media screen and (max-width: 576px) {
   .work .col_1 p {
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
   }
 
   .work p.section_heading {

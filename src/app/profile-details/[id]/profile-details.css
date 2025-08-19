@@ -38,18 +38,16 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .profile_section .mic_icon {
-  font-size: 26px;
+  font-size: 46px;
   height: 35px;
   width: 35px;
-  /* background: black;
-  color: white; */
   border-radius: 50%;
-  /* padding: 10px 0px; */
   cursor: pointer;
-  display: "flex";
+  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -59,27 +57,26 @@
 } */
 
 .profile_section .info textarea {
-  height: 100px;
+  height: 70px;
   /* max-width: 422px; */
-  margin-top: 20px;
   outline: none;
   border: none;
-  border: 2px solid rgba(0, 0, 0, 0.399);
+  border: 1px solid rgba(0, 0, 0, 0.399);
   padding: 10px;
   border-radius: 5px;
   width: 100%;
 }
 
-.profile_section .right .img_div {
-  width: 350px;
-  height: 350px;
+.profile_section .img_div {
+  width: 100%;
+  height: 100%;
 }
 
 
-.profile_section .right .img_div img {
+.profile_section .img_div img {
   width: 100%;
   height: 100%;
-  /* object-fit: cover; */
+  border-radius: 3px;
 }
 
 .profile_section .info h4 {
@@ -90,6 +87,7 @@
 .profile_section .info .sub_head {
   font-size: 19px;
   font-weight: 500;
+  color: #191d23 !important;
 }
 
 .profile_section .info h4 span {
@@ -234,12 +232,9 @@
 
   .profile_section .img_div {
     text-align: right;
-    padding: 0px 25px 10px 0px;
+    height: 350px;
   }
 
-  .profile_section .info {
-    width: 300px;
-  }
 
   .profile_section .right .img_div img {
     width: 100%;

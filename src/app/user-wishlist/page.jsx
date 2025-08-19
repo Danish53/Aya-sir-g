@@ -112,17 +112,17 @@ export default function page() {
             <Advartisement />
           </div>
           <div className="col-lg-9">
-            <div className="row">
+            <div className="row align-items-stretch">
               {loading
                 ? // Show skeleton loader cards
                 [...Array(cardsPerPage)].map((_, i) => (
-                  <div className="col-lg-4" key={i}>
+                  <div className="col-lg-4 h-100" key={i}>
                     <SkeletonCard />
                   </div>
                 ))
                 : currentCards.length > 0
                   ? currentCards.map((user) => (
-                    <div className="col-lg-4" key={user.id}>
+                    <div className="col-lg-4 mb-3" key={user.id}>
                       <WishlistComponent data={user} />
                     </div>
                   ))

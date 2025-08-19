@@ -162,7 +162,7 @@ export default function ButtonComp({ searchParamdata }) {
         ) : currentUsers?.length > 0 ? (
           <>
             {individual ? (
-              <div className="card_wrapper_div">
+              <div className="card_wrapper_div row">
                 {currentUsers.map((user) => (
                   <Card key={user.id} data={user} onLike={toggleLike} />
                 ))}

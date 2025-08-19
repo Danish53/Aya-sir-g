@@ -135,9 +135,9 @@ export default function individualcard({ data, fetchData }) {
   };
 
   return (
-    <section className="personal_card">
+    <section className="personal_card col-lg-6 mb-3">
       <div className="card_div py-3 px-4">
-        <img src={data?.profile_picture || "/assets/person_img.png"} alt="person" />
+        <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
         <p className="title">{data?.username || "No Name"}</p>
 
         <div className="heart_div position-relative">

@@ -25,6 +25,7 @@
 .comments_section .comment_div {
   background-color: #f7f8f9;
   border-radius: 10px;
+  width: 100%;
 }
 .comments_section .heading_sec {
   display: flex;

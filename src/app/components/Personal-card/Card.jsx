@@ -52,12 +52,24 @@ export default function Card({ data, onLike }) {
   //     : "N/A";
 
   // Limit for initial display
-  const charLimit = 50;
+  const charLimit = 54;
+
+  const [showFull, setShowFull] = useState(false);
+
+  const toggleShow = () => setShowFull(!showFull);
+
+  // max characters for preview
+  const limit = 35;
+  const address = data?.address || "N/A";
 
 
   return (
-    <section className="personal_card">
-      <div className="card_div py-3 px-4">
+    <section className="personal_card col-lg-6 col-md-6 col-sm-12 mb-lg-4 mb-3">
+      <div className="card_div py-3 px-4" style={{
+        height: showFullFields || showFull ? "auto" : "",
+        overflow: "hidden",
+        transition: "0.3s ease"
+      }}>
         <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
         <p className="title">{data?.username || "No Name"}</p>
 
@@ -94,6 +106,7 @@ export default function Card({ data, onLike }) {
                   color: "#B50000",
                   cursor: "pointer",
                   marginLeft: "5px",
+                  fontSize: "16px"
                 }}
               >
                 {showFullFields ? "Less" : "More"}
@@ -121,20 +134,41 @@ export default function Card({ data, onLike }) {
               </button>
             )}
           </p> */}
-          {
-            data?.address ? <p>Current Address: {data?.address || "N/A"}</p> : ""
-          }
+          {data?.address && (
+            <div>
+              <p>
+                <strong>Current Address:</strong>{" "}
+                {showFull ? address : `${address.slice(0, limit)}${address.length > limit ? "..." : ""}`}
+
+
+                {address.length > limit && (
+                  <button
+                    onClick={toggleShow}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#B50000",
+                      cursor: "pointer",
+                      marginLeft: "5px",
+                      fontSize: "16px"
+                    }}
+                  >
+                    {showFull ? "Less" : "More"}
+                  </button>
+                )}
+              </p>
+            </div>
+          )}
         </div>
 
-        <div className="rating_div">
+        <div className="rating_div mt-2">
           <p>Ratings</p>
           <div className="star_respons_div">
             <div className="stars_div d-flex gap-1">{stars}</div>
             {/* <p id="respons">{data?.responses || 0} Responses</p> */}
           </div>
         </div>
-
-        <div className="verified_div mt-4 mb-2">
+        <div className="verified_div mt-2 mb-2">
           {data?.verification === "Non Verified" ? (
             <button className="verified_btn">
               {data?.verification}
@@ -148,6 +182,7 @@ export default function Card({ data, onLike }) {
           }
           <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
         </div>
+        
       </div>
     </section>
   );

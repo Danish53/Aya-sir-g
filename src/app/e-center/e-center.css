@@ -12,7 +12,7 @@
   margin-bottom: 25px;
 }
 
-.input_one_row label{
+.input_one_row label {
   font-size: 15px;
   font-weight: 500;
   font-family: var(--font-poppins), sans-serif;
@@ -61,22 +61,34 @@ form .image_div .edit_icon {
 }
 
 .input_one_row .input_select {
-  width: 49%;
-  border-radius: 8px;
+  padding-right: 22px;
 }
 
-.css-hlgwow{
+.css-hlgwow {
   width: calc(100% - 70px);
 }
-.css-1wy0on6{
-  width: 70px;
+
+.css-19bb58m {
+  width: calc(100% - 70px);
+}
+
+.css-hlgwow {
+  width: fit-content !important;
+}
+
+.css-1jqq78o-placeholder {
+  width: fit-content !important;
+}
+
+.css-1wy0on6 {
+  width: fit-content !important;
 }
 
 .multi-select {
   width: 100% !important;
 }
 
-.css-13cymwt-control{
+.css-13cymwt-control {
   border: none !important;
   width: 100% !important;
   border-width: 0px !important;
@@ -86,7 +98,7 @@ form .image_div .edit_icon {
 }
 
 .css-t3ipsp-control:hover {
-    border-color: hsl(0, 0%, 70%) !important;
+  border-color: hsl(0, 0%, 70%) !important;
 }
 
 .input_one_row input,
@@ -178,23 +190,28 @@ form button:hover {
   margin: 4px 0px;
 }
 
-.dropdown-content .item-renderer {
+.dropdown-content .panel-content .select-panel .options {
   display: flex !important;
-  align-items: center;
-  justify-content: flex-start !important; /* Left side align */
-  gap: 8px; /* Checkbox aur text ke beech space */
+  align-items: flex-start;
+  justify-content: flex-start !important;
+  flex-direction: column;
+  gap: 8px;
   text-align: left !important;
+  width: 100% !important;
 }
 
-/* Text ko normal flow me lane ke liye */
-.dropdown-content .item-renderer span {
-  margin-left: 4px;
+.dropdown-content .panel-content .select-panel {
+  width: 100% !important;
 }
 
+.dropdown-content .panel-content {
+  width: 100% !important;
+}
 
-.rmsc .dropdown-container input{
+.rmsc .dropdown-container input {
   box-shadow: none;
 }
+
 .rmsc .dropdown-heading {
   border: none !important;
   padding: 10px;
@@ -213,9 +230,9 @@ form button:hover {
 
 
 .input_one_row div label {
-    width: 100% !important;
-  }
-  
+  width: 100% !important;
+}
+
 
 /* Responsive */
 @media screen and (max-width: 768px) {
@@ -224,7 +241,7 @@ form button:hover {
   }
 
   .input_one_row div {
-    width: 100% !important;
+    width: 100%;
   }
 }
 
@@ -265,9 +282,17 @@ form button:hover {
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.15); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .bars-animation {
@@ -289,13 +314,21 @@ form button:hover {
 .bars-animation::after {
   animation-delay: 0.2s;
 }
+
 .bars-animation div {
   animation-delay: 0.4s;
 }
 
 @keyframes bounce {
-  0%, 100% { height: 8px; }
-  50% { height: 18px; }
+
+  0%,
+  100% {
+    height: 8px;
+  }
+
+  50% {
+    height: 18px;
+  }
 }
 
 .timer {
@@ -375,7 +408,7 @@ form button:hover {
 
 .bars-animation-m.playing span {
   animation: bounce 1s infinite ease-in-out;
-  background-color: #4CAF50; 
+  background-color: #4CAF50;
 }
 
 .bars-animation-m span:nth-child(2) {
@@ -426,7 +459,7 @@ form button:hover {
   border-radius: 30px;
 }
 
-.delete-icon:hover{
+.delete-icon:hover {
   color: var(--red-color);
 }
 
@@ -448,7 +481,8 @@ form button:hover {
   padding: 4px 8px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* position tooltip above the icon */
+  bottom: 125%;
+  /* position tooltip above the icon */
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;

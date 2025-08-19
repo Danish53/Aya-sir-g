@@ -28,7 +28,7 @@ export const UserProvider = ({ children }) => {
   useEffect(() => {
     getCategories();
   }, []);
-  
+
   const [loadingUser, setLoadingUser] = useState(true);
 
   useEffect(() => {
@@ -387,6 +387,43 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // resend otp
+  const [otp, setOtp] = useState(Array(6).fill(""));
+  const [timer, setTimer] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [resendLoading, setResendLoading] = useState();
+
+  // === Resend OTP Function ===
+  const handleResend = async (phoneNumber) => {
+    if (!phoneNumber) return toast.error("Phone number missing.");
+
+    setResendLoading(true);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/register/resend-otp`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contact_number: phoneNumber }),
+        }
+      );
+
+      const result = await res.json();
+
+      if (res.ok) {
+        toast.success("New OTP sent successfully!");
+        setOtp(Array(6).fill(""));
+        setTimer(60);
+      } else {
+        toast.error(result.message || "Failed to resend OTP.");
+      }
+    } catch (error) {
+      toast.error("Something went wrong while resending.");
+    } finally {
+      setResendLoading(false);
+    }
+  };
+
 
   return (
     <UserContext.Provider
@@ -415,7 +452,15 @@ export const UserProvider = ({ children }) => {
         ecenterAdd,
         ecenterInfo,
         reviews,
-        addReviews
+        addReviews,
+        otp,
+        setOtp,
+        timer,
+        setTimer,
+        loading,
+        setLoading,
+        resendLoading,
+        handleResend,
       }}
     >
       {children}

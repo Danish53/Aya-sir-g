@@ -13,7 +13,7 @@
 
 .faq_sec p.sub_heading {
   font-size: 20px;
-  color: #667085;
+  /* color: #667085; */
 }
 .faq_sec .accordion {
   outline: none !important;
@@ -23,7 +23,7 @@
   border: none !important;
   border-bottom: 1px solid #eaecf0 !important;
   font-size: 16px;
-  color: #667085;
+  /* color: #667085; */
 }
 .faq_sec .accordion-button:after {
   background-image: url("/assets/plus.png") !important;

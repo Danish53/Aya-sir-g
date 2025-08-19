@@ -136,7 +136,7 @@ export default function Filter_bar({ dataSearch }) {
         {/* age_range Filter */}
         <div className="box py-2 px-3">
           <h3>Age</h3>
-          {["18-35", "35-50", "50+"].map((age_rangeRange) => (
+          {["18-35", "36-50", "50+", "all ages"].map((age_rangeRange) => (
             <div className="form_div" key={age_rangeRange}>
               <input
                 type="checkbox"
@@ -144,7 +144,7 @@ export default function Filter_bar({ dataSearch }) {
                 checked={filters.age_range === age_rangeRange}
                 onChange={() => handleSingleSelect("age_range", age_rangeRange)}
               />
-              <label htmlFor={`age_range_${age_rangeRange}`}>{age_rangeRange} Years</label>
+              <label htmlFor={`age_range_${age_rangeRange}`}>{age_rangeRange} {age_rangeRange !== "all ages" && "Years"}</label>
             </div>
           ))}
         </div>

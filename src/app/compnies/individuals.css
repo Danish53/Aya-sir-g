@@ -14,11 +14,11 @@
   font-size: 30px;
   margin-bottom: 0;
 }
-.individuals .card_wrapper_div {
+/* .individuals .card_wrapper_div {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-}
+} */
 @media screen and (max-width: 768px) {
   /* .col_filter {
     display: none;
@@ -26,10 +26,10 @@
 }
 
 @media screen and (max-width: 576px) {
-  .individuals .card_wrapper_div {
+  /* .individuals .card_wrapper_div {
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
     justify-items: center;
-  }
+  } */
 }

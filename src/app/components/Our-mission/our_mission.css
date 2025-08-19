@@ -3,15 +3,21 @@
   background: transparent !important;
 }
 
+.section_heading{
+  font-size: 32px !important;
+  font-weight: bold !important;
+}
+
 span.red_title {
   color: var(--red-color);
-  font-size: 30px !important;
-  font-weight: 500 !important;
+  font-size: 32px !important;
+  font-weight: bold !important;
 }
 
 .our_mission p#para {
   font-size: 16px;
   color: #212529;
+  font-weight: 500;
 }
 
 .content_parent_div {
@@ -61,7 +67,7 @@ span.red_title {
 
 .our_mission .right_div .Card p#details {
   font-weight: 500;
-  font-size: 23px;
+  font-size: 16px;
   margin-bottom: 0 !important;
 }
 

@@ -135,8 +135,12 @@
 
 @media screen and (max-width: 576px) {
   .company_card .heading_div {
-    justify-content: space-between;
-  }
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 10px;
+}
   .company_card .heart_button {
     gap: 10px;
   }

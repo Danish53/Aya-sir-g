@@ -48,14 +48,11 @@ export default function page() {
   const [reloadUserData, setReloadUserData] = useState(false);
   const [loading, setloading] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 2;
+  const [visibleCount, setVisibleCount] = useState(2); // pehle 5 comments dikhao
 
-  const indexOfLast = currentPage * commentsPerPage;
-  const indexOfFirst = indexOfLast - commentsPerPage;
-  const currentComments = reviewsRating?.slice(indexOfFirst, indexOfLast);
-
-  const totalPages = Math.ceil(reviewsRating?.length / commentsPerPage);
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 2); // har click pe 5 aur load ho
+  };
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -351,7 +348,7 @@ export default function page() {
                 </div>
               </div>
               <div className="flex_div">
-                <div className="left_div ">
+                <div className="left_div" style={{alignItems:"flex-start"}}>
                   <h3 className="name_heading">{company?.username}</h3>
                   <div className="recording mt-1 mb-3">
                     {/* <IoIosMic className="mic_icon" /> */}
@@ -571,38 +568,33 @@ export default function page() {
               </div>
             </div>
 
-            {
-              userInfo ? <div className="comments_div mt-3 pb-3">
-                <div className="heading_sec p-3">
-                  {/* <IoIosArrowBack className="arrow_icon" /> */}
-                  <h3 className="heading">Comments</h3>
-                </div>
-                <div className="comments_list_wrapper">
-                  {currentComments?.map((item) => (
-                    <Comments key={item.id} reviewPass={item.review} ratingPass={item.rating} image={userInfo?.profile_image} />
-                  ))}
-
-                  <div className="pagination_controls my-3">
-                    <button
-                      onClick={handlePrev}
-                      className="btn btn-sm btn_primary text-white mx-2"
-                      disabled={currentPage === 1}
-                    >
-                      <IoIosArrowBack style={{ fontSize: "22px" }} />
-                    </button>
-                    <span className="px-2">{currentPage} / {totalPages}</span>
-                    <button
-                      onClick={handleNext}
-                      className="btn btn-sm btn_primary text-white mx-2"
-                      disabled={currentPage === totalPages}
-                    >
-                      <IoIosArrowForward style={{ fontSize: "22px" }} />
-                    </button>
-                  </div>
-                </div>
-
-              </div> : ("")
-            }
+            {userInfo ? (
+                          <div className="comments_div mt-3 pb-3">
+                            <div className="heading_sec p-3">
+                              <h3 className="heading">Comments</h3>
+                            </div>
+            
+                            <div className="comments_list_wrapper">
+                              {reviewsRating?.slice(0, visibleCount).map((item) => (
+                                <Comments key={item.id} item={item} />
+                              ))}
+            
+                              {/* Load More Button */}
+                              {visibleCount < reviewsRating.length && (
+                                <div className="text-center my-3">
+                                  <button
+                                    onClick={handleLoadMore}
+                                    className="btn btn-sm btn_primary text-white d-flex align-items-center justify-content-center gap-1 mx-auto"
+                                  >
+                                    Load More <IoIosArrowDown style={{ fontSize: "18px" }} />
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ) : (
+                          ""
+                        )}
 
           </div>
         </div>

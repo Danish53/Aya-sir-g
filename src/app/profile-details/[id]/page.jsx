@@ -42,6 +42,7 @@ export default function page() {
   const [user, setUser] = useState(null);
   // console.log(user, "profile data res.")
   const [reviewsRating, setReviewsRating] = useState();
+  // console.log(reviewsRating, "reviewsRating data res.")
   const reviewCount = reviewsRating?.length;
   const { userInfo, toggleLike, reviews, addReviews } = useContext(UserContext)
   const [showShare, setShowShare] = useState(false);
@@ -49,14 +50,11 @@ export default function page() {
   const [reloadUserData, setReloadUserData] = useState(false);
   const [loading, setloading] = useState(false);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const commentsPerPage = 2;
+  const [visibleCount, setVisibleCount] = useState(2); // pehle 5 comments dikhao
 
-  const indexOfLast = currentPage * commentsPerPage;
-  const indexOfFirst = indexOfLast - commentsPerPage;
-  const currentComments = reviewsRating?.slice(indexOfFirst, indexOfLast);
-
-  const totalPages = Math.ceil(reviewsRating?.length / commentsPerPage);
+  const handleLoadMore = () => {
+    setVisibleCount((prev) => prev + 2); // har click pe 5 aur load ho
+  };
 
   const handleNext = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -238,16 +236,17 @@ export default function page() {
   return (
     <section className="profile_section margin_navbar">
       <div className="container py-5">
-        <div className="row">
-          <div className="col-lg-3 ad_bar p-0 hide_bar">
+        <div className="row align-items-stretch">
+          <div className="col-md-3 ad_bar p-0 hide_bar">
             <Advartisement />
           </div>
-          <div className="col-lg-9">
-            <div className="red_bar"></div>
-            <div className="left p-4">
-              <div className="heart_button">
-                {/* <FaRegHeart className="icon" /> */}
-                {/* {userInfo ? (
+          <div className="col-lg-6 col-md-9 col-sm-12">
+            <div className="left h-100">
+              <div className="red_bar"></div>
+              <div className=" p-4">
+                <div className="heart_button">
+                  {/* <FaRegHeart className="icon" /> */}
+                  {/* {userInfo ? (
                   isLiked ? (
                     <FaHeart className="icon" onClick={onLikeClick} />
                   ) : (
@@ -259,260 +258,229 @@ export default function page() {
                   </Link>
                 )} */}
 
-                {user?.verification === "Non Verified" ? (
-                  <button className="verified_btn">
-                    {user?.verification}
-                  </button>
-                ) : (
-                  <button className="verified_btn bg-success">
-                    {user?.verification}
-                    <FaCheck className="tik_icon" />
-                  </button>
-                )
-                }
-                {/* <IoShareSocial className="share icon" /> */}
-                <div>
-                  {/* Share Icon */}
-                  <IoShareSocial
-                    className="share icon"
-                    onClick={() => setShowShare(true)}
-                    style={{ cursor: "pointer", fontSize: 24 }}
-                  />
+                  {user?.verification === "Non Verified" ? (
+                    <button className="verified_btn">
+                      {user?.verification}
+                    </button>
+                  ) : (
+                    <button className="verified_btn bg-success">
+                      {user?.verification}
+                      <FaCheck className="tik_icon" />
+                    </button>
+                  )
+                  }
+                  {/* <IoShareSocial className="share icon" /> */}
+                  <div>
+                    {/* Share Icon */}
+                    <IoShareSocial
+                      className="share icon"
+                      onClick={() => setShowShare(true)}
+                      style={{ cursor: "pointer", fontSize: 24 }}
+                    />
 
-                  {showShare && (
-                    <div
-                      className="modal-overlay"
-                      onClick={() => setShowShare(false)}
-                      style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100vw",
-                        height: "100vh",
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        zIndex: 1000,
-                      }}
-                    >
+                    {showShare && (
                       <div
-                        className="modal-content"
-                        onClick={(e) => e.stopPropagation()}
+                        className="modal-overlay"
+                        onClick={() => setShowShare(false)}
                         style={{
-                          background: "#fff",
-                          width: "100%",
-                          maxWidth: 500,
-                          margin: "10% auto",
-                          padding: 24,
-                          borderRadius: 12,
-                          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                          textAlign: "center",
+                          position: "fixed",
+                          top: 0,
+                          left: 0,
+                          width: "100vw",
+                          height: "100vh",
+                          backgroundColor: "rgba(0, 0, 0, 0.5)",
+                          zIndex: 1000,
                         }}
                       >
-                        <h3>Share Link</h3>
-                        <div style={{ display: "flex", marginTop: 12, gap: 8 }}>
-                          <input
-                            type="text"
-                            value={currentUrl}
-                            readOnly
-                            style={{ flex: 1, padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
-                          />
-                          <button
-                            onClick={handleCopy}
+                        <div
+                          className="modal-content"
+                          onClick={(e) => e.stopPropagation()}
+                          style={{
+                            background: "#fff",
+                            width: "100%",
+                            maxWidth: 500,
+                            margin: "10% auto",
+                            padding: 24,
+                            borderRadius: 12,
+                            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                            textAlign: "center",
+                          }}
+                        >
+                          <h3>Share Link</h3>
+                          <div style={{ display: "flex", marginTop: 12, gap: 8 }}>
+                            <input
+                              type="text"
+                              value={currentUrl}
+                              readOnly
+                              style={{width: "100%", padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
+                            />
+                            <button
+                              onClick={handleCopy}
+                              style={{
+                                padding: "8px 12px",
+                                background: "#B50000",
+                                color: "#fff",
+                                border: "none",
+                                borderRadius: 6,
+                                cursor: "pointer",
+                              }}
+                            >
+                              <IoCopyOutline size={18} />
+                            </button>
+                          </div>
+
+                          <div
                             style={{
-                              padding: "8px 12px",
-                              background: "#B50000",
-                              color: "#fff",
+                              marginTop: 20,
+                              display: "flex",
+                              justifyContent: "center",
+                              gap: 12,
+                            }}
+                          >
+                            <FacebookShareButton url={currentUrl}>
+                              <FacebookIcon size={40} round />
+                            </FacebookShareButton>
+                            <TwitterShareButton url={currentUrl}>
+                              <TwitterIcon size={40} round />
+                            </TwitterShareButton>
+                            <WhatsappShareButton url={currentUrl}>
+                              <WhatsappIcon size={40} round />
+                            </WhatsappShareButton>
+                            <LinkedinShareButton url={currentUrl}>
+                              <LinkedinIcon size={40} round />
+                            </LinkedinShareButton>
+                            <TelegramShareButton url={currentUrl}>
+                              <TelegramIcon size={40} round />
+                            </TelegramShareButton>
+                          </div>
+
+                          <button
+                            onClick={() => setShowShare(false)}
+                            style={{
+                              marginTop: 16,
+                              background: "transparent",
                               border: "none",
-                              borderRadius: 6,
+                              color: "#888",
                               cursor: "pointer",
                             }}
                           >
-                            <IoCopyOutline size={18} />
+                            Close
                           </button>
                         </div>
-
-                        <div
-                          style={{
-                            marginTop: 20,
-                            display: "flex",
-                            justifyContent: "center",
-                            gap: 12,
-                          }}
-                        >
-                          <FacebookShareButton url={currentUrl}>
-                            <FacebookIcon size={40} round />
-                          </FacebookShareButton>
-                          <TwitterShareButton url={currentUrl}>
-                            <TwitterIcon size={40} round />
-                          </TwitterShareButton>
-                          <WhatsappShareButton url={currentUrl}>
-                            <WhatsappIcon size={40} round />
-                          </WhatsappShareButton>
-                          <LinkedinShareButton url={currentUrl}>
-                            <LinkedinIcon size={40} round />
-                          </LinkedinShareButton>
-                          <TelegramShareButton url={currentUrl}>
-                            <TelegramIcon size={40} round />
-                          </TelegramShareButton>
-                        </div>
-
-                        <button
-                          onClick={() => setShowShare(false)}
-                          style={{
-                            marginTop: 16,
-                            background: "transparent",
-                            border: "none",
-                            color: "#888",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Close
-                        </button>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-              <h3 className="name_heading">{user?.username}</h3>
-              <p>{user?.gender === "male" ? "Male" : user?.gender === "female" ? "Female" : ""}, {user?.age} years old</p>
+                <div className="row mt-4">
+                  <div className="col-md-7 col-sm-12 info order-2 order-md-1">
+                    <h3 className="name_heading">{user?.username}</h3>
+                    <p>{user?.gender === "male" ? "Male" : user?.gender === "female" ? "Female" : ""}, {user?.age} years old</p>
+                    <div className="recording mt-1 mb-3" style={{ display: 'flex', alignItems: 'left !important', gap: '10px' }}>
 
-              <div className="flex_div">
-                <div className="left_div">
-                  {/* <div className="recording mt-1 mb-3">
-                    <IoIosMic className="mic_icon" />
-                  </div> */}
-                  <div className="recording mt-1 mb-3" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    {/* <IoIosMic className="mic_icon" /> */}
+                      {user?.audio_sample ? (
+                        <div className="d-flex flex-column">
+                          <p className="me-2">Taaruf</p>
+                          <div
+                            className="custom-audio-player"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              flexDirection: "column",
+                              background: "#ecececff",
+                              padding: "8px 12px",
+                              borderRadius: "5px",
+                              maxWidth: "240px",
+                              height: "65px",
+                              width: "230px"
+                            }}
+                          >
+                            <div className="d-flex align-items-center justify-content-between w-100">
+                              {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
+                              <audio ref={audioRef} src={user.audio_sample} preload="auto" />
+                              <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
+                                {isPlaying ? (
+                                  <div className="wave-animation">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                  </div>
+                                ) : (
+                                  <div className="wave-animation-light">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                  </div>
+                                )}
+                              </div>
 
-                    {user?.audio_sample ? (
-                      <div className="d-flex flex-column">
-                        <p className="me-2">Taaruf</p>
-                        <div
-                          className="custom-audio-player"
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            flexDirection: "column",
-                            background: "#ecececff",
-                            padding: "8px 12px",
-                            borderRadius: "5px",
-                            maxWidth: "240px",
-                            height: "65px",
-                            width: "230px"
-                          }}
-                        >
-                          <div className="d-flex align-items-center justify-content-between w-100">
-                            {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
-                            <audio ref={audioRef} src={user.audio_sample} preload="auto" />
-                            <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
-                              {isPlaying ? (
-                                <div className="wave-animation">
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
+                              <div className="d-flex align-items-center">
+                                <div>
+                                  {/* <FaMusic className="mic_icon" /> */}
+                                  <img className="mic_icon" src="/assets/plainword.svg" alt="" />
                                 </div>
-                              ) : (
-                                <div className="wave-animation-light">
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="d-flex align-items-center">
-                              <div>
-                                {/* <FaMusic className="mic_icon" /> */}
-                                <img className="mic_icon" src="/assets/plainword.svg" alt="" />
                               </div>
                             </div>
-                          </div>
-                          {/* </button> */}
+                            {/* </button> */}
 
-                          <div className="w-100">
-                            <p style={{ fontSize: "12px" }}>
-                              {formatTime(currentTime)}
-                            </p>
-                          </div>
+                            <div className="w-100">
+                              <p style={{ fontSize: "12px" }}>
+                                {formatTime(currentTime)}
+                              </p>
+                            </div>
 
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      <p style={{ fontSize: "14px" }}></p>
-                    )}
+                      ) : (
+                        <p style={{ fontSize: "14px" }}></p>
+                      )}
 
-                  </div>
-
-                  <div className="info">
-                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>
-                        Field:{" "}
-
-                      </h4>
-                      <h4 className="sub_head">{Array.isArray(user?.fields_of_interest)
-                        ? user.fields_of_interest.map((item) => item.name).join(", ")
-                        : "N/A"}</h4>
                     </div>
-
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>
-                        Interested Location:{" "}
-                      </h4>
-                      <h4 className="sub_head">
-                        {Array.isArray(user?.interested_locations)
-                          ? user.interested_locations.map((loc) => loc.name).join(", ")
-                          : ""}
-                      </h4>
-                    </div>
-
-                    {/* {
-                      <h4>Current Address: <span>{user?.user_city || ""}</span></h4>
-                    } */}
-                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>Experience: </h4> <h4 className="sub_head">{user?.experience || ""}</h4>
+                      <h4>Experience: <span className="sub_head">{user?.experience || ""}</span> </h4>
                     </div>
                     <h4>
                       CNIC:{" "}
@@ -538,15 +506,39 @@ export default function page() {
 
                       </span>
                     </h4>
-
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>Disability: </h4> <h4 className="sub_head">{user?.disability_status === "non" ? "None" : ""}</h4>
+                      <h4>Disability: <span className="sub_head">{user?.disability_status === "non" ? "None" : ""}</span></h4>
                     </div>
-
+                  </div>
+                  <div className="col-md-5 col-sm-12 text-right order-1 order-md-2 mb-md-0 mb-2">
+                    <div className="img_div">
+                      <img src={user?.profile_image || "/assets/person_img.png"} alt={user?.name} />
+                    </div>
+                  </div>
+                  <div className="col-md-12 col-sm-12 info order-3 order-md-3">
+                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>
+                        Field:{" "}
+                        <span className="sub_head">{Array.isArray(user?.fields_of_interest)
+                          ? user.fields_of_interest.map((item) => item.name).join(", ")
+                          : "N/A"}</span>
+                      </h4>
+                    </div>
+                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>
+                        Interested Location:{" "}
+                        <span className="sub_head">
+                          {Array.isArray(user?.interested_locations)
+                            ? user.interested_locations.map((loc) => loc.name).join(", ")
+                            : ""}
+                        </span>
+                      </h4>
+                    </div>
                     {
                       userInfo?.api_token ? <div className="" style={{ maxWidth: "600px" }}>
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} className="mt-2">
+                          <h4>Add Review</h4>
                           <div className="mb-2">
                             <textarea
                               className="form-control"
@@ -586,85 +578,79 @@ export default function page() {
                         </form>
                       </div> : ""
                     }
-
-                  </div>
-                </div>
-                <div className="right">
-                  <div className="img_div">
-                    <img src={user?.profile_image || "/assets/person_img.png"} alt={user?.name} />
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex_parent mt-2">
-                <div className="col_1">
-                  {
-                    userInfo?.api_token ? (
-                      <Link href={`tel:${user?.contact_number}`} className="phone_num" style={{ textDecoration: "none" }}>
-                        <FaPhoneAlt className="phone_icon" />
-                        <div className="number">
-                          <p className="number">{user?.contact_number}</p>
-                          <p className="show_num">Show Phone Number</p>
+                    <div className="flex_parent mt-5">
+                      <div className="col_1">
+                        {
+                          userInfo?.api_token ? (
+                            <Link href={`tel:${user?.contact_number}`} className="phone_num" style={{ textDecoration: "none" }}>
+                              <FaPhoneAlt className="phone_icon" />
+                              <div className="number">
+                                <p className="number">{user?.contact_number}</p>
+                                <p className="show_num">Show Phone Number</p>
+                              </div>
+                            </Link>
+                          ) : (
+                            <Link href={"/login"} className="phone_num" style={{ textDecoration: "none" }}>
+                              <FaPhoneAlt className="phone_icon" />
+                              <div className="number">
+                                <p className="number">{"03**67*****"}</p>
+                                <p className="show_num">Show Phone Number</p>
+                              </div>
+                            </Link>
+                          )
+                        }
+                      </div>
+                      <div className="col_1">
+                        <div className="star_respons_div">
+                          <div className="stars_div">
+                            <div className="stars_div d-flex gap-1">{stars}</div>
+                          </div>
+                          <p id="respons">{reviewCount} Responses</p>
                         </div>
-                      </Link>
-                    ) : (
-                      <Link href={"/login"} className="phone_num" style={{ textDecoration: "none" }}>
-                        <FaPhoneAlt className="phone_icon" />
-                        <div className="number">
-                          <p className="number">{"03**67*****"}</p>
-                          <p className="show_num">Show Phone Number</p>
-                        </div>
-                      </Link>
-                    )
-                  }
-                </div>
-                <div className="col_1 col_absoulte">
-                  <h4>Last time updated: {user?.updated_at?.slice(0, 10)}</h4>
-                </div>
-                <div className="col_1">
-                  <div className="star_respons_div">
-                    <div className="stars_div">
-                      <div className="stars_div d-flex gap-1">{stars}</div>
+                      </div>
                     </div>
-                    <p id="respons">{reviewCount} Responses</p>
+
+                    <div className="flex_parent mt-3 text-center d-flex justify-content-center">
+                      <h4>Last time updated: {user?.updated_at?.slice(0, 10)}</h4>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
-            {
-              userInfo ? (<div className="comments_div mt-3 pb-3">
-                <div className="heading_sec p-3">
-                  {/* <IoIosArrowBack className="arrow_icon" /> */}
+          </div>
+          <div className="col-lg-3 col-md-3 col-sm-12 mt-md-0 mt-2">
+            {userInfo ? (
+              <div className="comments_div pb-3 p-2 h-100">
+                <div className="heading_sec">
                   <h3 className="heading">Comments</h3>
                 </div>
+
                 <div className="comments_list_wrapper">
-                  {currentComments?.map((item) => (
-                    <Comments key={item.id} reviewPass={item.review} ratingPass={item.rating} image={userInfo?.profile_image} />
-                  ))}
+                  {reviewsRating?.length > 0 ? (
+                    reviewsRating.slice(0, visibleCount).map((item) => (
+                      <Comments key={item.id} item={item} />
+                    ))
+                  ) : (
+                    <p className="pt-3">No reviews found</p>
+                  )}
 
-                  <div className="pagination_controls my-3">
-                    <button
-                      onClick={handlePrev}
-                      className="btn btn-sm btn_primary text-white mx-2"
-                      disabled={currentPage === 1}
-                    >
-                      <IoIosArrowBack style={{ fontSize: "22px" }} />
-                    </button>
-                    <span className="px-2">{currentPage} / {totalPages}</span>
-                    <button
-                      onClick={handleNext}
-                      className="btn btn-sm btn_primary text-white mx-2"
-                      disabled={currentPage === totalPages}
-                    >
-                      <IoIosArrowForward style={{ fontSize: "22px" }} />
-                    </button>
-                  </div>
+
+                  {/* Load More Button */}
+                  {visibleCount < reviewsRating.length && (
+                    <div className="text-center my-3">
+                      <button
+                        onClick={handleLoadMore}
+                        className="btn btn-sm btn_primary text-white d-flex align-items-center justify-content-center gap-1 mx-auto"
+                      >
+                        Load More <IoIosArrowDown style={{ fontSize: "18px" }} />
+                      </button>
+                    </div>
+                  )}
                 </div>
-
-              </div>) : ("")
-            }
-
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

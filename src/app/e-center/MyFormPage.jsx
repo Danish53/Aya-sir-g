@@ -404,6 +404,7 @@ export default function MyFormPage() {
                     password: "",
                 });
                 setFormErrors({});
+                router.push("/")
             } else {
                 toast.error(response.result?.message || "Something went wrong.");
             }
@@ -491,7 +492,8 @@ export default function MyFormPage() {
                     className="image_div cursor-pointer relative w-32 h-32"
                     onClick={() => !imagePerview && fileInputRef.current.click()}
                 >
-                    <img
+                    <div className="position-relative">
+                        <img
                         src={
                             imagePerview ||
                             "/assets/person_img.png"
@@ -523,6 +525,7 @@ export default function MyFormPage() {
                         ref={fileInputRef}
                         style={{ display: "none" }}
                     />
+                    </div>
                     {formErrors.profile_image && <small style={{ color: "red" }}>{formErrors.profile_image}</small>}
                 </div>
 
@@ -773,7 +776,7 @@ export default function MyFormPage() {
 
                 {/* Submit */}
                 <div className="form-footer mt-4 text-center w-100">
-                    <button type="submit" className="btn btn_primary w-25" style={{ color: "white" }}>
+                    <button type="submit" className="btn btn_primary w-lg-25 w-50" style={{ color: "white" }}>
                         {loader ? (
                             <>
                                 <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>

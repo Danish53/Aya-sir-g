@@ -17,7 +17,7 @@ export default function OurMission() {
               Welcome to “Aya Sir G!” <br />
               At “Aya Sir G!” we are committed to creating opportunities for individuals who are eager to work, believe in their abilities, and embrace self-reliance. Inspired by the timeless principle, "Allah helps those who help themselves," we empower people to take initiative and strive for a better future.
             </p>
-            <p className="my-2">Having deep roots in Pakistan, we recognize the untapped potential of
+            <p  id="para" className="my-2">Having deep roots in Pakistan, we recognize the untapped potential of
               our youth and workforce, who are talented and hardworking but often
               lack access to the right platforms for growth. We noticed a gap in the
               market where users, household, families and commercial industry

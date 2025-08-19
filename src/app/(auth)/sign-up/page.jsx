@@ -73,14 +73,14 @@ export default function page() {
       localStorage.setItem("phone_number_signUp", formData.contact_number);
 
       toast.success(data?.message);
-      setFormData({
-        first_name: "",
-        last_name: "",
-        username: "",
-        contact_number: "",
-        email: "",
-        password: ""
-      });
+      // setFormData({
+      //   first_name: "",
+      //   last_name: "",
+      //   username: "",
+      //   contact_number: "",
+      //   email: "",
+      //   password: ""
+      // });
 
       router.push("/register-otp");
     } catch (error) {

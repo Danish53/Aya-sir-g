@@ -130,7 +130,7 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 .left_div {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center !important;
 }
 form {
   width: 80%;

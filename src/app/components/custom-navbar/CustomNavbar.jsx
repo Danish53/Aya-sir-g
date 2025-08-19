@@ -28,6 +28,18 @@ export default function CustomNavbar() {
 
   const userToken = userInfo?.api_token;
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // mobile threshold
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
   //   useEffect(() => {
   //   const updateLanguageLabel = () => {
   //     const firstSpan = document.querySelector(".goog-te-gadget span a span:nth-of-type(1)");
@@ -122,14 +134,19 @@ export default function CustomNavbar() {
               <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/faq" className={pathname === "/faq" ? "active" : ""}>FAQ</Link></li>
               <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/contact-us" className={pathname === "/contact-us" ? "active" : ""}>Contact Us</Link></li>
               <li className="d-block d-md-none" onClick={() => setMyNavbar(false)}>
-                {
-                  userToken ? (
-                    <p><Link href={"/user-profile"}><img className="icon_person_pic" src={userInfo?.profile_image} alt="profile" />  {userDetails?.first_name}</Link></p>
-                  ) : (
-                    ""
-                  )
-                }
+                {userToken && (
+                  <Link href="/user-profile" className="d-flex align-items-center">
+                    <img
+                      className="icon_person_pic"
+                      src={userInfo?.profile_image}
+                      alt="profile"
+                      style={{ width: "32px", height: "32px", borderRadius: "50%", marginRight: "8px" }}
+                    />
+                    <span>{userDetails?.first_name}</span>
+                  </Link>
+                )}
               </li>
+
               <li className="d-block d-md-none">
                 {userToken ? (
                   <p onClick={() => handleDropdownItemClick(handleLogout)}><Link href={'/login'}>Logout</Link></p>
@@ -158,48 +175,87 @@ export default function CustomNavbar() {
 
 
 
-            <div className="info_div">
+            <div
+              className="info_div"
+              onMouseEnter={() => showuserDetailss(true)}
+              onMouseLeave={() => showuserDetailss(false)}
+            >
               <div className="head_section d-flex align-items-center gap-2">
-                <Link onClick={() => { setMyNavbar(false); handleDropdownItemClick() }} href={userToken ? "/user-wishlist" : "/login"}>
+                <Link
+                  onClick={() => {
+                    setMyNavbar(false);
+                    handleDropdownItemClick();
+                  }}
+                  href={userToken ? "/user-wishlist" : "/login"}
+                >
                   <IoIosHeartEmpty className="icon_hearth ml_2" />
                 </Link>
-                {/* {userInfo && <IoPersonCircle className="icon_person" onClick={() => showuserDetailss(!userDetailss)} />} */}
-                {userInfo && <img src={userInfo?.profile_image} className="icon_person_pic" onClick={() => showuserDetailss(!userDetailss)} alt="profile" />}
-                <div className="name_div" onClick={() => showuserDetailss(!userDetailss)}>
-                  {userToken ? <p>{userDetails?.first_name}</p> : <p onClick={gotoLogin}>Login</p>}
+
+                {userInfo && (
+                  <img onClick={(e) => {
+                    if (isMobile) {
+                      e.stopPropagation(); // stop bubble to parent
+                      showuserDetailss(!userDetailss);
+                    }
+                  }}
+
+                    src={userInfo?.profile_image}
+                    className="icon_person_pic"
+                    alt="profile"
+                  />
+                )}
+
+                <div className="name_div">
+                  {userToken ? (
+                    <p>{userDetails?.first_name}</p>
+                  ) : (
+                    <p onClick={gotoLogin}>Login</p>
+                  )}
                 </div>
-                <div className="bars" onClick={handleNavbar}><FaBars className="icon_bars" /></div>
+
+                <div className="bars" onClick={handleNavbar}>
+                  <FaBars onClick={() => {
+                    setMyNavbar(false);
+                    handleDropdownItemClick();
+                  }} className="icon_bars" />
+                </div>
               </div>
+
               {userToken && (
                 <ul className={`user_details ${userDetailss ? "show_user_details" : ""}`}>
                   <li onClick={() => handleDropdownItemClick(gotoProfile)}>Profile</li>
                   {userDetails?.user_type === "e-center" ? (
-                    <li onClick={() => handleDropdownItemClick(gotoEcentersRecords)}>E-center Records</li>
+                    <li onClick={() => handleDropdownItemClick(gotoEcentersRecords)}>
+                      E-center Records
+                    </li>
                   ) : (
                     <li onClick={() => handleDropdownItemClick(gotoEcenters)}>E-centers</li>
                   )}
                   {userDetails?.user_type === "handyman" && (
-                    <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>Individuals</li>
+                    <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>
+                      Individuals
+                    </li>
                   )}
                   {userDetails?.user_type === "provider" && (
-                    <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>Companies</li>
+                    <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>
+                      Companies
+                    </li>
                   )}
-                  {/* {userDetails?.user_type === "e-center" && (
-                    <>
-                      <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>Individuals</li>
-                      <li onClick={() => handleDropdownItemClick(() => handleClick("provider"))}>Companies</li>
-                    </>
-                  )} */}
                   {userDetails?.user_type === "e-center" && (
                     <>
-                      <li onClick={() => handleDropdownItemClick(() => handleClickPage("handyman"))}>Individuals</li>
-                      <li onClick={() => handleDropdownItemClick(() => handleClickPage("provider"))}>Companies</li>
+                      <li onClick={() => handleDropdownItemClick(() => handleClickPage("handyman"))}>
+                        Individuals
+                      </li>
+                      <li onClick={() => handleDropdownItemClick(() => handleClickPage("provider"))}>
+                        Companies
+                      </li>
                     </>
                   )}
                   <li onClick={() => handleDropdownItemClick(handleLogout)}>Logout</li>
                 </ul>
               )}
             </div>
+
           </div>
         </nav>
         {selectedType && <Myform openedFrom={selectedType} setSelectedType={setSelectedType} />}

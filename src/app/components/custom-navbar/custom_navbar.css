@@ -129,6 +129,7 @@
 .info_div {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .navbar .info_div p {
@@ -175,20 +176,27 @@
 .navbar .user_details {
   list-style: none;
   text-transform: uppercase;
-  position: fixed;
-  display: none;
-  transition: 0.4s all;
+  padding: 30px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease-in-out;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  min-width: 250px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  z-index: 1000;
   margin-top: 10px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-  padding: 30px 33px;
+
 }
 
 .navbar .show_user_details {
-  display: block !important;
-  right: 36px;
-  top: 100px;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .navbar .user_details li {
@@ -400,10 +408,10 @@ body *[title] {
   background-position: center !important;
 }
 
-.goog-logo-link,
+/* .goog-logo-link,
 .goog-te-gadget span {
   display: block !important;
-}
+} */
 
 .goog-logo-link,
 .goog-te-gadget span a img {

@@ -22,7 +22,7 @@ export default function page() {
                   <input
                     type="text"
                     className="input_auth"
-                    placeholder="+92 3*********"
+                    placeholder="03009900999"
                     id="email"
                     name="email"
                   />
@@ -37,11 +37,13 @@ export default function page() {
                   <input
                     type="text"
                     className="input_auth"
-                    placeholder="dummytext@gmail.com  "
+                    placeholder="Email"
                   />
                   <br />
                   <h1 className="login_heading mt-3">Helpdesk Information</h1>
-                  <h2 className="small_heading">E-Center Registration</h2>
+                  <label htmlFor="" className="label_auth">
+                    E-Center Registration
+                  </label>
                   <input
                     type="text"
                     className="input_auth"
@@ -55,10 +57,12 @@ export default function page() {
                   <p className="text-center mt-2">Sign Up for a New Account</p>
                   <hr />
                 </div> */}
-                <div className="logo_div mt-3">
-                  <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
+                <div className="w-100 text-center d-flex justify-content-center">
+                  <div className="logo_div mt-3 text-center">
+                  <Link href={'/'} className="text-center"><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
                   {/* <p id="head">AYA SIR G!</p>
                   <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
+                </div>
                 </div>
               </form>
             </div>
@@ -93,7 +97,7 @@ export default function page() {
                     <div className="card py-3 py-lg-4 d-flex justify-content-center align-items-center">
                       <FaMap style={{ fontSize: "26px" }} />
                       <h5>Location</h5>
-                      <p style={{ fontSize: "12px" }} className="ps-1">
+                      <p style={{ fontSize: "12px" }} className="ps-1 text-center">
                         Aya Sir G! (pvt) Limited, 15C, Commercial, NFC#1, Lahore, Pakistan
                       </p>
                     </div>

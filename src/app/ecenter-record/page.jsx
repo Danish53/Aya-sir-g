@@ -237,7 +237,7 @@ export default function Page() {
 
           {/* Main Content */}
           <div className="col-lg-8">
-            <div className="all_ecenter_flex">
+            <div className="all_ecenter_flex row">
               {loading ? (
                 Array.from({ length: 4 }).map((_, i) => (
                   <div className="skeleton_card" key={i}>

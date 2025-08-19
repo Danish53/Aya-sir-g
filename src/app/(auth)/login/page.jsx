@@ -75,11 +75,6 @@ export default function page() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!termsAccepted) {
-      setTermsError("remember me before login");
-      return;
-    }
-    setTermsError("");
     login();
   };
 
@@ -168,11 +163,6 @@ export default function page() {
                       Remember Me
                     </label>
                   </div>
-                  {termsError && (
-                    <div style={{ color: "red", fontSize: "14px", marginTop: "4px" }}>
-                      {termsError}
-                    </div>
-                  )}
                 </div>
                 <Link href="/forgot-password" passHref id="forget">
                   <p id="forgot">Forgot Password</p>
