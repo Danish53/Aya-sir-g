@@ -9,6 +9,7 @@ import { UserContext } from "../userContext";
 export default function Page() {
   const router = useRouter();
   const { otp, setOtp, timer, handleResend, resendLoading } = useContext(UserContext);
+  const [loader, setLoader] = useState(false);
 
   const phoneNumber =
     typeof window !== "undefined"
