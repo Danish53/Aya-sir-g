@@ -17,6 +17,7 @@
 .contact-us .login_heading {
   font-size: 32px;
   font-weight: 500;
+  text-align: center;
   color: var(--red-color);
 }
 .contact-us h2.small_heading {

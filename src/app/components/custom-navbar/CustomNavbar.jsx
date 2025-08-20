@@ -39,26 +39,6 @@ export default function CustomNavbar() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-  //   useEffect(() => {
-  //   const updateLanguageLabel = () => {
-  //     const firstSpan = document.querySelector(".goog-te-gadget span a span:nth-of-type(1)");
-  //     const lang = document.querySelector(".goog-te-combo")?.value;
-
-  //     if (firstSpan) {
-  //       if (lang === "ur") {
-  //         firstSpan.textContent = "اردو";
-  //       } else {
-  //         firstSpan.textContent = "ENGLISH";
-  //       }
-  //     }
-  //   };
-
-  //   const interval = setInterval(updateLanguageLabel, 1000);
-
-  //   return () => clearInterval(interval);
-  // }, []);
-
   const handleClick = (type) => {
     if (selectedType === type) {
       setSelectedType(null);
@@ -173,7 +153,16 @@ export default function CustomNavbar() {
             </div> */}
             {/* <GlobalTranslate /> */}
 
-
+            <Link
+              onClick={() => {
+                setMyNavbar(false);
+                handleDropdownItemClick();
+              }}
+              className="me-2"
+              href={userToken ? "/user-wishlist" : "/login"}
+            >
+              <IoIosHeartEmpty className="icon_hearth ml_2" />
+            </Link>
 
             <div
               className="info_div"
@@ -181,15 +170,7 @@ export default function CustomNavbar() {
               onMouseLeave={() => showuserDetailss(false)}
             >
               <div className="head_section d-flex align-items-center gap-2">
-                <Link
-                  onClick={() => {
-                    setMyNavbar(false);
-                    handleDropdownItemClick();
-                  }}
-                  href={userToken ? "/user-wishlist" : "/login"}
-                >
-                  <IoIosHeartEmpty className="icon_hearth ml_2" />
-                </Link>
+
 
                 {userInfo && (
                   <img onClick={(e) => {

@@ -72,6 +72,7 @@
   font-size: 13px;
   padding: 5px;
   width: 122px;
+  border-radius: 3px;
 }
 .company_card p#respons {
   font-size: 9px;

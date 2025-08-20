@@ -71,12 +71,22 @@ export default function ButtonComp({ searchParamdata }) {
     router.push(`?${params.toString()}`);
   }, [currentPage]);
 
-  const handleToggle = (targetRole) => {
-    const newParams = new URLSearchParams(searchParams.toString());
-    newParams.set("role", targetRole);
+  // const handleToggle = (targetRole) => {
+  //   const newParams = new URLSearchParams(searchParams.toString());
+  //   newParams.set("role", targetRole);
 
+  //   const savedPage = parseInt(localStorage.getItem(getPageKey(targetRole))) || 1;
+  //   newParams.set("page", savedPage.toString());
+
+  //   router.push(`?${newParams.toString()}`);
+  // };
+  const handleToggle = (targetRole) => {
+    const newParams = new URLSearchParams();
+    newParams.set("role", targetRole); // only keep role
+
+    // Reset page to 1 or saved page
     const savedPage = parseInt(localStorage.getItem(getPageKey(targetRole))) || 1;
-    newParams.set("page", savedPage.toString());
+    if (savedPage > 1) newParams.set("page", savedPage.toString());
 
     router.push(`?${newParams.toString()}`);
   };
@@ -146,23 +156,25 @@ export default function ButtonComp({ searchParamdata }) {
 
         {/* Loader & Cards */}
         {loader ? (
-          <div className="card_wrapper_div d-flex flex-wrap gap-3">
+          <div className="card_wrapper_div row">
             {Array.from({ length: 4 }).map((_, index) => (
-              <div key={index} className="card_div py-3 px-4 skeleton_card">
-                <Skeleton circle height={100} width={100} />
-                <Skeleton height={20} width="60%" className="mt-3" />
-                <Skeleton height={15} width="40%" className="mt-2" />
-                <Skeleton height={15} width="80%" className="mt-2" />
-                <Skeleton height={15} width="50%" className="mt-2" />
-                <Skeleton height={15} width="70%" className="mt-2" />
-                <Skeleton height={30} width="100%" className="mt-3" />
+              <div className=" mb-3 col-lg-6 col-sm-12">
+                <div key={index} className="card_div py-3 px-4 skeleton_card">
+                  <Skeleton circle height={100} width={100} />
+                  <Skeleton height={20} width="60%" className="mt-3" />
+                  <Skeleton height={15} width="40%" className="mt-2" />
+                  <Skeleton height={15} width="80%" className="mt-2" />
+                  <Skeleton height={15} width="50%" className="mt-2" />
+                  <Skeleton height={15} width="70%" className="mt-2" />
+                  <Skeleton height={30} width="100%" className="mt-3" />
+                </div>
               </div>
             ))}
           </div>
         ) : currentUsers?.length > 0 ? (
           <>
             {individual ? (
-              <div className="card_wrapper_div row">
+              <div className="card_wrapper_div row align-items-stretch">
                 {currentUsers.map((user) => (
                   <Card key={user.id} data={user} onLike={toggleLike} />
                 ))}

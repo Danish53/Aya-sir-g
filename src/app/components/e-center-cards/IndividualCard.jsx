@@ -25,6 +25,22 @@ export default function individualcard({ data, fetchData }) {
     }
   }
 
+
+  const [showFullFields, setShowFullFields] = useState(false);
+
+  const fieldsText =
+    Array.isArray(data?.fields_of_interest) && data.fields_of_interest.length > 0
+      ? data.fields_of_interest.map(item => item.name).join(", ")
+      : "N/A";
+
+  // const locationsText =
+  //   Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
+  //     ? data.interested_locations.map(item => item.name).join(", ")
+  //     : "N/A";
+
+  // Limit for initial display
+  const charLimit = 45;
+
   const modalRef = useRef(null);
   const inputRefs = useRef([]);
   const [otp, setOtp] = useState(new Array(6).fill(""));
@@ -137,7 +153,8 @@ export default function individualcard({ data, fetchData }) {
   return (
     <section className="personal_card col-lg-6 mb-3">
       <div className="card_div py-3 px-4">
-        <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
+        <div className="d-flex justify-content-center align-items-center flex-column">
+          <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
         <p className="title">{data?.username || "No Name"}</p>
 
         <div className="heart_div position-relative">
@@ -148,17 +165,26 @@ export default function individualcard({ data, fetchData }) {
 
         <div className="details_div mt-3">
           <p>
-            Field:{" "}
-            {Array.isArray(data?.fields_of_interest) && data.fields_of_interest.length > 0
-              ? data.fields_of_interest.map(item => item.name).join(", ")
-              : ""}
+            Field:{showFullFields || fieldsText.length <= charLimit
+              ? fieldsText
+              : fieldsText.slice(0, charLimit) + "..."}
+            {fieldsText.length > charLimit && (
+              <button
+                onClick={() => setShowFullFields(prev => !prev)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  color: "#B50000",
+                  cursor: "pointer",
+                  marginLeft: "5px",
+                  fontSize: "16px"
+                }}
+              >
+                {showFullFields ? "Less" : "More"}
+              </button>
+            )}
           </p>
-          <p>Interested Location: {Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
-            ? data.interested_locations.map(item => item.name).join(", ")
-            : ""}</p>
-          {
-            data?.address ? <p>Current Address: {data?.city_name || ""}</p> : ""
-          }
+          <p>Current Location: {data?.address}</p>
         </div>
 
         <div className="rating_div">
@@ -167,6 +193,7 @@ export default function individualcard({ data, fetchData }) {
             <div className="stars_div d-flex gap-1">{stars}</div>
             {/* <p id="respons">{data?.responses || 0} Responses</p> */}
           </div>
+        </div>
         </div>
 
         <div className="verified_div mt-4 mb-2">

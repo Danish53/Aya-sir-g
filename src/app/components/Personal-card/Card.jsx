@@ -52,69 +52,71 @@ export default function Card({ data, onLike }) {
   //     : "N/A";
 
   // Limit for initial display
-  const charLimit = 54;
+  const charLimit = 45;
 
   const [showFull, setShowFull] = useState(false);
 
   const toggleShow = () => setShowFull(!showFull);
 
   // max characters for preview
-  const limit = 35;
+  const limit = 30;
   const address = data?.address || "N/A";
 
 
   return (
-    <section className="personal_card col-lg-6 col-md-6 col-sm-12 mb-lg-4 mb-3">
-      <div className="card_div py-3 px-4" style={{
-        height: showFullFields || showFull ? "auto" : "",
-        overflow: "hidden",
-        transition: "0.3s ease"
-      }}>
-        <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
-        <p className="title">{data?.username || "No Name"}</p>
+    <section className=" col-lg-6 col-md-6 col-sm-12 mb-lg-4 mb-3">
+      <div className="personal_card h-100">
+        <div className="card_div py-3 px-4 h-100" style={{
+          height: showFullFields || showFull ? "auto" : "",
+          overflow: "hidden",
+          transition: "0.3s ease"
+        }}>
+          <div className="d-flex justify-content-center flex-column align-items-center">
+            <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
+            <p className="title">{data?.username || "No Name"}</p>
 
-        <div className="heart_div position-relative">
-          <p className="person_info">
-            {data?.gender === "male" ? "Male" : data?.gender === "female" ? "Female" : ""}, {data?.age || "Age"} years old
-          </p>
-          {userInfo ? (
-            isLiked ? (
-              <FaHeart className="icon" onClick={onLikeClick} />
-            ) : (
-              <FaRegHeart className="icon" onClick={onLikeClick} />
-            )
-          ) : (
-            <Link href="/login">
-              <FaRegHeart className="icon" />
-            </Link>
-          )}
+            <div className="heart_div position-relative">
+              <p className="person_info">
+                {data?.gender === "male" ? "Male" : data?.gender === "female" ? "Female" : ""}, {data?.age || "Age"} years old
+              </p>
+              {userInfo ? (
+                isLiked ? (
+                  <FaHeart className="icon" onClick={onLikeClick} />
+                ) : (
+                  <FaRegHeart className="icon" onClick={onLikeClick} />
+                )
+              ) : (
+                <Link href="/login">
+                  <FaRegHeart className="icon" />
+                </Link>
+              )}
 
-        </div>
+            </div>
 
-        <div className="details_div mt-3">
-          <p>
-            <strong>Field: </strong>
-            {showFullFields || fieldsText.length <= charLimit
-              ? fieldsText
-              : fieldsText.slice(0, charLimit) + "..."}
-            {fieldsText.length > charLimit && (
-              <button
-                onClick={() => setShowFullFields(prev => !prev)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "#B50000",
-                  cursor: "pointer",
-                  marginLeft: "5px",
-                  fontSize: "16px"
-                }}
-              >
-                {showFullFields ? "Less" : "More"}
-              </button>
-            )}
-          </p>
+            <div className="details_div mt-3">
+              <p>
+                <strong>Field: </strong>
+                {showFullFields || fieldsText.length <= charLimit
+                  ? fieldsText
+                  : fieldsText.slice(0, charLimit) + "..."}
+                {fieldsText.length > charLimit && (
+                  <button
+                    onClick={() => setShowFullFields(prev => !prev)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "#B50000",
+                      cursor: "pointer",
+                      marginLeft: "5px",
+                      fontSize: "16px"
+                    }}
+                  >
+                    {showFullFields ? "Less" : "More"}
+                  </button>
+                )}
+              </p>
 
-          {/* <p>
+              {/* <p>
             <strong>Interested Location: </strong>
             {showFullLocations || locationsText.length <= charLimit
               ? locationsText
@@ -134,55 +136,55 @@ export default function Card({ data, onLike }) {
               </button>
             )}
           </p> */}
-          {data?.address && (
-            <div>
-              <p>
-                <strong>Current Address:</strong>{" "}
-                {showFull ? address : `${address.slice(0, limit)}${address.length > limit ? "..." : ""}`}
+              {data?.address && (
+                <div>
+                  <p>
+                    <strong>Current Address:</strong>{" "}
+                    {showFull ? address : `${address.slice(0, limit)}${address.length > limit ? "..." : ""}`}
 
 
-                {address.length > limit && (
-                  <button
-                    onClick={toggleShow}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      color: "#B50000",
-                      cursor: "pointer",
-                      marginLeft: "5px",
-                      fontSize: "16px"
-                    }}
-                  >
-                    {showFull ? "Less" : "More"}
-                  </button>
-                )}
-              </p>
+                    {address.length > limit && (
+                      <button
+                        onClick={toggleShow}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          color: "#B50000",
+                          cursor: "pointer",
+                          marginLeft: "5px",
+                          fontSize: "16px"
+                        }}
+                      >
+                        {showFull ? "Less" : "More"}
+                      </button>
+                    )}
+                  </p>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-
-        <div className="rating_div mt-2">
-          <p>Ratings</p>
-          <div className="star_respons_div">
-            <div className="stars_div d-flex gap-1">{stars}</div>
-            {/* <p id="respons">{data?.responses || 0} Responses</p> */}
+          </div>
+          <div className="rating_div mt-2">
+            <p>Ratings</p>
+            <div className="star_respons_div">
+              <div className="stars_div d-flex gap-1">{stars}</div>
+              {/* <p id="respons">{data?.responses || 0} Responses</p> */}
+            </div>
+          </div>
+          <div className="verified_div mt-2 mb-2">
+            {data?.verification === "Non Verified" ? (
+              <button className="verified_btn">
+                {data?.verification}
+              </button>
+            ) : (
+              <button className="verified_btn bg-success">
+                {data?.verification}
+                <FaCheck className="tik_icon" />
+              </button>
+            )
+            }
+            <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
           </div>
         </div>
-        <div className="verified_div mt-2 mb-2">
-          {data?.verification === "Non Verified" ? (
-            <button className="verified_btn">
-              {data?.verification}
-            </button>
-          ) : (
-            <button className="verified_btn bg-success">
-              {data?.verification}
-              <FaCheck className="tik_icon" />
-            </button>
-          )
-          }
-          <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
-        </div>
-        
       </div>
     </section>
   );

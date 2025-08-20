@@ -379,7 +379,7 @@ export default function page() {
 
                       {user?.audio_sample ? (
                         <div className="d-flex flex-column">
-                          <p className="me-2">Taaruf</p>
+                          {/* <p className="me-2">Taaruf</p> */}
                           <div
                             className="custom-audio-player"
                             style={{
@@ -509,6 +509,14 @@ export default function page() {
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>Disability: <span className="sub_head">{user?.disability_status === "non" ? "None" : ""}</span></h4>
                     </div>
+                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>
+                        City:{" "}
+                        <span className="sub_head">
+                          {user?.city_name}
+                        </span>
+                      </h4>
+                    </div>
                   </div>
                   <div className="col-md-5 col-sm-12 text-right order-1 order-md-2 mb-md-0 mb-2">
                     <div className="img_div">
@@ -531,6 +539,14 @@ export default function page() {
                           {Array.isArray(user?.interested_locations)
                             ? user.interested_locations.map((loc) => loc.name).join(", ")
                             : ""}
+                        </span>
+                      </h4>
+                    </div>
+                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>
+                        Current Location:{" "}
+                        <span className="sub_head">
+                          {user?.address}
                         </span>
                       </h4>
                     </div>

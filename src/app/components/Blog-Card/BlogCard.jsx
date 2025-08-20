@@ -5,15 +5,21 @@ import Link from "next/link";
 import DOMPurify from "dompurify";
 
 export default function BlogCard({ content }) {
-  const getWords = (str) => {
-    return (
-      str.split(" ").slice(0, 6).join(" ") +
-      (str.split(" ").length > 6 ? "" : "")
-    );
+
+  const getWords = (str = "") => {
+    const words = str?.split(" ") || [];
+    return words.slice(0, 6).join(" ") + (words.length > 6 ? "..." : "");
   };
+  // const getWords = (str) => {
+  //   return (
+  //     str?.split(" ").slice(0, 6).join(" ") +
+  //     (str.split(" ")?.length > 6 ? "" : "")
+  //   );
+  // };
+
   const truncateHTMLWithNewLines = (html, wordLimit) => {
     // Block tags ke baad newline insert karein
-    const htmlWithNewLines = html.replace(
+    const htmlWithNewLines = html?.replace(
       /<\/(p|div|h[1-6]|br)>/gi,
       "</$1>\n"
     );
@@ -48,16 +54,16 @@ export default function BlogCard({ content }) {
       </div>
 
       <div className="body">
-        <h3>{getWords(content.title)}</h3>
+        <h3>{getWords(content?.title)}</h3>
         <div
           className="mb-3"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
-              truncateHTMLWithNewLines(content.description, 20)
+              truncateHTMLWithNewLines(content?.description, 20)
             ),
           }}
         />
-        <Link href={`/blogdetails/${content.id}`}>Continue reading</Link>
+        <Link href={`/blogdetails/${content?.id}`}>Continue reading</Link>
       </div>
     </section>
   );

@@ -176,7 +176,7 @@
 .navbar .user_details {
   list-style: none;
   text-transform: uppercase;
-  padding: 30px 20px;
+  padding: 0px 15px;
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -184,13 +184,12 @@
   position: absolute;
   right: 0;
   top: 100%;
-  min-width: 250px;
+  min-width: 200px;
   background: white;
-  border-radius: 8px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  border-radius: 6px;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.61);
   z-index: 1000;
   margin-top: 10px;
-
 }
 
 .navbar .show_user_details {
@@ -322,6 +321,10 @@
 @media screen and (max-width: 576px) {
   .navbar .info_div p {
     display: none;
+  }
+
+  .navbar .user_details {
+    width: 240px;
   }
 
   /* .navbar .logo {

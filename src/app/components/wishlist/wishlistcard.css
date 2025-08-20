@@ -6,6 +6,9 @@
   font-family: var(--font-poppins), sans-serif;
   background: white;
   box-shadow: 4px 4px 7px rgba(0, 0, 0, .5);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 .wishlistcard .info_div {
   display: flex;
@@ -38,6 +41,13 @@
 
 .verified_btn{
   width: max-content;
+  border-radius: 3px;
+}
+
+.rating_div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .verified_div{
@@ -48,6 +58,7 @@
 .verified_btn {
     padding: 2px 5px;
     font-size: 13px;
+    border-radius: 3px;
   }
 
 @media screen and (max-width: 1200px) {

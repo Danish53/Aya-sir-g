@@ -20,48 +20,45 @@ export default function WishlistComponent({ data }) {
   }
   return (
     <div className="wishlistcard py-3 mb-3 h-100">
-      <div className="info_div">
-        <img src={data?.profile_image || "/assets/raza.png"} alt="" />
-        <h2>{data?.username || ""}</h2>
-        <p>{data?.gender === "male" ? "Male" : data?.gender === "female" ? "Female" : ""}, {data?.age || ""} years old</p>
-      </div>
-      <div className="details_div">
-        <div className="single_div">
-          <p className="field">Field: {Array.isArray(data?.fields_of_interest) && data.fields_of_interest.length > 0
-            ? data.fields_of_interest.map(item => item.name).join(", ")
-            : ""}</p>
+      <div>
+        <div className="info_div">
+          <img src={data?.profile_image || "/assets/raza.png"} alt="" />
+          <h2>{data?.username || ""}</h2>
+          <p>{data?.gender === "male" ? "Male" : data?.gender === "female" ? "Female" : ""}, {data?.age || ""} years old</p>
         </div>
-        <div className="single_div">
-          <p className="field">Interested Location: {Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
-            ? data.interested_locations.map(item => item.name).join(", ")
-            : ""}</p>
-        </div>
-        <div className="single_div">
-          <p className="field">Current Address: {data?.user_city || ""}</p>
-        </div>
-        <div className="rating_div">
-          <p className="field">Ratings</p>
-          <div className="star_respons_div">
-            <div className="stars_div d-flex gap-1">{stars}</div>
-            {/* <p id="respons">{data?.responses || 0} Responses</p> */}
+        <div className="details_div">
+          <div className="single_div">
+            <p className="field">Field: {Array.isArray(data?.fields_of_interest) && data.fields_of_interest.length > 0
+              ? data.fields_of_interest.map(item => item.name).join(", ")
+              : ""}</p>
+          </div>
+          <div className="single_div">
+            <p className="field">Current Location: {data?.address}</p>
+          </div>
+          <div className="rating_div">
+            <p className="field">Ratings</p>
+            <div className="star_respons_div">
+              <div className="stars_div d-flex gap-1">{stars}</div>
+              {/* <p id="respons">{data?.responses || 0} Responses</p> */}
+            </div>
           </div>
         </div>
-        {/* <Link href={`/profile-details/${data?.id}`}>
+      </div>
+      {/* <Link href={`/profile-details/${data?.id}`}>
         </Link> */}
-        <div className="verified_div mt-4 mb-2">
-          {data?.verification === "Non Verified" ? (
-            <button className="verified_btn">
-              {data?.verification}
-            </button>
-          ) : (
-            <button className="verified_btn bg-success">
-              {data?.verification}
-              <FaCheck className="tik_icon" />
-            </button>
-          )
-          }
-          <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
-        </div>
+      <div className="verified_div mt-4 mb-2">
+        {data?.verification === "Non Verified" ? (
+          <button className="verified_btn">
+            {data?.verification}
+          </button>
+        ) : (
+          <button className="verified_btn bg-success">
+            {data?.verification}
+            <FaCheck className="tik_icon" />
+          </button>
+        )
+        }
+        <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
       </div>
     </div>
   );

@@ -7,7 +7,7 @@ import { UserContext } from "@/app/userContext";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Filter_bar({ dataSearch }) {
-  const { role, gender, age_range, city, category_id, area_code, verified_status } = dataSearch;
+  const { role, gender, age_range, city, category_id, area_code, verified_status, rating } = dataSearch;
   const { apiCategory2, cities, locations, getLocations, getFilteredUsers } = useContext(UserContext);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -20,6 +20,7 @@ export default function Filter_bar({ dataSearch }) {
     category_id,
     area_code,
     verified_status,
+    rating
   });
 
   useEffect(() => {
@@ -73,6 +74,19 @@ export default function Filter_bar({ dataSearch }) {
   };
 
   useEffect(() => {
+  setFilters({
+    role,
+    gender: "",
+    age_range: "",
+    city: "",
+    category_id: "",
+    area_code: "",
+    verified_status: "",
+    rating: ""
+  });
+}, [role]);
+
+  useEffect(() => {
     const role = searchParams.get("role") || "handyman";
     const gender = searchParams.get("gender");
     const age_range = searchParams.get("age_range");
@@ -80,8 +94,9 @@ export default function Filter_bar({ dataSearch }) {
     const category_id = searchParams.get("category_id");
     const area_code = searchParams.get("area_code");
     const verified_status = searchParams.get("verified_status");
+    const rating = searchParams.get("rating");
 
-    getFilteredUsers({ role, gender, age_range, city, category_id, area_code, verified_status });
+    getFilteredUsers({ role, gender, age_range, city, category_id, area_code, verified_status, rating });
   }, [searchParams]);
 
 
@@ -115,39 +130,58 @@ export default function Filter_bar({ dataSearch }) {
           </button>
         </div>
 
-        {/* Gender Filter */}
-        <div className="box py-2 px-3">
-          <h3>Gender</h3>
-          {["male", "female", "Both"].map((g) => (
-            <div className="form_div" key={g}>
-              <input
-                type="checkbox"
-                id={`gender_${g}`}
-                checked={filters.gender === g}
-                onChange={() => handleSingleSelect("gender", g)}
-              />
-              <label htmlFor={`gender_${g}`}>
-                {g.charAt(0).toUpperCase() + g.slice(1)}
-              </label>
+        {role === "provider" ? (
+          <div className="box py-2 px-3">
+            <h3>Ratings</h3>
+            {["1", "2", "3", "4", "5"].map((r) => (
+              <div className="form_div" key={r}>
+                <input
+                  type="checkbox"
+                  id={`rating_${r}`}
+                  checked={filters.rating === r}
+                  onChange={() => handleSingleSelect("rating", r)}
+                />
+                <label htmlFor={`rating_${r}`}>{r} Stars & Up</label>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            {/* Gender Filter */}
+            <div className="box py-2 px-3">
+              <h3>Gender</h3>
+              {["male", "female", "Both"].map((g) => (
+                <div className="form_div" key={g}>
+                  <input
+                    type="checkbox"
+                    id={`gender_${g}`}
+                    checked={filters.gender === g}
+                    onChange={() => handleSingleSelect("gender", g)}
+                  />
+                  <label htmlFor={`gender_${g}`}>{g.charAt(0).toUpperCase() + g.slice(1)}</label>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        {/* age_range Filter */}
-        <div className="box py-2 px-3">
-          <h3>Age</h3>
-          {["18-35", "36-50", "50+", "all ages"].map((age_rangeRange) => (
-            <div className="form_div" key={age_rangeRange}>
-              <input
-                type="checkbox"
-                id={`age_range_${age_rangeRange}`}
-                checked={filters.age_range === age_rangeRange}
-                onChange={() => handleSingleSelect("age_range", age_rangeRange)}
-              />
-              <label htmlFor={`age_range_${age_rangeRange}`}>{age_rangeRange} {age_rangeRange !== "all ages" && "Years"}</label>
+            {/* Age Filter */}
+            <div className="box py-2 px-3">
+              <h3>Age</h3>
+              {["18-35", "36-50", "50+", "all ages"].map((age) => (
+                <div className="form_div" key={age}>
+                  <input
+                    type="checkbox"
+                    id={`age_${age}`}
+                    checked={filters.age_range === age}
+                    onChange={() => handleSingleSelect("age_range", age)}
+                  />
+                  <label htmlFor={`age_${age}`}>
+                    {age} {age !== "all ages" && "Years"}
+                  </label>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </>
+        )}
 
         {/* Category Filter */}
         <div className="box py-2 px-3">
