@@ -20,7 +20,7 @@ export default function page() {
                   </label>
                   <br />
                   <input
-                    type="text"
+                    type="number"
                     className="input_auth"
                     placeholder="03009900999"
                     id="email"
