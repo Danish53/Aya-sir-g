@@ -347,15 +347,15 @@ export default function page() {
                   )}
                 </div>
               </div>
-              <div className="flex_div">
-                <div className="left_div" style={{alignItems:"flex-start"}}>
+              <div className="row mt-4">
+                <div className="col-md-7 col-sm-12 info order-2 order-md-1">
                   <h3 className="name_heading">{company?.username}</h3>
                   <div className="recording mt-1 mb-3">
                     {/* <IoIosMic className="mic_icon" /> */}
 
                     {company?.audio_sample ? (
-                      <div className="d-flex flex-column">
-                        <p className="me-2">Taaruf</p>
+                      <div className="d-flex flex-column w-100">
+                        {/* <p className="me-2">Taaruf</p> */}
                         <div
                           className="custom-audio-player"
                           style={{
@@ -436,7 +436,7 @@ export default function page() {
                             <div className="d-flex align-items-center">
                               <div>
                                 {/* <FaMusic className="mic_icon" /> */}
-                                <img className="mic_icon" src="/assets/plainword.svg" alt="" />
+                                <img className="mic_icon" src="/assets/taaruf.jpg" alt="" />
                               </div>
                             </div>
                           </div>
@@ -458,20 +458,18 @@ export default function page() {
                   <div className="info">
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Field:{" "}
-                      </h4>
-                      <h4 className="sub_head">{Array.isArray(company?.fields_of_interest)
+                        Field: {Array.isArray(company?.fields_of_interest)
                         ? company.fields_of_interest.map((item) => item.name).join(", ")
-                        : "N/A"}</h4>
+                        : "N/A"}
+                      </h4>
                     </div>
 
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Interested Location:{" "}
-                      </h4>
-                      <h4 className="sub_head">{Array.isArray(company?.interested_locations)
+                        Interested Location: {Array.isArray(company?.interested_locations)
                         ? company.interested_locations.map((loc) => loc.name).join(", ")
-                        : ""}</h4>
+                        : ""}
+                      </h4>
                     </div>
 
                     {/* <h4>
@@ -526,7 +524,7 @@ export default function page() {
 
                   </div>
                 </div>
-                <div className="right mb-2">
+                <div className="col-md-5 col-sm-12 text-right order-1 order-md-2 mb-md-0 mb-2">
                   <div className="img_div">
                     <img src={company?.profile_image || "/assets/hazar_2.png"} alt="" />
                   </div>
@@ -554,9 +552,9 @@ export default function page() {
                     )
                   }
                 </div>
-                <div className="col_1 col_absoulte">
+                {/* <div className="col_1 col_absoulte">
                   <h4>Last time updated: {company?.updated_at?.slice(0, 10)}</h4>
-                </div>
+                </div> */}
                 <div className="col_1">
                   <div className="star_respons_div">
                     <div className="stars_div">
@@ -569,32 +567,32 @@ export default function page() {
             </div>
 
             {userInfo ? (
-                          <div className="comments_div mt-3 pb-3">
-                            <div className="heading_sec p-3">
-                              <h3 className="heading">Comments</h3>
-                            </div>
-            
-                            <div className="comments_list_wrapper">
-                              {reviewsRating?.slice(0, visibleCount).map((item) => (
-                                <Comments key={item.id} item={item} />
-                              ))}
-            
-                              {/* Load More Button */}
-                              {visibleCount < reviewsRating.length && (
-                                <div className="text-center my-3">
-                                  <button
-                                    onClick={handleLoadMore}
-                                    className="btn btn-sm btn_primary text-white d-flex align-items-center justify-content-center gap-1 mx-auto"
-                                  >
-                                    Load More <IoIosArrowDown style={{ fontSize: "18px" }} />
-                                  </button>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        ) : (
-                          ""
-                        )}
+              <div className="comments_div mt-3 pb-3">
+                <div className="heading_sec p-3">
+                  <h3 className="heading">Comments</h3>
+                </div>
+
+                <div className="comments_list_wrapper">
+                  {reviewsRating?.slice(0, visibleCount).map((item) => (
+                    <Comments key={item.id} item={item} />
+                  ))}
+
+                  {/* Load More Button */}
+                  {visibleCount < reviewsRating.length && (
+                    <div className="text-center my-3">
+                      <button
+                        onClick={handleLoadMore}
+                        className="btn btn-sm btn_primary text-white d-flex align-items-center justify-content-center gap-1 mx-auto"
+                      >
+                        Load More <IoIosArrowDown style={{ fontSize: "18px" }} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
 
           </div>
         </div>

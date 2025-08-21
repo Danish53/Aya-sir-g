@@ -59,10 +59,10 @@ export default function page() {
                 </div> */}
                 <div className="w-100 text-center d-flex justify-content-center">
                   <div className="logo_div mt-3 text-center">
-                  <Link href={'/'} className="text-center"><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
-                  {/* <p id="head">AYA SIR G!</p>
+                    <Link href={'/'} className="text-center"><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
+                    {/* <p id="head">AYA SIR G!</p>
                   <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
-                </div>
+                  </div>
                 </div>
               </form>
             </div>

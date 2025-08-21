@@ -123,7 +123,7 @@ export default function MyFormPage() {
         const requiredFields = [
             "profile_image",
             "username",
-            "email",
+            // "email",
             "contact_number",
             "address",
             "gender",
@@ -133,7 +133,7 @@ export default function MyFormPage() {
             "fields_of_interest",
             // "description",
             ...(currentRole === "handyman" ? ["interested_locations"] : []),
-            "billing_address_scan",
+            // "billing_address_scan",
             "cnic_scan",
             "picture",
             "audio_sample_blob",
@@ -169,7 +169,7 @@ export default function MyFormPage() {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: name === "username" ? value.toUpperCase() : value
+            [name]: value
         }));
     };
 
@@ -383,7 +383,7 @@ export default function MyFormPage() {
             if (response && (response.success === true || response.success === "true" || response.success === 1)) {
                 setEcenterOtp(response.result);
                 toast.success(response.result.message || "Profile successfully created!");
-                setFormData({ 
+                setFormData({
                     profile_image: "",
                     username: "",
                     contact_number: "",
@@ -391,7 +391,7 @@ export default function MyFormPage() {
                     address: "",
                     gender: "",
                     cnic: "",
-                    age: "", 
+                    age: "",
                     cnic_scan: "",
                     billing_address_scan: "",
                     interested_locations: [],
@@ -494,37 +494,37 @@ export default function MyFormPage() {
                 >
                     <div className="position-relative">
                         <img
-                        src={
-                            imagePerview ||
-                            "/assets/person_img.png"
-                        }
-                        accept="image/*"
-                        alt="Profile"
-                        className="w-32 h-32 rounded-full object-cover"
-                    />
-
-                    {/* Show Edit Icon if no image */}
-                    {!imagePerview && (
-                        <FaEdit className="edit_icon absolute bottom-2 right-2 text-white bg-gray-800 p-1 rounded-full" />
-                    )}
-
-                    {/* Show Cross Icon if image selected */}
-                    {imagePerview && (
-                        <IoMdClose
-                            className="edit_icon absolute top-2 right-2 text-white bg-red-600 p-1 rounded-full"
-                            onClick={handleRemoveImage}
+                            src={
+                                imagePerview ||
+                                "/assets/person_img.png"
+                            }
+                            accept="image/*"
+                            alt="Profile"
+                            className="w-32 h-32 rounded-full object-cover"
                         />
-                    )}
 
-                    <input
-                        type="file"
-                        name="profile_image"
-                        accept="image/*"
-                        capture="user"
-                        onChange={handleFileChange}
-                        ref={fileInputRef}
-                        style={{ display: "none" }}
-                    />
+                        {/* Show Edit Icon if no image */}
+                        {!imagePerview && (
+                            <FaEdit className="edit_icon absolute bottom-2 right-2 text-white bg-gray-800 p-1 rounded-full" />
+                        )}
+
+                        {/* Show Cross Icon if image selected */}
+                        {imagePerview && (
+                            <IoMdClose
+                                className="edit_icon absolute top-2 right-2 text-white bg-red-600 p-1 rounded-full"
+                                onClick={handleRemoveImage}
+                            />
+                        )}
+
+                        <input
+                            type="file"
+                            name="profile_image"
+                            accept="image/*"
+                            capture="user"
+                            onChange={handleFileChange}
+                            ref={fileInputRef}
+                            style={{ display: "none" }}
+                        />
                     </div>
                     {formErrors.profile_image && <small style={{ color: "red" }}>{formErrors.profile_image}</small>}
                 </div>
@@ -551,7 +551,7 @@ export default function MyFormPage() {
                     <div className="col-lg-6">
                         <label htmlFor="email">Email</label>
                         <input name="email" placeholder="Email" type="email" onChange={handleChange} />
-                        {formErrors.email && <small style={{ color: "red" }}>{formErrors.email}</small>}
+                        {/* {formErrors.email && <small style={{ color: "red" }}>{formErrors.email}</small>} */}
                     </div>
                     <div className="col-lg-6">
                         <label htmlFor="password">Password</label>
@@ -594,7 +594,7 @@ export default function MyFormPage() {
                     <div className="col-lg-6">
                         <label htmlFor="gender">Gender</label>
                         <select name="gender" onChange={handleChange}>
-                            <option value="">Select Gender</option> 
+                            <option value="">Select Gender</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
                             {/* <option value="others">Others</option> */}
@@ -629,7 +629,7 @@ export default function MyFormPage() {
                         <label htmlFor="billing_address_scan">Billing Address Scan</label>
                         <input type="file" name="billing_address_scan" accept="image/*"
                             capture="environment" onChange={handleImageChange} />
-                        {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>}
+                        {/* {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>} */}
                     </div>
 
                     <div className="col-lg-6">

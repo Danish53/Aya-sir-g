@@ -240,8 +240,8 @@ export default function page() {
           <div className="col-md-3 ad_bar p-0 hide_bar">
             <Advartisement />
           </div>
-          <div className="col-lg-6 col-md-9 col-sm-12">
-            <div className="left h-100">
+          <div className="col-lg-9 col-md-9 col-sm-12">
+            <div className="left">
               <div className="red_bar"></div>
               <div className=" p-4">
                 <div className="heart_button">
@@ -312,7 +312,7 @@ export default function page() {
                               type="text"
                               value={currentUrl}
                               readOnly
-                              style={{width: "100%", padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
+                              style={{ width: "100%", padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
                             />
                             <button
                               onClick={handleCopy}
@@ -378,7 +378,7 @@ export default function page() {
                     <div className="recording mt-1 mb-3" style={{ display: 'flex', alignItems: 'left !important', gap: '10px' }}>
 
                       {user?.audio_sample ? (
-                        <div className="d-flex flex-column">
+                        <div className="d-flex flex-column w-100">
                           {/* <p className="me-2">Taaruf</p> */}
                           <div
                             className="custom-audio-player"
@@ -460,7 +460,7 @@ export default function page() {
                               <div className="d-flex align-items-center">
                                 <div>
                                   {/* <FaMusic className="mic_icon" /> */}
-                                  <img className="mic_icon" src="/assets/plainword.svg" alt="" />
+                                  <img className="mic_icon" src="/assets/taaruf.jpg" alt="" />
                                 </div>
                               </div>
                             </div>
@@ -517,13 +517,6 @@ export default function page() {
                         </span>
                       </h4>
                     </div>
-                  </div>
-                  <div className="col-md-5 col-sm-12 text-right order-1 order-md-2 mb-md-0 mb-2">
-                    <div className="img_div">
-                      <img src={user?.profile_image || "/assets/person_img.png"} alt={user?.name} />
-                    </div>
-                  </div>
-                  <div className="col-md-12 col-sm-12 info order-3 order-md-3">
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
                         Field:{" "}
@@ -550,6 +543,14 @@ export default function page() {
                         </span>
                       </h4>
                     </div>
+                  </div>
+                  <div className="col-md-5 col-sm-12 text-right order-1 order-md-2 mb-md-0 mb-2">
+                    <div className="img_div">
+                      <img src={user?.profile_image || "/assets/person_img.png"} alt={user?.name} />
+                    </div>
+                  </div>
+                  <div className="col-md-12 col-sm-12 info order-3 order-md-3">
+
                     {
                       userInfo?.api_token ? <div className="" style={{ maxWidth: "600px" }}>
 
@@ -625,48 +626,44 @@ export default function page() {
                         </div>
                       </div>
                     </div>
-
-                    <div className="flex_parent mt-3 text-center d-flex justify-content-center">
-                      <h4>Last time updated: {user?.updated_at?.slice(0, 10)}</h4>
-                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="col-lg-3 col-md-3 col-sm-12 mt-md-0 mt-2">
-            {userInfo ? (
-              <div className="comments_div pb-3 p-2 h-100">
-                <div className="heading_sec">
-                  <h3 className="heading">Comments</h3>
+            <div className="col-lg-12 col-sm-12 mt-2">
+              {userInfo ? (
+                <div className="comments_div pb-3 p-2 h-100">
+                  <div className="heading_sec">
+                    <h3 className="heading">Comments</h3>
+                  </div>
+
+                  <div className="comments_list_wrapper">
+                    {reviewsRating?.length > 0 ? (
+                      reviewsRating.slice(0, visibleCount).map((item) => (
+                        <Comments key={item.id} item={item} />
+                      ))
+                    ) : (
+                      <p className="pt-3">No reviews found</p>
+                    )}
+
+
+                    {/* Load More Button */}
+                    {visibleCount < reviewsRating.length && (
+                      <div className="text-center my-3">
+                        <button
+                          onClick={handleLoadMore}
+                          className="btn btn-sm btn_primary text-white d-flex align-items-center justify-content-center gap-1 mx-auto"
+                        >
+                          Load More <IoIosArrowDown style={{ fontSize: "18px" }} />
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
-
-                <div className="comments_list_wrapper">
-                  {reviewsRating?.length > 0 ? (
-                    reviewsRating.slice(0, visibleCount).map((item) => (
-                      <Comments key={item.id} item={item} />
-                    ))
-                  ) : (
-                    <p className="pt-3">No reviews found</p>
-                  )}
-
-
-                  {/* Load More Button */}
-                  {visibleCount < reviewsRating.length && (
-                    <div className="text-center my-3">
-                      <button
-                        onClick={handleLoadMore}
-                        className="btn btn-sm btn_primary text-white d-flex align-items-center justify-content-center gap-1 mx-auto"
-                      >
-                        Load More <IoIosArrowDown style={{ fontSize: "18px" }} />
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ) : (
-              ""
-            )}
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
       </div>
