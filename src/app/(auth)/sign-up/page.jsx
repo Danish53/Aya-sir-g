@@ -41,7 +41,7 @@ export default function page() {
 
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
-    "https://staging.hylanmaterialsupply.com";
+    "https://admin.ayasirg.com";
 
   const api = `${baseUrl}/api/register/send-otp`;
   const postData = async () => {

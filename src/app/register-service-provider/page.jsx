@@ -20,7 +20,7 @@ export default function RegisterPage() {
 
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
-    "https://staging.hylanmaterialsupply.com";
+    "https://admin.ayasirg.com";
   const api = `${baseUrl}/api/register`;
 
   const handleRegisterion = async () => {

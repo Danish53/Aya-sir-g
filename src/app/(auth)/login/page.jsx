@@ -28,7 +28,7 @@ export default function page() {
 
   const baseUrl =
     process.env.NEXT_PUBLIC_BASE_URL ||
-    "https://staging.hylanmaterialsupply.com";
+    "https://admin.ayasirg.com";
   const login = async () => {
     setLoader(true);
     try {

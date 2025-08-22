@@ -56,7 +56,7 @@ export const UserProvider = ({ children }) => {
   const token = userInfo?.api_token;
   // console.log("token is ", token);
 
-  const base = process.env.NEXT_PUBLIC_BASE_URL || "https://staging.hylanmaterialsupply.com";
+  const base = process.env.NEXT_PUBLIC_BASE_URL || "https://admin.ayasirg.com";
   const profileUrl = `${base}/api/update-profile`;
 
   // const base =
