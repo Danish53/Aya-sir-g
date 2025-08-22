@@ -1,18 +1,37 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./otp.css";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import Link from "next/link";
+import { UserContext } from "@/app/userContext";
 
 export default function page() {
   const router = useRouter();
+  const pathname = usePathname();
 
+  const { timer, setTimer, handleResend, resendLoading } = useContext(UserContext);
   const [otp, setOtp] = useState(Array(6).fill(""));
   const [loader, setLoader] = useState(false);
 
   const phoneNumber = typeof window !== "undefined" ? localStorage.getItem("forgot_phone") : null;
+
+  // Timer countdown
+  useEffect(() => {
+    if (pathname === "/otp") {
+      setTimer(120);
+    }
+  }, [pathname, setTimer]);
+
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
 
   const handleChange = (index, value) => {
     if (isNaN(value)) return;
@@ -89,8 +108,23 @@ export default function page() {
             ))}
           </div>
 
-          <br />
-          <button type="submit" className="sign_in mt-5" disabled={loader}>
+          {/* Timer & Resend */}
+          <div className="text-center mt-3">
+            {timer > 0 ? (
+              <p className="text-muted">
+                OTP Expire in <b>{timer}s</b>
+              </p>
+            ) : (
+              <button
+                className="btn" style={{ outline: "none" }}
+                onClick={() => handleResend(phoneNumber)}
+                disabled={resendLoading}
+              >
+                {resendLoading ? "Resending..." : "Resend OTP"}
+              </button>
+            )}
+          </div>
+          <button type="submit" className="sign_in mt-2" disabled={loader}>
             {/* {loading ? "Verifying..." : "Verify Code"} */}
             {loader ? (
               <>

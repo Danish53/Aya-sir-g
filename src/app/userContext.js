@@ -400,7 +400,7 @@ export const UserProvider = ({ children }) => {
     setResendLoading(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/register/resend-otp`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/resend-otp`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -411,9 +411,10 @@ export const UserProvider = ({ children }) => {
       const result = await res.json();
 
       if (res.ok) {
-        toast.success("New OTP sent successfully!");
+        console.log(result, "otp ka")
+        toast.success(result.message || "New OTP sent successfully!");
         setOtp(Array(6).fill(""));
-        setTimer(60);
+        setTimer(120);
       } else {
         toast.error(result.message || "Failed to resend OTP.");
       }

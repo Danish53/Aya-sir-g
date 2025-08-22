@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./individual.css";
 import { FaRegHeart } from "react-icons/fa";
 import { RiStarFill, RiStarHalfFill, RiStarLine, RiStarSFill } from "react-icons/ri";
@@ -9,8 +9,31 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 // import { Modal } from "bootstrap";
 import axios from "axios";
+import { UserContext } from "@/app/userContext";
+import { usePathname } from "next/navigation";
 
 export default function individualcard({ data, fetchData }) {
+  const pathname = usePathname();
+  const { timer, setTimer, handleResend, resendLoading } = useContext(UserContext);
+  // Timer countdown
+  // useEffect(() => {
+  //   setTimer(120);
+  // }, [setTimer]);
+  // Timer countdown
+  useEffect(() => {
+    if (pathname === "/ecenter-record") {
+      setTimer(120);
+    }
+  }, [pathname, setTimer]);
+
+  useEffect(() => {
+    if (timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prev) => prev - 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [timer]);
   // rating
   const ratingView = data?.handyman_rating || 0;
   const stars = [];
@@ -92,7 +115,7 @@ export default function individualcard({ data, fetchData }) {
       });
 
       const json = await res.json();
-      console.log(json, "otp response")
+      // console.log(json, "otp response")
       if (res.ok) {
         setOtpId(json.data?.id);
         toast.success("OTP sent successfully!");
@@ -133,17 +156,23 @@ export default function individualcard({ data, fetchData }) {
 
       const resData = response?.data;
 
-      if (response.status === 200 && resData?.status === true) {
+      if (response.status === 200) {
         toast.success(resData?.message || "OTP verified successfully!");
         setOtp(["", "", "", "", "", ""]);
-        // modalInstance.close();
+        if (modalRef.current) {
+          const { Modal } = await import("bootstrap");
+          const modalInstance = Modal.getInstance(modalRef.current)
+            || new Modal(modalRef.current);
+
+          modalInstance.hide(); // ✅ close modal after success
+        }
         fetchData();
       } else {
         toast.error(resData?.message || "Invalid OTP. Please try again.");
       }
     } catch (error) {
       console.error("OTP verification failed", error);
-      const errorMessage = error?.response?.data?.message || "Server error occurred.";
+      const errorMessage = error?.response?.message || "Server error occurred.";
       toast.error(errorMessage);
     } finally {
       setLoading(false);
@@ -155,45 +184,45 @@ export default function individualcard({ data, fetchData }) {
       <div className="card_div py-3 px-4">
         <div className="d-flex justify-content-center align-items-center flex-column">
           <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
-        <p className="title">{data?.username || "No Name"}</p>
+          <p className="title">{data?.username || "No Name"}</p>
 
-        <div className="heart_div position-relative">
-          <p className="person_info">
-            {data?.gender || "Gender"}, {data?.age || "Age"} years old
-          </p>
-        </div>
-
-        <div className="details_div mt-3">
-          <p>
-            Field:{showFullFields || fieldsText.length <= charLimit
-              ? fieldsText
-              : fieldsText.slice(0, charLimit) + "..."}
-            {fieldsText.length > charLimit && (
-              <button
-                onClick={() => setShowFullFields(prev => !prev)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  color: "#B50000",
-                  cursor: "pointer",
-                  marginLeft: "5px",
-                  fontSize: "16px"
-                }}
-              >
-                {showFullFields ? "Less" : "More"}
-              </button>
-            )}
-          </p>
-          <p>Current Location: {data?.address}</p>
-        </div>
-
-        <div className="rating_div">
-          <p>Ratings</p>
-          <div className="star_respons_div">
-            <div className="stars_div d-flex gap-1">{stars}</div>
-            {/* <p id="respons">{data?.responses || 0} Responses</p> */}
+          <div className="heart_div position-relative">
+            <p className="person_info">
+              {data?.gender || "Gender"}, {data?.age || "Age"} years old
+            </p>
           </div>
-        </div>
+
+          <div className="details_div mt-3">
+            <p>
+              Field:{showFullFields || fieldsText.length <= charLimit
+                ? fieldsText
+                : fieldsText.slice(0, charLimit) + "..."}
+              {fieldsText.length > charLimit && (
+                <button
+                  onClick={() => setShowFullFields(prev => !prev)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#B50000",
+                    cursor: "pointer",
+                    marginLeft: "5px",
+                    fontSize: "16px"
+                  }}
+                >
+                  {showFullFields ? "Less" : "More"}
+                </button>
+              )}
+            </p>
+            <p>Current Location: {data?.address}</p>
+          </div>
+
+          <div className="rating_div">
+            <p>Ratings</p>
+            <div className="star_respons_div">
+              <div className="stars_div d-flex gap-1">{stars}</div>
+              {/* <p id="respons">{data?.responses || 0} Responses</p> */}
+            </div>
+          </div>
         </div>
 
         <div className="verified_div mt-4 mb-2">
@@ -244,6 +273,22 @@ export default function individualcard({ data, fetchData }) {
                     onChange={(e) => handleChangeOtp(e.target, index)}
                   />
                 ))}
+              </div>
+              {/* Timer & Resend */}
+              <div className="text-center my-2">
+                {timer > 0 ? (
+                  <p className="text-muted">
+                    OTP Expire in <b>{timer}s</b>
+                  </p>
+                ) : (
+                  <button
+                    className="btn" style={{ outline: "none" }}
+                    onClick={() => handleResend(data.contact_number)}
+                    disabled={resendLoading}
+                  >
+                    {resendLoading ? "Resending..." : "Resend OTP"}
+                  </button>
+                )}
               </div>
             </div>
             <div className="modal-footer">

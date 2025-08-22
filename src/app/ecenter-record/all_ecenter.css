@@ -116,7 +116,7 @@ input[type=checkbox]{
 .all_center_page .pagination_div {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 5px;
   /* color: blue; */
   font-size: 18px;
   justify-content: end;
@@ -196,13 +196,13 @@ input[type=checkbox]{
 
 /* skelton */
 .skeleton_card {
-  width: 280px;
-  height: 200px;
+  /* width: 280px;
+  height: 200px; */
   background: #fff;
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 0 10px #ccc;
-  animation: pulse 1.5s infinite;
+  /* animation: pulse 1.5s infinite; */
 }
 
 .skeleton_img {

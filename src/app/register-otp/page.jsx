@@ -1,14 +1,15 @@
 "use client";
 import React, { useState, useEffect, useContext } from "react";
 import "./otp.css";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { UserContext } from "../userContext";
 
 export default function Page() {
   const router = useRouter();
-  const { otp, setOtp, timer, handleResend, resendLoading } = useContext(UserContext);
+  const pathname = usePathname();
+  const { otp, setOtp, timer, setTimer, handleResend, resendLoading } = useContext(UserContext);
   const [loader, setLoader] = useState(false);
 
   const phoneNumber =
@@ -17,6 +18,12 @@ export default function Page() {
       : null;
 
   // Timer countdown
+  useEffect(() => {
+    if (pathname === "/register-otp") {
+      setTimer(120);
+    }
+  }, [pathname, setTimer]);
+
   useEffect(() => {
     if (timer > 0) {
       const interval = setInterval(() => {
@@ -105,8 +112,24 @@ export default function Page() {
             ))}
           </div>
 
-          <br />
-          <button type="submit" className="sign_in mt-4" disabled={loader}>
+          {/* Timer & Resend */}
+          <div className="text-center mt-3">
+            {timer > 0 ? (
+              <p className="text-muted">
+                OTP Expire in <b>{timer}s</b>
+              </p>
+            ) : (
+              <button
+                className="btn" style={{ outline: "none" }}
+                onClick={() => handleResend(phoneNumber)}
+                disabled={resendLoading}
+              >
+                {resendLoading ? "Resending..." : "Resend OTP"}
+              </button>
+            )}
+          </div>
+          
+          <button type="submit" className="sign_in mt-1" disabled={loader}>
             {loader ? (
               <>
                 <span
@@ -122,22 +145,7 @@ export default function Page() {
           </button>
         </form>
 
-        {/* Timer & Resend */}
-        <div className="text-center mt-3">
-          {timer > 0 ? (
-            <p className="text-muted">
-              OTP Expire in <b>{timer}s</b>
-            </p>
-          ) : (
-            <button
-              className="btn"
-              onClick={() => handleResend(phoneNumber)}
-              disabled={resendLoading}
-            >
-              {resendLoading ? "Resending..." : "Resend OTP"}
-            </button>
-          )}
-        </div>
+
 
         <div className="widd">
           <div className="logo_div mt-3">

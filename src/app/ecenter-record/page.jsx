@@ -240,10 +240,12 @@ export default function Page() {
             <div className="all_ecenter_flex row">
               {loading ? (
                 Array.from({ length: 4 }).map((_, i) => (
-                  <div className="skeleton_card" key={i}>
+                  <div className="col-lg-6 mb-3">
+                    <div className="skeleton_card" key={i}>
                     <div className="skeleton_img"></div>
                     <div className="skeleton_line short"></div>
                     <div className="skeleton_line"></div>
+                  </div>
                   </div>
                 ))
               ) : currentCards.length > 0 ? (
