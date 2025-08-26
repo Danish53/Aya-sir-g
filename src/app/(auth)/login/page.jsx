@@ -42,23 +42,24 @@ export default function page() {
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) {
-        throw new Error("Login failed");
-      }
+      // if (!res.ok) {
+      //   throw new Error("Login failed");
+      // }
 
       const data = await res.json();
       // console.log("data is ,", data);
-      toast.success("Login Successful!");
-      localStorage.setItem("token", JSON.stringify(data.data));
-      setUserInfo(data.data);
-      await fetchUserProfile(data.data.api_token);
+      if (res.ok) {
+        toast.success(data.message || "Login Successful!");
+        localStorage.setItem("token", JSON.stringify(data.data));
+        setUserInfo(data.data);
+        await fetchUserProfile(data.data.api_token);
 
-      router.push("/");
-      // setTimeout(() => {
-      //   window.location.reload();
-      // }, 2000);
+        router.push("/");
+      }else{
+        toast.error(data.message)
+      }
     } catch (error) {
-      console.log("Error while login:", error.message);
+      console.log("Error while login:", error.data.message);
       toast.error(error.message || "Error While Login failed to fetch");
     } finally {
       setLoader(false);
@@ -176,7 +177,7 @@ export default function page() {
                 <hr />
               </div>
               <div className="logo_div mt-5">
-                <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
+                <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
                 {/* <p id="head">AYA SIR G!</p>
                 <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
               </div>

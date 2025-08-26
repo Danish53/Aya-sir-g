@@ -86,6 +86,7 @@ export default function MyFormPage() {
 
     const [formErrors, setFormErrors] = useState({});
     const [selectedCityId, setSelectedCityId] = useState("");
+    const [selectedAreaId, setSelectedAreaId] = useState("");
     const [selectedLocation, setSelectedLocation] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
     // console.log(selectedCityId, "city id")
@@ -128,6 +129,7 @@ export default function MyFormPage() {
             "address",
             "gender",
             "city_id",
+            "area_code",
             "cnic",
             "age",
             "fields_of_interest",
@@ -328,6 +330,7 @@ export default function MyFormPage() {
         // Append static fields
         form.append("role", userType);
         form.append("city_id", selectedCityId);
+        form.append("area_code", selectedAreaId);
 
         // Append dynamic fields with checks for files, blobs, arrays
         for (const key in formData) {
@@ -423,6 +426,10 @@ export default function MyFormPage() {
     useEffect(() => {
         if (selectedCityId) getLocations(selectedCityId);
     }, [selectedCityId]);
+
+    useEffect(() => {
+        if (selectedAreaId) getLocations(selectedAreaId);
+    }, [selectedAreaId]);
 
     const options = apiCategory2.map((cat) => ({
         label: cat.name,
@@ -657,6 +664,24 @@ export default function MyFormPage() {
                             {formErrors.interested_locations && <small style={{ color: "red" }}>{formErrors.interested_locations}</small>}
                         </div>
                     )}
+
+                    <div className="col-lg-6">
+                        <label htmlFor="area">Area Code</label>
+                        <Select
+                            id="area"
+                            options={optionsLocation}
+                            value={options.find(opt => opt.value === parseInt(selectedAreaId))}
+                            onChange={(selectedOption) => {
+                                const areaId = selectedOption ? selectedOption.value : "";
+                                setSelectedAreaId(areaId);
+                                setFormData(prev => ({ ...prev, area_code: areaId }));
+                            }}
+                            placeholder="Select Area"
+                            isClearable
+                            isSearchable
+                        />
+                        {formErrors.area_code && <small style={{ color: "red" }}>{formErrors.area_code}</small>}
+                    </div>
 
                     {userType !== "provider" && (
                         <div className="col-lg-6">

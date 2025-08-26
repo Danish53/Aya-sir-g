@@ -8,6 +8,7 @@
 .contact-us .left_div {
   background-color: var(--light-white);
   z-index: 9;
+  justify-content: center;
 }
 
 .contact-us .right_div {
@@ -127,6 +128,10 @@ form {
 
 .right_div p{
   color: var(--red-color);
+}
+
+.sm_two .card{
+  height: 180px;
 }
 
 

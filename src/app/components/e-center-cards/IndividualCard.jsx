@@ -182,7 +182,7 @@ export default function individualcard({ data, fetchData }) {
   return (
     <section className="personal_card col-lg-6 mb-3">
       <div className="card_div py-3 px-4">
-        <div className="d-flex justify-content-center align-items-center flex-column">
+        <div className="d-flex justify-content-center align-items-center flex-column w-100">
           <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
           <p className="title">{data?.username || "No Name"}</p>
 
@@ -213,7 +213,7 @@ export default function individualcard({ data, fetchData }) {
                 </button>
               )}
             </p>
-            <p>Current Location: {data?.address}</p>
+            <p>Current Location: {data?.city_name}</p>
           </div>
 
           <div className="rating_div">

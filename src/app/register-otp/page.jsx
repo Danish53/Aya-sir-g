@@ -128,7 +128,7 @@ export default function Page() {
               </button>
             )}
           </div>
-          
+
           <button type="submit" className="sign_in mt-1" disabled={loader}>
             {loader ? (
               <>
@@ -151,7 +151,7 @@ export default function Page() {
           <div className="logo_div mt-3">
             <Link href={"/"}>
               <img
-                src="/assets/logo_aya_sir_g.png"
+                src="/assets/ayasirglogo.png"
                 alt="logo"
                 className="logo"
               />

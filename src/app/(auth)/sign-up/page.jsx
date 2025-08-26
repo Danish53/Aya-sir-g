@@ -278,7 +278,7 @@ export default function page() {
           </button>
           <div className="d-flex">
             <div className="logo_div hide_logo" style={{ width: "fit-content", zIndex: 99 }}>
-              <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
+              <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
             </div>
             <div>
               <Link href="/login" id="sign_p" className="term" style={{ textDecoration: "none", textAlign: "center" }}>

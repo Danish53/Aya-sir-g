@@ -62,6 +62,7 @@ h2.heading {
 .flex_div h4 {
   font-size: 16px;
   font-weight: 500;
+  margin-bottom: 0px !important;
 }
 
 p.description {

@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./hero.css";
 import Dropdown from "react-bootstrap/Dropdown";
 import { IoSearch } from "react-icons/io5";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { UserContext } from "@/app/userContext";
 
 export default function Hero() {
@@ -62,7 +62,7 @@ export default function Hero() {
       setLocations([]);
     } else {
       setCityId(id);
-      await getLocations(id); 
+      await getLocations(id);
     }
   };
 
@@ -128,35 +128,35 @@ export default function Hero() {
               <p className="fw-medium my-4">Whether you are searching for work or looking to hire, this is the platform you can trust.</p>
             </div>
           </div>
-        <div className="row justify-content-center">
-          <div className="col-lg-8">
-            <div className="dropdown_parent d-flex justify-content-center align-items-center position-relative">
-              {/* Category Dropdown */}
-              <div className="position-relative w-100 px-lg-0 px-md-0 px-2">
-                {categoryError && (
-                  <div className="text-danger fw-semibold mb-1 error_class">Please select a category</div>
-                )}
-                <Dropdown onSelect={handleCategorySelect} className="services_dropdown category" drop="down">
-                  <Dropdown.Toggle className={selectedCategory ? "selected_black" : "text-muted"}>
-                    {selectedCategory || "Select Category"}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu className="list_menu">
-                    <Dropdown.Item eventKey={"Any Category||any"}>Any Category</Dropdown.Item>
-                    {apiCategory2.map((cat) => (
-                      <Dropdown.Item key={cat.id} eventKey={`${cat.name}||${cat.id}`}>
-                        {cat.name}
-                      </Dropdown.Item>
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
+          <div className="row justify-content-center">
+            <div className="col-lg-8">
+              <div className="dropdown_parent d-flex justify-content-center align-items-center position-relative">
+                {/* Category Dropdown */}
+                <div className="position-relative w-100 px-lg-0 px-md-0 px-2">
+                  {categoryError && (
+                    <div className="text-danger fw-semibold mb-1 error_class">Please select a category</div>
+                  )}
+                  <Dropdown onSelect={handleCategorySelect} className="services_dropdown category" drop="down">
+                    <Dropdown.Toggle className={selectedCategory ? "selected_black" : "text-muted"}>
+                      {selectedCategory || "Select Category"}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu className="list_menu">
+                      <Dropdown.Item eventKey={"Any Category||any"}>Any Category</Dropdown.Item>
+                      {apiCategory2.map((cat) => (
+                        <Dropdown.Item key={cat.id} eventKey={`${cat.name}||${cat.id}`}>
+                          {cat.name}
+                        </Dropdown.Item>
+                      ))}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </div>
 
-              {/* City Dropdown - always show */}
-              <div className="position-relative w-100 px-lg-0 px-md-0 px-2">
-                {cityError && (
-                  <div className="text-danger fw-semibold mb-1 error_class">Please select a city</div>
-                )}
-                {/* <Dropdown onSelect={handleCitySelect} className="services_dropdown category">
+                {/* City Dropdown - always show */}
+                <div className="position-relative w-100 px-lg-0 px-md-0 px-2">
+                  {cityError && (
+                    <div className="text-danger fw-semibold mb-1 error_class">Please select a city</div>
+                  )}
+                  {/* <Dropdown onSelect={handleCitySelect} className="services_dropdown category">
               <Dropdown.Toggle ref={cityDropdownRef} className={selectedCity ? "selected_black" : "text-muted"}>
                 {selectedCity || "Select City"}
               </Dropdown.Toggle>
@@ -172,70 +172,70 @@ export default function Hero() {
                 )}
               </Dropdown.Menu>
             </Dropdown> */}
-                <Dropdown onSelect={handleCitySelect} className="services_dropdown category">
-                  <Dropdown.Toggle ref={cityDropdownRef} className={selectedCity ? "selected_black" : "text-muted"}>
-                    {selectedCity || "Select City"}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu className="list_menu">
-                    <Dropdown.Item eventKey={"Any City||any"}>Any City</Dropdown.Item>
-                    {cities?.length > 0 ? (
-                      cities?.map((city) => (
-                        <Dropdown.Item
-                          key={city.id}
-                          eventKey={`${city.name}||${city.id}`}
-                          disabled={city.name.toLowerCase() !== "lahore"} // 🔥 Only enable Lahore
-                        >
-                          {city.name}
-                        </Dropdown.Item>
-                      ))
-                    ) : (
-                      <Dropdown.Item disabled>No cities found</Dropdown.Item>
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown>
-
-              </div>
-
-              {/* Location Dropdown - always show */}
-              <div className="position-relative w-100 px-lg-0 px-md-0 px-2">
-                {locationError && (
-                  <div className="text-danger fw-semibold mb-1 error_class">Please select a location</div>
-                )}
-                <Dropdown onSelect={handleLocationSelect} className="services_dropdown category">
-                  <Dropdown.Toggle
-                    ref={locationDropdownRef}
-                    className={selectedLocation ? "selected_black" : "text-muted"}
-                  >
-                    {selectedLocation || "Select Location"}
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu className="list_menu">
-                    {locations.length > 0 ? (
-                      <>
-                        <Dropdown.Item key="any-location" eventKey={"Any Location||any"}>
-                          Any Location
-                        </Dropdown.Item>
-                        {locations.map((location) => (
-                          <Dropdown.Item key={location.id} eventKey={`${location.name}||${location.id}`}>
-                            {location.name}
+                  <Dropdown onSelect={handleCitySelect} className="services_dropdown category">
+                    <Dropdown.Toggle ref={cityDropdownRef} className={selectedCity ? "selected_black" : "text-muted"}>
+                      {selectedCity || "Select City"}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu className="list_menu">
+                      <Dropdown.Item eventKey={"Any City||any"}>Any City</Dropdown.Item>
+                      {cities?.length > 0 ? (
+                        cities?.map((city) => (
+                          <Dropdown.Item
+                            key={city.id}
+                            eventKey={`${city.name}||${city.id}`}
+                            disabled={city.name.toLowerCase() !== "lahore"} // 🔥 Only enable Lahore
+                          >
+                            {city.name}
                           </Dropdown.Item>
-                        ))}
-                      </>
-                    ) : (
-                      <Dropdown.Item disabled>No locations found</Dropdown.Item>
-                    )}
-                  </Dropdown.Menu>
-                </Dropdown>
+                        ))
+                      ) : (
+                        <Dropdown.Item disabled>No cities found</Dropdown.Item>
+                      )}
+                    </Dropdown.Menu>
+                  </Dropdown>
 
-              </div>
+                </div>
 
-              <div className="w-100 px-lg-0 px-md-0 px-2">
-                <button className="search_btn" onClick={handleSearch}>
-                  <IoSearch className="search_icon" />
-                </button>
+                {/* Location Dropdown - always show */}
+                <div className="position-relative w-100 px-lg-0 px-md-0 px-2">
+                  {locationError && (
+                    <div className="text-danger fw-semibold mb-1 error_class">Please select a location</div>
+                  )}
+                  <Dropdown onSelect={handleLocationSelect} className="services_dropdown category">
+                    <Dropdown.Toggle
+                      ref={locationDropdownRef}
+                      className={selectedLocation ? "selected_black" : "text-muted"}
+                    >
+                      {selectedLocation || "Select Location"}
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu className="list_menu">
+                      {locations.length > 0 ? (
+                        <>
+                          <Dropdown.Item key="any-location" eventKey={"Any Location||any"}>
+                            Any Location
+                          </Dropdown.Item>
+                          {locations.map((location) => (
+                            <Dropdown.Item key={location.id} eventKey={`${location.name}||${location.id}`}>
+                              {location.name}
+                            </Dropdown.Item>
+                          ))}
+                        </>
+                      ) : (
+                        <Dropdown.Item disabled>No locations found</Dropdown.Item>
+                      )}
+                    </Dropdown.Menu>
+                  </Dropdown>
+
+                </div>
+
+                <div className="w-100 px-lg-0 px-md-0 px-2">
+                  <button className="search_btn" onClick={handleSearch}>
+                    <IoSearch className="search_icon" />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </section>

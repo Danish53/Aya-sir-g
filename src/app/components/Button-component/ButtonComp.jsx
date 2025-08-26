@@ -4,7 +4,7 @@ import "./button_comp.css";
 import Card from "../Personal-card/Card";
 import CompanyCard from "../compnies-card/CompanyCard";
 import { UserContext } from "@/app/userContext";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
@@ -14,6 +14,7 @@ export default function ButtonComp({ searchParamdata }) {
   const { filteredUsers, getFilteredUsers, loader, toggleLike } = useContext(UserContext);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const pathname = usePathname();
 
   const role = searchParams.get("role") || "handyman";
   const category_id = searchParams.get("category_id") || "";
@@ -34,22 +35,35 @@ export default function ButtonComp({ searchParamdata }) {
 
     const urlPage = parseInt(searchParams.get("page"));
     const savedPage = parseInt(localStorage.getItem(getPageKey(role)));
+    const fromHome = sessionStorage.getItem("fromHome");
+
+    if (fromHome === "true") {
+      localStorage.setItem(getPageKey(role), "1");
+      setCurrentPage(1);
+      // sessionStorage.removeItem("fromHome");
+      return;
+    }
 
     if (!isNaN(urlPage)) {
+      localStorage.setItem(getPageKey(role), urlPage.toString());
       setCurrentPage(urlPage);
+      sessionStorage.removeItem("fromHome");
     } else if (!isNaN(savedPage)) {
       setCurrentPage(savedPage);
+      sessionStorage.removeItem("fromHome");
     } else {
+      localStorage.setItem(getPageKey(role), "1");
       setCurrentPage(1);
     }
   }, [role, searchParams]);
+
 
   // City/category/area change → reset to page 1
   useEffect(() => {
     if (filtersChanged) {
       setCurrentPage(1);
     } else {
-      setFiltersChanged(true); // skip first run
+      setFiltersChanged(true);
     }
   }, [category_id, city, area_code, verified_status, age_range, gender]);
 
@@ -67,9 +81,10 @@ export default function ButtonComp({ searchParamdata }) {
       params.delete("page");
     } else {
       params.set("page", currentPage.toString());
+      sessionStorage.removeItem("fromHome");
     }
-    router.push(`?${params.toString()}`);
-  }, [currentPage]);
+    router.replace(`?${params.toString()}`);
+  }, [currentPage, role]);
 
   // const handleToggle = (targetRole) => {
   //   const newParams = new URLSearchParams(searchParams.toString());
@@ -82,9 +97,7 @@ export default function ButtonComp({ searchParamdata }) {
   // };
   const handleToggle = (targetRole) => {
     const newParams = new URLSearchParams();
-    newParams.set("role", targetRole); // only keep role
-
-    // Reset page to 1 or saved page
+    newParams.set("role", targetRole);
     const savedPage = parseInt(localStorage.getItem(getPageKey(targetRole))) || 1;
     if (savedPage > 1) newParams.set("page", savedPage.toString());
 

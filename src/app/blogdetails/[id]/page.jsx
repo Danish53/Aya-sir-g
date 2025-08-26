@@ -19,6 +19,7 @@ export default function Page() {
   const { id } = params;
   const base_url = process.env.NEXT_PUBLIC_BASE_URL;
   const [blogData, setBlogData] = useState(null);
+  // console.log(blogData, "blog detail")
   const [loading, setLoading] = useState(true);
   const [showShare, setShowShare] = useState(false);
   const currentUrl = window.location.href;
@@ -123,7 +124,7 @@ export default function Page() {
           <div className="flex_div_parent">
             <div className="flex_div">
               <img src={blogData?.author_image} className="rounded_circle" alt="" />
-              <h4>{blogData?.author_name || "Author"}</h4>
+              <h4>{blogData?.author_name || ""}</h4>
             </div>
             <div className="flex_div">
               <div className="rounded_circle">

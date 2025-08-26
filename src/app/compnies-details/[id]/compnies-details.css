@@ -54,7 +54,7 @@
 }
 
 .compnies-details .heart_button {
-  justify-content: end;
+  justify-content: start;
   gap: 14px;
   display: flex;
   align-items: center;
@@ -63,12 +63,9 @@
 
 .compnies-details .mic_icon {
   font-size: 26px;
-  height: 35px;
-  width: 35px;
-  /* background: black;
-  color: white; */
-  border-radius: 50%;
-  /* padding: 10px 0px; */
+  height: 65px;
+  width: 70px;
+  border-radius: 5px;
   cursor: pointer;
   display: "flex";
   justify-content: center;
@@ -229,11 +226,11 @@ h3.heading {
     font-size: 32px;
   }
 
-  .compnies-details .mic_icon {
+  /* .compnies-details .mic_icon {
     height: 37px;
     width: 37px;
     font-size: 28px;
-  }
+  } */
 
   .compnies-details .info h4 {
     font-size: 18px;
@@ -300,10 +297,10 @@ h3.heading {
     font-size: 27px;
   }
 
-  .compnies-details .mic_icon {
+  /* .compnies-details .mic_icon {
     width: 35px;
     height: 35px;
-  }
+  } */
 
   .compnies-details .info h4 {
     font-size: 16px;

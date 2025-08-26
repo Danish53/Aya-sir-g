@@ -138,7 +138,7 @@ export default function page() {
         </form>
 
         <div className="logo_div mt-3">
-          <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
+          <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
           {/* <p id="head">AYA SIR G!</p>
           <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
         </div>

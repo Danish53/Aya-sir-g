@@ -244,135 +244,122 @@ export default function page() {
             <div className="left">
               <div className="red_bar"></div>
               <div className=" p-4">
-                <div className="heart_button">
-                  {/* <FaRegHeart className="icon" /> */}
-                  {/* {userInfo ? (
-                  isLiked ? (
-                    <FaHeart className="icon" onClick={onLikeClick} />
-                  ) : (
-                    <FaRegHeart className="icon" onClick={onLikeClick} />
-                  )
-                ) : (
-                  <Link href="/login">
-                    <FaRegHeart className="icon" />
-                  </Link>
-                )} */}
+                <div className="row">
+                  <div className="col-md-7 col-sm-12 info order-2 order-md-1">
+                    <div className="heart_button">
+                      {user?.verification === "Non Verified" ? (
+                        <button className="verified_btn">
+                          {user?.verification}
+                        </button>
+                      ) : (
+                        <button className="verified_btn bg-success">
+                          {user?.verification}
+                          <FaCheck className="tik_icon" />
+                        </button>
+                      )
+                      }
+                      {/* <IoShareSocial className="share icon" /> */}
+                      <div>
+                        {/* Share Icon */}
+                        <IoShareSocial
+                          className="share icon"
+                          onClick={() => setShowShare(true)}
+                          style={{ cursor: "pointer", fontSize: 24 }}
+                        />
 
-                  {user?.verification === "Non Verified" ? (
-                    <button className="verified_btn">
-                      {user?.verification}
-                    </button>
-                  ) : (
-                    <button className="verified_btn bg-success">
-                      {user?.verification}
-                      <FaCheck className="tik_icon" />
-                    </button>
-                  )
-                  }
-                  {/* <IoShareSocial className="share icon" /> */}
-                  <div>
-                    {/* Share Icon */}
-                    <IoShareSocial
-                      className="share icon"
-                      onClick={() => setShowShare(true)}
-                      style={{ cursor: "pointer", fontSize: 24 }}
-                    />
-
-                    {showShare && (
-                      <div
-                        className="modal-overlay"
-                        onClick={() => setShowShare(false)}
-                        style={{
-                          position: "fixed",
-                          top: 0,
-                          left: 0,
-                          width: "100vw",
-                          height: "100vh",
-                          backgroundColor: "rgba(0, 0, 0, 0.5)",
-                          zIndex: 1000,
-                        }}
-                      >
-                        <div
-                          className="modal-content"
-                          onClick={(e) => e.stopPropagation()}
-                          style={{
-                            background: "#fff",
-                            width: "100%",
-                            maxWidth: 500,
-                            margin: "10% auto",
-                            padding: 24,
-                            borderRadius: 12,
-                            boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                            textAlign: "center",
-                          }}
-                        >
-                          <h3>Share Link</h3>
-                          <div style={{ display: "flex", marginTop: 12, gap: 8 }}>
-                            <input
-                              type="text"
-                              value={currentUrl}
-                              readOnly
-                              style={{ width: "100%", padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
-                            />
-                            <button
-                              onClick={handleCopy}
-                              style={{
-                                padding: "8px 12px",
-                                background: "#B50000",
-                                color: "#fff",
-                                border: "none",
-                                borderRadius: 6,
-                                cursor: "pointer",
-                              }}
-                            >
-                              <IoCopyOutline size={18} />
-                            </button>
-                          </div>
-
+                        {showShare && (
                           <div
-                            style={{
-                              marginTop: 20,
-                              display: "flex",
-                              justifyContent: "center",
-                              gap: 12,
-                            }}
-                          >
-                            <FacebookShareButton url={currentUrl}>
-                              <FacebookIcon size={40} round />
-                            </FacebookShareButton>
-                            <TwitterShareButton url={currentUrl}>
-                              <TwitterIcon size={40} round />
-                            </TwitterShareButton>
-                            <WhatsappShareButton url={currentUrl}>
-                              <WhatsappIcon size={40} round />
-                            </WhatsappShareButton>
-                            <LinkedinShareButton url={currentUrl}>
-                              <LinkedinIcon size={40} round />
-                            </LinkedinShareButton>
-                            <TelegramShareButton url={currentUrl}>
-                              <TelegramIcon size={40} round />
-                            </TelegramShareButton>
-                          </div>
-
-                          <button
+                            className="modal-overlay"
                             onClick={() => setShowShare(false)}
                             style={{
-                              marginTop: 16,
-                              background: "transparent",
-                              border: "none",
-                              color: "#888",
-                              cursor: "pointer",
+                              position: "fixed",
+                              top: 0,
+                              left: 0,
+                              width: "100vw",
+                              height: "100vh",
+                              backgroundColor: "rgba(0, 0, 0, 0.5)",
+                              zIndex: 1000,
                             }}
                           >
-                            Close
-                          </button>
-                        </div>
+                            <div
+                              className="modal-content"
+                              onClick={(e) => e.stopPropagation()}
+                              style={{
+                                background: "#fff",
+                                width: "100%",
+                                maxWidth: 500,
+                                margin: "10% auto",
+                                padding: 24,
+                                borderRadius: 12,
+                                boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                                textAlign: "center",
+                              }}
+                            >
+                              <h3>Share Link</h3>
+                              <div style={{ display: "flex", marginTop: 12, gap: 8 }}>
+                                <input
+                                  type="text"
+                                  value={currentUrl}
+                                  readOnly
+                                  style={{ width: "100%", padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
+                                />
+                                <button
+                                  onClick={handleCopy}
+                                  style={{
+                                    padding: "8px 12px",
+                                    background: "#B50000",
+                                    color: "#fff",
+                                    border: "none",
+                                    borderRadius: 6,
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  <IoCopyOutline size={18} />
+                                </button>
+                              </div>
+
+                              <div
+                                style={{
+                                  marginTop: 20,
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  gap: 12,
+                                }}
+                              >
+                                <FacebookShareButton url={currentUrl}>
+                                  <FacebookIcon size={40} round />
+                                </FacebookShareButton>
+                                <TwitterShareButton url={currentUrl}>
+                                  <TwitterIcon size={40} round />
+                                </TwitterShareButton>
+                                <WhatsappShareButton url={currentUrl}>
+                                  <WhatsappIcon size={40} round />
+                                </WhatsappShareButton>
+                                <LinkedinShareButton url={currentUrl}>
+                                  <LinkedinIcon size={40} round />
+                                </LinkedinShareButton>
+                                <TelegramShareButton url={currentUrl}>
+                                  <TelegramIcon size={40} round />
+                                </TelegramShareButton>
+                              </div>
+
+                              <button
+                                onClick={() => setShowShare(false)}
+                                style={{
+                                  marginTop: 16,
+                                  background: "transparent",
+                                  border: "none",
+                                  color: "#888",
+                                  cursor: "pointer",
+                                }}
+                              >
+                                Close
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                </div>
-                <div className="row mt-4">
-                  <div className="col-md-7 col-sm-12 info order-2 order-md-1">
+                    </div>
                     <h3 className="name_heading">{user?.username}</h3>
                     <p>{user?.gender === "male" ? "Male" : user?.gender === "female" ? "Female" : ""}, {user?.age} years old</p>
                     <div className="recording mt-1 mb-3" style={{ display: 'flex', alignItems: 'left !important', gap: '10px' }}>
@@ -385,93 +372,88 @@ export default function page() {
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              flexDirection: "column",
                               background: "#ecececff",
-                              padding: "8px 12px",
+                              padding: "8px 0px 8px 12px",
                               borderRadius: "5px",
-                              maxWidth: "240px",
+                              maxWidth: "260px",
                               height: "65px",
-                              width: "230px"
+                              width: "100%"
                             }}
                           >
-                            <div className="d-flex align-items-center justify-content-between w-100">
-                              {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
-                              <audio ref={audioRef} src={user.audio_sample} preload="auto" />
-                              <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
-                                {isPlaying ? (
-                                  <div className="wave-animation">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                  </div>
-                                ) : (
-                                  <div className="wave-animation-light">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                  </div>
-                                )}
-                              </div>
-
-                              <div className="d-flex align-items-center">
-                                <div>
-                                  {/* <FaMusic className="mic_icon" /> */}
-                                  <img className="mic_icon" src="/assets/taaruf.jpg" alt="" />
+                            <div className="d-flex flex-column w-100">
+                              <div className="d-flex gap-2 align-items-center">
+                                {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
+                                <audio ref={audioRef} src={user.audio_sample} preload="auto" />
+                                <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
+                                  {isPlaying ? (
+                                    <div className="wave-animation">
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                    </div>
+                                  ) : (
+                                    <div className="wave-animation-light">
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                      <span></span>
+                                    </div>
+                                  )}
                                 </div>
                               </div>
-                            </div>
-                            {/* </button> */}
-
-                            <div className="w-100">
-                              <p style={{ fontSize: "12px" }}>
-                                {formatTime(currentTime)}
-                              </p>
+                              <div className="w-100 mt-2">
+                                <p style={{ fontSize: "12px" }}>
+                                  {formatTime(currentTime)}
+                                </p>
+                              </div>
                             </div>
 
+                            <div className="d-flex align-items-center">
+                              <img className="mic_icon" src="/assets/taaruf.jpg" alt="" />
+                            </div>
                           </div>
                         </div>
                       ) : (
@@ -511,14 +493,6 @@ export default function page() {
                     </div>
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        City:{" "}
-                        <span className="sub_head">
-                          {user?.city_name}
-                        </span>
-                      </h4>
-                    </div>
-                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>
                         Field:{" "}
                         <span className="sub_head">{Array.isArray(user?.fields_of_interest)
                           ? user.fields_of_interest.map((item) => item.name).join(", ")
@@ -535,14 +509,23 @@ export default function page() {
                         </span>
                       </h4>
                     </div>
+                    
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                      <h4>
+                        City:{" "}
+                        <span className="sub_head">
+                          {user?.city_name}
+                        </span>
+                      </h4>
+                    </div>
+                    {/* <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
                         Current Location:{" "}
                         <span className="sub_head">
                           {user?.address}
                         </span>
                       </h4>
-                    </div>
+                    </div> */}
                   </div>
                   <div className="col-md-5 col-sm-12 text-right order-1 order-md-2 mb-md-0 mb-2">
                     <div className="img_div">

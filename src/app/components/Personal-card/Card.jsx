@@ -60,7 +60,10 @@ export default function Card({ data, onLike }) {
 
   // max characters for preview
   const limit = 30;
-  const address = data?.address || "N/A";
+  const location =
+    Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
+      ? data.interested_locations.map(item => item.name).join(", ")
+      : "N/A";
 
 
   return (
@@ -71,7 +74,7 @@ export default function Card({ data, onLike }) {
           overflow: "hidden",
           transition: "0.3s ease"
         }}>
-          <div className="d-flex justify-content-center flex-column align-items-center">
+          <div className="d-flex justify-content-center flex-column align-items-center w-100">
             <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
             <p className="title">{data?.username || "No Name"}</p>
 
@@ -139,11 +142,11 @@ export default function Card({ data, onLike }) {
               {data?.address && (
                 <div>
                   <p>
-                    <strong>Current Address:</strong>{" "}
-                    {showFull ? address : `${address.slice(0, limit)}${address.length > limit ? "..." : ""}`}
+                    <strong>Interested Location:</strong>{" "}
+                    {showFull ? location : `${location.slice(0, limit)}${location.length > limit ? "..." : ""}`}
 
 
-                    {address.length > limit && (
+                    {location.length > limit && (
                       <button
                         onClick={toggleShow}
                         style={{

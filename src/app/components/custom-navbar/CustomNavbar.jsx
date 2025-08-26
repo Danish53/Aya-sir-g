@@ -100,7 +100,7 @@ export default function CustomNavbar() {
       <div className="container">
         <nav className="nav">
           <div className="logo_div">
-            <Link href={'/'}><img src="/assets/logo_aya_sir_g.png" alt="Logo" className="logo" /></Link>
+            <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="Logo" className="logo" /></Link>
           </div>
 
           <div className="nav_items d-flex align-items-center">

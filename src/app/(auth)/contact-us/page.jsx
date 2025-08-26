@@ -12,9 +12,9 @@ export default function page() {
         <div className="container">
           <div className="row reverse_sec">
             <div className="col-lg-6 left_div p-3">
-              <h1 className="login_heading ">Helpdesk Information</h1>
+              {/* <h1 className="login_heading ">Helpdesk Information</h1> */}
               <form>
-                <div>
+                {/* <div>
                   <label htmlFor="email" className="label_auth">
                     Phone
                   </label>
@@ -27,9 +27,9 @@ export default function page() {
                     name="email"
                   />
                   <br />
-                </div>
+                </div> */}
                 <div>
-                  <label htmlFor="" className="label_auth">
+                  {/* <label htmlFor="" className="label_auth">
                     Email
                   </label>
                   <br />
@@ -39,15 +39,15 @@ export default function page() {
                     className="input_auth"
                     placeholder="Email"
                   />
-                  <br />
+                  <br /> */}
                   <h1 className="login_heading mt-3">Helpdesk Information</h1>
-                  <label htmlFor="" className="label_auth">
+                  <label htmlFor="" className="label_auth text-center w-100">
                     E-Center Registration
                   </label>
                   <input
                     type="text"
                     className="input_auth"
-                    placeholder="ecenter_registration@ayasirg.com  "
+                    placeholder="ecenter@ayasirg.com  "
                   />
                 </div>
                 <button className="sign_in">Continue</button>
@@ -59,7 +59,7 @@ export default function page() {
                 </div> */}
                 <div className="w-100 text-center d-flex justify-content-center">
                   <div className="logo_div mt-3 text-center">
-                    <Link href={'/'} className="text-center"><img src="/assets/logo_aya_sir_g.png" alt="" className="logo" /></Link>
+                    <Link href={'/'} className="text-center"><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
                     {/* <p id="head">AYA SIR G!</p>
                   <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
                   </div>
@@ -73,7 +73,7 @@ export default function page() {
                   <Link href="tel:+923098574093" style={{ textDecoration: "none", color: "inherit" }}>
                     <div className="card py-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                       <FaPhoneVolume style={{ fontSize: "26px" }} />
-                      <h5>Phone Number</h5>
+                      <h5 className="mt-1">Phone Number</h5>
                       <p className="ps-1">+923098574093</p>
                     </div>
                   </Link>
@@ -82,7 +82,7 @@ export default function page() {
                   <Link href="mailto:help@ayasirg.com" style={{ textDecoration: "none", color: "inherit" }}>
                     <div className="card py-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                       <FaEnvelope style={{ fontSize: "26px" }} />
-                      <h5>Email</h5>
+                      <h5 className="mt-1">Email</h5>
                       <p className="ps-1">help@ayasirg.com</p>
                     </div>
                   </Link>
@@ -96,8 +96,8 @@ export default function page() {
                   >
                     <div className="card py-3 py-lg-4 d-flex justify-content-center align-items-center">
                       <FaMap style={{ fontSize: "26px" }} />
-                      <h5>Location</h5>
-                      <p style={{ fontSize: "12px" }} className="ps-1 text-center">
+                      <h5 className="mt-1">Location</h5>
+                      <p className="ps-1 text-center">
                         Aya Sir G! (pvt) Limited, 15C, Commercial, NFC#1, Lahore, Pakistan
                       </p>
                     </div>
@@ -107,10 +107,10 @@ export default function page() {
                 <div className="col-lg-6 col-md-6 col-sm-6 mb-3 sm_two p-lg-2 p-md-2 p-1">
                   <div className="card py-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                     <FaClock style={{ fontSize: "26px" }} />
-                    <h5>Working Hours</h5>
+                    <h5 className="mt-1">Working Hours</h5>
                     <div className="ps-1">
-                      <p style={{ fontSize: "12px" }}>Monday To Saturday</p>
-                      <p style={{ fontSize: "12px" }}>09:00AM To 06:00PM</p>
+                      <p>Monday To Saturday</p>
+                      <p>09:00AM To 06:00PM</p>
                     </div>
                   </div>
                 </div>

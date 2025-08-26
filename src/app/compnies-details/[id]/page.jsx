@@ -231,124 +231,124 @@ export default function page() {
           </div>
           <div className="col-lg-9 ">
             <div className="red_bar"></div>
+            <div className="left px-lg-4 py-lg-4 px-3 py-4">
+              <div className="row">
+                <div className="col-md-7 col-sm-12 info order-2 order-md-1">
 
-            <div className="left px-lg-4 py-lg-4 px-2 py-4">
-              <div className="heart_button mb-3">
-                {/* <FaRegHeart className="icon" /> */}
-                {company?.verification === "Non Verified" ? (
-                  <button className="verified_btn">
-                    {company?.verification}
-                  </button>
-                ) : (
-                  <button className="verified_btn bg-success">
-                    {company?.verification}
-                    <FaCheck className="tik_icon" />
-                  </button>
-                )
-                }
-                <div>
-                  {/* Share Icon */}
-                  <IoShareSocial
-                    className="share icon"
-                    onClick={() => setShowShare(true)}
-                    style={{ cursor: "pointer", fontSize: 24 }}
-                  />
+                  <div className="heart_button mb-3">
+                    {/* <FaRegHeart className="icon" /> */}
+                    {company?.verification === "Non Verified" ? (
+                      <button className="verified_btn">
+                        {company?.verification}
+                      </button>
+                    ) : (
+                      <button className="verified_btn bg-success">
+                        {company?.verification}
+                        <FaCheck className="tik_icon" />
+                      </button>
+                    )
+                    }
+                    <div>
+                      {/* Share Icon */}
+                      <IoShareSocial
+                        className="share icon"
+                        onClick={() => setShowShare(true)}
+                        style={{ cursor: "pointer", fontSize: 24 }}
+                      />
 
-                  {showShare && (
-                    <div
-                      className="modal-overlay"
-                      onClick={() => setShowShare(false)}
-                      style={{
-                        position: "fixed",
-                        top: 0,
-                        left: 0,
-                        width: "100vw",
-                        height: "100vh",
-                        backgroundColor: "rgba(0, 0, 0, 0.5)",
-                        zIndex: 1000,
-                      }}
-                    >
-                      <div
-                        className="modal-content"
-                        onClick={(e) => e.stopPropagation()}
-                        style={{
-                          background: "#fff",
-                          width: "100%",
-                          maxWidth: 500,
-                          margin: "10% auto",
-                          padding: 24,
-                          borderRadius: 12,
-                          boxShadow: "0 0 10px rgba(0,0,0,0.2)",
-                          textAlign: "center",
-                        }}
-                      >
-                        <h3>Share Link</h3>
-                        <div style={{ display: "flex", marginTop: 12, gap: 8 }}>
-                          <input
-                            type="text"
-                            value={currentUrl}
-                            readOnly
-                            style={{ flex: 1, padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
-                          />
-                          <button
-                            onClick={handleCopy}
-                            style={{
-                              padding: "8px 12px",
-                              background: "#B50000",
-                              color: "#fff",
-                              border: "none",
-                              borderRadius: 6,
-                              cursor: "pointer",
-                            }}
-                          >
-                            <IoCopyOutline size={18} />
-                          </button>
-                        </div>
-
+                      {showShare && (
                         <div
-                          style={{
-                            marginTop: 20,
-                            display: "flex",
-                            justifyContent: "center",
-                            gap: 12,
-                          }}
-                        >
-                          <FacebookShareButton url={currentUrl}>
-                            <FacebookIcon size={40} round />
-                          </FacebookShareButton>
-                          <TwitterShareButton url={currentUrl}>
-                            <TwitterIcon size={40} round />
-                          </TwitterShareButton>
-                          <WhatsappShareButton url={currentUrl}>
-                            <WhatsappIcon size={40} round />
-                          </WhatsappShareButton>
-                          <LinkedinShareButton url={currentUrl}>
-                            <LinkedinIcon size={40} round />
-                          </LinkedinShareButton>
-                          <TelegramShareButton url={currentUrl}>
-                            <TelegramIcon size={40} round />
-                          </TelegramShareButton>
-                        </div>
-
-                        <button
+                          className="modal-overlay"
                           onClick={() => setShowShare(false)}
                           style={{
-                            marginTop: 16,
-                            background: "transparent",
-                            border: "none",
-                            color: "#888",
-                            cursor: "pointer",
+                            position: "fixed",
+                            top: 0,
+                            left: 0,
+                            width: "100vw",
+                            height: "100vh",
+                            backgroundColor: "rgba(0, 0, 0, 0.5)",
+                            zIndex: 1000,
                           }}
                         >
-                          Close
-                        </button>
-                      </div>
+                          <div
+                            className="modal-content"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              background: "#fff",
+                              width: "100%",
+                              maxWidth: 500,
+                              margin: "10% auto",
+                              padding: 24,
+                              borderRadius: 12,
+                              boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+                              textAlign: "center",
+                            }}
+                          >
+                            <h3>Share Link</h3>
+                            <div style={{ display: "flex", marginTop: 12, gap: 8 }}>
+                              <input
+                                type="text"
+                                value={currentUrl}
+                                readOnly
+                                style={{ flex: 1, padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
+                              />
+                              <button
+                                onClick={handleCopy}
+                                style={{
+                                  padding: "8px 12px",
+                                  background: "#B50000",
+                                  color: "#fff",
+                                  border: "none",
+                                  borderRadius: 6,
+                                  cursor: "pointer",
+                                }}
+                              >
+                                <IoCopyOutline size={18} />
+                              </button>
+                            </div>
+
+                            <div
+                              style={{
+                                marginTop: 20,
+                                display: "flex",
+                                justifyContent: "center",
+                                gap: 12,
+                              }}
+                            >
+                              <FacebookShareButton url={currentUrl}>
+                                <FacebookIcon size={40} round />
+                              </FacebookShareButton>
+                              <TwitterShareButton url={currentUrl}>
+                                <TwitterIcon size={40} round />
+                              </TwitterShareButton>
+                              <WhatsappShareButton url={currentUrl}>
+                                <WhatsappIcon size={40} round />
+                              </WhatsappShareButton>
+                              <LinkedinShareButton url={currentUrl}>
+                                <LinkedinIcon size={40} round />
+                              </LinkedinShareButton>
+                              <TelegramShareButton url={currentUrl}>
+                                <TelegramIcon size={40} round />
+                              </TelegramShareButton>
+                            </div>
+
+                            <button
+                              onClick={() => setShowShare(false)}
+                              style={{
+                                marginTop: 16,
+                                background: "transparent",
+                                border: "none",
+                                color: "#888",
+                                cursor: "pointer",
+                              }}
+                            >
+                              Close
+                            </button>
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              </div>
-              <div className="row mt-4">
-                <div className="col-md-7 col-sm-12 info order-2 order-md-1">
+                  </div>
                   <h3 className="name_heading">{company?.username}</h3>
                   <div className="recording mt-1 mb-3">
                     {/* <IoIosMic className="mic_icon" /> */}
@@ -361,93 +361,88 @@ export default function page() {
                           style={{
                             display: "flex",
                             alignItems: "center",
-                            flexDirection: "column",
                             background: "#ecececff",
-                            padding: "8px 12px",
+                            padding: "8px 0px 8px 12px",
                             borderRadius: "5px",
-                            maxWidth: "240px",
+                            maxWidth: "265px",
                             height: "65px",
-                            width: "230px"
+                            width: "100%"
                           }}
                         >
-                          <div className="d-flex align-items-center justify-content-between w-100">
-                            {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
-                            <audio ref={audioRef} src={company.audio_sample} preload="auto" />
-                            <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
-                              {isPlaying ? (
-                                <div className="wave-animation">
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                </div>
-                              ) : (
-                                <div className="wave-animation-light">
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                  <span></span>
-                                </div>
-                              )}
-                            </div>
-
-                            <div className="d-flex align-items-center">
-                              <div>
-                                {/* <FaMusic className="mic_icon" /> */}
-                                <img className="mic_icon" src="/assets/taaruf.jpg" alt="" />
+                          <div className="d-flex flex-column w-100">
+                            <div className="d-flex gap-2 align-items-center">
+                              {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
+                              <audio ref={audioRef} src={company.audio_sample} preload="auto" />
+                              <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
+                                {isPlaying ? (
+                                  <div className="wave-animation">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                  </div>
+                                ) : (
+                                  <div className="wave-animation-light">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                  </div>
+                                )}
                               </div>
                             </div>
-                          </div>
-                          {/* </button> */}
-
-                          <div className="w-100">
-                            <p style={{ fontSize: "12px" }}>
-                              {formatTime(currentTime)}
-                            </p>
+                            <div className="w-100 mt-2">
+                              <p style={{ fontSize: "12px" }}>
+                                {formatTime(currentTime)}
+                              </p>
+                            </div>
                           </div>
 
+                          <div className="d-flex align-items-center">
+                            <img className="mic_icon" src="/assets/taaruf.jpg" alt="" />
+                          </div>
                         </div>
                       </div>
                     ) : (
@@ -459,18 +454,18 @@ export default function page() {
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
                         Field: {Array.isArray(company?.fields_of_interest)
-                        ? company.fields_of_interest.map((item) => item.name).join(", ")
-                        : "N/A"}
+                          ? company.fields_of_interest.map((item) => item.name).join(", ")
+                          : "N/A"}
                       </h4>
                     </div>
 
-                    <div className="d-flex align-items-start gap-2 me-lg-2 ">
+                    {/* <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
                         Interested Location: {Array.isArray(company?.interested_locations)
-                        ? company.interested_locations.map((loc) => loc.name).join(", ")
-                        : ""}
+                          ? company.interested_locations.map((loc) => loc.name).join(", ")
+                          : ""}
                       </h4>
-                    </div>
+                    </div> */}
 
                     {/* <h4>
                       Current Address: <span>{company?.user_city || ""}</span>
