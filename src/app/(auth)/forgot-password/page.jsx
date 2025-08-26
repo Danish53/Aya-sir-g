@@ -69,7 +69,7 @@ export default function Page() {
             </div>
             <br />
             <input
-              type="text"
+              type="number"
               id="phone_num"
               placeholder="03009900999"
               className="input_auth"

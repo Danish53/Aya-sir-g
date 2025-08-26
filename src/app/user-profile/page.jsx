@@ -252,7 +252,7 @@ export default function Page() {
               <div>
                 <label htmlFor="contact_no">Contact Number</label>
                 <input
-                  type="text"
+                  type="number"
                   className="input_auth"
                   placeholder="03009900999"
                   name="contact_number"

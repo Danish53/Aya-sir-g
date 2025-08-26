@@ -194,7 +194,7 @@ export default function page() {
             </div>
             <div>
               <input
-                type="text"
+                type="number"
                 className="input_auth"
                 placeholder="03009900999"
                 name="contact_number"
