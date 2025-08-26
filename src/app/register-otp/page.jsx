@@ -46,6 +46,13 @@ export default function Page() {
     }
   };
 
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      const prevInput = document.getElementById(`otp-${index - 1}`);
+      if (prevInput) prevInput.focus();
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const code = otp.join("");
@@ -103,11 +110,12 @@ export default function Page() {
               <input
                 key={index}
                 id={`otp-${index}`}
-                type="text"
+                type="number"
                 maxLength={1}
                 className="input_box"
                 value={digit}
                 onChange={(e) => handleChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
               />
             ))}
           </div>

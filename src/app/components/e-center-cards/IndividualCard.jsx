@@ -84,6 +84,21 @@ export default function individualcard({ data, fetchData }) {
     }
   };
 
+  const handleKeyDown = (index, e) => {
+    if (e.key === "Backspace") {
+      if (otp[index]) {
+        // agar current input me value hai → pehle usko clear kar do
+        const newOtp = [...otp];
+        newOtp[index] = "";
+        setOtp(newOtp);
+      } else if (index > 0) {
+        // agar empty hai → focus previous input par
+        inputRefs.current[index - 1]?.focus();
+      }
+    }
+  };
+
+
   // send otp
   const [loading, setLoading] = useState(false);
 
@@ -264,13 +279,14 @@ export default function individualcard({ data, fetchData }) {
                 {otp.map((data, index) => (
                   <input
                     key={index}
-                    type="text"
+                    type="number"
                     maxLength="1"
                     ref={(el) => inputRefs.current[index] = el}
                     className="form-control text-center"
-                    style={{ width: "40px", height: "40px", fontSize: "1.5rem" }}
+                    style={{ width: "40px", height: "40px", fontSize: "1.5rem", padding: "0px" }}
                     value={otp[index]}
                     onChange={(e) => handleChangeOtp(e.target, index)}
+                    onKeyDown={(e) => handleKeyDown(index, e)}
                   />
                 ))}
               </div>
