@@ -103,6 +103,8 @@ export default function Hero() {
   const handleCitySelect = async (eventKey) => {
     const [name, id] = eventKey.split("||");
     setSelectedCity(name);
+    setCityQuery(""); // reset search text
+    setCityMenuOpen(false); // dropdown close
 
     if (id === "any") {
       setCityId(null);
@@ -119,6 +121,8 @@ export default function Hero() {
   const handleLocationSelect = (eventKey) => {
     const [name, id] = eventKey.split("||");
     setSelectedLocation(name);
+    setLocationQuery(""); // reset search text
+    setLocationMenuOpen(false);
 
     if (id === "any") {
       setLocationId(null);
