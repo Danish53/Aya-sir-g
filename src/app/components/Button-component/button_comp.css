@@ -39,10 +39,10 @@
 
 @media screen and (max-width: 576px) {
   .button_comp .individual h3 {
-    font-size: 19px;
+    font-size: 19px !important;
   }
   .button_comp .companies h3 {
-    font-size: 19px;
+    font-size: 19px !important;
   }
 }
 
