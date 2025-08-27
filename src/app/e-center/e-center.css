@@ -1,7 +1,7 @@
-.myform_page {
+.Form_section .myform_page {
   font-family: var(--font-poppins), sans-serif;
   /* background-color: #f6f6f6; */
-  padding: 30px;
+  padding: 20px;
   padding-top: 140px;
 }
 

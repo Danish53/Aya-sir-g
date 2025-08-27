@@ -228,7 +228,7 @@ export default function individualcard({ data, fetchData }) {
                 </button>
               )}
             </p>
-            <p>Current Location: {data?.city_name}</p>
+            <p>Current Location: {data?.area_name}, {data?.city_name}</p>
           </div>
 
           <div className="rating_div">

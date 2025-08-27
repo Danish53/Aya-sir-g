@@ -9,18 +9,21 @@
   background-color: var(--light-white);
   z-index: 9;
   justify-content: center;
+  align-items: center !important;
 }
 
 .contact-us .right_div {
   background-color: var(--red-color);
   z-index: 9;
 }
+
 .contact-us .login_heading {
   font-size: 32px;
   font-weight: 500;
   text-align: center;
   color: var(--red-color);
 }
+
 .contact-us h2.small_heading {
   font-size: 22px;
   font-weight: 800;
@@ -32,6 +35,7 @@
   justify-content: space-between;
   align-items: center;
 }
+
 .contact-us .checkbox_filed {
   display: flex;
   align-items: center;
@@ -73,7 +77,7 @@ input[type="checkbox"] {
   border-radius: 4px;
 }
 
-input[type="checkbox"]:checked + .custom-checkbox::after {
+input[type="checkbox"]:checked+.custom-checkbox::after {
   content: "";
   position: absolute;
   left: 5px;
@@ -92,6 +96,7 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 .contact-us p#descri {
   margin-bottom: 0 !important;
 }
+
 .create_new_account {
   display: flex;
   align-items: center;
@@ -99,9 +104,11 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
   gap: 5px;
   display: none;
 }
+
 .create_new_account p {
   margin-bottom: 0 !important;
 }
+
 .create_new_account hr {
   height: 2px;
   width: 100px;
@@ -114,23 +121,24 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
   flex-direction: column;
   align-items: center;
 }
+
 form {
   width: 80%;
 }
 
-.logo_div{
+.logo_div {
   width: 170px;
 }
 
-.logo_div img{
+.logo_div img {
   width: 100% !important;
 }
 
-.right_div p{
+.contact-us .right_div p {
   color: var(--red-color);
 }
 
-.sm_two .card{
+.sm_two .card {
   height: 180px;
 }
 
@@ -140,32 +148,39 @@ form {
     width: 100%;
     height: 100%;
   }
+
   .contact-us .login_heading {
     margin-bottom: 0;
     font-size: 29px;
   }
+
   .contact-us.auth_bg .label_auth {
     margin: 5px 0;
     font-size: 16px;
   }
+
   .contact-us.auth_bg .input_auth {
     height: 41px;
   }
+
   .contact-us.sign_in {
     height: 41px;
   }
+
   /* .contact-us .logo {
     max-width: 60px;
   } */
   .contact-us p#descri {
     font-size: 7px;
   }
+
   .contact-us h2.small_heading {
     font-size: 17px;
   }
 }
 
 @media screen and (max-width: 992px) {
+
   /* .contact-us .right_div {
     display: none;
   } */
@@ -173,6 +188,7 @@ form {
     display: flex;
     cursor: pointer;
   }
+
   .left_div {
     width: 100%;
     display: flex;
@@ -185,47 +201,58 @@ form {
   .contact-us .container {
     width: 96% !important;
   }
+
   .create_new_account p {
     font-size: 14px;
   }
+
   .create_new_account hr {
     display: none;
   }
+
   .contact-us form {
     width: 100%;
   }
+
   .contact-us .login_heading {
     font-size: 23px;
   }
+
   .contact-us.auth_bg .label_auth {
     font-size: 14px;
   }
+
   .contact-us .sign_in {
     height: 40px;
   }
+
   /* .contact-us .logo {
     font-size: 47px;
   } */
   p#head {
     font-size: 14px;
   }
-  .sm_two{
+
+  .sm_two {
     width: 50%;
   }
-  .right_div h5{
-  font-size: 14px;
-}
-.right_div p{
-  font-size: 12px;
-}
+
+  .contact-us .right_div h5 {
+    font-size: 14px;
+  }
+
+  .contact-us .right_div p {
+    font-size: 12px;
+  }
 
 }
 
 @media (max-width: 992px) {
-  .reverse_sec{
+  .reverse_sec {
     flex-direction: column-reverse;
   }
+
   .contact-us {
-  height: 100%;
-}
+    height: 100%;
+  }
 }

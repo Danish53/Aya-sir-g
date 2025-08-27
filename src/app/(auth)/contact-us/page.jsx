@@ -40,7 +40,7 @@ export default function page() {
                     placeholder="Email"
                   />
                   <br /> */}
-                  <h1 className="login_heading mt-3">Helpdesk Information</h1>
+                  <h1 className="login_heading">Helpdesk Information</h1>
                   <label htmlFor="" className="label_auth text-center w-100">
                     E-Center Registration
                   </label>
@@ -66,35 +66,35 @@ export default function page() {
                 </div>
               </form>
             </div>
-            <div className="col-lg-6 py-2 py-md-4 py-sm-2 right_div d-flex justify-content-center align-items-center">
+            <div className="col-lg-6 px-lg-4 py-lg-3 px-sm-2 py-sm-2 right_div d-flex justify-content-center align-items-center">
               {/* <h1 className="welcom_heading">Contact Us</h1> */}
-              <div className="row justify-content-center align-items-center px-lg-5 px-md-2 px-sm-0">
-                <div className="col-lg-6 col-md-6 col-sm-6 mb-3 sm_two p-lg-2 p-md-2 p-1">
+              <div className="row justify-content-center align-items-center">
+                <div className="col-lg-6 col-md-6 col-sm-6 sm_two p-lg-2 p-md-2 p-2">
                   <Link href="tel:+923098574093" style={{ textDecoration: "none", color: "inherit" }}>
-                    <div className="card py-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
+                    <div className="card p-lg-3 p-2 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                       <FaPhoneVolume style={{ fontSize: "26px" }} />
                       <h5 className="mt-1">Phone Number</h5>
                       <p className="ps-1">+923098574093</p>
                     </div>
                   </Link>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6 mb-3 sm_two p-lg-2 p-md-2 p-1">
+                <div className="col-lg-6 col-md-6 col-sm-6 sm_two p-lg-2 p-md-2 p-2">
                   <Link href="mailto:help@ayasirg.com" style={{ textDecoration: "none", color: "inherit" }}>
-                    <div className="card py-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
+                    <div className="card p-lg-3 p-2 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                       <FaEnvelope style={{ fontSize: "26px" }} />
                       <h5 className="mt-1">Email</h5>
                       <p className="ps-1">help@ayasirg.com</p>
                     </div>
                   </Link>
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6 mb-3 sm_two p-lg-2 p-md-2 p-1">
+                <div className="col-lg-6 col-md-6 col-sm-6 sm_two p-lg-2 p-md-2 p-2">
                   <a
                     href="https://www.google.com/maps?q=Aya-Sir-G!+(pvt)+Limited,+15C,+Commercial,+NFC#1,+Lahore,+Pakistan"
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ textDecoration: "none", color: "inherit" }}
                   >
-                    <div className="card py-3 py-lg-4 d-flex justify-content-center align-items-center">
+                    <div className="card p-lg-3 p-2 d-flex justify-content-center align-items-center">
                       <FaMap style={{ fontSize: "26px" }} />
                       <h5 className="mt-1">Location</h5>
                       <p className="ps-1 text-center">
@@ -104,8 +104,8 @@ export default function page() {
                   </a>
 
                 </div>
-                <div className="col-lg-6 col-md-6 col-sm-6 mb-3 sm_two p-lg-2 p-md-2 p-1">
-                  <div className="card py-4 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
+                <div className="col-lg-6 col-md-6 col-sm-6 sm_two p-lg-2 p-md-2 p-2">
+                  <div className="card p-lg-3 p-2  d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                     <FaClock style={{ fontSize: "26px" }} />
                     <h5 className="mt-1">Working Hours</h5>
                     <div className="ps-1">

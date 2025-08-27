@@ -459,17 +459,11 @@ export default function page() {
                       </h4>
                     </div>
 
-                    {/* <div className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>
-                        Interested Location: {Array.isArray(company?.interested_locations)
-                          ? company.interested_locations.map((loc) => loc.name).join(", ")
-                          : ""}
-                      </h4>
-                    </div> */}
 
-                    {/* <h4>
-                      Current Address: <span>{company?.user_city || ""}</span>
-                    </h4> */}
+                    <div className="d-flex align-items-start gap-2 me-lg-2 "><h4>
+                      Current Address: {company?.address || ""}
+                    </h4>
+                    </div>
 
                     {
                       userInfo?.api_token ? <div className="" style={{ maxWidth: "600px" }}>

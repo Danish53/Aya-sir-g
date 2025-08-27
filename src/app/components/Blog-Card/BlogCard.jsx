@@ -59,7 +59,7 @@ export default function BlogCard({ content }) {
           className="mb-3"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(
-              truncateHTMLWithNewLines(content?.description, 20)
+              truncateHTMLWithNewLines(content?.description, 28)
             ),
           }}
         />

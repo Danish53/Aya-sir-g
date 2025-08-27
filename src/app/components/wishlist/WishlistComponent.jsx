@@ -33,7 +33,7 @@ export default function WishlistComponent({ data }) {
               : ""}</p>
           </div>
           <div className="single_div">
-            <p className="field">Current Location: {data?.city_name}</p>
+            <p className="field">Current Location: {data?.area_name}, {data?.city_name}</p>
           </div>
           <div className="rating_div">
             <p className="field">Ratings</p>

@@ -74,17 +74,17 @@ export default function Filter_bar({ dataSearch }) {
   };
 
   useEffect(() => {
-  setFilters({
-    role,
-    gender: "",
-    age_range: "",
-    city: "",
-    category_id: "",
-    area_code: "",
-    verified_status: "",
-    rating: ""
-  });
-}, [role]);
+    setFilters({
+      role,
+      gender: "",
+      age_range: "",
+      city: "",
+      category_id: "",
+      area_code: "",
+      verified_status: "",
+      rating: ""
+    });
+  }, [role]);
 
   useEffect(() => {
     const role = searchParams.get("role") || "handyman";
@@ -98,6 +98,23 @@ export default function Filter_bar({ dataSearch }) {
 
     getFilteredUsers({ role, gender, age_range, city, category_id, area_code, verified_status, rating });
   }, [searchParams]);
+
+  useEffect(() => {
+    const category_id = searchParams.get("category_id");
+    const city = searchParams.get("city");
+    const area_code = searchParams.get("area_code");
+
+    if (category_id || city || area_code) {
+      setFilters((prev) => ({
+        ...prev,
+        category_id: category_id || prev.category_id,
+        city: city || prev.city,
+        area_code: area_code || prev.area_code,
+      }));
+    }
+  }, [searchParams]);
+
+
 
 
   return (

@@ -129,12 +129,11 @@ export default function MyFormPage() {
             "address",
             "gender",
             "city_id",
-            "area_code",
             "cnic",
             "age",
             "fields_of_interest",
             // "description",
-            ...(currentRole === "handyman" ? ["interested_locations"] : []),
+            ...(currentRole === "handyman" ? ["interested_locations", "area_id"] : []),
             // "billing_address_scan",
             "cnic_scan",
             "picture",
@@ -330,7 +329,7 @@ export default function MyFormPage() {
         // Append static fields
         form.append("role", userType);
         form.append("city_id", selectedCityId);
-        form.append("area_code", selectedAreaId);
+        form.append("area_id", selectedAreaId);
 
         // Append dynamic fields with checks for files, blobs, arrays
         for (const key in formData) {
@@ -492,7 +491,8 @@ export default function MyFormPage() {
 
 
     return (
-        <div className="container myform_page">
+        <section className="Form_section">
+            <div className="container myform_page">
             <h2>Add New {userType == "handyman" ? "Individual" : userType == "provider" ? "Company" : ""}</h2>
             <form onSubmit={handleSubmit}>
                 <div
@@ -657,6 +657,27 @@ export default function MyFormPage() {
                         {formErrors.city_id && <small style={{ color: "red" }}>{formErrors.city_id}</small>}
                     </div>
 
+
+                    {userType !== "provider" && (
+                        <div className="col-lg-6">
+                            <label htmlFor="area">Area</label>
+                            <Select
+                                id="area"
+                                options={optionsLocation}
+                                value={options.find(opt => opt.value === parseInt(selectedAreaId))}
+                                onChange={(selectedOption) => {
+                                    const areaId = selectedOption ? selectedOption.value : "";
+                                    setSelectedAreaId(areaId);
+                                    setFormData(prev => ({ ...prev, area_id: areaId }));
+                                }}
+                                placeholder="Select Area"
+                                isClearable
+                                isSearchable
+                            />
+                            {formErrors.area_id && <small style={{ color: "red" }}>{formErrors.area_id}</small>}
+                        </div>
+                    )}
+
                     {userType !== "provider" && (
                         <div className="input_select col-lg-6">
                             <><label htmlFor="">Interested Locations</label>
@@ -665,23 +686,6 @@ export default function MyFormPage() {
                         </div>
                     )}
 
-                    <div className="col-lg-6">
-                        <label htmlFor="area">Area Code</label>
-                        <Select
-                            id="area"
-                            options={optionsLocation}
-                            value={options.find(opt => opt.value === parseInt(selectedAreaId))}
-                            onChange={(selectedOption) => {
-                                const areaId = selectedOption ? selectedOption.value : "";
-                                setSelectedAreaId(areaId);
-                                setFormData(prev => ({ ...prev, area_code: areaId }));
-                            }}
-                            placeholder="Select Area"
-                            isClearable
-                            isSearchable
-                        />
-                        {formErrors.area_code && <small style={{ color: "red" }}>{formErrors.area_code}</small>}
-                    </div>
 
                     {userType !== "provider" && (
                         <div className="col-lg-6">
@@ -865,7 +869,6 @@ export default function MyFormPage() {
             </div> */}
 
         </div>
-
-
+        </section>
     );
 }
