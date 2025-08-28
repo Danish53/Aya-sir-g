@@ -13,6 +13,13 @@
   background-color: white;
 }
 
+.compnies-details hr{
+  /* opacity: 0.10 !important; */
+  margin: 3px 0 10px 0px !important;
+  color: lightgray;
+  width: inherit;
+}
+
 .compnies-details .advertiment {
   font-size: 40px;
   font-weight: bold;
@@ -75,6 +82,12 @@
 .compnies-details .info h4 {
   font-size: 20px;
   font-weight: bold;
+}
+
+.compnies-details span.data_com {
+  font-size: 19px !important;
+  font-weight: 500 !important;
+  color: #191d23 !important;
 }
 
 .compnies-details .info .sub_head {
@@ -329,7 +342,8 @@ h3.heading {
   .compnies-details .img_div {
     width: 100%;
   }
-  .custom-audio-player{
+
+  .custom-audio-player {
     width: 100% !important;
     max-width: 100% !important;
   }

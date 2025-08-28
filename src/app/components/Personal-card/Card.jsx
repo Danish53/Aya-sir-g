@@ -7,8 +7,10 @@ import { FaCheck } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
 import Link from "next/link";
 import { UserContext } from "@/app/userContext";
+import 'tippy.js/dist/tippy.css';
+import Tippy from "@tippyjs/react";
 
-export default function Card({ data, onLike }) {
+export default function Card({ data, onLike, router }) {
   // console.log(data, "user data");
   // console.log(data, "data user ind.")
   // const [isLiked, setLiked] = useState(false);
@@ -39,12 +41,14 @@ export default function Card({ data, onLike }) {
 
   // location more button
   const [showFullFields, setShowFullFields] = useState(false);
-  const [showFullLocations, setShowFullLocations] = useState(false);
+  // const [showFullLocations, setShowFullLocations] = useState(false);
 
   const fieldsText =
     Array.isArray(data?.fields_of_interest) && data.fields_of_interest.length > 0
       ? data.fields_of_interest.map(item => item.name).join(", ")
       : "N/A";
+
+  const toggleShow2 = () => setShowFullFields(!showFullFields);
 
   // const locationsText =
   //   Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
@@ -73,7 +77,7 @@ export default function Card({ data, onLike }) {
           height: showFullFields || showFull ? "auto" : "",
           overflow: "hidden",
           transition: "0.3s ease"
-        }}>
+        }} onClick={() => router.push(`/profile-details/${data?.id}`)}>
           <div className="d-flex justify-content-center flex-column align-items-center w-100">
             <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
             <p className="title">{data?.username || "No Name"}</p>
@@ -84,12 +88,20 @@ export default function Card({ data, onLike }) {
               </p>
               {userInfo ? (
                 isLiked ? (
-                  <FaHeart className="icon" onClick={onLikeClick} />
+                  <FaHeart className="icon" onClick={(e) => {
+                    e.stopPropagation();
+                    onLikeClick();
+                  }} />
                 ) : (
-                  <FaRegHeart className="icon" onClick={onLikeClick} />
+                  <FaRegHeart className="icon" onClick={(e) => {
+                    e.stopPropagation();
+                    onLikeClick();
+                  }} />
                 )
               ) : (
-                <Link href="/login">
+                <Link href="/login" onClick={(e) => {
+                  e.stopPropagation();
+                }}>
                   <FaRegHeart className="icon" />
                 </Link>
               )}
@@ -99,24 +111,29 @@ export default function Card({ data, onLike }) {
             <div className="details_div mt-3">
               <p>
                 <strong>Field: </strong>
-                {showFullFields || fieldsText.length <= charLimit
+                <span className="data_pro">{showFullFields || fieldsText.length <= charLimit
                   ? fieldsText
                   : fieldsText.slice(0, charLimit) + "..."}
-                {fieldsText.length > charLimit && (
-                  <button
-                    onClick={() => setShowFullFields(prev => !prev)}
-                    style={{
-                      background: "none",
-                      border: "none",
-                      color: "#B50000",
-                      cursor: "pointer",
-                      marginLeft: "5px",
-                      fontSize: "16px"
-                    }}
-                  >
-                    {showFullFields ? "Less" : "More"}
-                  </button>
-                )}
+                  {fieldsText.length > charLimit && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleShow2();
+                      }}
+                      // onClick={() => setShowFullFields(prev => !prev)}
+                      style={{
+                        background: "none",
+                        border: "none",
+                        color: "#B50000",
+                        cursor: "pointer",
+                        marginLeft: "5px",
+                        fontSize: "16px"
+                      }}
+                      type="button"
+                    >
+                      {showFullFields ? "Less" : "More"}
+                    </button>
+                  )}</span>
               </p>
 
               {/* <p>
@@ -143,24 +160,25 @@ export default function Card({ data, onLike }) {
                 <div>
                   <p>
                     <strong>Interested Location:</strong>{" "}
-                    {showFull ? location : `${location.slice(0, limit)}${location.length > limit ? "..." : ""}`}
-
-
-                    {location.length > limit && (
-                      <button
-                        onClick={toggleShow}
-                        style={{
-                          background: "none",
-                          border: "none",
-                          color: "#B50000",
-                          cursor: "pointer",
-                          marginLeft: "5px",
-                          fontSize: "16px"
-                        }}
-                      >
-                        {showFull ? "Less" : "More"}
-                      </button>
-                    )}
+                    <span className="data_pro">{showFull ? location : `${location.slice(0, limit)}${location.length > limit ? "..." : ""}`}
+                      {location.length > limit && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            toggleShow();
+                          }}
+                          style={{
+                            background: "none",
+                            border: "none",
+                            color: "#B50000",
+                            cursor: "pointer",
+                            marginLeft: "5px",
+                            fontSize: "16px"
+                          }}
+                        >
+                          {showFull ? "Less" : "More"}
+                        </button>
+                      )}</span>
                   </p>
                 </div>
               )}
@@ -173,11 +191,15 @@ export default function Card({ data, onLike }) {
               {/* <p id="respons">{data?.responses || 0} Responses</p> */}
             </div>
           </div>
-          <div className="verified_div mt-2 mb-2">
+          <div className="verified_div mt-2 mb-2" onClick={(e) => {
+            e.stopPropagation();
+          }}>
             {data?.verification === "Non Verified" ? (
-              <button className="verified_btn">
-                {data?.verification}
-              </button>
+              <Tippy content="Your profile is showing as Non-Verified until the verification process is completed. Once verified, users will see your account as trusted and authentic.">
+                <button className="verified_btn">
+                  {data?.verification}
+                </button>
+              </Tippy>
             ) : (
               <button className="verified_btn bg-success">
                 {data?.verification}

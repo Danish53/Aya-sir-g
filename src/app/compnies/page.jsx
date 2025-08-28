@@ -47,7 +47,7 @@ function SearchParamsWrapper() {
 export default function Page() {
   return (
     <section className="individuals margin_navbar">
-      <div className="container content pt-5 pb-5">
+      <div className="container content py-3">
         <Suspense
           fallback={
             <div className="d-flex flex-wrap gap-3">

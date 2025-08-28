@@ -70,11 +70,11 @@ export default function page() {
               {/* <h1 className="welcom_heading">Contact Us</h1> */}
               <div className="row justify-content-center align-items-center">
                 <div className="col-lg-6 col-md-6 col-sm-6 sm_two p-lg-2 p-md-2 p-2">
-                  <Link href="tel:+923098574093" style={{ textDecoration: "none", color: "inherit" }}>
+                  <Link href="tel:03098574093" style={{ textDecoration: "none", color: "inherit" }}>
                     <div className="card p-lg-3 p-2 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                       <FaPhoneVolume style={{ fontSize: "26px" }} />
                       <h5 className="mt-1">Phone Number</h5>
-                      <p className="ps-1">+923098574093</p>
+                      <p className="ps-1">03098574093</p>
                     </div>
                   </Link>
                 </div>

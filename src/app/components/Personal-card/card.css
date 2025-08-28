@@ -13,8 +13,8 @@
   border: 1px solid var(--red-color);
   box-shadow: 4px 4px 07px rgba(0, 0, 0, 0.5);
   /* height: 490px; */
+  cursor: pointer;
 }
-
 
 .personal_card .card_div img {
   width: 189px;
@@ -26,6 +26,12 @@
   font-size: 23px;
   font-weight: bold;
   color: var(--red-color);
+}
+
+.personal_card .card_div .data_pro {
+  font-size: 19px;
+  font-weight: 500;
+  color: #191d23 !important;
 }
 
 .personal_card .card_div p.person_info {
@@ -75,7 +81,7 @@
 .personal_card .star {
   height: 17px;
   width: 17px;
-  color: #ff9c12;
+  color: #F89C32;
 }
 
 .personal_card .verified_div {
@@ -145,6 +151,7 @@
   .personal_card .card_div {
     max-width: 100%;
   }
+
   .personal_card .card_div {
     height: 440px;
   }

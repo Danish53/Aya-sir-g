@@ -12,6 +12,7 @@
   padding: 12px 10px;
   height: 138px;
   margin-bottom: 14px;
+  cursor: pointer;
 }
 .company_card .two_div {
   padding-left: 12px;

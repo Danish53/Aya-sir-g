@@ -43,7 +43,7 @@ export default function Page() {
   return (
     <section className="blogs margin_navbar">
       <div className="container">
-        <div className="card_div py-5">
+        <div className="card_div py-3">
           {loading
             ? Array.from({ length: itemsPerPage }).map((_, i) => (
               <div key={i} className="skeleton-card">

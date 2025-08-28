@@ -104,7 +104,7 @@ export default function Page() {
 
   return (
     <section className="user_profile margin_navbar">
-      <div className="container py-5">
+      <div className="container py-3">
         <div className="row profile_flex">
           <div className="col-lg-9">
             <div className="profile_img_div py-5">

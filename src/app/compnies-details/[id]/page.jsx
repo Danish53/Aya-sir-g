@@ -17,6 +17,8 @@ import axios from "axios";
 import Link from "next/link";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css';
+import 'tippy.js/dist/tippy.css';
+
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -32,6 +34,7 @@ import {
 import { FaPlay, FaPause } from "react-icons/fa";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Tippy from "@tippyjs/react";
 
 export default function page() {
 
@@ -189,7 +192,7 @@ export default function page() {
   if (!company) {
     return (
       <section className="profile_section margin_navbar">
-        <div className="container py-5">
+        <div className="container py-3">
           <div className="row">
             <div className="col-lg-3 ad_bar py-2 hide_bar">
               <div className="skeleton skeleton-text" style={{ height: "200px" }} />
@@ -218,7 +221,7 @@ export default function page() {
 
   return (
     <section className="compnies-details margin_navbar">
-      <div className="container py-5">
+      <div className="container py-3">
         <div className="row">
           <div className="col-lg-3 ad_bar p-0 hide_bar">
             {/* <p className="advertiment">
@@ -238,9 +241,14 @@ export default function page() {
                   <div className="heart_button mb-3">
                     {/* <FaRegHeart className="icon" /> */}
                     {company?.verification === "Non Verified" ? (
-                      <button className="verified_btn">
-                        {company?.verification}
-                      </button>
+                      // <button className="verified_btn">
+                      //   {company?.verification}
+                      // </button>
+                      <Tippy content="Your profile is showing as Non-Verified until the verification process is completed. Once verified, users will see your account as trusted and authentic.">
+                        <button className="verified_btn">
+                          {company?.verification}
+                        </button>
+                      </Tippy>
                     ) : (
                       <button className="verified_btn bg-success">
                         {company?.verification}
@@ -453,17 +461,24 @@ export default function page() {
                   <div className="info">
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Field: {Array.isArray(company?.fields_of_interest)
+                        Field: <span className="data_com">{Array.isArray(company?.fields_of_interest)
                           ? company.fields_of_interest.map((item) => item.name).join(", ")
-                          : "N/A"}
+                          : "N/A"}</span>
                       </h4>
                     </div>
-
+                    <hr />
 
                     <div className="d-flex align-items-start gap-2 me-lg-2 "><h4>
-                      Current Address: {company?.address || ""}
+                      Current Address: <span className="data_com">{company?.address || ""}</span>
                     </h4>
                     </div>
+                    <hr />
+
+                    <div className="d-flex align-items-start gap-2 me-lg-2 "><h4>
+                      Description: <span className="data_com">{company?.description || ""}</span>
+                    </h4>
+                    </div>
+                    <hr />
 
                     {
                       userInfo?.api_token ? <div className="" style={{ maxWidth: "600px" }}>

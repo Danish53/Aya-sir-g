@@ -7,8 +7,10 @@ import { FaCheck } from "react-icons/fa6";
 import { IoCall } from "react-icons/io5";
 import Link from "next/link";
 import { UserContext } from "@/app/userContext";
+import 'tippy.js/dist/tippy.css';
+import Tippy from "@tippyjs/react";
 
-export default function CompanyCard({ data, onLike }) {
+export default function CompanyCard({ data, onLike, router }) {
   // console.log(data, "data user ind.")
   const { userInfo } = useContext(UserContext);
 
@@ -45,7 +47,7 @@ export default function CompanyCard({ data, onLike }) {
   return (
     <section className="company_card">
       <div className="container">
-        <div className="parent_div">
+        <div className="parent_div" onClick={() => router.push(`/compnies-details/${data?.id}`)}>
           <div className="d-lg-flex gap-3">
             <div className="first_div">
               <div className="img_div">
@@ -69,7 +71,9 @@ export default function CompanyCard({ data, onLike }) {
           </div>
           <div className="third_div">
             <div className="verified_div ">
-              <div className="heart_button">
+              <div className="heart_button" onClick={(e) => {
+                e.stopPropagation();
+              }}>
                 {/* <FaRegHeart className="icon" /> */}
                 {userInfo ? (
                   isLiked ? (
@@ -84,9 +88,14 @@ export default function CompanyCard({ data, onLike }) {
                 )}
 
                 {data?.verification === "Non Verified" ? (
-                  <button className="verified_btn">
-                    {data?.verification}
-                  </button>
+                  // <button className="verified_btn">
+                  //   {data?.verification}
+                  // </button>
+                  <Tippy content="Your profile is showing as Non-Verified until the verification process is completed. Once verified, users will see your account as trusted and authentic.">
+                    <button className="verified_btn">
+                      {data?.verification}
+                    </button>
+                  </Tippy>
                 ) : (
                   <button className="verified_btn bg-success">
                     {data?.verification}
@@ -96,7 +105,9 @@ export default function CompanyCard({ data, onLike }) {
                 }
               </div>
 
-              <div className="heart_button">
+              <div className="heart_button" onClick={(e) => {
+                e.stopPropagation();
+              }}>
                 <a href={`tel:${data?.contact_number}`}>
                   <IoCall className="phone_icon" />
                 </a>

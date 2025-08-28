@@ -34,6 +34,8 @@ import {
   TelegramIcon,
 } from "react-share";
 import { toast } from "react-toastify";
+import Tippy from "@tippyjs/react";
+import 'tippy.js/dist/tippy.css';
 
 
 export default function page() {
@@ -179,7 +181,7 @@ export default function page() {
   if (!user) {
     return (
       <section className="profile_section margin_navbar">
-        <div className="container py-5">
+        <div className="container py-3">
           <div className="row">
             <div className="col-lg-3 ad_bar py-2 hide_bar">
               <div className="skeleton skeleton-text" style={{ height: "200px" }} />
@@ -235,7 +237,7 @@ export default function page() {
 
   return (
     <section className="profile_section margin_navbar">
-      <div className="container py-5">
+      <div className="container py-3">
         <div className="row align-items-stretch">
           <div className="col-md-3 ad_bar p-0 hide_bar">
             <Advartisement />
@@ -248,9 +250,14 @@ export default function page() {
                   <div className="col-md-7 col-sm-12 info order-2 order-md-1">
                     <div className="heart_button">
                       {user?.verification === "Non Verified" ? (
-                        <button className="verified_btn">
-                          {user?.verification}
-                        </button>
+                        // <button className="verified_btn">
+                        //   {user?.verification}
+                        // </button>
+                        <Tippy content="Your profile is showing as Non-Verified until the verification process is completed. Once verified, users will see your account as trusted and authentic.">
+                          <button className="verified_btn">
+                            {user?.verification}
+                          </button>
+                        </Tippy>
                       ) : (
                         <button className="verified_btn bg-success">
                           {user?.verification}
@@ -464,6 +471,7 @@ export default function page() {
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>Experience: <span className="sub_head">{user?.experience || ""}</span> </h4>
                     </div>
+                    <hr />
                     <h4>
                       CNIC:{" "}
                       <span className="cnic">
@@ -488,9 +496,11 @@ export default function page() {
 
                       </span>
                     </h4>
+                    <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>Disability: <span className="sub_head">{user?.disability_status === "non" ? "None" : ""}</span></h4>
                     </div>
+                    <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
                         Field:{" "}
@@ -499,6 +509,7 @@ export default function page() {
                           : "N/A"}</span>
                       </h4>
                     </div>
+                    <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
                         Interested Location:{" "}
@@ -509,6 +520,7 @@ export default function page() {
                         </span>
                       </h4>
                     </div>
+                    <hr />
 
                     {/* <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
@@ -526,6 +538,7 @@ export default function page() {
                         </span>
                       </h4>
                     </div>
+                    {/* <hr /> */}
                   </div>
                   <div className="col-md-5 col-sm-12 text-right order-1 order-md-2 mb-md-0 mb-2">
                     <div className="img_div">

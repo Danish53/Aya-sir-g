@@ -116,15 +116,14 @@ export default function Page() {
                     </p>
                     <li>Email Us: help@ayasirg.com</li>
                     <li>For E-center Registration: E_center@ayasirg.com</li>
-                    <li>Call Us Directly: +923098574093</li>
-                    <li>
+                    <li>Call Us Directly: 0309-8574093</li>
+                    {/* <li>
                       Send a Message or Voice Note: (Mention if you have a
                       specific platform for this, e.g., WhatsApp, or if it's via
                       a website contact form)
-                    </li>
+                    </li> */}
                     <p>
-                      Our team in 15-C NFC Ph#1, Lahore, is committed to
-                      reaching out to you at the earliest convenience.
+                      Our team at 15-C NFC Phase 1, Lahore, will reach out to you at the earliest convenience
                     </p>
                   </Accordion.Body>
                 </Accordion.Item>

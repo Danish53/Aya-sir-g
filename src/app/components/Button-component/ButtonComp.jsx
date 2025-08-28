@@ -189,13 +189,13 @@ export default function ButtonComp({ searchParamdata }) {
             {individual ? (
               <div className="card_wrapper_div row align-items-stretch">
                 {currentUsers.map((user) => (
-                  <Card key={user.id} data={user} onLike={toggleLike} />
+                  <Card key={user.id} data={user} onLike={toggleLike} router={router} />
                 ))}
               </div>
             ) : (
               <div>
                 {currentUsers.map((user) => (
-                  <CompanyCard key={user.id} data={user} onLike={toggleLike} />
+                  <CompanyCard key={user.id} data={user} onLike={toggleLike} router={router}  />
                 ))}
               </div>
             )}

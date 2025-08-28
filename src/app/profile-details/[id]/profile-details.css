@@ -3,6 +3,13 @@
   background-color: #e5e4e4;
 }
 
+.profile_section hr{
+  /* opacity: 0.10 !important; */
+  margin: 3px 0 10px 0px !important;
+  color: lightgray;
+  width: inherit;
+}
+
 .red_bar {
   width: 100%;
   height: 71px;

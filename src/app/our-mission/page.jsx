@@ -18,7 +18,7 @@ export default function page() {
           Having deep roots in Pakistan, we recognize the untapped potential of
           our youth and workforce, who are talented and hardworking but often
           lack access to the right platforms for growth. We noticed a gap in the
-          market where users, household, families and commercial industry
+          market where users, households, families, and commercial industries
           struggle to find reliable maids, drivers, guards, and helpers for
           their domestic and commercial needs. Meanwhile, many blue-collar
           workers face challenges such as limited education and the inability to

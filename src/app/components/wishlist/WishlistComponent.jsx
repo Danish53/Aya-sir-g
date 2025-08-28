@@ -3,6 +3,8 @@ import "./wishlistcard.css";
 import Link from "next/link";
 import { FaCheck } from "react-icons/fa";
 import { RiStarFill, RiStarHalfFill, RiStarLine } from "react-icons/ri";
+import Tippy from "@tippyjs/react";
+import 'tippy.js/dist/tippy.css';
 
 export default function WishlistComponent({ data }) {
   // rating
@@ -48,9 +50,14 @@ export default function WishlistComponent({ data }) {
         </Link> */}
       <div className="verified_div mt-4 mb-2">
         {data?.verification === "Non Verified" ? (
-          <button className="verified_btn">
-            {data?.verification}
-          </button>
+          // <button className="verified_btn">
+          //   {data?.verification}
+          // </button>
+          <Tippy content="Your profile is showing as Non-Verified until the verification process is completed. Once verified, users will see your account as trusted and authentic.">
+            <button className="verified_btn">
+              {data?.verification}
+            </button>
+          </Tippy>
         ) : (
           <button className="verified_btn bg-success">
             {data?.verification}
