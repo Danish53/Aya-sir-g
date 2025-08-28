@@ -5,6 +5,7 @@ import Link from "next/link";
 import DOMPurify from "dompurify";
 
 export default function BlogCard({ content }) {
+  // console.log(content, "content blogs")
 
   const getWords = (str = "") => {
     const words = str?.split(" ") || [];
@@ -38,7 +39,7 @@ export default function BlogCard({ content }) {
 
   return (
     <section className="blog_card">
-      <Link href={`/blogdetails/${content?.id}`}>
+      <Link href={`/blog-detail/${content?.slug}`}>
         <div className="img_div">
           <img src={content?.attchments || "/assets/blog_img.jpg"} alt="blog  image" />
         </div>
@@ -53,7 +54,7 @@ export default function BlogCard({ content }) {
               ),
             }}>
           </p>
-          <Link href={`/blogdetails/${content?.id}`}>Continue reading</Link>
+          <Link href={`/blog-detail/${content?.slug}`}>Continue reading</Link>
         </div>
       </Link>
     </section>

@@ -32,3 +32,46 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+
+/* category filters */
+.category-slider {
+  position: relative;
+  width: 100%;
+}
+
+.category-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE & Edge */
+  white-space: nowrap;
+}
+
+.category-container::-webkit-scrollbar {
+  display: none;
+}
+
+.category-btn {
+  flex: 0 0 auto;
+  min-width: fit-content;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.arrow-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  color: #333;
+}
+
+.btn_outline_primary{
+  background-color: #6B6B6B;
+  color: white;
+}

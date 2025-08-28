@@ -16,13 +16,21 @@ import { toast } from "react-toastify";
 
 export default function Page() {
   const params = useParams();
-  const { id } = params;
+  const { slug } = params;
+  console.log(slug, "slug");
   const base_url = process.env.NEXT_PUBLIC_BASE_URL;
   const [blogData, setBlogData] = useState(null);
   // console.log(blogData, "blog detail")
   const [loading, setLoading] = useState(true);
   const [showShare, setShowShare] = useState(false);
-  const currentUrl = window.location.href;
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(currentUrl);
@@ -32,15 +40,12 @@ export default function Page() {
 
   const fetchBlogDetails = async () => {
     try {
-      const res = await fetch(`${base_url}/api/blog-detail`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ blog_id: id }),
-      });
+      const res = await fetch(`${base_url}/api/blog-detail/${slug}`);
 
       if (!res.ok) throw new Error(`Error: ${res.status}`);
 
       const data = await res.json();
+      console.log(data, "blog detail data")
       setBlogData(data.blog_detail);
     } catch (err) {
       console.error("Failed to fetch:", err);
@@ -52,7 +57,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchBlogDetails();
-  }, [id]);
+  }, [slug]);
 
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
