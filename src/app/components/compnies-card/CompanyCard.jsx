@@ -48,7 +48,7 @@ export default function CompanyCard({ data, onLike, router }) {
     <section className="company_card">
       <div className="container">
         <div className="parent_div" onClick={() => router.push(`/compnies-details/${data?.id}`)}>
-          <div className="d-lg-flex gap-3">
+          <div className="d-flex flex-lg-row flex-column align-items-center gap-3 w-100">
             <div className="first_div">
               <div className="img_div">
                 <img src={data?.profile_image ? data?.profile_image : "/assets/hazar.png"} alt="" />
@@ -91,7 +91,7 @@ export default function CompanyCard({ data, onLike, router }) {
                   // <button className="verified_btn">
                   //   {data?.verification}
                   // </button>
-                  <Tippy content="Your profile is showing as Non-Verified until the verification process is completed. Once verified, users will see your account as trusted and authentic.">
+                  <Tippy content="This profile has not been verified by Aya Sir G!. The details may not be authenticated.">
                     <button className="verified_btn">
                       {data?.verification}
                     </button>

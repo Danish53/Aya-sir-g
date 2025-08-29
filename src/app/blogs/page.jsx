@@ -21,6 +21,21 @@ export default function Page() {
   const [perPage, setPerPage] = useState(8);
 
   // ---- Scroll buttons ----
+  const [showLeft, setShowLeft] = useState(false);
+  const [showRight, setShowRight] = useState(false);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+      // 👈 Left arrow show jab scrollLeft > 0
+      setShowLeft(scrollLeft > 0);
+
+      // 👈 Right arrow show jab abhi aur scroll baaki ho
+      setShowRight(scrollLeft + clientWidth < scrollWidth);
+    }
+  };
+
   const scroll = (direction) => {
     if (scrollRef.current) {
       scrollRef.current.scrollBy({
@@ -29,6 +44,21 @@ export default function Page() {
       });
     }
   };
+
+  useEffect(() => {
+    checkScroll(); // first check
+    window.addEventListener("resize", checkScroll);
+
+    const el = scrollRef.current;
+    if (el) {
+      el.addEventListener("scroll", checkScroll);
+    }
+
+    return () => {
+      window.removeEventListener("resize", checkScroll);
+      if (el) el.removeEventListener("scroll", checkScroll);
+    };
+  }, []);
 
   // ---- Fetch Blogs ----
   const fetchBlogs = async () => {
@@ -91,7 +121,6 @@ export default function Page() {
 
   useEffect(() => {
     fetchBlogs();
-    // page/category change per scroll top
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [page, activeCategory]);
 
@@ -144,10 +173,13 @@ export default function Page() {
       <div className="container py-3">
         {/* Category Slider */}
         <div className="category-slider d-flex align-items-center justify-content-center mt-2 mb-3">
-          <button className="arrow-btn" onClick={() => scroll("left")}>
-            <FaChevronLeft />
-          </button>
-          <div className="category-container" ref={scrollRef}>
+          {showLeft && (
+            <button className="arrow-btn" onClick={() => scroll("left")}>
+              <FaChevronLeft />
+            </button>
+          )}
+
+          <div className="category-container d-flex overflow-auto" ref={scrollRef}>
             {categories.map((cat, index) => (
               <button
                 key={index}
@@ -164,11 +196,13 @@ export default function Page() {
               </button>
             ))}
           </div>
-          <button className="arrow-btn" onClick={() => scroll("right")}>
-            <FaChevronRight />
-          </button>
-        </div>
 
+          {showRight && (
+            <button className="arrow-btn" onClick={() => scroll("right")}>
+              <FaChevronRight />
+            </button>
+          )}
+        </div>
         {/* Blog Cards */}
         <div className="card_div py-3">
           {loading

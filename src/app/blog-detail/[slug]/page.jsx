@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./blogdetails.css";
 import { FaCalendarAlt, FaShare } from "react-icons/fa";
 import { LuBookOpenText } from "react-icons/lu";
@@ -13,18 +13,24 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { IoCopyOutline, IoShareSocial } from "react-icons/io5";
 import { FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 import { toast } from "react-toastify";
+import { UserContext } from "@/app/userContext";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+    const { userInfo, addBlogComment, commentBlog } = useContext(UserContext)
+    const router = useRouter();
     const params = useParams();
     const { slug } = params;
-    console.log(slug, "slug");
     const base_url = process.env.NEXT_PUBLIC_BASE_URL;
     const [blogData, setBlogData] = useState(null);
     const [relatedData, setRelatedData] = useState();
+    const [commentsData, setCommentsData] = useState();
     // console.log(blogData, "blog detail")
     const [loading, setLoading] = useState(true);
     const [showShare, setShowShare] = useState(false);
     const [currentUrl, setCurrentUrl] = useState("");
+    const [comment, setComment] = useState("");
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -49,6 +55,7 @@ export default function Page() {
             // console.log(data, "blog detail data")
             setBlogData(data.blog_detail);
             setRelatedData(data.related_blogs);
+            setCommentsData(data.comments);
         } catch (err) {
             console.error("Failed to fetch:", err);
             setBlogData(null);
@@ -95,13 +102,45 @@ export default function Page() {
         );
     }
 
+    // comments blogs
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!comment.trim()) {
+            toast.error("Please write a comment before submitting.");
+            return;
+        }
+
+        setLoading(true);
+
+        const payload = {
+            blog_id: blogData.id,
+            comment: comment,
+            user_id: userInfo?.id
+        };;
+
+        const response = await addBlogComment(payload);
+
+        if (response?.success) {
+            toast.success(response?.message || "Comment added!");
+            setComment("");
+            // setReloadUserData(prev => !prev);
+            fetchBlogDetails();
+        } else {
+            toast.error(response?.message || "Something went wrong.");
+        }
+
+        setLoading(false);
+    };
+
+
     return (
-        <section className="container margin_navbar">
+        <section className="container margin_navbar blog_details">
             <div className="row py-3">
                 <div className="col-md-12 img_div">
                     <img src={blogData?.attchments[0]} alt={blogData?.title} />
                 </div>
-                <div className="col-md-12">
+                <div className="col-md-12 d-lg-flex d-md-flex justify-content-between align-items-center mt-2">
                     <div className="flex_div_parent">
                         <div className="flex_div">
                             <img src={blogData?.author_image} className="rounded_circle" alt="" />
@@ -109,23 +148,23 @@ export default function Page() {
                         </div>
                         <div className="flex_div">
                             <div className="rounded_circle">
-                                <FaCalendarAlt style={{ color: "white", fontSize: "22px" }} />
+                                <FaCalendarAlt style={{ color: "white", fontSize: "18px" }} />
                             </div>
                             <h4>{formatDate(blogData?.created_at)}</h4>
                         </div>
                         <div className="read_div flex_div">
                             <div className="rounded_circle">
-                                <LuBookOpenText style={{ color: "white", fontSize: "22px" }} />
+                                <LuBookOpenText style={{ color: "white", fontSize: "18px" }} />
                             </div>
                             <h4>{blogData?.total_views} Views</h4>
                         </div>
-                        <div className="read_div flex_div cursor-pointer" style={{ cursor: "pointer" }}>
-                            <div className="rounded_circle"
-                                onClick={() => setShowShare(true)}>
+                        <div className="read_div flex_div cursor-pointer"
+                            onClick={() => setShowShare(true)} style={{ cursor: "pointer" }}>
+                            <div className="rounded_circle">
                                 {/* <FaShare style={{ color: "white", fontSize: "22px" }} /> */}
                                 <IoShareSocial
                                     className="share icon"
-                                    style={{ cursor: "pointer", fontSize: "22px", color: "white" }}
+                                    style={{ cursor: "pointer", fontSize: "18px", color: "white" }}
                                 />
 
                                 {showShare && (
@@ -223,9 +262,12 @@ export default function Page() {
                             <h4>Share Blog</h4>
                         </div>
                     </div>
+                    <div className="flex_div_parent">
+                        <span class="badge" style={{ backgroundColor: "#F89C32", padding: "7px 8px", borderRadius: "12px" }}>carpenter</span>
+                    </div>
                 </div>
             </div>
-            <div className=" pb-3">
+            <div className="pb-3">
                 <div className="content">
                     <div className="heading_div">
                         <h2 className="heading">{blogData.title}</h2>
@@ -235,9 +277,47 @@ export default function Page() {
                     }}></p>
                 </div>
             </div>
-
-            <div className="w-full my-5">
-
+            <div className="comments_blog mt-2">
+                <div>
+                    <h3>Leave a Comment:</h3>
+                    <textarea
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Write Your Comment:"
+                    ></textarea>
+                    {userInfo?.api_token ? (
+                        <button type="button" onClick={handleSubmit} className="btn btn_primary">Submit</button>
+                    ) : (
+                        <button type="button" className="btn btn_primary" onClick={() => router.push("/login")}>Login to add comment</button>
+                    )}
+                </div>
+                <hr />
+                {
+                    userInfo?.api_token ? (
+                        commentsData.length > 0 ? (
+                            commentsData.map((item, index) => (
+                                <div key={index} className="comments_list d-flex align-items-center gap-2 mt-3">
+                                    <div>
+                                        <img
+                                            width={40}
+                                            height={40}
+                                            src={item?.user_image || "https://admin.ayasirg.com/storage/256/why_do_you_need.png"}
+                                            alt={"alter"}
+                                        />
+                                    </div>
+                                    <div>
+                                        <p>{item.comment}</p>
+                                        <p>{item.user_name}</p>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            ""
+                        )
+                    ) : ("")
+                }
+            </div>
+            <div className="w-full my-4">
                 <h2 className="mb-3 heading ms-2">Related Blogs</h2>
                 <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
@@ -261,7 +341,6 @@ export default function Page() {
                     ))}
                 </Swiper>
             </div>
-
         </section>
     );
 }

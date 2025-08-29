@@ -121,7 +121,7 @@
     flex-direction: column;
     height: auto;
     align-items: baseline;
-    padding: 20px 30px;
+    padding: 20px 20px;
   }
   .company_card .two_div {
     padding-left: 0;
@@ -138,10 +138,14 @@
 @media screen and (max-width: 576px) {
   .company_card .heading_div {
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   gap: 10px;
   margin-top: 10px;
+}
+  .company_card .content_div {
+  text-align: center;
 }
   .company_card .heart_button {
     gap: 10px;

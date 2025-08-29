@@ -244,7 +244,7 @@ export default function page() {
                       // <button className="verified_btn">
                       //   {company?.verification}
                       // </button>
-                      <Tippy content="Your profile is showing as Non-Verified until the verification process is completed. Once verified, users will see your account as trusted and authentic.">
+                      <Tippy content="This profile has not been verified by Aya Sir G!. The details may not be authenticated.">
                         <button className="verified_btn">
                           {company?.verification}
                         </button>
@@ -298,7 +298,7 @@ export default function page() {
                                 type="text"
                                 value={currentUrl}
                                 readOnly
-                                style={{ flex: 1, padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc" }}
+                                style={{ padding: 8, borderRadius: 6, color: "#3c3c3c", border: "1px solid #ccc", width: "100%" }}
                               />
                               <button
                                 onClick={handleCopy}

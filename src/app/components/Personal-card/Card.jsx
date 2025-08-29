@@ -195,7 +195,7 @@ export default function Card({ data, onLike, router }) {
             e.stopPropagation();
           }}>
             {data?.verification === "Non Verified" ? (
-              <Tippy content="Your profile is showing as Non-Verified until the verification process is completed. Once verified, users will see your account as trusted and authentic.">
+              <Tippy content="This profile has not been verified by Aya Sir G!. The details may not be authenticated.">
                 <button className="verified_btn">
                   {data?.verification}
                 </button>

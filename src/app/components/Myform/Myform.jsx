@@ -260,8 +260,6 @@ export default function Myform({ openedFrom, setSelectedType }) {
   };
 
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -272,6 +270,8 @@ export default function Myform({ openedFrom, setSelectedType }) {
 
     const form = new FormData();
 
+    // console.log(formData.profile_image, "image profileee"
+
     // Append basic non-array fields
     for (const key in formData) {
       if (
@@ -280,9 +280,29 @@ export default function Myform({ openedFrom, setSelectedType }) {
         formData[key] !== undefined &&
         formData[key] !== null
       ) {
-        form.append(key, formData[key]);
+        // File fields ke liye check
+        if (
+          ["profile_image", "cnic_scan", "billing_address_scan", "audio_sample"].includes(key) &&
+          formData[key] instanceof Blob
+        ) {
+          form.append(key, formData[key]); // ✅ File/Blob object
+        } else {
+          form.append(key, formData[key]); // ✅ normal fields
+        }
       }
     }
+
+    async function urlToFile(url, filename) {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return new File([blob], filename, { type: blob.type });
+    }
+
+    // usage
+    urlToFile(userDetails.profile_image, "profile.jpg").then((file) => {
+      formData.append("profile_image", file);
+    });
+
 
     if (!form.has("role") && openedFrom) {
       form.append("role", String(openedFrom));
@@ -299,13 +319,14 @@ export default function Myform({ openedFrom, setSelectedType }) {
     });
 
     const res = await updateUserProfile(form);
-    // console.log(res, "update profile ho?")
+    // console.log(res, "update profile?")
 
     if (res.success) {
       handleClose();
       toast.success("Profile updated successfully!");
     } else {
-      toast.error(res.message || "Update failed.");
+      toast.error(res?.message || "Update failed.");
+
     }
   };
 
@@ -411,7 +432,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
                 <img src={imagePerview} alt="Profile" className="w-32 h-32 rounded-full object-cover" style={{ border: '2px solid #B50000', borderRadius: "50%" }} />
                 <FaEdit className="edit_icon" />
               </div>
-              <input type="file" name="profile_image" accept="image/*"
+              <input type="file" name="profile_image"
                 capture="user" onChange={handleFileChange} ref={fileInputRef} style={{ display: "none" }} />
               {formErrors.profile_image && <small style={{ color: "red" }}>{formErrors.profile_image}</small>}
               <div className="row">
@@ -489,13 +510,13 @@ export default function Myform({ openedFrom, setSelectedType }) {
                 </div>
                 <div className="col-md-6">
                   <label htmlFor="cnic_scan">CNIC Scan Copy</label>
-                  <input className="input_auth pad" type="file" name="cnic_scan" accept="image/*"
+                  <input className="input_auth pad" type="file" name="cnic_scan"
                     onChange={handleImageChange} />
                   {formErrors.cnic_scan && <small style={{ color: "red" }}>{formErrors.cnic_scan}</small>}
                 </div>
                 <div className="col-md-6">
                   <label htmlFor="billing_address_scan">Billing Address Scan</label>
-                  <input className="input_auth pad" type="file" name="billing_address_scan" accept="image/*"
+                  <input className="input_auth pad" type="file" name="billing_address_scan"
                     onChange={handleImageChange} />
                   {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>}
                 </div>

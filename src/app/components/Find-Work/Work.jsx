@@ -10,7 +10,7 @@ export default function Work() {
         </p>
         <div className="row mb-3">
           <div className="col-lg-7">
-            <div className="left_div d-flex gap-3 " data-aos="fade-right">
+            <div className="right_div" data-aos="fade-right">
               <div className="col_1 mt-4">
                 <h3 className="heading">Find Trusted Professionals</h3>
                 <p>
@@ -27,7 +27,7 @@ export default function Work() {
                 </p>
               </div>
             </div>
-            <div className="right_div d-flex gap-3" data-aos="fade-up">
+            <div className="right_div" data-aos="fade-up">
               <div className="col_1 mt-4">
                 <h3 className="heading">Reliable & Efficient Services</h3>
                 <p>

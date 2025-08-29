@@ -4,15 +4,12 @@
 }
 
 .blog_details .container {
-  background-color: white;
   z-index: 9999 !important;
-  background: white;
 }
 
 .blog_details .content {
   /* border: 1px solid black; */
   /* margin-top: -100px; */
-  background-color: white !important;
   z-index: 999;
 }
 
@@ -21,12 +18,17 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
 h2.heading {
   font-family: var(--font-poppins), sans-serif;
   font-weight: 700;
+}
+
+.blog_details p {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .img_div img {
@@ -39,34 +41,70 @@ h2.heading {
 .flex_div {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 6px;
+  /* margin-bottom: 20px; */
 }
 
 .flex_div .rounded_circle {
   background: black;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .heading_div .img_name img {
-  height: 45px;
-  width: 45px;
+  height: 35px;
+  width: 35px;
   border-radius: 50%;
 }
 
 .flex_div h4 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   margin-bottom: 0px !important;
 }
 
 p.description {
   font-size: 16px;
+  font-weight: 500;
+}
+
+.blog_details .comments_blog{
+  background-color: #e9e9e9;
+  padding: 20px;
+}
+
+.blog_details .comments_blog textarea{
+  background-color: white;
+  padding: 8px 20px;
+  width: 100%;
+  border: 1px solid lightgray;
+}
+
+.blog_details .comments_blog textarea:focus{
+  outline: none;
+  border: 1px solid gray;
+}
+
+.blog_details .comments_blog .btn_primary{
+  color: white;
+  border-radius: 3px;
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.blog_details .comments_blog p{
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.blog_details .comments_list img{
+  border-radius: 50%;
 }
 
 @media (max-width: 600px) {

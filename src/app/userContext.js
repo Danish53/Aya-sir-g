@@ -124,7 +124,7 @@ export const UserProvider = ({ children }) => {
       });
 
       const result = await res.json();
-      // console.log(result, "profile update")
+      console.log(result, "profile update")
       if (res.ok) {
         await fetchUserProfile(userInfo?.id);
         setUserDetails(result.data);
@@ -134,10 +134,16 @@ export const UserProvider = ({ children }) => {
         };
         // Step 3: Update Context + LocalStorage
         setUserInfo(updatedUserInfo);
+        // console.log(result, "result data pro con")
         localStorage.setItem("token", JSON.stringify(updatedUserInfo));
-        return { success: true };
+        return { success: true, data: result.data, message: result.message };
       } else {
-        return { success: false, message: result.message || "Update failed." };
+        let errorMsg = result.message || "Update failed.";
+        if (result.errors) {
+          const allErrors = Object.values(result.errors).flat().join(" ");
+          errorMsg = `${allErrors}`;
+        }
+        return { success: false, message: errorMsg };
       }
     } catch (error) {
       // console.error("Update failed:", error);
@@ -426,6 +432,40 @@ export const UserProvider = ({ children }) => {
   };
 
 
+  // blogs comment
+  const [commentBlog, setCommentBlog] = useState();
+  const addBlogComment = async (payload) => {
+    setLoader(true);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/comments/store`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+      console.log(result, "blogs comment")
+      if (res.ok) {
+        setCommentBlog(result);
+        return { success: true };
+      } else {
+        let errorMsg = result.message || "Update failed.";
+        if (result.errors) {
+          const allErrors = Object.values(result.errors).flat().join(" ");
+          errorMsg = `${allErrors}`;
+        }
+        return { success: false, message: errorMsg };
+      }
+    } catch (error) {
+      return { success: false, message: "Something went wrong." };
+    } finally {
+      setLoader(false);
+    }
+  };
+
+
   return (
     <UserContext.Provider
       value={{
@@ -462,6 +502,8 @@ export const UserProvider = ({ children }) => {
         setLoading,
         resendLoading,
         handleResend,
+        addBlogComment,
+        commentBlog
       }}
     >
       {children}
