@@ -47,7 +47,14 @@ export default function page() {
   const { userInfo, addReviews } = useContext(UserContext)
   // console.log(userInfo, "userInfo,,,,,,")
   const [showShare, setShowShare] = useState(false);
-  const currentUrl = window.location.href;
+  // const currentUrl = window.location.href;
+  const [currentUrl, setCurrentUrl] = useState("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setCurrentUrl(window.location.href);
+    }
+  }, []);
   const [reloadUserData, setReloadUserData] = useState(false);
   const [loading, setloading] = useState(false);
 
