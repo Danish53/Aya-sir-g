@@ -426,9 +426,9 @@ export default function MyFormPage() {
         if (selectedCityId) getLocations(selectedCityId);
     }, [selectedCityId]);
 
-    useEffect(() => {
-        if (selectedAreaId) getLocations(selectedAreaId);
-    }, [selectedAreaId]);
+    // useEffect(() => {
+    //     if (selectedAreaId) getLocations(selectedAreaId);
+    // }, [selectedAreaId]);
 
     const options = apiCategory2.map((cat) => ({
         label: cat.name,

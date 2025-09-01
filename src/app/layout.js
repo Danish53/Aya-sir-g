@@ -27,6 +27,21 @@ const poppins = Poppins({
 export const metadata = {
   title: "Aya Sir G!",
   description: "Aya Sir G!",
+  openGraph: {
+    title: "Aya Sir G!",
+    description: "Aya Sir G!",
+    url: "https://ayasirg.com",
+    siteName: "Aya Sir G!",
+    images: [
+      {
+        url: "https://ayasirg.com/logo_header.png",
+        width: 1200,
+        height: 630,
+        alt: "Aya Sir G Logo",
+      },
+    ],
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }) {

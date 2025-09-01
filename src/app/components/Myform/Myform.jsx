@@ -285,9 +285,9 @@ export default function Myform({ openedFrom, setSelectedType }) {
           ["profile_image", "cnic_scan", "billing_address_scan", "audio_sample"].includes(key) &&
           formData[key] instanceof Blob
         ) {
-          form.append(key, formData[key]); // ✅ File/Blob object
+          form.append(key, formData[key]);
         } else {
-          form.append(key, formData[key]); // ✅ normal fields
+          form.append(key, formData[key]);
         }
       }
     }
@@ -363,8 +363,8 @@ export default function Myform({ openedFrom, setSelectedType }) {
 
   // fileds of intrest
   const options = apiCategory2.map((cat) => ({
-    label: cat.name,   // dikhne wala naam
-    value: cat.id      // backend ko bhejne wala id
+    label: cat.name, 
+    value: cat.id
   }));
 
   const [selected, setSelected] = useState([]);
@@ -384,19 +384,17 @@ export default function Myform({ openedFrom, setSelectedType }) {
 
   // intrested locations
   const optionsLocation = locations.map((loc) => ({
-    label: loc.name,   // dikhne wala naam
-    value: loc.id      // backend ko bhejne wala id
+    label: loc.name, 
+    value: loc.id
   }));
 
   const [selectedLocation, setSelectedLocation] = useState([]);
   // console.log(intrestedLocationIds, "ids location")
 
-  // Update formData when selected changes
   const handleChangefieldsLocation = (selectedOptions) => {
     setSelectedLocation(selectedOptions);
     // console.log(selectedOptions, "opppppp select")
 
-    // Only get the IDs (value)
     const selectedlocationIds = selectedOptions.map((opt) => opt.value);
     setIntrestedLocationIds(selectedlocationIds);
 
