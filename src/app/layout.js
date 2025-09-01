@@ -52,10 +52,10 @@ export default function RootLayout({ children }) {
         <link rel="apple-touch-icon" href="/logo_header.png" />
 
         <meta property="og:title" content="Aya Sir G!" />
-        <meta property="og:description" content="Aya Sir G!" />
-        <meta property="og:image" content="https://ayasirg.com/" />
-        <meta property="og:url" content="https://ayasirg.com/logo_header.png" />
-        <meta property="og:type" content="profile" />
+        <meta property="og:description" content="Aya Sir G! The official site." />
+        <meta property="og:image" content="https://ayasirg.com/logo_header.png" />
+        <meta property="og:url" content="https://ayasirg.com/" />
+        <meta property="og:type" content="website" />
       </head>
       <body className={poppins.variable}>
         <UserProvider>
