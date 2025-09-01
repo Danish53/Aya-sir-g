@@ -26,10 +26,14 @@ const poppins = Poppins({
 
 export const metadata = {
   title: "Aya Sir G!",
-  description: "Aya Sir G!",
+  description: "Aya Sir G! The official site.",
+  icons: {
+    icon: "/logo_header.png",
+    apple: "/logo_header.png",
+  },
   openGraph: {
     title: "Aya Sir G!",
-    description: "Aya Sir G!",
+    description: "Aya Sir G! The official site.",
     url: "https://ayasirg.com",
     siteName: "Aya Sir G!",
     images: [
@@ -42,12 +46,18 @@ export const metadata = {
     ],
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aya Sir G!",
+    description: "Aya Sir G! The official site.",
+    images: ["https://ayasirg.com/logo_header.png"],
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
+      {/* <head>
         <link rel="icon" type="image/png" href="/logo_header.png" />
         <link rel="apple-touch-icon" href="/logo_header.png" />
 
@@ -56,7 +66,7 @@ export default function RootLayout({ children }) {
         <meta property="og:image" content="https://ayasirg.com/logo_header.png" />
         <meta property="og:url" content="https://ayasirg.com/" />
         <meta property="og:type" content="website" />
-      </head>
+      </head> */}
       <body className={poppins.variable}>
         <UserProvider>
           <AosWrapper>
