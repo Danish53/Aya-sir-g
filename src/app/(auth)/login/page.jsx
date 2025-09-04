@@ -22,7 +22,7 @@ export default function page() {
   };
 
   const [formData, setformData] = useState({
-    email: "",
+    phone: "",
     password: "",
   });
 
@@ -87,18 +87,18 @@ export default function page() {
             <h1 className="login_heading ">Login</h1>
             <form onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="email" className="label_auth">
-                  Email Address
+                <label htmlFor="phone" className="label_auth">
+                  Phone Number
                 </label>
                 <br />
                 <input
-                  type="text"
+                  type="number"
                   className="input_auth"
-                  placeholder="Email"
-                  id="email"
-                  name="email"
+                  placeholder="03098574093"
+                  id="phone"
+                  name="phone"
                   onChange={handleChange}
-                  value={formData.email}
+                  value={formData.phone}
                 />
                 <br />
               </div>
