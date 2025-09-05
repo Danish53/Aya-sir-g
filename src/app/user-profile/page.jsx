@@ -9,11 +9,12 @@ import Button from "react-bootstrap/Button";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { toast, ToastContainer } from "react-toastify";
+import axios from "axios";
 
 export default function Page() {
 
-  const { userDetails, updateUserProfile } = useContext(UserContext);
-  // console.log(userDetails?.profile_image, "oooooo");
+  const { userInfo, userDetails, updateUserProfile } = useContext(UserContext);
+  // console.log(userInfo, "oooooo");
   const [imagePerview, setImagePreview] = useState(userDetails?.profile_image);
   // console.log(imagePerview, "imagePerview");
   // console.log(userDetails, ",,..,");
@@ -101,12 +102,46 @@ export default function Page() {
     setLoader(false);
   };
 
+  // profiles all
+  const [accounts, setAccounts] = useState();
+  const accountsAssociate = async () => {
+    try {
+      let token = "";
+      if (typeof window !== "undefined") {
+        const storedUser = localStorage.getItem("token");
+        if (storedUser) {
+          try {
+            const parsedUser = JSON.parse(storedUser);
+            token = parsedUser.api_token || "";
+          } catch (e) {
+            console.error("Error parsing token from localStorage", e);
+          }
+        }
+      }
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/associate-accounts`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      // console.log(data, "profilessss")
+      setAccounts(data.data.accounts);
+    } catch (error) {
+      console.log("Error while fetching accounts");
+    }
+  };
+
+  useEffect(() => {
+    accountsAssociate();
+  }, []);
 
   return (
     <section className="user_profile margin_navbar">
       <div className="container py-3">
         <div className="row profile_flex">
-          <div className="col-lg-9">
+          <div className="col-lg-9 text-center">
             <div className="profile_img_div py-5">
               {userDetails ? (
                 <>
@@ -153,6 +188,55 @@ export default function Page() {
               {userDetails ? <p>{userDetails?.address}</p> : <Skeleton width={180} />}
             </div>
           </div>
+        </div>
+        <div className="row my-3">
+          {
+            accounts?.length !== 0 && (
+              <h3 className="mb-3 text-center">Associated Accounts</h3>
+            )
+          }
+          {
+            accounts?.map((data) => {
+              return (
+                <div className="col-lg-3 col-md-6 col-sm-12 mb-3">
+                  <div className="profile_card h-100">
+                    <div className="card_div py-3 px-4 h-100" style={{
+                      height: "auto",
+                      overflow: "hidden",
+                      transition: "0.3s ease"
+                    }}>
+                      <div className="d-flex justify-content-center flex-column align-items-center w-100">
+                        <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
+                        <p className="person_info">{data?.username || "No Name"}</p>
+
+                        <div className="heart_div position-relative">
+                          <p className="person_info">
+                            {data?.gender === "male" ? "Male" : data?.gender === "female" ? "Female" : ""}, {data?.age || "Age"} years old
+                          </p>
+                          <p className="person_info text-center mt-1">
+                            {data?.contact_number}
+                          </p>
+
+                        </div>
+
+                        {/* <div className="details_div mt-3">
+                        {data?.address && (
+                          <div>
+                            <p>
+                              <strong>Interested Location:</strong>{" "}
+                              <span className="data_pro">
+                              </span>
+                            </p>
+                          </div>
+                        )}
+                      </div> */}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            })
+          }
         </div>
       </div>
 

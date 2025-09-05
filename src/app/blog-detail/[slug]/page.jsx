@@ -263,7 +263,13 @@ export default function Page() {
                         </div>
                     </div>
                     <div className="flex_div_parent">
-                        <span class="badge" style={{ backgroundColor: "#F89C32", padding: "7px 8px", borderRadius: "12px" }}>carpenter</span>
+                        {
+                            blogData?.tags.map((data) => {
+                                return (
+                                    <span class="badge" style={{ backgroundColor: "#F89C32", padding: "7px 8px", borderRadius: "12px" }}>#{data?.tag}</span>
+                                )
+                            })
+                        }
                     </div>
                 </div>
             </div>
