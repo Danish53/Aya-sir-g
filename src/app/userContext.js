@@ -58,6 +58,7 @@ export const UserProvider = ({ children }) => {
 
   const base = process.env.NEXT_PUBLIC_BASE_URL || "https://admin.ayasirg.com";
   const profileUrl = `${base}/api/update-profile`;
+  // const userUpdateUrl = `${base}/api/update-user`;
 
   // const base =
   //   process.env.NEXT_PUBLIC_BASE_URL ||
@@ -136,6 +137,40 @@ export const UserProvider = ({ children }) => {
         setUserInfo(updatedUserInfo);
         // console.log(result, "result data pro con")
         localStorage.setItem("token", JSON.stringify(updatedUserInfo));
+        return { success: true, data: result.data, message: result.message };
+      } else {
+        let errorMsg = result.message || "Update failed.";
+        if (result.errors) {
+          const allErrors = Object.values(result.errors).flat().join(" ");
+          errorMsg = `${allErrors}`;
+        }
+        return { success: false, message: errorMsg };
+      }
+    } catch (error) {
+      // console.error("Update failed:", error);
+      return { success: false, message: "Something went wrong." };
+    } finally {
+      setLoader(false);
+    }
+  };
+
+    // 🔹 Update Info user
+  const updateAssociatedUserProfile = async (formData) => {
+    setLoader(true);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/update-user`, {
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          // "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.api_token}`,
+        },
+        body: formData,
+      });
+
+      const result = await res.json();
+      console.log(result, "user update")
+      if (res.ok) {
         return { success: true, data: result.data, message: result.message };
       } else {
         let errorMsg = result.message || "Update failed.";
@@ -503,7 +538,8 @@ export const UserProvider = ({ children }) => {
         resendLoading,
         handleResend,
         addBlogComment,
-        commentBlog
+        commentBlog,
+        updateAssociatedUserProfile
       }}
     >
       {children}

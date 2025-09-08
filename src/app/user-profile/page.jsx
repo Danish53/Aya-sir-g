@@ -1,8 +1,8 @@
 "use client";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./user-profile.css";
-import { FaEdit, FaMicrophone } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaEdit, FaFileAudio, FaMicrophone, FaPause } from "react-icons/fa";
+import { MdDelete, MdPause, MdPlayArrow } from "react-icons/md";
 import { UserContext } from "../userContext";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -10,12 +10,12 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import Link from "next/link";
 
 export default function Page() {
 
-  const { userInfo, userDetails, updateUserProfile } = useContext(UserContext);
+  const { userInfo, userDetails, updateUserProfile, updateAssociatedUserProfile } = useContext(UserContext);
   // console.log(userInfo, "oooooo");
-  const [imagePerview, setImagePreview] = useState(userDetails?.profile_image);
   // console.log(imagePerview, "imagePerview");
   // console.log(userDetails, ",,..,");
   // const [isRecording, setIsRecording] = useState(false);
@@ -24,32 +24,83 @@ export default function Page() {
   // const audioChunksRef = useRef([]);
   const [formData, setFormData] = useState({
     profile_image: "", first_name: "", last_name: "", username: "", contact_number: "",
-    email: "", address: "", user_city: ""
+    email: "", address: "", user_city: "", audio_sample_blob: ""
   });
 
   const [loader, setLoader] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null); 
+  console.log(selectedUser?.id, "selected user")
 
   const fileInputRef = useRef(null);
   const [show, setShow] = useState(false);
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioURL, setAudioURL] = useState();
+  const [isRecording, setIsRecording] = useState();
 
-  useEffect(() => {
-    if (userDetails) {
-      setFormData({
-        first_name: userDetails.first_name || "",
-        last_name: userDetails.last_name || "",
-        username: userDetails.username || "",
-        contact_number: userDetails.contact_number || "",
-        email: userDetails.email || "",
-        address: userDetails.address || "",
-        user_city: userDetails.user_city || "",
-      });
-    }
-  }, [userDetails]);
+  // useEffect(() => {
+  //   if (userDetails) {
+  //     setFormData({
+  //       first_name: userDetails.first_name || "",
+  //       last_name: userDetails.last_name || "",
+  //       username: userDetails.username || "",
+  //       contact_number: userDetails.contact_number || "",
+  //       email: userDetails.email || "",
+  //       address: userDetails.address || "",
+  //       user_city: userDetails.user_city || "",
+  //     });
+
+  //     if (userDetails.audio_sample) {
+  //       setAudioURL(`${userDetails.audio_sample}`);
+  //     }
+
+  //   }
+  // }, [userDetails]);
 
   const handleImageClick = () => fileInputRef.current.click();
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const handleShow = () => setShow(true);
+  // const handleShow = async (id) => {
+  //   try {
+  //     setShow(true);
+  //     await fetchUserProfile(id);
+  //   } catch (error) {
+  //     console.error("Error fetching user profile:", error);
+  //   }
+  // };
 
+const handleShow = (data = null) => {
+  if (data) {
+    setSelectedUser(data); // niche wala user select
+    setFormData({
+      first_name: data.first_name || "",
+      last_name: data.last_name || "",
+      username: data.username || "",
+      contact_number: data.contact_number || "",
+      email: data.email || "",
+      address: data.address || "",
+      user_city: data.user_city || "",
+      audio_sample_blob: "",
+    });
+    setAudioURL(data.audio_sample || "");
+    setImagePreview(data.profile_image || "");
+  } else if (userDetails) {
+    setSelectedUser(null); // upar wala edit
+    setFormData({
+      first_name: userDetails.first_name || "",
+      last_name: userDetails.last_name || "",
+      username: userDetails.username || "",
+      contact_number: userDetails.contact_number || "",
+      email: userDetails.email || "",
+      address: userDetails.address || "",
+      user_city: userDetails.user_city || "",
+      audio_sample_blob: "",
+    });
+    setAudioURL(userDetails.audio_sample || "");
+    setImagePreview(userDetails.profile_image || "");
+  }
+  setShow(true);
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,42 +116,146 @@ export default function Page() {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const [imagePerview, setImagePreview] = useState(formData?.profile_image);
+
+  // audio
+  const modalRef = useRef(null);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
+  const [timer, setTimer] = useState(0);
+  const timerRef = useRef(null);
+  const handleStartRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+      let chunks = [];
+
+      recorder.ondataavailable = (e) => {
+        chunks.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: "audio/mp3" });
+        const url = URL.createObjectURL(blob);
+        setAudioURL(url);
+        setFormData((prev) => ({
+          ...prev,
+          audio_sample_blob: blob,
+        }));
+      };
 
 
-    setLoader(true);
+      recorder.start();
+      setMediaRecorder(recorder);
+      setIsRecording(true);
+      setTimer(0);
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("first_name", formData.first_name);
-    formDataToSend.append("last_name", formData.last_name);
-    formDataToSend.append("username", formData.username);
-    formDataToSend.append("email", formData.email);
-    formDataToSend.append("contact_number", formData.contact_number);
-    formDataToSend.append("address", formData.address);
-    formDataToSend.append("user_city", formData.user_city);
-    formDataToSend.append("role", userDetails?.user_type);
-
-    if (fileInputRef.current?.files?.[0]) {
-      formDataToSend.append("profile_image", fileInputRef.current.files[0]);
+      timerRef.current = setInterval(() => {
+        setTimer((prev) => prev + 1);
+      }, 1000);
+    } catch (err) {
+      console.error("Microphone access denied", err);
     }
-
-
-    // // Profile image (if selected)
-    // if (fileInputRef.current?.files?.[0]) {
-    //   formDataToSend.append("profile_image", fileInputRef.current.files[0]);
-    // }
-
-    const result = await updateUserProfile(formDataToSend);
-    if (result.success) {
-      toast.success("Profile updated successfully!");
-      handleClose();
-    } else {
-      toast.error(result.message || "Update failed.");
-    }
-
-    setLoader(false);
   };
+
+  const handleStopRecording = () => {
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+      setIsRecording(false);
+      clearInterval(timerRef.current);
+    }
+  };
+
+  const handleDeleteAudio = () => {
+    setAudioURL("");
+    setIsRecording(false);
+    clearInterval(timerRef.current);
+    setTimer(0);
+  };
+
+  const handleAudioUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setAudioURL(url);
+      setIsRecording(false);
+      setIsPlaying(false);
+
+      // Yeh file hi blob hota hai
+      setFormData((prev) => ({
+        ...prev,
+        audio_sample_blob: file, // ✅ file as blob
+      }));
+    }
+  };
+
+  const formatTime = (sec) => {
+    const minutes = Math.floor(sec / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = (sec % 60).toString().padStart(2, "0");
+    return `${minutes}:${seconds}`;
+  };
+
+  const blobToBase64 = (blob) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob); // yeh base64 string bana dega
+    });
+  };
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoader(true);
+
+  const formDataToSend = new FormData();
+  selectedUser ? formDataToSend.append("id", selectedUser?.id) : "",
+  formDataToSend.append("first_name", formData.first_name);
+  formDataToSend.append("last_name", formData.last_name);
+  formDataToSend.append("username", formData.username);
+  formDataToSend.append("email", formData.email);
+  formDataToSend.append("contact_number", formData.contact_number);
+  formDataToSend.append("address", formData.address);
+  formDataToSend.append("user_city", formData.user_city);
+
+  if (!selectedUser) {
+    // agar main user hai
+    formDataToSend.append("role", userDetails?.user_type);
+  }
+
+  // audio sample blob ko base64 me convert kar ke bhejna
+  if (formData.audio_sample_blob) {
+    const base64Audio = await blobToBase64(formData.audio_sample_blob);
+    formDataToSend.append("audio_sample_blob", base64Audio);
+  }
+
+  // profile image
+  if (fileInputRef.current?.files?.[0]) {
+    formDataToSend.append("profile_image", fileInputRef.current.files[0]);
+  }
+
+  let result;
+  if (selectedUser) {
+    // console.log(selectedUser?.id, "id user ")
+    result = await updateAssociatedUserProfile(formDataToSend);
+    accountsAssociate();
+  } else {
+    // main user update
+    result = await updateUserProfile(formDataToSend);
+  }
+
+  if (result.success) {
+    toast.success("Profile updated successfully!");
+    handleClose();
+  } else {
+    toast.error(result.message || "Update failed.");
+  }
+
+  setLoader(false);
+};
+
 
   // profiles all
   const [accounts, setAccounts] = useState();
@@ -143,23 +298,23 @@ export default function Page() {
         <div className="row profile_flex">
           <div className="col-lg-9 text-center">
             <div className="profile_img_div py-5">
-              {userDetails ? (
+              {userInfo ? (
                 <>
                   <img
-                    src={userDetails?.profile_image || "/assets/profile.png"}
+                    src={userInfo?.profile_image || "/assets/profile.png"}
                     alt="user"
                   />
                   <div className="name_div d-flex">
-                    <h3>{userDetails?.username}</h3>
+                    <h3>{userInfo?.username}</h3>
                     {
-                      userDetails?.user_type == "e-center" ? (
+                      userInfo?.user_type == "e-center" ? (
                         ""
                       ) : (
-                        <FaEdit className="edit_icon" onClick={handleShow} />
+                        <FaEdit className="edit_icon" onClick={() => handleShow()} />
                       )
                     }
                   </div>
-                  <p id="city">{userDetails?.user_city}</p>
+                  <p id="city">{userInfo?.user_city}</p>
                 </>
               ) : (
                 <>
@@ -175,17 +330,17 @@ export default function Page() {
 
             <div className="flex_div mb-3 d-flex align-items-center">
               <h3>Email Address:</h3>
-              {userDetails ? <p>{userDetails?.email}</p> : <Skeleton width={200} />}
+              {userInfo ? <p>{userInfo?.email}</p> : <Skeleton width={200} />}
             </div>
 
             <div className="flex_div mb-3 d-flex align-items-center">
               <h3>Phone Number: </h3>
-              {userDetails ? <p>{userDetails?.contact_number}</p> : <Skeleton width={150} />}
+              {userInfo ? <p>{userInfo?.contact_number}</p> : <Skeleton width={150} />}
             </div>
 
             <div className="flex_div mb-3 d-flex align-items-center">
               <h3>Current Address: </h3>
-              {userDetails ? <p>{userDetails?.address}</p> : <Skeleton width={180} />}
+              {userInfo ? <p>{userInfo?.address}</p> : <Skeleton width={180} />}
             </div>
           </div>
         </div>
@@ -230,6 +385,12 @@ export default function Page() {
                           </div>
                         )}
                       </div> */}
+                        <div className="d-flex justify-content-between w-100 mt-2" >
+                          <button className="verified_btn" onClick={() => handleShow(data)}>
+                            Update Profile
+                          </button>
+                          <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -376,11 +537,92 @@ export default function Page() {
               </div>
             </div>
 
+
+            {/* Audio Sample */}
+            <div className="w-100">
+              <div className="audio-recorder-container w-100 ">
+
+                {/* Recorder Section */}
+                {!audioURL && (
+                  <div className="recorder-box">
+                    <div
+                      className={`mic-button ${isRecording ? "recording" : ""}`}
+                      onClick={isRecording ? handleStopRecording : handleStartRecording}
+                    >
+                      {!isRecording ? <FaMicrophone /> : <FaPause />}
+                    </div>
+                    {!isRecording && (
+                      <div>
+                        <p style={{ fontWeight: "600", marginRight: "10px" }}>Record Voice</p>
+                      </div>
+                    )}
+                    {/* Audio File Upload */}
+                    {!audioURL && !isRecording && (
+                      <div className="p-2">
+                        <input
+                          type="file"
+                          accept="audio/*"
+                          id="audioUpload"
+                          onChange={handleAudioUpload}
+                          style={{ display: "none" }}
+                        />
+                        <label htmlFor="audioUpload" className="upload-label">
+                          <FaFileAudio size={22} style={{ color: "gray" }} />
+                          <span className="tooltip-text">Upload audio file</span>
+                        </label>
+                      </div>
+                    )}
+                    {isRecording && (
+                      <div className="bars-animation">
+                        {Array.from({ length: 25 }).map((_, index) => (
+                          <div key={index} style={{ animationDelay: `${index * 0.05}s` }}></div>
+                        ))}
+                      </div>
+                    )}
+                    {isRecording && <div className="timer">{formatTime(timer)}</div>}
+                  </div>
+                )}
+
+                {/* Playback Section */}
+                {audioURL && (
+                  <div className="audio-bubble-container right">
+                    <div
+                      className="play-icon-with-bars"
+                      onClick={() => {
+                        if (audioRef.current.paused) {
+                          audioRef.current.play();
+                          setIsPlaying(true);
+                        } else {
+                          audioRef.current.pause();
+                          setIsPlaying(false);
+                        }
+                      }}
+                    >
+                      {isPlaying ? <div className="play-icon"><MdPause /></div> : <div className="play-icon"><MdPlayArrow /></div>}
+                      <div className={`bars-animation-m ${isPlaying ? "playing" : ""}`}>
+                        {[...Array(16)].map((_, i) => <span key={i}></span>)}
+                      </div>
+                    </div>
+
+                    <MdDelete className="delete-icon" onClick={handleDeleteAudio} />
+                    <audio
+                      ref={audioRef}
+                      src={audioURL}
+                      onEnded={() => setIsPlaying(false)}
+                      className="custom-audio-player"
+                    ></audio>
+                  </div>
+                )}
+              </div>
+            </div>
+
+
+
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose} disabled={loader}>
                 Cancel
               </Button>
-              <Button variant="primary" type="submit" disabled={loader}>
+              <Button className="btn_primary" type="submit" disabled={loader}>
                 {loader ? (
                   <span
                     className="spinner-border spinner-border-sm me-2"

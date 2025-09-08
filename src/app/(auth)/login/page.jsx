@@ -15,6 +15,10 @@ export default function page() {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsError, setTermsError] = useState("");
 
+  if(userInfo?.api_token){
+    router.push("/");
+  }
+
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => {
