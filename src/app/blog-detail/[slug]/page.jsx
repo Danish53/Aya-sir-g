@@ -1,7 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import "./blogdetails.css";
-import { FaCalendarAlt, FaShare } from "react-icons/fa";
+import { FaCalendarAlt, FaFacebookF, FaInstagram, FaLinkedin, FaShare, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
 import { LuBookOpenText } from "react-icons/lu";
 import DOMPurify from "dompurify";
 import { useParams } from "next/navigation";
@@ -291,10 +291,43 @@ export default function Page() {
                         onChange={(e) => setComment(e.target.value)}
                         placeholder="Write Your Comment:"
                     ></textarea>
+                    <div className=" flex-wrap social-div d-flex align-items-center justify-content-center gap-3 mx-auto mt-1">
+
+                        {/* YouTube */}
+                        <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.youtube.com/@AyaSirG'} target="_blank">
+                            <FaYoutube />
+                        </Link>
+
+                        {/* Facebook */}
+                        <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.facebook.com/share/1BNgdCAE9L/'} target="_blank">
+                            <FaFacebookF />
+                        </Link>
+
+                        {/* Instagram */}
+                        <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.instagram.com/ayasirg_official/?igsh=MXJldGk5ODJqODI2NA%3D%3D#'} target="_blank">
+                            <FaInstagram />
+                        </Link>
+
+                        {/* TikTok */}
+                        <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.tiktok.com/@ayasirg?is_from_webapp=1&sender_device=pc'} target="_blank">
+                            <FaTiktok />
+                        </Link>
+
+                        {/* Twitter (X) */}
+                        <Link className="social_inner d-flex align-items-center gap-2" href={'https://x.com/Aya_Sir_G'} target="_blank">
+                            <FaTwitter />
+                        </Link>
+
+                        {/* LinkedIn */}
+                        <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.linkedin.com/company/ayasirg/?viewAsMember=true'} target="_blank">
+                            <FaLinkedin />
+                        </Link>
+
+                    </div>
                     {userInfo?.api_token ? (
-                        <button type="button" onClick={handleSubmit} className="btn btn_primary">Submit</button>
+                        <button type="button" onClick={handleSubmit} className="btn btn_primary mt-2">Submit</button>
                     ) : (
-                        <button type="button" className="btn btn_primary" onClick={() => router.push("/login")}>Login to add comment</button>
+                        <button type="button" className="btn btn_primary mt-2" onClick={() => router.push("/login")}>Login to add comment</button>
                     )}
                 </div>
                 <hr />
