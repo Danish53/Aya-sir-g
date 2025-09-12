@@ -8,6 +8,11 @@
   border-radius: 12px;
 }
 
+/* html[lang="ur"] .button_comp .btn_div{
+  text-align: center !important;
+  direction: rtl;
+} */
+
 .button_comp .individual {
   /* background-color: var(--red-color); */
   color: #424242;
@@ -22,6 +27,13 @@
   text-align: center;
   color: #424242;
   cursor: pointer;
+}
+html[lang="ur"] .button_comp .individual,
+html[lang="ur"] .button_comp .companies {
+  text-align: center;
+  direction: rtl;
+  display: flex;
+  justify-content: center;
 }
 .button_comp .active {
   background-color: var(--red-color) !important;

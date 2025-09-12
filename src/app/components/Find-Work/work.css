@@ -1,10 +1,8 @@
 .work {
   font-family: var(--font-poppins), sans-serif;
+  background-color: #efefef;
+  padding: 20px 0px;
 }
-
-/* .work p.section_heading {
-  color: var(--red-color);
-} */
 
 span.red_title {
   color: var(--red-color);
@@ -13,8 +11,9 @@ span.red_title {
 }
 
 .work .heading {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 23px;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
 .work .img_col img {

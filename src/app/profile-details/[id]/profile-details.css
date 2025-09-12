@@ -3,6 +3,26 @@
   background-color: #e5e4e4;
 }
 
+html[lang="ur"] .direction_ltr {
+  text-align: left;
+  direction: rtl;
+}
+
+html[lang="ur"] .recording .custom-audio-player {
+  /* text-align: left; */
+  padding: 0px !important;
+  padding-right: 15px !important;
+  direction: rtl;
+}
+
+
+/* 
+html[lang="ur"] .direction_ltr .recording .custom-audio-player {
+  padding: 0px !important;
+  padding-right: 15px !important;
+  direction: rtl;
+} */
+
 .profile_section hr{
   /* opacity: 0.10 !important; */
   margin: 3px 0 10px 0px !important;
@@ -27,7 +47,6 @@
   align-items: center;
   margin-top: 11px;
   margin-bottom: 12px;
-
 }
 
 .profile_section .icon {

@@ -8,16 +8,16 @@ export default function OurMission() {
   return (
     <section className="our_mission mb-5">
       <div className="container">
-        <h3 className="section_heading">
-          Our <span className="red_title">Mission</span>
-        </h3>
         <div className="row mt-3">
           <div className="left_div col-lg-5 ">
+            <h3 className="section_heading">
+              Our <span className="red_title">Mission</span>
+            </h3>
             <p id="para">
               Welcome to “Aya Sir G!” <br />
               At “Aya Sir G!” we are committed to creating opportunities for individuals who are eager to work, believe in their abilities, and embrace self-reliance. Inspired by the timeless principle, "Allah helps those who help themselves," we empower people to take initiative and strive for a better future.
             </p>
-            <p  id="para" className="my-2">Having deep roots in Pakistan, we recognize the untapped potential of
+            <p id="para" className="my-2">Having deep roots in Pakistan, we recognize the untapped potential of
               our youth and workforce, who are talented and hardworking but often
               lack access to the right platforms for growth. We noticed a gap in the
               market where users, households, families, and commercial industries
@@ -30,7 +30,7 @@ export default function OurMission() {
               Hire an Employee <FaArrowRight />
             </Button> */}
           </div>
-          <div className="right_div d-flex gap-4 col-lg-7">
+          <div className="right_div d-flex gap-4 col-lg-7 mt-5">
             <div className="normal_div d-flex flex-column gap-4">
               <div
                 className="Card text-center d-flex flex-column justify-content-center "
@@ -59,7 +59,7 @@ export default function OurMission() {
                 <h1 className="fw-bold">
                   200 <span className="pluse_icon">+</span>
                 </h1>
-                <p id="details">Happy Customer</p>
+                <p id="details">Happy Customers</p>
               </div>
               <div
                 className="Card text-center d-flex flex-column justify-content-center "

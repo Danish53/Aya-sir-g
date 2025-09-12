@@ -8,6 +8,26 @@ body {
   font-family: var(--font-poppins), sans-serif;
 }
 
+html[lang="ur"] body {
+   font-family: "Noto Nastaliq Urdu", serif;
+}
+
+html[lang="ur"] h1,
+html[lang="ur"] h2,
+html[lang="ur"] h3,
+html[lang="ur"] h4,
+html[lang="ur"] h5,
+html[lang="ur"] h6,
+html[lang="ur"] li,
+html[lang="ur"] a,
+html[lang="ur"] span,
+html[lang="ur"] p {
+  text-align: right !important;
+  font-family: "Noto Nastaliq Urdu", serif !important;
+  direction: rtl;
+}
+
+
 :root {
   --red-color: #b50000;
   --black-color: #393939;

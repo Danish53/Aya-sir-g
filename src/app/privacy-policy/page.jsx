@@ -7,7 +7,7 @@ export default function page() {
       <div className="container py-3">
         <h3>Aya Sir G! Privacy Policy</h3>
         <p>
-          At <b>"Aya Sir G!"</b> we value your privacy and have compiled all essential
+          At <b>Aya Sir G!</b> we value your privacy and have compiled all essential
           information about how we manage your personal data and your
           corresponding rights. This privacy statement applies to the
           information collected through our website and mobile application.
@@ -23,7 +23,7 @@ export default function page() {
         <ul>
           <li><h4>Scope and Updates</h4> </li>
           <p>
-            This privacy policy governs your use of the <b>"Aya Sir G!"</b> website and
+            This privacy policy governs your use of the <b>Aya Sir G!</b> website and
             all related applications, services and products <span>
               (collectively
             referred to as "Services")</span>, regardless of the platform or device
@@ -32,7 +32,7 @@ export default function page() {
           <li><h4>Data Controller</h4></li>
           <p>
             The collection and processing of your personal data are carried out
-            by <b>"Aya Sir G!"</b> in connection with the provision of services. Our
+            by <b>Aya Sir G!</b> in connection with the provision of services. Our
             official address is:
             <b>
               Aya Sir G! (Pvt) Limited, 15-C,Commercial, NFC#1, Lahore,
@@ -109,7 +109,7 @@ export default function page() {
             Cookies may be stored on your device to enhance navigation and
             prevent the need to re-enter data. These cookies are not intrusive
             and do not access private information. Cookies may also be used for
-            targeted advertisements, although <b>"Aya Sir G!"</b> does not control
+            targeted advertisements, although <b>Aya Sir G!</b> does not control
             third-party cookies.{" "}
           </p>
           <li>
@@ -141,18 +141,18 @@ export default function page() {
           <li>Third-Party Links</li>
           <p>
             Our platform may contain links to external websites or applications.
-            <b>"Aya Sir G!"</b> is not responsible for the privacy practices or content
+            <b>Aya Sir G!</b> is not responsible for the privacy practices or content
             of these third-party platforms. We encourage you to review their
             privacy policies.{" "}
           </p>
           <li>Public Forums</li>
           <p>
-            Any information shared in public forums hosted by <b>"Aya Sir G!"</b>
+            Any information shared in public forums hosted by <b>Aya Sir G!</b>
             becomes public and should be shared with caution.{" "}
           </p>
           <li>Policy Amendments</li>
           <p>
-            <b>"Aya Sir G!"</b> reserves the right to modify this privacy policy to
+            <b>Aya Sir G!</b> reserves the right to modify this privacy policy to
             reflect changes in legal or operational requirements. Updates will
             be posted here, and continued use of our platform indicates your
             acceptance of these changes.

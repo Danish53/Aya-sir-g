@@ -253,7 +253,7 @@ export default function page() {
             <div className="left">
               <div className="red_bar"></div>
               <div className=" p-4">
-                <div className="row">
+                <div className="row direction_ltr" >
                   <div className="col-md-7 col-sm-12 info order-2 order-md-1">
                     <div className="heart_button">
                       {user?.verification === "Non Verified" ? (
@@ -476,11 +476,11 @@ export default function page() {
 
                     </div>
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>Experience: <span className="sub_head">{user?.experience || ""}</span> </h4>
+                      <h4>Experience: <span className="sub_head">{user?.experience || ""} years</span> </h4>
                     </div>
                     <hr />
                     <h4>
-                      CNIC:{" "}
+                      CNIC:
                       <span className="cnic">
                         {
                           user?.cnic
@@ -510,7 +510,7 @@ export default function page() {
                     <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Field:{" "}
+                        Field:
                         <span className="sub_head">{Array.isArray(user?.fields_of_interest)
                           ? user.fields_of_interest.map((item) => item.name).join(", ")
                           : "N/A"}</span>
@@ -519,7 +519,7 @@ export default function page() {
                     <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Interested Location:{" "}
+                        Interested Location:
                         <span className="sub_head">
                           {Array.isArray(user?.interested_locations)
                             ? user.interested_locations.map((loc) => loc.name).join(", ")
@@ -539,7 +539,7 @@ export default function page() {
                     </div> */}
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Current Location:{" "}
+                        Current Location:
                         <span className="sub_head">
                           {user?.area_name}, {user?.city_name}
                         </span>

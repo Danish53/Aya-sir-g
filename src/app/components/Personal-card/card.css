@@ -45,6 +45,11 @@
   text-align: center;
 }
 
+
+html[lang="ur"] .personal_card .card_div .heart_div p {
+  text-align: center !important;
+}
+
 .personal_card .card_div .icon {
   color: var(--red-color);
   width: 27px;

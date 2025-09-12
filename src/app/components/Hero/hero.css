@@ -27,6 +27,11 @@
   margin-top: 185px;
 }
 
+html[lang="ur"] .hero_section h1.hero_heading,
+html[lang="ur"] .hero_section p {
+  text-align: center !important;
+}
+
 .hero_section p {
   font-size: 20px;
 }

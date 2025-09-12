@@ -57,6 +57,12 @@ span.red_title {
   box-shadow: 2px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
+html[lang="ur"] .our_mission .right_div .Card h1,
+html[lang="ur"] .our_mission .right_div .Card p {
+  direction: rtl !important;
+  text-align: center !important;
+}
+
 .our_mission .right_div .Card h1 {
   font-size: 45px;
 }

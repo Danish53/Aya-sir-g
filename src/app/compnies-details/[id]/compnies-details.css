@@ -9,6 +9,18 @@
   text-align: center;
 }
 
+html[lang="ur"] .direction_ltr {
+  text-align: left;
+  direction: rtl;
+}
+
+html[lang="ur"] .recording .custom-audio-player {
+  /* text-align: left; */
+  padding: 0px !important;
+  padding-right: 15px !important;
+  direction: rtl;
+}
+
 .compnies-details .left {
   background-color: white;
 }

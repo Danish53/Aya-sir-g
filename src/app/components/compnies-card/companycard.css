@@ -96,6 +96,11 @@
   cursor: pointer;
 }
 
+html[lang="ur"] .company_card .content_div {
+  padding-right: 30px !important;
+  direction: rtl;
+}
+
 @media screen and (max-width: 1200px) {
   .company_card .img_div {
     border-radius: 08px;
@@ -147,6 +152,7 @@
   .company_card .content_div {
   text-align: center;
 }
+
   .company_card .heart_button {
     gap: 10px;
   }

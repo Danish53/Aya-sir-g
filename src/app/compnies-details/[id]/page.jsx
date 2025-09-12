@@ -242,7 +242,7 @@ export default function page() {
           <div className="col-lg-9 ">
             <div className="red_bar"></div>
             <div className="left px-lg-4 py-lg-4 px-3 py-4">
-              <div className="row">
+              <div className="row direction_ltr">
                 <div className="col-md-7 col-sm-12 info order-2 order-md-1">
 
                   <div className="heart_button mb-3">
