@@ -4,6 +4,9 @@
 .company_card .container {
   padding: 0 !important;
 }
+.company_card a {
+  text-decoration: none;
+}
 .company_card .parent_div {
   display: flex;
   align-items: center;
@@ -14,6 +17,7 @@
   margin-bottom: 14px;
   cursor: pointer;
 }
+
 .company_card .two_div {
   padding-left: 12px;
 }

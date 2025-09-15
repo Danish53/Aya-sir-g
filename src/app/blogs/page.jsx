@@ -103,7 +103,7 @@ export default function Page() {
       if (!res.ok) throw new Error("Failed to fetch categories");
 
       const result = await res.json();
-      console.log(result, "cate")
+      // console.log(result, "cate")
 
       // API se categories + sabse pehle "All"
       setCategories([

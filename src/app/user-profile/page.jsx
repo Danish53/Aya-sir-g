@@ -29,7 +29,7 @@ export default function Page() {
 
   const [loader, setLoader] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null); 
-  console.log(selectedUser?.id, "selected user")
+  // console.log(selectedUser?.id, "selected user")
 
   const fileInputRef = useRef(null);
   const [show, setShow] = useState(false);

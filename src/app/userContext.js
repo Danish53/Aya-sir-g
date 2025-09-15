@@ -125,7 +125,7 @@ export const UserProvider = ({ children }) => {
       });
 
       const result = await res.json();
-      console.log(result, "profile update")
+      // console.log(result, "profile update")
       if (res.ok) {
         await fetchUserProfile(userInfo?.id);
         setUserDetails(result.data);
@@ -452,7 +452,7 @@ export const UserProvider = ({ children }) => {
       const result = await res.json();
 
       if (res.ok) {
-        console.log(result, "otp ka")
+        // console.log(result, "otp ka")
         toast.success(result.message || "New OTP sent successfully!");
         setOtp(Array(6).fill(""));
         setTimer(120);
@@ -481,7 +481,7 @@ export const UserProvider = ({ children }) => {
       });
 
       const result = await res.json();
-      console.log(result, "blogs comment")
+      // console.log(result, "blogs comment")
       if (res.ok) {
         setCommentBlog(result);
         return { success: true };

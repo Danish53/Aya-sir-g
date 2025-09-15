@@ -17,7 +17,6 @@ import { toast } from "react-toastify";
 export default function Page() {
   const params = useParams();
   const { slug } = params;
-  console.log(slug, "slug");
   const base_url = process.env.NEXT_PUBLIC_BASE_URL;
   const [blogData, setBlogData] = useState(null);
   // console.log(blogData, "blog detail")
@@ -45,7 +44,6 @@ export default function Page() {
       if (!res.ok) throw new Error(`Error: ${res.status}`);
 
       const data = await res.json();
-      console.log(data, "blog detail data")
       setBlogData(data.blog_detail);
     } catch (err) {
       console.error("Failed to fetch:", err);
@@ -67,6 +65,51 @@ export default function Page() {
       day: "numeric",
     });
   };
+
+const getSafeHTML = (description) => {
+  if (!description) return "";
+
+  const tempDiv = document.createElement("div");
+  tempDiv.innerHTML = description;
+
+  // Agar outermost wrapper <p> hai, unwrap it
+  if (tempDiv.children.length === 1 && tempDiv.firstChild.tagName.toLowerCase() === "p") {
+    const innerHTML = tempDiv.firstChild.innerHTML;
+    tempDiv.innerHTML = innerHTML;
+  }
+
+  // Convert all <oembed> to iframe
+  tempDiv.querySelectorAll("oembed").forEach((oembed) => {
+    const url = oembed.getAttribute("url");
+    const ytRegex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/;
+    const match = url.match(ytRegex);
+    if (match) {
+      const iframe = document.createElement("iframe");
+      iframe.width = "100%";
+      iframe.height = "400px";
+      iframe.src = `https://www.youtube.com/embed/${match[1]}`;
+      iframe.frameBorder = "0";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.allowFullscreen = true;
+
+      // Replace figure or oembed
+      if (oembed.parentNode.tagName.toLowerCase() === "figure") {
+        oembed.parentNode.replaceWith(iframe);
+      } else {
+        oembed.replaceWith(iframe);
+      }
+    }
+  });
+
+  return DOMPurify.sanitize(tempDiv.innerHTML, {
+    ADD_TAGS: ["iframe"],
+    ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "src", "width", "height"],
+  });
+};
+
+
+
 
   if (loading) {
     return (
@@ -254,9 +297,10 @@ export default function Page() {
           <div className="heading_div">
             <h2 className="heading">{blogData.title}</h2>
           </div>
-          <p className="description" dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(blogData.description),
-          }}></p>
+          <div
+            className="description"
+            dangerouslySetInnerHTML={{ __html: getSafeHTML(blogData.description) }}
+          ></div>
         </div>
       </div>
 

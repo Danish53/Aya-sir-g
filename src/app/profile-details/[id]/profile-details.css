@@ -95,7 +95,7 @@ html[lang="ur"] .direction_ltr .recording .custom-audio-player {
 
 .profile_section .img_div {
   width: 100%;
-  height: auto;
+  height: 430px;
 }
 
 
@@ -352,9 +352,9 @@ html[lang="ur"] .direction_ltr .recording .custom-audio-player {
     width: 100%;
   }
 
-  .profile_section .right .img_div {
+  .profile_section .img_div {
     width: 100%;
-    /* height: auto; */
+    height: 300px;
   }
   .custom-audio-player{
     width: 100% !important;

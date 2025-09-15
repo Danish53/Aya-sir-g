@@ -34,6 +34,10 @@
   color: #191d23 !important;
 }
 
+.personal_card .card_div strong {
+  color: #191d23 !important;
+}
+
 .personal_card .card_div p.person_info {
   font-size: 17px;
   --filter-heading_color: #424242;
@@ -48,6 +52,10 @@
 
 html[lang="ur"] .personal_card .card_div .heart_div p {
   text-align: center !important;
+}
+
+.personal_card a {
+  text-decoration: none;
 }
 
 .personal_card .card_div .icon {

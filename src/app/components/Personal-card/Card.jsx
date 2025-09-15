@@ -73,6 +73,7 @@ export default function Card({ data, onLike, router }) {
   return (
     <section className=" col-lg-6 col-md-6 col-sm-12 mb-lg-4 mb-3">
       <div className="personal_card h-100">
+        <Link href={`/profile-details/${data?.id}`} >
         <div className="card_div py-3 px-4 h-100" style={{
           height: showFullFields || showFull ? "auto" : "",
           overflow: "hidden",
@@ -159,7 +160,7 @@ export default function Card({ data, onLike, router }) {
               {data?.address && (
                 <div>
                   <p>
-                    <strong>Interested Location:</strong>{" "}
+                    <strong>Interested Location: </strong>
                     <span className="data_pro">{showFull ? location : `${location.slice(0, limit)}${location.length > limit ? "..." : ""}`}
                       {location.length > limit && (
                         <button
@@ -185,7 +186,7 @@ export default function Card({ data, onLike, router }) {
             </div>
           </div>
           <div className="rating_div mt-2">
-            <p>Ratings</p>
+            <p><strong>Ratings</strong></p>
             <div className="star_respons_div">
               <div className="stars_div d-flex gap-1">{stars}</div>
               {/* <p id="respons">{data?.responses || 0} Responses</p> */}
@@ -210,6 +211,7 @@ export default function Card({ data, onLike, router }) {
             <Link href={`/profile-details/${data?.id}`} className="verified_btn card_btn_background">More Details</Link>
           </div>
         </div>
+        </Link>
       </div>
     </section>
   );

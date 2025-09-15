@@ -88,13 +88,14 @@ export default function MyFormPage() {
     const [selectedCityId, setSelectedCityId] = useState("");
     const [selectedAreaId, setSelectedAreaId] = useState("");
     const [selectedLocation, setSelectedLocation] = useState([]);
+    const [selectedCities, setSelectedCities] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
     // console.log(selectedCityId, "city id")
 
     const [formData, setFormData] = useState({
         profile_image: "",
-        // first_name: "",
-        // last_name: "",
+        first_name: "",
+        last_name: "",
         username: "",
         contact_number: "",
         email: "",
@@ -133,7 +134,7 @@ export default function MyFormPage() {
             "age",
             "fields_of_interest",
             // "description",
-            ...(currentRole === "handyman" ? ["interested_locations", "area_id"] : []),
+            ...(currentRole === "handyman" ? ["interested_locations", "area_id", "first_name", "last_name", "interested_city",] : []),
             // "billing_address_scan",
             "cnic_scan",
             "picture",
@@ -143,7 +144,7 @@ export default function MyFormPage() {
 
         const errors = {};
         requiredFields.forEach((field) => {
-            console.log("Checking field:", field, "Value:", formData[field]);
+            // console.log("Checking field:", field, "Value:", formData[field]);
             if (!formData[field] || String(formData[field]).trim() === "") {
                 errors[field] = "This field is required.";
             }
@@ -316,6 +317,12 @@ export default function MyFormPage() {
         setFormData((prev) => ({ ...prev, interested_locations: ids }));
     };
 
+    const handleCitiesChange = (selected) => {
+        setSelectedCities(selected);
+        const ids = selected.map((opt) => opt.value);
+        setFormData((prev) => ({ ...prev, interested_city: ids }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -329,6 +336,7 @@ export default function MyFormPage() {
         // Append static fields
         form.append("role", userType);
         form.append("city_id", selectedCityId);
+        form.append("interested_city", selectedCityId);
         form.append("area_id", selectedAreaId);
 
         // Append dynamic fields with checks for files, blobs, arrays
@@ -364,7 +372,7 @@ export default function MyFormPage() {
         try {
             setLoader(true);
             const response = await ecenterAdd(form);
-            console.log("API response:", response);
+            // console.log("API response:", response);
 
             if (response.success === false && response.result?.status === false && response.result?.errors) {
                 // Validation errors hain
@@ -493,53 +501,53 @@ export default function MyFormPage() {
     return (
         <section className="Form_section">
             <div className="container myform_page">
-            <h2>Add New {userType == "handyman" ? "Individual" : userType == "provider" ? "Company" : ""}</h2>
-            <form onSubmit={handleSubmit}>
-                <div
-                    className="image_div cursor-pointer relative w-32 h-32"
-                    onClick={() => !imagePerview && fileInputRef.current.click()}
-                >
-                    <div className="position-relative">
-                        <img
-                            src={
-                                imagePerview ||
-                                "/assets/person_img.png"
-                            }
-                            accept="image/*"
-                            alt="Profile"
-                            className="w-32 h-32 rounded-full object-cover"
-                        />
-
-                        {/* Show Edit Icon if no image */}
-                        {!imagePerview && (
-                            <FaEdit className="edit_icon absolute bottom-2 right-2 text-white bg-gray-800 p-1 rounded-full" />
-                        )}
-
-                        {/* Show Cross Icon if image selected */}
-                        {imagePerview && (
-                            <IoMdClose
-                                className="edit_icon absolute top-2 right-2 text-white bg-red-600 p-1 rounded-full"
-                                onClick={handleRemoveImage}
+                <h2>Add New {userType == "handyman" ? "Individual" : userType == "provider" ? "Company" : ""}</h2>
+                <form onSubmit={handleSubmit}>
+                    <div
+                        className="image_div cursor-pointer relative w-32 h-32"
+                        onClick={() => !imagePerview && fileInputRef.current.click()}
+                    >
+                        <div className="position-relative">
+                            <img
+                                src={
+                                    imagePerview ||
+                                    "/assets/person_img.png"
+                                }
+                                accept="image/*"
+                                alt="Profile"
+                                className="w-32 h-32 rounded-full object-cover"
                             />
-                        )}
 
-                        <input
-                            type="file"
-                            name="profile_image"
-                            accept="image/*"
-                            capture="user"
-                            onChange={handleFileChange}
-                            ref={fileInputRef}
-                            style={{ display: "none" }}
-                        />
+                            {/* Show Edit Icon if no image */}
+                            {!imagePerview && (
+                                <FaEdit className="edit_icon absolute bottom-2 right-2 text-white bg-gray-800 p-1 rounded-full" />
+                            )}
+
+                            {/* Show Cross Icon if image selected */}
+                            {imagePerview && (
+                                <IoMdClose
+                                    className="edit_icon absolute top-2 right-2 text-white bg-red-600 p-1 rounded-full"
+                                    onClick={handleRemoveImage}
+                                />
+                            )}
+
+                            <input
+                                type="file"
+                                name="profile_image"
+                                accept="image/*"
+                                capture="user"
+                                onChange={handleFileChange}
+                                ref={fileInputRef}
+                                style={{ display: "none" }}
+                            />
+                        </div>
+                        {formErrors.profile_image && <small style={{ color: "red" }}>{formErrors.profile_image}</small>}
                     </div>
-                    {formErrors.profile_image && <small style={{ color: "red" }}>{formErrors.profile_image}</small>}
-                </div>
 
 
-                {/* First and Last Name */}
-                <div className="row input_one_row">
-                    {/* <div className="col-lg-6">
+                    {/* First and Last Name */}
+                    <div className="row input_one_row">
+                        {/* <div className="col-lg-6">
                         <label htmlFor="first_name">First Name</label>
                         <input name="first_name" placeholder="First Name" onChange={handleChange} />
                         {formErrors.first_name && <small style={{ color: "red" }}>{formErrors.first_name}</small>}
@@ -549,277 +557,298 @@ export default function MyFormPage() {
                         <input name="last_name" placeholder="Last Name" onChange={handleChange} />
                         {formErrors.last_name && <small style={{ color: "red" }}>{formErrors.last_name}</small>}
                     </div> */}
-
-                    <div className="col-lg-6">
-                        <label htmlFor="username">Username</label>
-                        <input name="username" placeholder="Username" value={formData.username || ""} onChange={handleChange} />
-                        {formErrors.username && <small style={{ color: "red" }}>{formErrors.username}</small>}
-                    </div>
-                    <div className="col-lg-6">
-                        <label htmlFor="email">Email</label>
-                        <input name="email" placeholder="Email" type="email" onChange={handleChange} />
-                        {/* {formErrors.email && <small style={{ color: "red" }}>{formErrors.email}</small>} */}
-                    </div>
-                    <div className="col-lg-6">
-                        <label htmlFor="password">Password</label>
-                        <div className="w-100" style={{ position: "relative" }}>
-                            <input
-                                name="password"
-                                placeholder="Password"
-                                type={showPassword ? "text" : "password"}
-                                onChange={handleChange}
-                                style={{ paddingRight: "40px" }}
-                            />
-                            <span
-                                onClick={() => setShowPassword((prev) => !prev)}
-                                style={{
-                                    position: "absolute",
-                                    right: "32px",
-                                    top: "50%",
-                                    transform: "translateY(-50%)",
-                                    cursor: "pointer",
-                                }}
-                            >
-                                {showPassword ? <FaEyeSlash /> : <FaEye />}
-                            </span>
-                        </div>
-                        {formErrors.password && (
-                            <small style={{ color: "red" }}>{formErrors.password}</small>
+                        {userType !== "provider" && (
+                            <>
+                                <div className="col-lg-6">
+                                    <label htmlFor="first_name">First Name</label>
+                                    <input name="first_name" placeholder="First Name" value={formData.first_name || ""} onChange={handleChange} />
+                                    {formErrors.first_name && <small style={{ color: "red" }}>{formErrors.first_name}</small>}
+                                </div>
+                                <div className="col-lg-6">
+                                    <label htmlFor="last_name">Last Name</label>
+                                    <input name="last_name" placeholder="Last Name" value={formData.last_name || ""} onChange={handleChange} />
+                                    {formErrors.last_name && <small style={{ color: "red" }}>{formErrors.last_name}</small>}
+                                </div>
+                            </>
                         )}
-                    </div>
-                    <div className="col-lg-6">
-                        <label htmlFor="contact_number">Contact Number</label>
-                        <input name="contact_number" placeholder="03009900999" type="number" onChange={handleChange} />
-                        {formErrors.contact_number && <small style={{ color: "red" }}>{formErrors.contact_number}</small>}
-                    </div>
-                    <div className="col-lg-6">
-                        <label htmlFor="address">Address</label>
-                        <input name="address" placeholder="Address" onChange={handleChange} />
-                        {formErrors.address && <small style={{ color: "red" }}>{formErrors.address}</small>}
-                    </div>
-
-                    <div className="col-lg-6">
-                        <label htmlFor="gender">Gender</label>
-                        <select name="gender" onChange={handleChange}>
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            {/* <option value="others">Others</option> */}
-                        </select>
-                        {formErrors.gender && <small style={{ color: "red" }}>{formErrors.gender}</small>}
-                    </div>
-
-                    <div className="input_select col-lg-6">
-                        <label htmlFor="">Fields of Interest</label>
-                        <MultiSelect options={options} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" />
-                        {formErrors.fields_of_interest && <small style={{ color: "red" }}>{formErrors.fields_of_interest}</small>}
-                    </div>
-
-                    <div className="col-lg-6">
-                        <label htmlFor="cnic">CNIC</label>
-                        <input name="cnic" accept="image/*" value={formData.cnic} placeholder="CNIC e.g. 12345-1234567-1" onChange={handleChangeCnic} />
-                        {formErrors.cnic && <small style={{ color: "red" }}>{formErrors.cnic}</small>}
-                    </div>
-                    <div className="col-lg-6">
-                        <label htmlFor="age">Age</label>
-                        <input name="age" placeholder="Age" type="number" onChange={handleChange} />
-                        {formErrors.age && <small style={{ color: "red" }}>{formErrors.age}</small>}
-                    </div>
-
-                    <div className="col-lg-6">
-                        <label htmlFor="cnic_scan">CNIC Scan Copy</label>
-                        <input type="file" name="cnic_scan" accept="image/*"
-                            capture="environment" onChange={handleImageChange} />
-                        {formErrors.cnic_scan && <small style={{ color: "red" }}>{formErrors.cnic_scan}</small>}
-                    </div>
-                    <div className="col-lg-6">
-                        <label htmlFor="billing_address_scan">Billing Address Scan</label>
-                        <input type="file" name="billing_address_scan" accept="image/*"
-                            capture="environment" onChange={handleImageChange} />
-                        {/* {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>} */}
-                    </div>
-
-                    <div className="col-lg-6">
-                        <label htmlFor="city">City</label>
-                        <Select
-                            id="city"
-                            options={optionsCity}
-                            value={options.find(opt => opt.value === parseInt(selectedCityId))}
-                            onChange={(selectedOption) => {
-                                const cityId = selectedOption ? selectedOption.value : "";
-                                setSelectedCityId(cityId);
-                                setFormData(prev => ({ ...prev, city_id: cityId }));
-                            }}
-                            placeholder="Select City"
-                            isClearable
-                            isSearchable
-                        />
-                        {formErrors.city_id && <small style={{ color: "red" }}>{formErrors.city_id}</small>}
-                    </div>
-
-
-                    {userType !== "provider" && (
                         <div className="col-lg-6">
-                            <label htmlFor="area">Area</label>
+                            <label htmlFor="username">Username</label>
+                            <input name="username" placeholder="Username" value={formData.username || ""} onChange={handleChange} />
+                            {formErrors.username && <small style={{ color: "red" }}>{formErrors.username}</small>}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="email">Email</label>
+                            <input name="email" placeholder="Email" type="email" onChange={handleChange} />
+                            {/* {formErrors.email && <small style={{ color: "red" }}>{formErrors.email}</small>} */}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="password">Password</label>
+                            <div className="w-100" style={{ position: "relative" }}>
+                                <input
+                                    name="password"
+                                    placeholder="Password"
+                                    type={showPassword ? "text" : "password"}
+                                    onChange={handleChange}
+                                    style={{ paddingRight: "40px" }}
+                                />
+                                <span
+                                    onClick={() => setShowPassword((prev) => !prev)}
+                                    style={{
+                                        position: "absolute",
+                                        right: "32px",
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                        cursor: "pointer",
+                                    }}
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </span>
+                            </div>
+                            {formErrors.password && (
+                                <small style={{ color: "red" }}>{formErrors.password}</small>
+                            )}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="contact_number">Contact Number</label>
+                            <input name="contact_number" placeholder="03009900999" type="number" onChange={handleChange} />
+                            {formErrors.contact_number && <small style={{ color: "red" }}>{formErrors.contact_number}</small>}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="address">Address</label>
+                            <input name="address" placeholder="Address" onChange={handleChange} />
+                            {formErrors.address && <small style={{ color: "red" }}>{formErrors.address}</small>}
+                        </div>
+
+                        <div className="col-lg-6">
+                            <label htmlFor="gender">Gender</label>
+                            <select name="gender" onChange={handleChange}>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                {/* <option value="others">Others</option> */}
+                            </select>
+                            {formErrors.gender && <small style={{ color: "red" }}>{formErrors.gender}</small>}
+                        </div>
+
+                        <div className="input_select col-lg-6">
+                            <label htmlFor="">Fields of Interest</label>
+                            <MultiSelect options={options} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" />
+                            {formErrors.fields_of_interest && <small style={{ color: "red" }}>{formErrors.fields_of_interest}</small>}
+                        </div>
+
+                        <div className="col-lg-6">
+                            <label htmlFor="cnic">CNIC</label>
+                            <input name="cnic" accept="image/*" value={formData.cnic} placeholder="CNIC e.g. 12345-1234567-1" onChange={handleChangeCnic} />
+                            {formErrors.cnic && <small style={{ color: "red" }}>{formErrors.cnic}</small>}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="age">Age</label>
+                            <input name="age" placeholder="Age" type="number" onChange={handleChange} />
+                            {formErrors.age && <small style={{ color: "red" }}>{formErrors.age}</small>}
+                        </div>
+
+                        <div className="col-lg-6">
+                            <label htmlFor="cnic_scan">CNIC Scan Copy</label>
+                            <input type="file" name="cnic_scan" accept="image/*"
+                                capture="environment" onChange={handleImageChange} />
+                            {formErrors.cnic_scan && <small style={{ color: "red" }}>{formErrors.cnic_scan}</small>}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="billing_address_scan">Billing Address Scan</label>
+                            <input type="file" name="billing_address_scan" accept="image/*"
+                                capture="environment" onChange={handleImageChange} />
+                            {/* {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>} */}
+                        </div>
+
+                        <div className="col-lg-6">
+                            <label htmlFor="city">City</label>
                             <Select
-                                id="area"
-                                options={optionsLocation}
-                                value={options.find(opt => opt.value === parseInt(selectedAreaId))}
+                                id="city"
+                                options={optionsCity}
+                                value={options.find(opt => opt.value === parseInt(selectedCityId))}
                                 onChange={(selectedOption) => {
-                                    const areaId = selectedOption ? selectedOption.value : "";
-                                    setSelectedAreaId(areaId);
-                                    setFormData(prev => ({ ...prev, area_id: areaId }));
+                                    const cityId = selectedOption ? selectedOption.value : "";
+                                    setSelectedCityId(cityId);
+                                    setFormData(prev => ({ ...prev, city_id: cityId }));
                                 }}
-                                placeholder="Select Area"
+                                placeholder="Select City"
                                 isClearable
                                 isSearchable
                             />
-                            {formErrors.area_id && <small style={{ color: "red" }}>{formErrors.area_id}</small>}
+                            {formErrors.city_id && <small style={{ color: "red" }}>{formErrors.city_id}</small>}
                         </div>
-                    )}
 
-                    {userType !== "provider" && (
-                        <div className="input_select col-lg-6">
-                            <><label htmlFor="">Interested Locations</label>
-                                <MultiSelect options={optionsLocation} hasSelectAll={false} value={selectedLocation} onChange={handleLocationChange} labelledBy="Interested Locations" /></>
-                            {formErrors.interested_locations && <small style={{ color: "red" }}>{formErrors.interested_locations}</small>}
-                        </div>
-                    )}
-
-
-                    {userType !== "provider" && (
-                        <div className="col-lg-6">
-                            <label htmlFor="description">Description</label>
-                            <input name="description" placeholder="Description" onChange={handleChange} />
-                            {formErrors.description && <small style={{ color: "red" }}>{formErrors.description}</small>}
-                        </div>
-                    )}
-
-
-                    {userType !== "provider" && (
-                        <div className="col-lg-6">
-                            <><label htmlFor="disability_status">Disability Status</label>
-                                <input name="disability_status" placeholder="Disability Status" onChange={handleChange} /></>
-                            {/* {formErrors.disability_status && <small style={{ color: "red" }}>{formErrors.disability_status}</small>} */}
-                        </div>
-                    )}
-
-                    {userType !== "provider" && (
-                        <div className="col-lg-6">
-                            <label htmlFor="experience">Experience</label>
-                            <input name="experience" placeholder="Experience" type="number" onChange={handleChange} />
-                            {formErrors.experience && <small style={{ color: "red" }}>{formErrors.experience}</small>}
-                        </div>
-                    )}
-
-                    <div className="col-lg-6">
-                        <label htmlFor="picture">Police Verification</label>
-                        <input type="file" name="picture" accept="image/*" onChange={handleImageChange} />
-                        {formErrors.picture && <small style={{ color: "red" }}>{formErrors.picture}</small>}
-                    </div>
-
-                </div>
-
-                {/* Audio Sample */}
-                <div className="w-100">
-                    <div className="audio-recorder-container">
-
-                        {/* Recorder Section */}
-                        {!audioURL && (
-                            <div className="recorder-box">
-                                <div
-                                    className={`mic-button ${isRecording ? "recording" : ""}`}
-                                    onClick={isRecording ? handleStopRecording : handleStartRecording}
-                                >
-                                    {!isRecording ? <FaMicrophone /> : <FaPause />}
-                                </div>
-                                {!isRecording && (
-                                    <div>
-                                        <p style={{ fontWeight: "600", marginRight: "10px" }}>Record Voice</p>
-                                    </div>
-                                )}
-                                {/* Audio File Upload */}
-                                {!audioURL && !isRecording && (
-                                    <div className="p-2">
-                                        <input
-                                            type="file"
-                                            accept="audio/*"
-                                            id="audioUpload"
-                                            onChange={handleAudioUpload}
-                                            style={{ display: "none" }}
-                                        />
-                                        <label htmlFor="audioUpload" className="upload-label">
-                                            <FaFileAudio size={22} style={{ color: "gray" }} />
-                                            <span className="tooltip-text">Upload audio file</span>
-                                        </label>
-                                    </div>
-                                )}
-                                {isRecording && (
-                                    <div className="bars-animation">
-                                        {Array.from({ length: 25 }).map((_, index) => (
-                                            <div key={index} style={{ animationDelay: `${index * 0.05}s` }}></div>
-                                        ))}
-                                    </div>
-                                )}
-                                {isRecording && <div className="timer">{formatTime(timer)}</div>}
+                        {userType !== "provider" && (
+                            <div className="input_select col-lg-6">
+                                <><label htmlFor="">Interested Cities</label>
+                                    <MultiSelect options={optionsCity} hasSelectAll={false} value={selectedCities} onChange={handleCitiesChange} labelledBy="Interested Cities" /></>
+                                {formErrors.interested_city && <small style={{ color: "red" }}>{formErrors.interested_city}</small>}
                             </div>
                         )}
 
-                        {/* Playback Section */}
-                        {audioURL && (
-                            <div className="audio-bubble-container right">
-                                <div
-                                    className="play-icon-with-bars"
-                                    onClick={() => {
-                                        if (audioRef.current.paused) {
-                                            audioRef.current.play();
-                                            setIsPlaying(true);
-                                        } else {
-                                            audioRef.current.pause();
-                                            setIsPlaying(false);
-                                        }
+
+                        {userType !== "provider" && (
+                            <div className="col-lg-6">
+                                <label htmlFor="area">Area</label>
+                                <Select
+                                    id="area"
+                                    options={optionsLocation}
+                                    value={options.find(opt => opt.value === parseInt(selectedAreaId))}
+                                    onChange={(selectedOption) => {
+                                        const areaId = selectedOption ? selectedOption.value : "";
+                                        setSelectedAreaId(areaId);
+                                        setFormData(prev => ({ ...prev, area_id: areaId }));
                                     }}
-                                >
-                                    {isPlaying ? <div className="play-icon"><MdPause /></div> : <div className="play-icon"><MdPlayArrow /></div>}
-                                    <div className={`bars-animation-m ${isPlaying ? "playing" : ""}`}>
-                                        {[...Array(16)].map((_, i) => <span key={i}></span>)}
-                                    </div>
-                                </div>
-
-                                <MdDelete className="delete-icon" onClick={handleDeleteAudio} />
-                                <audio
-                                    ref={audioRef}
-                                    src={audioURL}
-                                    onEnded={() => setIsPlaying(false)}
-                                    className="custom-audio-player"
-                                ></audio>
+                                    placeholder="Select Area"
+                                    isClearable
+                                    isSearchable
+                                />
+                                {formErrors.area_id && <small style={{ color: "red" }}>{formErrors.area_id}</small>}
                             </div>
+                        )}
+
+                        {userType !== "provider" && (
+                            <div className="input_select col-lg-6">
+                                <><label htmlFor="">Interested Locations</label>
+                                    <MultiSelect options={optionsLocation} hasSelectAll={false} value={selectedLocation} onChange={handleLocationChange} labelledBy="Interested Locations" /></>
+                                {formErrors.interested_locations && <small style={{ color: "red" }}>{formErrors.interested_locations}</small>}
+                            </div>
+                        )}
+
+
+                        {userType !== "provider" && (
+                            <div className="col-lg-6">
+                                <label htmlFor="description">Description</label>
+                                <input name="description" placeholder="Description" onChange={handleChange} />
+                                {formErrors.description && <small style={{ color: "red" }}>{formErrors.description}</small>}
+                            </div>
+                        )}
+
+
+                        {userType !== "provider" && (
+                            <div className="col-lg-6">
+                                <><label htmlFor="disability_status">Disability Status</label>
+                                    <input name="disability_status" placeholder="Disability Status" onChange={handleChange} /></>
+                                {/* {formErrors.disability_status && <small style={{ color: "red" }}>{formErrors.disability_status}</small>} */}
+                            </div>
+                        )}
+
+                        {userType !== "provider" && (
+                            <div className="col-lg-6">
+                                <label htmlFor="experience">Experience</label>
+                                <input name="experience" placeholder="Experience" type="number" onChange={handleChange} />
+                                {formErrors.experience && <small style={{ color: "red" }}>{formErrors.experience}</small>}
+                            </div>
+                        )}
+
+                        <div className="col-lg-6">
+                            <label htmlFor="picture">Police Verification</label>
+                            <input type="file" name="picture" accept="image/*" onChange={handleImageChange} />
+                            {formErrors.picture && <small style={{ color: "red" }}>{formErrors.picture}</small>}
+                        </div>
+
+                    </div>
+
+                    {/* Audio Sample */}
+                    <div className="w-100">
+                        <div className="audio-recorder-container">
+
+                            {/* Recorder Section */}
+                            {!audioURL && (
+                                <div className="recorder-box">
+                                    <div
+                                        className={`mic-button ${isRecording ? "recording" : ""}`}
+                                        onClick={isRecording ? handleStopRecording : handleStartRecording}
+                                    >
+                                        {!isRecording ? <FaMicrophone /> : <FaPause />}
+                                    </div>
+                                    {!isRecording && (
+                                        <div>
+                                            <p style={{ fontWeight: "600", marginRight: "10px" }}>Record Voice</p>
+                                        </div>
+                                    )}
+                                    {/* Audio File Upload */}
+                                    {!audioURL && !isRecording && (
+                                        <div className="p-2">
+                                            <input
+                                                type="file"
+                                                accept="audio/*"
+                                                id="audioUpload"
+                                                onChange={handleAudioUpload}
+                                                style={{ display: "none" }}
+                                            />
+                                            <label htmlFor="audioUpload" className="upload-label">
+                                                <FaFileAudio size={22} style={{ color: "gray" }} />
+                                                <span className="tooltip-text">Upload audio file</span>
+                                            </label>
+                                        </div>
+                                    )}
+                                    {isRecording && (
+                                        <div className="bars-animation">
+                                            {Array.from({ length: 25 }).map((_, index) => (
+                                                <div key={index} style={{ animationDelay: `${index * 0.05}s` }}></div>
+                                            ))}
+                                        </div>
+                                    )}
+                                    {isRecording && <div className="timer">{formatTime(timer)}</div>}
+                                </div>
+                            )}
+
+                            {/* Playback Section */}
+                            {audioURL && (
+                                <div className="audio-bubble-container right">
+                                    <div
+                                        className="play-icon-with-bars"
+                                        onClick={() => {
+                                            if (audioRef.current.paused) {
+                                                audioRef.current.play();
+                                                setIsPlaying(true);
+                                            } else {
+                                                audioRef.current.pause();
+                                                setIsPlaying(false);
+                                            }
+                                        }}
+                                    >
+                                        {isPlaying ? <div className="play-icon"><MdPause /></div> : <div className="play-icon"><MdPlayArrow /></div>}
+                                        <div className={`bars-animation-m ${isPlaying ? "playing" : ""}`}>
+                                            {[...Array(16)].map((_, i) => <span key={i}></span>)}
+                                        </div>
+                                    </div>
+
+                                    <MdDelete className="delete-icon" onClick={handleDeleteAudio} />
+                                    <audio
+                                        ref={audioRef}
+                                        src={audioURL}
+                                        onEnded={() => setIsPlaying(false)}
+                                        className="custom-audio-player"
+                                    ></audio>
+                                </div>
+                            )}
+                        </div>
+
+                        {formErrors.audio_sample_blob && (
+                            <small style={{ color: "red" }}>{formErrors.audio_sample_blob}</small>
                         )}
                     </div>
 
-                    {formErrors.audio_sample_blob && (
-                        <small style={{ color: "red" }}>{formErrors.audio_sample_blob}</small>
-                    )}
-                </div>
 
+                    {/* Submit */}
+                    <div className="form-footer mt-4 text-center w-100">
+                        <button type="submit" className="btn btn_primary w-lg-25 w-50" style={{ color: "white" }}>
+                            {loader ? (
+                                <>
+                                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                    Submit...
+                                </>
+                            ) : (
+                                "Submit"
+                            )}
+                        </button>
+                    </div>
+                </form>
+                {/* <ToastContainer /> */}
 
-                {/* Submit */}
-                <div className="form-footer mt-4 text-center w-100">
-                    <button type="submit" className="btn btn_primary w-lg-25 w-50" style={{ color: "white" }}>
-                        {loader ? (
-                            <>
-                                <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                Submit...
-                            </>
-                        ) : (
-                            "Submit"
-                        )}
-                    </button>
-                </div>
-            </form>
-            {/* <ToastContainer /> */}
-
-            {/* <div
+                {/* <div
                 className="modal fade"
                 id="otpModal"
                 tabIndex="-1"
@@ -868,7 +897,7 @@ export default function MyFormPage() {
                 </div>
             </div> */}
 
-        </div>
+            </div>
         </section>
     );
 }

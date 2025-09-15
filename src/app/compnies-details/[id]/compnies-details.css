@@ -130,7 +130,7 @@ html[lang="ur"] .recording .custom-audio-player {
 
 .compnies-details .img_div {
   width: 100%;
-  height: 350px;
+  height: 430px;
 }
 
 .compnies-details .img_div img {
@@ -353,6 +353,7 @@ h3.heading {
 
   .compnies-details .img_div {
     width: 100%;
+    height: 300px;
   }
 
   .custom-audio-player {

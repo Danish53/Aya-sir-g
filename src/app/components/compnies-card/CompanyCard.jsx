@@ -47,77 +47,79 @@ export default function CompanyCard({ data, onLike, router }) {
   return (
     <section className="company_card">
       <div className="container">
-        <div className="parent_div" onClick={() => router.push(`/compnies-details/${data?.id}`)}>
-          <div className="d-flex flex-lg-row flex-column align-items-center gap-3 w-100">
-            <div className="first_div">
-              <div className="img_div">
-                <img src={data?.profile_image ? data?.profile_image : "/assets/hazar.png"} alt="" />
+        <Link href={`/compnies-details/${data?.id}`}>
+          <div className="parent_div" onClick={() => router.push(`/compnies-details/${data?.id}`)}>
+            <div className="d-flex flex-lg-row flex-column align-items-center gap-3 w-100">
+              <div className="first_div">
+                <div className="img_div">
+                  <img src={data?.profile_image ? data?.profile_image : "/assets/hazar.png"} alt="" />
+                </div>
+              </div>
+              <div className="two_div">
+                <div className="content_div">
+                  <div className="heading_div">
+                    <h3>{data?.username}</h3>
+                    <div className="star_respons_div">
+                      <div className="stars_div d-flex gap-1">{stars}</div>
+                      {/* <p id="respons">{data?.responses || 0} Responses</p> */}
+                    </div>
+                  </div>
+
+                  <h4 id="city">{data?.city_name || "city"} </h4>
+                  <p id="details">{data?.description || fullText}</p>
+                </div>
               </div>
             </div>
-            <div className="two_div">
-              <div className="content_div">
-                <div className="heading_div">
-                  <h3>{data?.username}</h3>
-                  <div className="star_respons_div">
-                    <div className="stars_div d-flex gap-1">{stars}</div>
-                    {/* <p id="respons">{data?.responses || 0} Responses</p> */}
-                  </div>
+            <div className="third_div">
+              <div className="verified_div ">
+                <div className="heart_button" onClick={(e) => {
+                  e.stopPropagation();
+                }}>
+                  {/* <FaRegHeart className="icon" /> */}
+                  {userInfo ? (
+                    isLiked ? (
+                      <FaHeart className="icon" onClick={onLikeClick} />
+                    ) : (
+                      <FaRegHeart className="icon" onClick={onLikeClick} />
+                    )
+                  ) : (
+                    <Link href="/login">
+                      <FaRegHeart className="icon" />
+                    </Link>
+                  )}
+
+                  {data?.verification === "Non Verified" ? (
+                    // <button className="verified_btn">
+                    //   {data?.verification}
+                    // </button>
+                    <Tippy content="This profile has not been verified by Aya Sir G!. The details may not be authenticated.">
+                      <button className="verified_btn">
+                        {data?.verification}
+                      </button>
+                    </Tippy>
+                  ) : (
+                    <button className="verified_btn bg-success">
+                      {data?.verification}
+                      <FaCheck className="tik_icon" />
+                    </button>
+                  )
+                  }
                 </div>
 
-                <h4 id="city">{data?.city_name || "city"} </h4>
-                <p id="details">{data?.description || fullText}</p>
-              </div>
-            </div>
-          </div>
-          <div className="third_div">
-            <div className="verified_div ">
-              <div className="heart_button" onClick={(e) => {
-                e.stopPropagation();
-              }}>
-                {/* <FaRegHeart className="icon" /> */}
-                {userInfo ? (
-                  isLiked ? (
-                    <FaHeart className="icon" onClick={onLikeClick} />
-                  ) : (
-                    <FaRegHeart className="icon" onClick={onLikeClick} />
-                  )
-                ) : (
-                  <Link href="/login">
-                    <FaRegHeart className="icon" />
+                <div className="heart_button" onClick={(e) => {
+                  e.stopPropagation();
+                }}>
+                  <a href={`tel:${data?.contact_number}`}>
+                    <IoCall className="phone_icon" />
+                  </a>
+                  <Link href={`/compnies-details/${data?.id}`} className="verified_btn card_btn_background">
+                    More Details
                   </Link>
-                )}
-
-                {data?.verification === "Non Verified" ? (
-                  // <button className="verified_btn">
-                  //   {data?.verification}
-                  // </button>
-                  <Tippy content="This profile has not been verified by Aya Sir G!. The details may not be authenticated.">
-                    <button className="verified_btn">
-                      {data?.verification}
-                    </button>
-                  </Tippy>
-                ) : (
-                  <button className="verified_btn bg-success">
-                    {data?.verification}
-                    <FaCheck className="tik_icon" />
-                  </button>
-                )
-                }
-              </div>
-
-              <div className="heart_button" onClick={(e) => {
-                e.stopPropagation();
-              }}>
-                <a href={`tel:${data?.contact_number}`}>
-                  <IoCall className="phone_icon" />
-                </a>
-                <Link href={`/compnies-details/${data?.id}`} className="verified_btn card_btn_background">
-                  More Details
-                </Link>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </Link>
       </div>
     </section>
   );
