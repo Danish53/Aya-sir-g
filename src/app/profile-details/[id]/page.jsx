@@ -625,7 +625,9 @@ export default function page() {
                           <div className="stars_div">
                             <div className="stars_div d-flex gap-1">{stars}</div>
                           </div>
-                          <p id="respons">{reviewCount} Responses</p>
+                          {
+                            reviewCount > 0 ? <p id="respons">{reviewCount} Responses</p> : <p id="respons">No reviews yet</p>
+                          }
                         </div>
                       </div>
                     </div>

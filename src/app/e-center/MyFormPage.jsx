@@ -716,13 +716,13 @@ export default function MyFormPage() {
                         )}
 
 
-                        {userType !== "provider" && (
+                        {/* {userType !== "provider" && (
                             <div className="col-lg-6">
                                 <label htmlFor="description">Description</label>
                                 <input name="description" placeholder="Description" onChange={handleChange} />
                                 {formErrors.description && <small style={{ color: "red" }}>{formErrors.description}</small>}
                             </div>
-                        )}
+                        )} */}
 
 
                         {userType !== "provider" && (
