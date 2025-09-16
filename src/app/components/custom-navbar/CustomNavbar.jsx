@@ -107,7 +107,7 @@ export default function CustomNavbar() {
             <ul className={`list-unstyled list ${myNavbar ? "active" : ""}`}>
               <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/" className={pathname === "/" ? "active" : ""}>Home</Link></li>
               <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/about-us" className={pathname === "/about-us" ? "active" : ""}>About Us</Link></li>
-              {userDetails?.user_type !== "e-center" && (
+              {!["handyman", "e-center", "provider"].includes(userDetails?.user_type) && (
                 <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/register-yourself" className={pathname === "/register-yourself" ? "active" : ""}>Register Yourself</Link></li>
               )}
               <li onClick={() => { setMyNavbar(false); handleDropdownItemClick() }}><Link href="/blogs" className={pathname === "/blogs" ? "active" : ""}>Blogs</Link></li>
@@ -210,7 +210,11 @@ export default function CustomNavbar() {
                       E-center Records
                     </li>
                   ) : (
-                    <li onClick={() => handleDropdownItemClick(gotoEcenters)}>E-centers</li>
+                    !["handyman", "e-center", "provider"].includes(userDetails?.user_type) && (
+                      <li onClick={() => handleDropdownItemClick(gotoEcenters)}>
+                        E-centers
+                      </li>
+                    )
                   )}
                   {userDetails?.user_type === "handyman" && (
                     <li onClick={() => handleDropdownItemClick(() => handleClick("handyman"))}>

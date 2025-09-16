@@ -1,16 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./footer.css";
-// import { BsYoutube } from "react-icons/bs";
-// import { FaFacebook } from "react-icons/fa6";
-// import { FaInstagram } from "react-icons/fa";
-// import { AiFillTikTok } from "react-icons/ai";
-// import { FaTwitter } from "react-icons/fa";
-// import { FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
 import { FaFacebook, FaFacebookF, FaInstagram, FaLinkedin, FaTiktok, FaTwitter, FaYoutube } from "react-icons/fa";
-// import tiktok from "@/public/assets/tik-tok.png";
+import { UserContext } from "@/app/userContext";
 
 export default function MyFooter() {
+  const { userDetails } = useContext(UserContext);
   return (
     <footer className="text-white py-4 footer">
       <div className="container">
@@ -43,9 +38,11 @@ export default function MyFooter() {
           <div className="col-lg-2 col-md-6 col-sm-12">
             <p className="footer_heading">BUSINESS</p>
             <ul className="list-unstyled">
+              {!["handyman", "e-center", "provider"].includes(userDetails?.user_type) && (
               <li>
                 <Link href="/register-yourself">Register Yourself</Link>
               </li>
+              )}
               <li>
                 <Link href="/market-business">Market Yourself</Link>
               </li>
