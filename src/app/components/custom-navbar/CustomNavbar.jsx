@@ -99,7 +99,7 @@ export default function CustomNavbar() {
     <section className="navbar notranslate">
       <div className="container">
         <nav className="nav">
-          <div className="logo_div">
+          <div className="logo_div" onClick={() => { setMyNavbar(false) }}>
             <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="Logo" className="logo" /></Link>
           </div>
 
@@ -175,8 +175,9 @@ export default function CustomNavbar() {
                 {userInfo && (
                   <img onClick={(e) => {
                     if (isMobile) {
-                      e.stopPropagation(); // stop bubble to parent
+                      e.stopPropagation();
                       showuserDetailss(!userDetailss);
+                      setMyNavbar(false)
                     }
                   }}
 

@@ -22,7 +22,7 @@ export default function page() {
                   <input
                     type="number"
                     className="input_auth"
-                    placeholder="03009900999"
+                    placeholder="03*********"
                     id="email"
                     name="email"
                   />
@@ -74,7 +74,7 @@ export default function page() {
                     <div className="card p-lg-3 p-2 d-flex justify-content-center align-items-center" style={{ cursor: "pointer" }}>
                       <FaPhoneVolume style={{ fontSize: "26px" }} />
                       <h5 className="mt-1">Phone Number</h5>
-                      <p className="ps-1">03098574093</p>
+                      <p className="ps-1">03*********</p>
                     </div>
                   </Link>
                 </div>

@@ -610,7 +610,7 @@ export default function MyFormPage() {
                         </div>
                         <div className="col-lg-6">
                             <label htmlFor="contact_number">Contact Number</label>
-                            <input name="contact_number" placeholder="03009900999" type="number" onChange={handleChange} />
+                            <input name="contact_number" placeholder="03*********" type="number" onChange={handleChange} />
                             {formErrors.contact_number && <small style={{ color: "red" }}>{formErrors.contact_number}</small>}
                         </div>
                         <div className="col-lg-6">

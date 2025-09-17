@@ -196,7 +196,7 @@ export default function page() {
               <input
                 type="number"
                 className="input_auth"
-                placeholder="03009900999"
+                placeholder="03*********"
                 name="contact_number"
                 id="contact_number"
                 onChange={handleChange}
@@ -209,7 +209,7 @@ export default function page() {
               <input
                 type="text"
                 className="input_auth"
-                placeholder="03001234567"
+                placeholder="03*********"
                 name="contact_number"
                 onChange={(e) =>
                   setFormData((prev) => ({

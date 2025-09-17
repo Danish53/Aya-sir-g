@@ -122,7 +122,7 @@ input[type="checkbox"]:checked+.custom-checkbox::after {
   align-items: center;
 }
 
-form {
+.contact-us form {
   width: 80%;
 }
 

@@ -499,7 +499,7 @@ const handleSubmit = async (e) => {
                 <input
                   type="number"
                   className="input_auth"
-                  placeholder="03009900999"
+                  placeholder="03*********"
                   name="contact_number"
                   id="contact_no"
                   onChange={handleChange}

@@ -98,7 +98,7 @@ export default function page() {
                 <input
                   type="number"
                   className="input_auth"
-                  placeholder="03098574093"
+                  placeholder="03*********"
                   id="phone"
                   name="phone"
                   onChange={handleChange}

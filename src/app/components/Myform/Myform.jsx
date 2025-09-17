@@ -458,7 +458,7 @@ export default function Myform({ openedFrom, setSelectedType }) {
 
                 <div className="col-md-6">
                   <label htmlFor="contact_number">Contact Number</label>
-                  <input type="number" className="input_auth" name="contact_number" placeholder="03009900999" onChange={handleChange} value={formData.contact_number} />
+                  <input type="number" className="input_auth" name="contact_number" placeholder="03*********" onChange={handleChange} value={formData.contact_number} />
                   {formErrors.contact_number && <small style={{ color: "red" }}>{formErrors.contact_number}</small>}
                 </div>
                 <div className="col-md-6">

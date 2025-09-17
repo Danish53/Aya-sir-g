@@ -71,7 +71,7 @@ export default function Page() {
             <input
               type="number"
               id="phone_num"
-              placeholder="03009900999"
+              placeholder="03*********"
               className="input_auth"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
