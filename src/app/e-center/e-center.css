@@ -198,8 +198,20 @@ form button:hover {
   gap: 8px;
   text-align: left !important;
   width: 100% !important;
-  -webkit-text-align: left !important; /* Safari/iOS fix */
-  -webkit-justify-content: flex-start !important; /* Safari fix */
+}
+
+.dropdown-content .panel-content .select-panel .options .option {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  text-align: left !important;
+
+  /* Safari/iOS fixes */
+  -webkit-box-align: start !important;
+  -webkit-box-pack: start !important;
+  -webkit-justify-content: flex-start !important;
   -webkit-align-items: flex-start !important;
 }
 
