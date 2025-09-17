@@ -200,11 +200,11 @@ form button:hover {
   width: 100% !important;
 }
 
-.dropdown-content .panel-content .select-panel {
+/* .dropdown-content .panel-content .select-panel {
   width: 100% !important;
   left: 0 !important;
   box-sizing: border-box;
-}
+} */
 
 .dropdown-content .panel-content {
   width: 100% !important;
