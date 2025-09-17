@@ -190,7 +190,7 @@ form button:hover {
   margin: 4px 0px;
 }
 
-.dropdown-content .panel-content .select-panel .options {
+/* .dropdown-content .panel-content .select-panel .options {
   display: flex !important;
   align-items: flex-start !important;
   justify-content: flex-start !important;
@@ -198,24 +198,7 @@ form button:hover {
   gap: 8px;
   text-align: left !important;
   width: 100% !important;
-}
-
-.dropdown-content .panel-content .select-panel .options .option {
-  display: flex !important;          /* horizontal layout */
-  align-items: center !important;    /* vertically center checkbox + label */
-  justify-content: flex-start !important; 
-  gap: 8px;                          /* checkbox aur label ke beech gap */
-  width: 100% !important;
-  text-align: left !important;
-  position: relative;
-}
-
-
-.dropdown-content .panel-content .select-panel .options .option label {
-  position: absolute;
-  top: 20px;
-  left: 50px;
-}
+} */
 
 
 /* .dropdown-content .panel-content .select-panel {
