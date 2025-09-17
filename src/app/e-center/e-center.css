@@ -200,6 +200,16 @@ form button:hover {
   width: 100% !important;
 }
 
+.dropdown-content .panel-content .select-panel .options .option {
+  display: flex !important;          /* horizontal layout */
+  align-items: center !important;    /* vertically center checkbox + label */
+  justify-content: flex-start !important; 
+  gap: 8px;                          /* checkbox aur label ke beech gap */
+  width: 100% !important;
+  text-align: left !important;
+}
+
+
 /* .dropdown-content .panel-content .select-panel {
   width: 100% !important;
   left: 0 !important;
