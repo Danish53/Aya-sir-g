@@ -192,12 +192,15 @@ form button:hover {
 
 .dropdown-content .panel-content .select-panel .options {
   display: flex !important;
-  align-items: flex-start;
+  align-items: flex-start !important;
   justify-content: flex-start !important;
   flex-direction: column;
   gap: 8px;
   text-align: left !important;
   width: 100% !important;
+  -webkit-text-align: left !important; /* Safari/iOS fix */
+  -webkit-justify-content: flex-start !important; /* Safari fix */
+  -webkit-align-items: flex-start !important;
 }
 
 .dropdown-content .panel-content .select-panel {
