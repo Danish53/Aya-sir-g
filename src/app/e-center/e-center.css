@@ -207,6 +207,14 @@ form button:hover {
   gap: 8px;                          /* checkbox aur label ke beech gap */
   width: 100% !important;
   text-align: left !important;
+  position: relative;
+}
+
+
+.dropdown-content .panel-content .select-panel .options .option label {
+  position: absolute;
+  top: 20px;
+  left: 50px;
 }
 
 
