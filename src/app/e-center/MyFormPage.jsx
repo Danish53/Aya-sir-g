@@ -632,7 +632,7 @@ export default function MyFormPage() {
 
                         <div className="input_select col-lg-6">
                             <label htmlFor="">Fields of Interest</label>
-                            <MultiSelect options={options} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" />
+                            <MultiSelect options={options} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" portal={document.body} />
                             {formErrors.fields_of_interest && <small style={{ color: "red" }}>{formErrors.fields_of_interest}</small>}
                         </div>
 

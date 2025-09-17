@@ -62,6 +62,7 @@ form .image_div .edit_icon {
 
 .input_one_row .input_select {
   padding-right: 22px;
+  /* position: relative !important; */
 }
 
 .css-hlgwow {
@@ -190,7 +191,20 @@ form button:hover {
   margin: 4px 0px;
 }
 
+.Form_section .dropdown-content {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  width: 100% !important;
+  max-height: 250px !important;
+  overflow-y: auto !important;
+  z-index: 9999 !important;
+}
+
 .dropdown-content .panel-content .select-panel .options {
+  position: relative;
+  left: 0;
+  right: auto;
   display: flex !important;
   align-items: flex-start !important;
   justify-content: flex-start !important;
