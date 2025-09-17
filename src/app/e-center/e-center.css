@@ -220,6 +220,10 @@ form button:hover {
   /* width: 100% !important; */
 }
 
+.dropdown-content .panel-content .select-panel .options input  {
+  width: fit-content !important;
+}
+
 
 /* .dropdown-content .panel-content .select-panel {
   width: 100% !important;
