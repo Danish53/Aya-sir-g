@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import "./compnies-details.css";
 import { FaMicrophone, FaMusic, FaRegHeart } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import { IoCopyOutline, IoShareSocial } from "react-icons/io5";
+import { IoArrowDown, IoCopyOutline, IoShareSocial } from "react-icons/io5";
 import { IoIosArrowForward, IoIosMic } from "react-icons/io";
 import { FaPhoneAlt } from "react-icons/fa";
 import { RiStarFill, RiStarHalfFill, RiStarLine, RiStarSFill } from "react-icons/ri";
@@ -58,10 +58,10 @@ export default function page() {
   const [reloadUserData, setReloadUserData] = useState(false);
   const [loading, setloading] = useState(false);
 
-  const [visibleCount, setVisibleCount] = useState(2); // pehle 5 comments dikhao
+  const [visibleCount, setVisibleCount] = useState(5);
 
   const handleLoadMore = () => {
-    setVisibleCount((prev) => prev + 2); // har click pe 5 aur load ho
+    setVisibleCount((prev) => prev + 5); 
   };
 
   const handleNext = () => {
@@ -72,7 +72,7 @@ export default function page() {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  const [rating, setRating] = useState(0); // 0.5 to 5
+  const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [review, setReview] = useState("");
 
@@ -510,11 +510,11 @@ export default function page() {
                               return (
                                 <span key={index} style={{ cursor: "pointer", fontSize: "1.8rem", color: "#f1c40f" }}>
                                   {hover >= fullValue || rating >= fullValue ? (
-                                    <FaStar onClick={() => handleRating(fullValue)} onMouseEnter={() => setHover(fullValue)} onMouseLeave={() => setHover(0)} />
+                                    <RiStarFill onClick={() => handleRating(fullValue)} onMouseEnter={() => setHover(fullValue)} onMouseLeave={() => setHover(0)} />
                                   ) : hover >= halfValue || rating >= halfValue ? (
-                                    <FaStarHalfAlt onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
+                                    <RiStarHalfFill onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
                                   ) : (
-                                    <FaRegStar onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
+                                    <RiStarLine onClick={() => handleRating(halfValue)} onMouseEnter={() => setHover(halfValue)} onMouseLeave={() => setHover(0)} />
                                   )}
                                 </span>
                               );
@@ -569,7 +569,7 @@ export default function page() {
                 <div className="col_1">
                   <div className="star_respons_div">
                     <div className="stars_div">
-                      <div className="stars_div d-flex gap-1">{stars}</div>
+                      <div className="stars_div d-flex gap-1" style={{ fontSize: "1.8rem" }}>{stars}</div>
                     </div>
                     {
                       reviewCount > 0 ? <p id="respons">{reviewCount} Responses</p> : <p id="respons">No reviews yet</p>
@@ -594,11 +594,13 @@ export default function page() {
                   {visibleCount < reviewsRating.length && (
                     <div className="text-center my-3">
                       <button
-                        onClick={handleLoadMore}
-                        className="btn btn-sm btn_primary text-white d-flex align-items-center justify-content-center gap-1 mx-auto"
-                      >
-                        Load More <IoIosArrowDown style={{ fontSize: "18px" }} />
-                      </button>
+                          onClick={handleLoadMore}
+                          className="btn btn-sm text-white d-flex align-items-center justify-content-center gap-1 mx-auto"
+                        >
+                          <span className="arrows ms-2">
+                            <IoArrowDown className="arrow arrow-1" />
+                          </span>
+                        </button>
                     </div>
                   )}
                 </div>

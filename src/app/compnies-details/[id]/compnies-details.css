@@ -182,7 +182,8 @@ html[lang="ur"] .recording .custom-audio-player {
 }
 
 .compnies-details p#respons {
-  font-size: 12px;
+  font-size: 1rem;
+  font-weight: 400;
   color: var(--filter-heading_color);
 }
 
@@ -309,7 +310,10 @@ h3.heading {
   }
 
   .compnies-details p#respons {
-    font-size: 11px;
+    font-size: 16px;
+  }
+    .compnies-details .star_respons_div .stars_div{
+    font-size: 19px !important;
   }
 }
 
@@ -485,5 +489,37 @@ h3.heading {
 
   50% {
     height: 16px;
+  }
+}
+
+
+/* arrow comments */
+.arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightgray;
+  color: black;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.arrow {
+  font-size: 18px;
+  animation: bounce 1s infinite;
+  opacity: 0.8;
+}
+
+.arrow-1 {
+  animation-delay: 5s;
+}
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
   }
 }

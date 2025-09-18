@@ -164,8 +164,9 @@ html[lang="ur"] .direction_ltr .recording .custom-audio-player {
 }
 
 .profile_section p#respons {
-  font-size: 12px;
+  font-size: 1rem;
   color: var(--filter-heading_color);
+  font-weight: 400;
 }
 
 .profile_section .cnic {
@@ -306,7 +307,10 @@ html[lang="ur"] .direction_ltr .recording .custom-audio-player {
   }
 
   .profile_section p#respons {
-    font-size: 11px;
+    font-size: 16px;
+  }
+  .profile_section .star_respons_div .stars_div{
+    font-size: 19px !important;
   }
 }
 
@@ -496,5 +500,37 @@ html[lang="ur"] .direction_ltr .recording .custom-audio-player {
 
   to {
     opacity: 1
+  }
+}
+
+
+/* arrow comments */
+.arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightgray;
+  color: black;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.arrow {
+  font-size: 18px;
+  animation: bounce 1s infinite;
+  opacity: 0.8;
+}
+
+.arrow-1 {
+  animation-delay: 5s;
+}
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
   }
 }
