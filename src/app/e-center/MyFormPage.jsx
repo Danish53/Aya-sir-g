@@ -16,6 +16,7 @@ import Select from "react-select";
 // import { Modal } from 'bootstrap';
 import axios from "axios";
 import dynamic from "next/dynamic";
+import { FaDeleteLeft } from "react-icons/fa6";
 
 
 export default function MyFormPage() {
@@ -70,7 +71,7 @@ export default function MyFormPage() {
         userInfo,
         ecenterInfo
     } = useContext(UserContext);
-    // console.log(userInfo, "ecenter console...")
+    console.log(locations, "locationsss")
 
     const [imagePerview, setImagePreview] = useState("");
     const audioRef = useRef(null);
@@ -91,6 +92,104 @@ export default function MyFormPage() {
     const [selectedCities, setSelectedCities] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
     // console.log(selectedCityId, "city id")
+    // const cities = [
+    //     { id: 1, name: "Karachi" },
+    //     { id: 2, name: "Lahore" },
+    //     { id: 3, name: "Islamabad" },
+    // ];
+
+    // const locations = [
+    //     { id: 101, name: "Clifton", city_id: 1 },
+    //     { id: 102, name: "Gulshan", city_id: 1 },
+    //     { id: 201, name: "DHA", city_id: 2 },
+    //     { id: 202, name: "Gulberg", city_id: 2 },
+    //     { id: 301, name: "F-7", city_id: 3 },
+    //     { id: 302, name: "G-10", city_id: 3 },
+    // ];
+
+    const [rows, setRows] = useState([{ id: Date.now(), city: null, areas: [] }]);
+
+    const handleCityChange = (selectedCity, rowId) => {
+    setRows((prev) => {
+        // pehle row update karo
+        const updated = prev.map((r) =>
+            r.id === rowId ? { ...r, city: selectedCity, areas: [] } : r
+        );
+
+        // agar last row me city select ho gayi -> new row add karo
+        const isLastRow = prev[prev.length - 1].id === rowId;
+        if (isLastRow && selectedCity) {
+            updated.push({
+                id: Date.now(), // unique id
+                city: null,
+                areas: [],
+            });
+        }
+
+        return updated;
+    });
+
+    // update formData
+    setFormData((prev) => {
+        const updatedCities = [
+            ...new Set([
+                ...(Array.isArray(prev.interested_cities) ? prev.interested_cities : []),
+                selectedCity?.value,
+            ]),
+        ].filter(Boolean);
+
+        return { ...prev, interested_cities: updatedCities };
+    });
+
+    // 👇 location fetch ke liye
+    setSelectedCityId(selectedCity?.value || null);
+};
+
+
+    const handleAreaChange = (selectedAreas, rowId) => {
+        setRows((prev) =>
+            prev.map((r) =>
+                r.id === rowId ? { ...r, areas: selectedAreas } : r
+            )
+        );
+
+        setFormData((prev) => {
+            const currentAreas = Array.isArray(prev.interested_locations)
+                ? prev.interested_locations
+                : [];
+
+            const updatedAreas = [
+                ...new Set([...currentAreas, ...selectedAreas.map((a) => a.value)]),
+            ];
+
+            return { ...prev, interested_locations: updatedAreas };
+        });
+    };
+
+    const handleDeleteRow = (rowId) => {
+        setRows((prev) => prev.filter((r) => r.id !== rowId));
+
+        // FormData sync
+        setFormData((prev) => {
+            const remainingRows = rows.filter((r) => r.id !== rowId);
+
+            const updatedCities = remainingRows
+                .map((r) => r.city?.value)
+                .filter(Boolean);
+
+            const updatedAreas = remainingRows.flatMap((r) =>
+                r.areas.map((a) => a.value)
+            );
+
+            return {
+                ...prev,
+                interested_cities: updatedCities,
+                interested_locations: updatedAreas,
+            };
+        });
+    };
+
+
 
     const [formData, setFormData] = useState({
         profile_image: "",
@@ -118,7 +217,7 @@ export default function MyFormPage() {
         // city_id: ""
     });
 
-    // console.log(formData, "form data print")
+    console.log(formData, "form data print")
 
     const validateForm = () => {
         const currentRole = (userType || "").toLowerCase();
@@ -129,12 +228,12 @@ export default function MyFormPage() {
             "contact_number",
             "address",
             "gender",
-            "city_id",
+            // "city_id",
             "cnic",
             "age",
             "fields_of_interest",
             // "description",
-            ...(currentRole === "handyman" ? ["interested_locations", "area_id", "first_name", "last_name", "interested_city",] : []),
+            ...(currentRole === "handyman" ? ["interested_locations", "area_id", "first_name", "last_name", "interested_cities",] : []),
             // "billing_address_scan",
             "cnic_scan",
             "picture",
@@ -320,7 +419,7 @@ export default function MyFormPage() {
     const handleCitiesChange = (selected) => {
         setSelectedCities(selected);
         const ids = selected.map((opt) => opt.value);
-        setFormData((prev) => ({ ...prev, interested_city: ids }));
+        setFormData((prev) => ({ ...prev, interested_cities: ids }));
     };
 
     const handleSubmit = async (e) => {
@@ -335,8 +434,8 @@ export default function MyFormPage() {
 
         // Append static fields
         form.append("role", userType);
-        form.append("city_id", selectedCityId);
-        form.append("interested_city", selectedCityId);
+        // form.append("city_id", selectedCityId);
+        form.append("interested_cities", selectedCityId);
         form.append("area_id", selectedAreaId);
 
         // Append dynamic fields with checks for files, blobs, arrays
@@ -660,7 +759,7 @@ export default function MyFormPage() {
                             {/* {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>} */}
                         </div>
 
-                        <div className="col-lg-6">
+                        {/* <div className="col-lg-6">
                             <label htmlFor="city">City</label>
                             <Select
                                 id="city"
@@ -676,15 +775,7 @@ export default function MyFormPage() {
                                 isSearchable
                             />
                             {formErrors.city_id && <small style={{ color: "red" }}>{formErrors.city_id}</small>}
-                        </div>
-
-                        {userType !== "provider" && (
-                            <div className="input_select col-lg-6">
-                                <><label htmlFor="">Interested Cities</label>
-                                    <MultiSelect options={optionsCity} hasSelectAll={false} value={selectedCities} onChange={handleCitiesChange} labelledBy="Interested Cities" /></>
-                                {formErrors.interested_city && <small style={{ color: "red" }}>{formErrors.interested_city}</small>}
-                            </div>
-                        )}
+                        </div> */}
 
 
                         {userType !== "provider" && (
@@ -707,14 +798,76 @@ export default function MyFormPage() {
                             </div>
                         )}
 
-                        {userType !== "provider" && (
+                        {/* {userType !== "provider" && (
                             <div className="input_select col-lg-6">
                                 <><label htmlFor="">Interested Locations</label>
                                     <MultiSelect options={optionsLocation} hasSelectAll={false} value={selectedLocation} onChange={handleLocationChange} labelledBy="Interested Locations" /></>
                                 {formErrors.interested_locations && <small style={{ color: "red" }}>{formErrors.interested_locations}</small>}
                             </div>
-                        )}
+                        )} */}
 
+
+                        {userType !== "provider" && (
+                            <div>
+                                {rows.map((row) => {
+                                    console.log("Selected city:", row.city);
+                                    console.log("Locations:", locations);
+                                    console.log("Filter result:", locations.filter((loc) => loc.city_id === row.city?.value));
+                                    const areaOptions = row.city
+                                        ? locations
+                                            .filter((loc) => String(loc.city_id) === String(row.city?.value))
+                                            .map((loc) => ({ value: loc.id, label: loc.name }))
+                                        : [];
+
+                                    return (
+                                        <div
+                                            className="row"
+                                            key={row.id}
+                                        >
+                                            <div className="col-md-6">
+                                                <label htmlFor="city">Interested City</label>
+                                                <Select
+                                                    options={cities.map((c) => ({ label: c.name, value: c.id }))}
+                                                    value={row.city}
+                                                    onChange={(city) => {
+                                                        handleCityChange(city, row.id)
+                                                        const cityId = city ? city.value : "";
+                                                    }}
+                                                    placeholder="Select City"
+                                                />
+                                                {formErrors.interested_cities && <small style={{ color: "red" }}>{formErrors.interested_cities}</small>}
+                                            </div>
+
+                                            <div className="col-md-6">
+                                                <label htmlFor="city">Interested Locations</label>
+                                                <div className=" d-flex gap-2 align-items-center">
+                                                    <MultiSelect
+                                                        options={areaOptions}
+                                                        value={row.areas}
+                                                        onChange={(areas) => handleAreaChange(areas, row.id)}
+                                                        labelledBy="Select Locations"
+                                                        hasSelectAll={false}
+                                                    />
+                                                    {rows.length > 1 && (
+                                                        <div style={{ width: "fit-content" }}>
+                                                            <button
+                                                                className="btn btn_danger"
+                                                                onClick={() => handleDeleteRow(row.id)}
+                                                            >
+                                                                <FaDeleteLeft />
+                                                            </button>
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                {formErrors.interested_locations && <small style={{ color: "red" }}>{formErrors.interested_locations}</small>}
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+
+                            </div>
+                        )}
 
                         {/* {userType !== "provider" && (
                             <div className="col-lg-6">

@@ -27,6 +27,16 @@ form {
   margin: 0 auto;
 }
 
+.btn_danger{
+  background-color: rgb(217, 217, 217);
+  color: #333;
+  border-radius: 50%;
+  padding: 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 form .image_div {
   position: relative;
   text-align: center;
@@ -223,6 +233,7 @@ form button:hover {
 .dropdown-content .panel-content .select-panel .options input  {
   width: fit-content !important;
 }
+
 
 
 /* .dropdown-content .panel-content .select-panel {

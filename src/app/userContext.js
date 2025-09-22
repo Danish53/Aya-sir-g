@@ -243,6 +243,7 @@ export const UserProvider = ({ children }) => {
       });
 
       const data = await res.json();
+      console.log(data, "/api/area-list");
       setLocations(data.data || []);
 
       // if (data.data && data.data.length > 0) {
