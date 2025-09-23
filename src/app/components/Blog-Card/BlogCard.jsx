@@ -1,11 +1,15 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import "./blog_card.css";
 import Link from "next/link";
 import DOMPurify from "dompurify";
+import Image from "next/image";
 
 export default function BlogCard({ content }) {
-  // console.log(content, "content blogs")
+  console.log(content, "content blogs")
+  const [loading, setLoading] = useState(true);
+
+  const src = content?.attchments[0];
 
   const getWords = (str = "") => {
     const words = str?.split(" ") || [];
@@ -40,9 +44,26 @@ export default function BlogCard({ content }) {
   return (
     <section className="blog_card">
       <Link href={`/blog-detail/${content?.slug}`}>
-        <div className="img_div">
-          <img src={content?.attchments || "/assets/blog_img.jpg"} alt="blog  image" />
+        {/* <div className="img_div"> */}
+        {/* <img src={content?.attchments || "/assets/blog_img.jpg"} alt="blog  image" /> */}
+        <div
+          className="position-relative img_div overflow-hidden"
+        >
+          {loading && (
+            <div className="skeleton-loader-image "></div>
+          )}
+
+          <Image
+            src={src || "/assets/blog_img.jpg"}
+            alt="person"
+            fill
+            unoptimized
+            className={`transition-opacity ${loading ? "opacity-0" : "opacity-100"}`}
+            onLoadingComplete={() => setLoading(false)}
+            loading="lazy"
+          />
         </div>
+        {/* </div> */}
 
         <div className="body">
           <h3>{getWords(content?.title)}</h3>

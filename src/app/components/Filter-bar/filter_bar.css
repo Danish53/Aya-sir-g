@@ -2,13 +2,20 @@
   background-color: white;
   font-family: var(--font-poppins), sans-serif;
   width: 100%;
-  height: fit-content;
-  /* overflow-y: scroll; */
+  /* height: 1550px; */
+  height: auto;
   position: relative;
 }
+
+.filter_bar.overflow_scroll {
+  height: 1550px;
+  overflow-y: scroll;
+}
+
 .filter_bar .filter_small {
   display: none;
 }
+
 p#filter_heading {
   border-left: 5px solid var(--red-color);
   font-size: 28px;
@@ -17,14 +24,17 @@ p#filter_heading {
   color: var(--filter-heading_color);
   border-bottom: 1px solid var(--bg-gray);
 }
+
 .filter_bar .box {
   border-bottom: 2px solid var(--bg-gray);
 }
+
 .filter_bar .box h3 {
   color: var(--filter-heading_color);
   font-size: 23px;
   font-weight: bold;
 }
+
 .filter_bar .box input {
   height: 18px;
   width: 18px;
@@ -32,7 +42,7 @@ p#filter_heading {
   border: 1px solid var(--filter-heading_color);
 }
 
-input[type=checkbox]{
+input[type=checkbox] {
   display: block !important;
 }
 
@@ -42,10 +52,12 @@ input[type=checkbox]{
   gap: 10px;
   margin-bottom: 10px;
 }
+
 .filter_bar .box label {
   font-size: 18px;
   color: var(--filter-heading_color);
 }
+
 /* .filter_bar .box.city label {
   font-size: 23px;
   font-weight: bold;
@@ -67,6 +79,12 @@ input[type=checkbox]{
     font-weight: bold;
     cursor: pointer;
   }
+
+  .filter_bar.overflow_scroll {
+    height: auto;
+    overflow-y: scroll;
+  }
+
 
   .filter_bar .filter_greater {
     display: none;
@@ -118,17 +136,18 @@ input[type=checkbox]{
   .filter_bar .box.city label {
     font-size: 17px;
   }
-  .close_btn{
-  display: block !important;
-  text-align: -webkit-right;
-}
+
+  .close_btn {
+    display: block !important;
+    text-align: -webkit-right;
+  }
 }
 
-.close_btn{
+.close_btn {
   display: none;
 }
 
-.see-more-btn{
+.see-more-btn {
   background: transparent;
   border: none;
   outline: none;

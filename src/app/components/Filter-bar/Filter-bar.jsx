@@ -118,7 +118,7 @@ export default function Filter_bar({ dataSearch }) {
 
 
   return (
-    <section className="filter_bar">
+    <section className={`filter_bar ${showAll || showAllArea || showAllCat ? "overflow_scroll" : ""}`}>
       <p
         id="filter_heading"
         className="p-2 filter_small"

@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./companycard.css";
 import { RiStarFill, RiStarHalfFill, RiStarLine, RiStarSFill } from "react-icons/ri";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
@@ -9,10 +9,15 @@ import Link from "next/link";
 import { UserContext } from "@/app/userContext";
 import 'tippy.js/dist/tippy.css';
 import Tippy from "@tippyjs/react";
+import Image from "next/image";
 
 export default function CompanyCard({ data, onLike, router }) {
   // console.log(data, "data user ind.")
   const { userInfo } = useContext(UserContext);
+
+  const [loading, setLoading] = useState(true);
+
+  const src = data?.profile_image;
 
   const isLiked = !!data?.can_like;
   const onLikeClick = () => {
@@ -51,8 +56,25 @@ export default function CompanyCard({ data, onLike, router }) {
           <div className="parent_div" onClick={() => router.push(`/compnies-details/${data?.id}`)}>
             <div className="d-flex flex-lg-row flex-column align-items-center gap-3 w-100">
               <div className="first_div">
-                <div className="img_div">
-                  <img src={data?.profile_image ? data?.profile_image : "/assets/hazar.png"} alt="" />
+                {/* <img src={data?.profile_image ? data?.profile_image : "/assets/hazar.png"} alt="" /> */}
+                <div
+                  className="position-relative img_div overflow-hidden"
+                // style={{ width: "130px", height: "100px" }}
+                >
+                  {loading && (
+                    <div className="skeleton-loader-image"></div>
+                  )}
+
+                  <Image
+                    src={src || "/assets/person_img.png"}
+                    alt="person"
+                    // width={189}
+                    fill
+                    unoptimized
+                    className={`transition-opacity ${loading ? "opacity-0" : "opacity-100"}`}
+                    onLoadingComplete={() => setLoading(false)}
+                    loading="lazy"
+                  />
                 </div>
               </div>
               <div className="two_div">
