@@ -40,7 +40,7 @@ export default function page() {
             <div className="card_1 mt-3 mb-2 p-3">
               <div className="flex_div d-flex align-items-center">
                 <h3 className="m-0">For E-center Registration:</h3>
-                <p>E_center@ayasirg.com</p>
+                <p>Ecenter@ayasirg.com</p>
               </div>
               {/* <div className="flex_div d-flex align-items-center">
                 <h3>Contact us:</h3>
@@ -51,8 +51,10 @@ export default function page() {
                 <p>03292927474</p>
               </div>
             </div>
-            <p>Send a Message or Voice Note: (Mention if you have a specific platform for this, e.g., WhatsApp, or if it's via a website contact form) <br/>
-              Our team at 15-C NFC Phase 1, Lahore, will reach out to you at the earliest convenience.</p>
+            <button className="btn btn_primary_btn">Send a Message or Voice Note
+               {/* (Mention if you have a specific platform for this, e.g., WhatsApp, or if it's via a website contact form) <br/>
+              Our team at 15-C NFC Phase 1, Lahore, will reach out to you at the earliest convenience. */}
+              </button>
             {/* <div className="card_1 mt-3 mb-2 mb-2 p-3">
               <div className="flex_div d-flex align-items-baseline">
                 <h3 className="yellow_color">Individual:</h3>

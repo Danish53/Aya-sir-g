@@ -66,47 +66,47 @@ export default function Page() {
     });
   };
 
-const getSafeHTML = (description) => {
-  if (!description) return "";
+  const getSafeHTML = (description) => {
+    if (!description) return "";
 
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = description;
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = description;
 
-  // Agar outermost wrapper <p> hai, unwrap it
-  if (tempDiv.children.length === 1 && tempDiv.firstChild.tagName.toLowerCase() === "p") {
-    const innerHTML = tempDiv.firstChild.innerHTML;
-    tempDiv.innerHTML = innerHTML;
-  }
-
-  // Convert all <oembed> to iframe
-  tempDiv.querySelectorAll("oembed").forEach((oembed) => {
-    const url = oembed.getAttribute("url");
-    const ytRegex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/;
-    const match = url.match(ytRegex);
-    if (match) {
-      const iframe = document.createElement("iframe");
-      iframe.width = "100%";
-      iframe.height = "400px";
-      iframe.src = `https://www.youtube.com/embed/${match[1]}`;
-      iframe.frameBorder = "0";
-      iframe.allow =
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
-
-      // Replace figure or oembed
-      if (oembed.parentNode.tagName.toLowerCase() === "figure") {
-        oembed.parentNode.replaceWith(iframe);
-      } else {
-        oembed.replaceWith(iframe);
-      }
+    // Agar outermost wrapper <p> hai, unwrap it
+    if (tempDiv.children.length === 1 && tempDiv.firstChild.tagName.toLowerCase() === "p") {
+      const innerHTML = tempDiv.firstChild.innerHTML;
+      tempDiv.innerHTML = innerHTML;
     }
-  });
 
-  return DOMPurify.sanitize(tempDiv.innerHTML, {
-    ADD_TAGS: ["iframe"],
-    ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "src", "width", "height"],
-  });
-};
+    // Convert all <oembed> to iframe
+    tempDiv.querySelectorAll("oembed").forEach((oembed) => {
+      const url = oembed.getAttribute("url");
+      const ytRegex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/;
+      const match = url.match(ytRegex);
+      if (match) {
+        const iframe = document.createElement("iframe");
+        iframe.width = "100%";
+        iframe.height = "400px";
+        iframe.src = `https://www.youtube.com/embed/${match[1]}`;
+        iframe.frameBorder = "0";
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
+
+        // Replace figure or oembed
+        if (oembed.parentNode.tagName.toLowerCase() === "figure") {
+          oembed.parentNode.replaceWith(iframe);
+        } else {
+          oembed.replaceWith(iframe);
+        }
+      }
+    });
+
+    return DOMPurify.sanitize(tempDiv.innerHTML, {
+      ADD_TAGS: ["iframe"],
+      ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "src", "width", "height"],
+    });
+  };
 
 
 
@@ -161,6 +161,30 @@ const getSafeHTML = (description) => {
       description: "description"
     }
   ]
+
+  const XIcon = ({ size = 40, round = false }) => (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: round ? "50%" : "0%",
+        background: "black",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size * 0.6}
+        height={size * 0.6}
+        fill="white"
+        viewBox="0 0 24 24"
+      >
+        <path d="M18.244 2H21l-6.53 7.47L22 22h-6.69l-4.69-6.37L5.56 22H2l7.11-8.13L2 2h6.82l4.34 5.91L18.244 2z" />
+      </svg>
+    </div>
+  );
 
   return (
     <section className="container margin_navbar">
@@ -258,7 +282,8 @@ const getSafeHTML = (description) => {
                           <FacebookIcon size={40} round />
                         </FacebookShareButton>
                         <TwitterShareButton url={currentUrl}>
-                          <TwitterIcon size={40} round />
+                          {/* <TwitterIcon size={40} round /> */}
+                          <XIcon size={40} round />
                         </TwitterShareButton>
                         <WhatsappShareButton url={currentUrl}>
                           <WhatsappIcon size={40} round />

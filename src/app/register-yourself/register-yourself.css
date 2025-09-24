@@ -39,6 +39,21 @@
   color: var(--color-sky) !important;
 }
 
+.register_yourself .btn_primary_btn{
+  background-color: #b50000;
+  border: 2px solid #b50000 !important;
+  padding: 6px 12px;
+  border-radius: 18px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.register_yourself .btn_primary_btn:hover{
+  background-color: #b500002e;
+  color: #b50000;
+}
+
 @media screen and (max-width: 768px) {
   .register_yourself .content p {
     font-size: 16px;

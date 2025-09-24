@@ -36,9 +36,11 @@ import {
 import { toast } from "react-toastify";
 import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css';
+import Image from "next/image";
 
 
 export default function page() {
+  const [loadingImage, setLoadingImage] = useState();
   const params = useParams();
   const { id } = params;
   const [user, setUser] = useState(null);
@@ -240,6 +242,29 @@ export default function page() {
     }
   }
 
+  const XIcon = ({ size = 40, round = false }) => (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: round ? "50%" : "0%",
+        background: "black",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={size * 0.6}
+        height={size * 0.6}
+        fill="white"
+        viewBox="0 0 24 24"
+      >
+        <path d="M18.244 2H21l-6.53 7.47L22 22h-6.69l-4.69-6.37L5.56 22H2l7.11-8.13L2 2h6.82l4.34 5.91L18.244 2z" />
+      </svg>
+    </div>
+  );
 
 
   return (
@@ -344,7 +369,8 @@ export default function page() {
                                   <FacebookIcon size={40} round />
                                 </FacebookShareButton>
                                 <TwitterShareButton url={currentUrl}>
-                                  <TwitterIcon size={40} round />
+                                  {/* <TwitterIcon size={40} round /> */}
+                                  <XIcon size={40} round />
                                 </TwitterShareButton>
                                 <WhatsappShareButton url={currentUrl}>
                                   <WhatsappIcon size={40} round />
@@ -548,9 +574,27 @@ export default function page() {
                     {/* <hr /> */}
                   </div>
                   <div className="col-md-5 col-sm-12 text-right order-1 order-md-2 mb-md-0 mb-2">
-                    <div className="img_div">
-                      <img src={user?.profile_image || "/assets/person_img.png"} alt={user?.name} />
+                    {/* <div className="img_div"> */}
+                    {/* <img src={user?.profile_image || "/assets/person_img.png"} alt={user?.name} /> */}
+                    <div
+                      className="position-relative overflow-hidden img_div"
+                    >
+                      {loadingImage && (
+                        <div className="skeleton-loader-image"></div>
+                      )}
+
+                      <Image
+                        src={user?.profile_image || "/assets/hazar_2.png"}
+                        alt={"title"}
+                        width={100}
+                        height={100}
+                        unoptimized
+                        className={`transition-opacity ${loadingImage ? "opacity-0" : "opacity-100"}`}
+                        onLoadingComplete={() => setLoadingImage(false)}
+                        loading="lazy"
+                      />
                     </div>
+                    {/* </div> */}
                   </div>
                   <div className="col-md-12 col-sm-12 info order-3 order-md-3">
 

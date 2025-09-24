@@ -51,6 +51,23 @@
   color: #b50000 !important;
 }
 
+.navbar .btn_primary_btn{
+  border-radius: 18px;
+  background-color: #b50000;
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 5px 15px;  
+  border: 2px solid #b50000 !important;
+  text-transform: uppercase;
+  transition: all .3s ease-in-out;
+}
+
+.navbar .btn_primary_btn:hover{
+  background-color: #b5000029;
+  color: #b50000;
+}
+
 .navbar p#head {
   font-size: 18px;
   font-weight: bold;
@@ -320,6 +337,14 @@
 
 @media screen and (max-width: 576px) {
   .navbar .info_div p {
+    display: none;
+  }
+
+  .navbar .info_div button {
+    display: none;
+  }
+
+  .navbar .nav_items button {
     display: none;
   }
 

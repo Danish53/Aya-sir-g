@@ -16,9 +16,12 @@ import { toast } from "react-toastify";
 import { UserContext } from "@/app/userContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function Page() {
-    const { userInfo, addBlogComment, commentBlog } = useContext(UserContext)
+    const { userInfo, addBlogComment, commentBlog } = useContext(UserContext);
+    const [loadingImage, setLoadingImage] = useState(true);
     const router = useRouter();
     const params = useParams();
     const { slug } = params;
@@ -135,54 +138,94 @@ export default function Page() {
 
 
     const getSafeHTML = (description) => {
-  if (!description) return "";
+        if (!description) return "";
 
-  const tempDiv = document.createElement("div");
-  tempDiv.innerHTML = description;
+        const tempDiv = document.createElement("div");
+        tempDiv.innerHTML = description;
 
-  // Agar outermost wrapper <p> hai, unwrap it
-  if (tempDiv.children.length === 1 && tempDiv.firstChild.tagName.toLowerCase() === "p") {
-    const innerHTML = tempDiv.firstChild.innerHTML;
-    tempDiv.innerHTML = innerHTML;
-  }
+        // Agar outermost wrapper <p> hai, unwrap it
+        if (tempDiv.children.length === 1 && tempDiv.firstChild.tagName.toLowerCase() === "p") {
+            const innerHTML = tempDiv.firstChild.innerHTML;
+            tempDiv.innerHTML = innerHTML;
+        }
 
-  // Convert all <oembed> to iframe
-  tempDiv.querySelectorAll("oembed").forEach((oembed) => {
-    const url = oembed.getAttribute("url");
-    const ytRegex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/;
-    const match = url.match(ytRegex);
-    if (match) {
-      const iframe = document.createElement("iframe");
-      iframe.width = "100%";
-      iframe.height = "400px";
-      iframe.src = `https://www.youtube.com/embed/${match[1]}`;
-      iframe.frameBorder = "0";
-      iframe.allow =
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-      iframe.allowFullscreen = true;
+        // Convert all <oembed> to iframe
+        tempDiv.querySelectorAll("oembed").forEach((oembed) => {
+            const url = oembed.getAttribute("url");
+            const ytRegex = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([\w-]{11})/;
+            const match = url.match(ytRegex);
+            if (match) {
+                const iframe = document.createElement("iframe");
+                iframe.width = "100%";
+                iframe.height = "400px";
+                iframe.src = `https://www.youtube.com/embed/${match[1]}`;
+                iframe.frameBorder = "0";
+                iframe.allow =
+                    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+                iframe.allowFullscreen = true;
 
-      // Replace figure or oembed
-      if (oembed.parentNode.tagName.toLowerCase() === "figure") {
-        oembed.parentNode.replaceWith(iframe);
-      } else {
-        oembed.replaceWith(iframe);
-      }
-    }
-  });
+                // Replace figure or oembed
+                if (oembed.parentNode.tagName.toLowerCase() === "figure") {
+                    oembed.parentNode.replaceWith(iframe);
+                } else {
+                    oembed.replaceWith(iframe);
+                }
+            }
+        });
 
-  return DOMPurify.sanitize(tempDiv.innerHTML, {
-    ADD_TAGS: ["iframe"],
-    ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "src", "width", "height"],
-  });
-};
+        return DOMPurify.sanitize(tempDiv.innerHTML, {
+            ADD_TAGS: ["iframe"],
+            ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "src", "width", "height"],
+        });
+    };
 
+    const XIcon = ({ size = 40, round = false }) => (
+        <div
+            style={{
+                width: size,
+                height: size,
+                borderRadius: round ? "50%" : "0%",
+                background: "black",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size * 0.6}
+                height={size * 0.6}
+                fill="white"
+                viewBox="0 0 24 24"
+            >
+                <path d="M18.244 2H21l-6.53 7.47L22 22h-6.69l-4.69-6.37L5.56 22H2l7.11-8.13L2 2h6.82l4.34 5.91L18.244 2z" />
+            </svg>
+        </div>
+    );
 
+    const src = blogData?.attchments[0];
 
     return (
         <section className="container margin_navbar blog_details">
             <div className="row py-3">
-                <div className="col-md-12 img_div">
-                    <img src={blogData?.attchments[0]} alt={blogData?.title} />
+                {/* <img src={blogData?.attchments[0]} alt={blogData?.title} /> */}
+                <div
+                    className="col-md-12 position-relative img_div overflow-hidden"
+                >
+                    {loadingImage && (
+                        <div className="skeleton-loader-image"></div>
+                    )}
+
+                    <Image
+                        src={src || "/assets/blog_img.jpg"}
+                        alt={blogData?.title}
+                        width={100}
+                        height={100}
+                        unoptimized
+                        className={`transition-opacity ${loadingImage ? "opacity-0" : "opacity-100"}`}
+                        onLoadingComplete={() => setLoadingImage(false)}
+                        loading="lazy"
+                    />
                 </div>
                 <div className="col-md-12 d-lg-flex d-md-flex justify-content-between align-items-center mt-2">
                     <div className="flex_div_parent">
@@ -274,7 +317,8 @@ export default function Page() {
                                                     <FacebookIcon size={40} round />
                                                 </FacebookShareButton>
                                                 <TwitterShareButton url={currentUrl}>
-                                                    <TwitterIcon size={40} round />
+                                                    {/* <TwitterIcon size={40} round /> */}
+                                                    <XIcon size={40} round />
                                                 </TwitterShareButton>
                                                 <WhatsappShareButton url={currentUrl}>
                                                     <WhatsappIcon size={40} round />
@@ -323,9 +367,9 @@ export default function Page() {
                         <h2 className="heading">{blogData.title}</h2>
                     </div>
                     <div
-            className="description"
-            dangerouslySetInnerHTML={{ __html: getSafeHTML(blogData.description) }}
-          ></div>
+                        className="description"
+                        dangerouslySetInnerHTML={{ __html: getSafeHTML(blogData.description) }}
+                    ></div>
                 </div>
             </div>
             <div className="comments_blog mt-2">
@@ -360,7 +404,7 @@ export default function Page() {
 
                         {/* Twitter (X) */}
                         <Link className="social_inner d-flex align-items-center gap-2" href={'https://x.com/Aya_Sir_G'} target="_blank">
-                            <FaTwitter />
+                            <FaXTwitter />
                         </Link>
 
                         {/* LinkedIn */}

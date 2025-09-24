@@ -115,7 +115,7 @@ export default function Page() {
                       please don't hesitate to reach out.
                     </p>
                     <li>Email Us: help@ayasirg.com</li>
-                    <li>For E-center Registration: E_center@ayasirg.com</li>
+                    <li>For E-center Registration: Ecenter@ayasirg.com</li>
                     <li>Call Us Directly: 0309-8574093</li>
                     {/* <li>
                       Send a Message or Voice Note: (Mention if you have a

@@ -8,6 +8,16 @@
   font-weight: 500;
 }
 
+.about_us h2>span{
+  font-size: 30px;
+  font-weight: bold;
+  color: #B43336;
+}
+
+.border_color{
+  border-left: 4px solid #B43336;
+}
+
 .about_us h4{
   font-size: 20px;
    font-weight: 500;

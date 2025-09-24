@@ -56,6 +56,7 @@ export default function CustomNavbar() {
   const handleNavbar = () => setMyNavbar(!myNavbar);
 
   const gotoLogin = () => router.push("/login");
+  const gotoContactUs = () => router.push("/contact-us");
   const gotoProfile = () => router.push("/user-profile");
   const gotoEcenters = () => router.push("/register-yourself");
   const gotoEcentersRecords = () => router.push("/ecenter-record");
@@ -191,7 +192,8 @@ export default function CustomNavbar() {
                   {userToken ? (
                     <p>{userDetails?.first_name}</p>
                   ) : (
-                    <p onClick={gotoLogin}>Login</p>
+                    // <p onClick={gotoLogin}>Login</p>
+                    <button className="btn btn_primary_btn" onClick={gotoLogin}>Login</button>
                   )}
                 </div>
 
@@ -241,6 +243,10 @@ export default function CustomNavbar() {
                 </ul>
               )}
             </div>
+
+            {
+              userToken? <button className="btn btn_primary_btn ms-3" onClick={gotoContactUs}>Contact us</button> : ""
+            }
 
           </div>
         </nav>

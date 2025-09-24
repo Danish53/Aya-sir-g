@@ -6,7 +6,6 @@ import DOMPurify from "dompurify";
 import Image from "next/image";
 
 export default function BlogCard({ content }) {
-  console.log(content, "content blogs")
   const [loading, setLoading] = useState(true);
 
   const src = content?.attchments[0];

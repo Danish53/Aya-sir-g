@@ -6,9 +6,9 @@ export default function page() {
     <section className="our_mission margin_navbar">
       <div className="container py-3">
         <h3>Our Mission</h3>
-        <h4>Welcome to “Aya Sir G!”</h4>
+        <h4>Welcome to Aya Sir G!</h4>
         <p>
-          At <b>“Aya Sir G!”</b> we are committed to creating opportunities for
+          At <b>Aya Sir G!</b> we are committed to creating opportunities for
           individuals who are eager to work, believe in their abilities, and
           embrace self-reliance. Inspired by the timeless principle, "Allah
           helps those who help themselves," we empower people to take initiative
@@ -26,7 +26,7 @@ export default function page() {
           trust deficit in today’s hiring practices.
         </p>
         <p>
-          To bridge this gap, we launched <b>“Aya Sir G!”</b>—a comprehensive platform
+          To bridge this gap, we launched <b>Aya Sir G!</b>—a comprehensive platform
           connecting users with trustworthy workers without charging
           unreasonable fees. With just one call, you can access the services you
           need, bringing convenience and reliability to your doorstep.
@@ -35,7 +35,7 @@ export default function page() {
           Our mission goes beyond mere connectivity; we aim to uplift Pakistan’s
           blue-collar workforce by providing them with a digital platform to
           showcase their skills, gain recognition, and secure better
-          opportunities. In essence, “Aya Sir G!” is like “LinkedIn” for the
+          opportunities. In essence, Aya Sir G! is like “LinkedIn” for the
           blue-collar community. We envision a future where workers no longer
           need to wait at street corners or main chowks for opportunities.
           Instead, we bring opportunities directly to them, ensuring their
@@ -44,7 +44,7 @@ export default function page() {
         <p>
           We consider this platform a form of Sadaqah Jariyah <span>(continuous
           charity)</span>. If you know anyone in your circle who could benefit from
-          “Aya Sir G!” but hasn’t connected with us yet, please share their
+          Aya Sir G! but hasn’t connected with us yet, please share their
           contact details via the WhatsApp number below. Together, we can make a
           meaningful impact on the lives of countless individuals.
         </p>

@@ -14,8 +14,8 @@ export default function OurMission() {
               Our <span className="red_title">Mission</span>
             </h3>
             <p id="para">
-              Welcome to “Aya Sir G!” <br />
-              At “Aya Sir G!” we are committed to creating opportunities for individuals who are eager to work, believe in their abilities, and embrace self-reliance. Inspired by the timeless principle, "Allah helps those who help themselves," we empower people to take initiative and strive for a better future.
+              Welcome to Aya Sir G! <br />
+              At Aya Sir G! we are committed to creating opportunities for individuals who are eager to work, believe in their abilities, and embrace self-reliance. Inspired by the timeless principle, "Allah helps those who help themselves," we empower people to take initiative and strive for a better future.
             </p>
             <p id="para" className="my-2">Having deep roots in Pakistan, we recognize the untapped potential of
               our youth and workforce, who are talented and hardworking but often
