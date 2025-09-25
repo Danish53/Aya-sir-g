@@ -28,7 +28,7 @@ export default function Page() {
   });
 
   const [loader, setLoader] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null); 
+  const [selectedUser, setSelectedUser] = useState(null);
   // console.log(selectedUser?.id, "selected user")
 
   const fileInputRef = useRef(null);
@@ -69,38 +69,38 @@ export default function Page() {
   //   }
   // };
 
-const handleShow = (data = null) => {
-  if (data) {
-    setSelectedUser(data); // niche wala user select
-    setFormData({
-      first_name: data.first_name || "",
-      last_name: data.last_name || "",
-      username: data.username || "",
-      contact_number: data.contact_number || "",
-      email: data.email || "",
-      address: data.address || "",
-      user_city: data.user_city || "",
-      audio_sample_blob: "",
-    });
-    setAudioURL(data.audio_sample || "");
-    setImagePreview(data.profile_image || "");
-  } else if (userDetails) {
-    setSelectedUser(null); // upar wala edit
-    setFormData({
-      first_name: userDetails.first_name || "",
-      last_name: userDetails.last_name || "",
-      username: userDetails.username || "",
-      contact_number: userDetails.contact_number || "",
-      email: userDetails.email || "",
-      address: userDetails.address || "",
-      user_city: userDetails.user_city || "",
-      audio_sample_blob: "",
-    });
-    setAudioURL(userDetails.audio_sample || "");
-    setImagePreview(userDetails.profile_image || "");
-  }
-  setShow(true);
-};
+  const handleShow = (data = null) => {
+    if (data) {
+      setSelectedUser(data);
+      setFormData({
+        first_name: data.first_name || "",
+        last_name: data.last_name || "",
+        username: data.username || "",
+        contact_number: data.contact_number || "",
+        email: data.email || "",
+        address: data.address || "",
+        user_city: data.user_city || "",
+        audio_sample_blob: "",
+      });
+      setAudioURL(data.audio_sample || "");
+      setImagePreview(data.profile_image || "");
+    } else if (userDetails) {
+      setSelectedUser(null);
+      setFormData({
+        first_name: userDetails.first_name || "",
+        last_name: userDetails.last_name || "",
+        username: userDetails.username || "",
+        contact_number: userDetails.contact_number || "",
+        email: userDetails.email || "",
+        address: userDetails.address || "",
+        user_city: userDetails.user_city || "",
+        audio_sample_blob: "",
+      });
+      setAudioURL(userDetails.audio_sample || "");
+      setImagePreview(userDetails.profile_image || "");
+    }
+    setShow(true);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -206,56 +206,78 @@ const handleShow = (data = null) => {
   };
 
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoader(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoader(true);
 
-  const formDataToSend = new FormData();
-  selectedUser ? formDataToSend.append("id", selectedUser?.id) : "",
-  formDataToSend.append("first_name", formData.first_name);
-  formDataToSend.append("last_name", formData.last_name);
-  formDataToSend.append("username", formData.username);
-  formDataToSend.append("email", formData.email);
-  formDataToSend.append("contact_number", formData.contact_number);
-  formDataToSend.append("address", formData.address);
-  formDataToSend.append("user_city", formData.user_city);
+    const formDataToSend = new FormData();
+    selectedUser ? formDataToSend.append("id", selectedUser?.id) : "",
+      formDataToSend.append("first_name", formData.first_name);
+    formDataToSend.append("last_name", formData.last_name);
+    formDataToSend.append("username", formData.username);
+    formDataToSend.append("email", formData.email);
+    formDataToSend.append("contact_number", formData.contact_number);
+    formDataToSend.append("address", formData.address);
+    formDataToSend.append("user_city", formData.user_city);
 
-  if (!selectedUser) {
-    // agar main user hai
-    formDataToSend.append("role", userDetails?.user_type);
-  }
+    if (!selectedUser) {
+      // agar main user hai
+      formDataToSend.append("role", userDetails?.user_type);
+    }
 
-  // audio sample blob ko base64 me convert kar ke bhejna
-  if (formData.audio_sample_blob) {
-    const base64Audio = await blobToBase64(formData.audio_sample_blob);
-    formDataToSend.append("audio_sample_blob", base64Audio);
-  }
+    // audio sample blob ko base64 me convert kar ke bhejna
+    if (formData.audio_sample_blob) {
+      const base64Audio = await blobToBase64(formData.audio_sample_blob);
+      formDataToSend.append("audio_sample_blob", base64Audio);
+    }
 
-  // profile image
-  if (fileInputRef.current?.files?.[0]) {
-    formDataToSend.append("profile_image", fileInputRef.current.files[0]);
-  }
+    // profile image
+    if (fileInputRef.current?.files?.[0]) {
+      formDataToSend.append("profile_image", fileInputRef.current.files[0]);
+    }
 
-  let result;
-  if (selectedUser) {
-    // console.log(selectedUser?.id, "id user ")
-    result = await updateAssociatedUserProfile(formDataToSend);
-    accountsAssociate();
-  } else {
-    // main user update
-    result = await updateUserProfile(formDataToSend);
-  }
+    let result;
+    if (selectedUser) {
+      // console.log(selectedUser?.id, "id user ")
+      result = await updateAssociatedUserProfile(formDataToSend);
+      accountsAssociate();
+    } else {
+      // main user update
+      result = await updateUserProfile(formDataToSend);
+    }
 
-  if (result.success) {
-    toast.success("Profile updated successfully!");
-    handleClose();
-  } else {
-    toast.error(result.message || "Update failed.");
-  }
+    if (result.success) {
+      toast.success("Profile updated successfully!");
+      handleClose();
+    } else {
+      toast.error(result.message || "Update failed.");
+    }
 
-  setLoader(false);
-};
+    setLoader(false);
+  };
 
+  // ecenter image update
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+
+      // Prepare form data
+      const formDataToSend = new FormData();
+      if (fileInputRef.current?.files?.[0]) {
+        formDataToSend.append("profile_image", fileInputRef.current.files[0]);
+      }
+
+      try {
+        setLoader(true);
+        const res = await updateUserProfile(formDataToSend);
+        toast.success("Profile Image updated successfully!");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      } finally {
+        setLoader(false);
+      }
+    }
+  };
 
   // profiles all
   const [accounts, setAccounts] = useState();
@@ -297,13 +319,67 @@ const handleSubmit = async (e) => {
       <div className="container py-3">
         <div className="row profile_flex">
           <div className="col-lg-9 text-center">
-            <div className="profile_img_div py-5">
+            <div className="profile_img_div py-5" style={{
+              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center"
+            }}>
               {userInfo ? (
                 <>
-                  <img
-                    src={userInfo?.profile_image || "/assets/profile.png"}
-                    alt="user"
-                  />
+                  {
+                    userInfo?.user_type == "e-center" ? (
+                      <div style={{ position: "relative" }}>
+                        {loader ? <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems:"center",
+                            width: "150px",
+                            border: "1px solid var(--red-color)",
+                            height: "150px",
+                            borderRadius: "50%",
+                            marginBottom: "20px",
+                          }}
+                        >
+                          <div className="spinner-border text-secondary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                        </div> : <img
+                          src={userInfo?.profile_image || "/assets/profile.png"}
+                          alt="user"
+                        />}
+                        <div
+                          style={{
+                            position: "absolute",
+                            bottom: "25px",
+                            right: "0px",
+                            background: "lightgray",
+                            borderRadius: "50%",
+                            padding: "6px 8px",
+                            fontSize: "16px",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => fileInputRef.current.click()}
+                        >
+                          <FaEdit className="edit_icon" />
+                        </div>
+
+                        {/* 📁 Hidden File Input */}
+                        <input
+                          type="file"
+                          accept="image/*"
+                          ref={fileInputRef}
+                          style={{ display: "none" }}
+                          onChange={handleImageChange}
+                        />
+                      </div>
+                    ) : (<img
+                      src={userInfo?.profile_image || "/assets/profile.png"}
+                      alt="user"
+                    />)
+                  }
+
                   <div className="name_div d-flex">
                     <h3>{userInfo?.username}</h3>
                     {
