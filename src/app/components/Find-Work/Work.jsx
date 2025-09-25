@@ -6,11 +6,11 @@ export default function Work() {
     <section className="work mt-5 mb-5">
       <div className="container">
         <div className="row mb-3">
-          <p className="section_heading mb-3">
-            Changing the Way Working <span className="red_title">People Find Work</span>
-          </p>
           <div className="col-lg-6">
             <div className="right_div" data-aos="fade-right">
+              <p className="section_heading mb-1">
+                Changing the Way Working <br /><span className="red_title">People Find Work</span>
+              </p>
               <div className="col_1 mt-lg-5 mt-3">
                 <h3 className="heading">Find Trusted Professionals</h3>
                 <p>

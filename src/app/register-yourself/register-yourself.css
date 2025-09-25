@@ -10,8 +10,19 @@
   font-size: 30px;
   font-weight: 500;
 }
+
+.border_color{
+  border-left: 4px solid #B43336;
+}
+
+.register_yourself h2>span{
+  font-size: 30px;
+  font-weight: bold;
+  color: #B43336;
+}
+
 .register_yourself .content h4 {
-  font-size: 26px;
+  font-size: 20px;
   font-weight: 500;
 }
 .register_yourself .flex_div {

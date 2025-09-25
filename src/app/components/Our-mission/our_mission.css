@@ -3,9 +3,11 @@
   background: transparent !important;
 }
 
-.section_heading{
+.our_mission .section_heading{
   font-size: 32px !important;
   font-weight: bold !important;
+  text-align: left;
+  width: 100%;
 }
 
 span.red_title {

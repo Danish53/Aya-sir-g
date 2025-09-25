@@ -1,35 +1,43 @@
-.our_mission {
+.market_business {
   font-family: var(--font-poppins), sans-serif;
   padding: 20px 0px;
-  background-color: #E5E4E4;
-  padding-bottom: 120px;
+  background-color: #fff;
+  padding-bottom: 50px;
 }
 
-.our_mission h3{
+.market_business h3{
   font-size: 30px;
   font-weight: 500;
 }
 
-.our_mission h4{
-  font-size: 20px;
-   font-weight: 500;
-   color: #667085;
+
+.market_business h2>span{
+  font-size: 30px;
+  font-weight: bold;
+  color: #B43336;
 }
 
-.our_mission p{
+.market_business h4{
+  font-size: 20px;
+   font-weight: 500;
+}
+
+.market_business .border_color{
+  border-left: 5px solid #B43336;
+}
+
+.market_business p{
   font-size: 16px;
   font-weight: 500;
   padding: 10px 0px;
-  color: #212529;
 }
 
-.our_mission span{
+.market_business span{
   font-size: 16px;
 }
 
-.our_mission li{
+.market_business li{
   font-size: 16px;
   font-weight: 500;
-  color: #212529;
 }
 

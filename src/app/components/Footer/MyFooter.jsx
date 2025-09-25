@@ -87,7 +87,7 @@ export default function MyFooter() {
               </Link>
 
               {/* Facebook */}
-              <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.facebook.com/share/1BNgdCAE9L/'} target="_blank">
+              <Link className="social_inner d-flex align-items-center gap-2" href={'https://www.facebook.com/profile.php?id=61577785319983'} target="_blank">
                 <FaFacebookF />
               </Link>
 
@@ -115,7 +115,7 @@ export default function MyFooter() {
             <div className="footer_bottom">
               <p>The data and content provided on this website are intended solely for personal and authorized use. Copying, reusing, or redistributing any information without our consent is not allowed. © 2025 - 2035 AYASIRG (Pvt) Ltd. - All Rights Reserved.</p>
               <p><Link href={'/'}>Terms of Service</Link> | <Link href={'/privacy-policy'}>Privacy Policy</Link></p>
-              <p>Reproduction of material from any ayasirg.com pages without permission is strictly prohibited.</p>
+              {/* <p>Reproduction of material from any ayasirg.com pages without permission is strictly prohibited.</p> */}
             </div>
           </div>
         </div>
