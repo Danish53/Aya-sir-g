@@ -3,35 +3,47 @@
   padding: 20px 0px;
 }
 
-.about_us h2{
+.about_us h2 {
   font-size: 30px;
   font-weight: 500;
 }
 
-.about_us h2>span{
+.about_us h2>span {
   font-size: 30px;
   font-weight: bold;
   color: #B43336;
 }
 
-.border_color{
+.border_color {
   border-left: 4px solid #B43336;
 }
 
-.about_us h4{
+.about_us h4 {
   font-size: 20px;
-   font-weight: 500;
-   /* color: #667085; */
+  font-weight: 500;
+  /* color: #667085; */
 }
 
-.about_us p{
+.about_us p {
   font-size: 16px;
   color: #212529;
   font-weight: 500;
   padding: 10px 0px;
 }
 
-.about_us span{
+.about_us span {
   font-size: 16px;
 }
 
+@media (max-width: 600px) {
+  .about_us h2 {
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .about_us h2>span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #B43336;
+  }
+}

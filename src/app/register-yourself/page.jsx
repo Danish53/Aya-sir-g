@@ -109,7 +109,7 @@ export default function page() {
 
   return (
     <section className="register_yourself margin_navbar">
-      <div className="container py-4">
+      <div className="container py-3">
         <div className="row">
           {/* Left Sidebar - Ads */}
           <div className="col-lg-3 ad_bar p-0 hide_bar">
@@ -135,9 +135,9 @@ export default function page() {
               </p>
 
               {/* Grid Layout for Sections */}
-              <div className="row g-4 mt-2">
+              <div className="row g-lg-4 g-3 mt-1">
                 <div className="col-md-6">
-                  <div className="shadow-sm p-4 h-100 rounded-3">
+                  <div className="shadow-sm p-lg-4 p-3 h-100 rounded-3">
                     <h4 className="fw-semibold ps-3 mb-2 border_color">
                       For E-centers: Become a Community Hub
                     </h4>
@@ -150,7 +150,7 @@ export default function page() {
                 </div>
 
                 <div className="col-md-6">
-                  <div className=" shadow-sm p-4 h-100 rounded-3">
+                  <div className=" shadow-sm p-lg-4 p-3 h-100 rounded-3">
                     <h4 className="fw-semibold ps-3 mb-2 border_color">
                       For Individuals: Showcase Your Expertise
                     </h4>
@@ -160,7 +160,7 @@ export default function page() {
                 </div>
 
                 <div className="col-md-12">
-                  <div className=" shadow-sm p-4 h-100 rounded-3">
+                  <div className=" shadow-sm p-lg-4 p-3 h-100 rounded-3">
                     <h4 className="fw-semibold ps-3 mb-2 border_color">
                       For Companies: Scale Your Service Business
                     </h4>
@@ -171,7 +171,7 @@ export default function page() {
                 </div>
                 <div className="col-md-12">
                   {/* Contact Section */}
-                  <div className="shadow-sm p-4 h-100 rounded-3">
+                  <div className="shadow-sm p-lg-4 p-3 h-100 rounded-3">
                     <h3 className="fw-semibold ps-3 mb-2 border_color">Ready to Get Started?</h3>
                     <p>
                       For personalized assistance or to begin your registration,

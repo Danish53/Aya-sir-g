@@ -3,37 +3,49 @@
   padding: 20px 0px;
 }
 
-.our_mission h3{
+.our_mission h3 {
   font-size: 30px;
   font-weight: 500;
 }
 
-.our_mission h4{
+.our_mission h4 {
   font-size: 20px;
-   font-weight: 500;
-   /* color: #667085; */
+  font-weight: 500;
+  /* color: #667085; */
 }
 
 
-.our_mission h2>span{
+.our_mission h2>span {
   font-size: 30px;
   font-weight: bold;
   color: #B43336;
 }
 
-.our_mission p{
+.our_mission p {
   font-size: 16px;
   font-weight: 500;
   padding: 10px 0px;
   color: #212529;
 }
 
-.our_mission span{
+.our_mission span {
   font-size: 16px;
 }
 
-.our_mission li{
+.our_mission li {
   font-size: 16px;
   font-weight: 500;
 }
 
+@media (max-width: 600px) {
+  .our_mission h2 {
+    font-size: 24px;
+    font-weight: 500;
+  }
+
+  .our_mission h2>span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #B43336;
+  }
+}

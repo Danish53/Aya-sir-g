@@ -176,17 +176,17 @@ import "./privacy_policy.css";
 export default function PrivacyPolicyPage() {
   return (
     <section className="privacy_policy margin_navbar">
-      <div className="container py-5">
+      <div className="container py-3">
         {/* Page Header */}
-        <div className="text-center mb-3">
-          <h2 className="fw-bold border_color">Aya Sir G! <span>Privacy Policy</span></h2>
-          <p className="text-muted">
+        <div className="text-center mb-2">
+          <h2 className="fw-bold">Aya Sir G! <span>Privacy Policy</span></h2>
+          <p className="">
             Effective Date: <b>March 1, 2025</b>
           </p>
         </div>
 
         {/* Intro Section */}
-        <div className="shadow-sm p-4 rounded-3 mb-4">
+        <div className="shadow-sm  p-lg-4 p-3 rounded-3 mb-4">
           <p>
             At <b>Aya Sir G!</b> we value your privacy and have compiled all
             essential information about how we manage your personal data and your
@@ -204,11 +204,11 @@ export default function PrivacyPolicyPage() {
         </div>
 
         {/* Grid Sections */}
-        <div className="row g-4">
+        <div className="row g-lg-4 g-3">
           {/* Scope & Updates */}
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Scope and Updates</h4>
+            <div className="shadow-sm p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Scope and Updates</h4>
               <p>
                 This privacy policy governs your use of the <b>Aya Sir G!</b>{" "}
                 website and all related applications, services, and products{" "}
@@ -220,8 +220,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Data Controller */}
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Data Controller</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Data Controller</h4>
               <p>
                 The collection and processing of your personal data are carried out
                 by <b>Aya Sir G!</b>. Our official address is:
@@ -234,8 +234,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Information Collection */}
           <div className="col-md-12">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold  ps-3 mb-2 border_color">
                 Information We Collect and Process
               </h4>
               <p>
@@ -252,8 +252,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Purpose */}
           <div className="col-md-12">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Purpose of Data Collection</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Purpose of Data Collection</h4>
               <ul>
                 <li>Security and verification of users.</li>
                 <li>Informing you about services, products, or updates.</li>
@@ -271,8 +271,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Info Sharing */}
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Information Sharing</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Information Sharing</h4>
               <p>We may disclose personal data to:</p>
               <ul>
                 <li>Law enforcement, regulators, or government entities.</li>
@@ -287,8 +287,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Cookies */}
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Cookies Usage</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Cookies Usage</h4>
               <p>
                 Cookies enhance navigation and prevent re-entering data. They may
                 also serve targeted ads, though <b>Aya Sir G!</b> does not control
@@ -299,8 +299,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Rights */}
           <div className="col-md-12">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Your Rights</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Your Rights</h4>
               <ul>
                 <li>Access and verify your data.</li>
                 <li>Request corrections, updates, or deletions.</li>
@@ -316,8 +316,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Security */}
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Security Measures</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Security Measures</h4>
               <p>
                 We implement industry-standard protocols. However, absolute security
                 cannot be guaranteed. Aya Sir G! is not liable for force majeure
@@ -328,8 +328,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Third-Party Links */}
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Third-Party Links</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Third-Party Links</h4>
               <p>
                 Our platform may contain links to external sites.{" "}
                 <b>Aya Sir G!</b> is not responsible for their practices; review
@@ -340,8 +340,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Public Forums */}
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Public Forums</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Public Forums</h4>
               <p>
                 Any information shared publicly on Aya Sir G! forums becomes public
                 and should be shared cautiously.
@@ -351,8 +351,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Amendments */}
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Policy Amendments</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Policy Amendments</h4>
               <p>
                 <b>Aya Sir G!</b> reserves the right to update this policy based on
                 legal or operational requirements. Continued use implies acceptance.
@@ -362,8 +362,8 @@ export default function PrivacyPolicyPage() {
 
           {/* Contact Us */}
           <div className="col-md-12">
-            <div className="shadow-sm p-4 rounded-3 h-100">
-              <h4 className="fw-semibold mb-2 border_color">Contact Us</h4>
+            <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
+              <h4 className="fw-semibold ps-3 mb-2 border_color">Contact Us</h4>
               <p>
                 For inquiries or concerns regarding this policy, please contact us
                 via the "Contact Us" page.

@@ -6,9 +6,16 @@
   flex-direction: column !important;
   align-items: center;
 }
-.faq_sec .heading_main {
+
+.faq_sec h2 {
   font-size: 30px;
-  font-weight: 500;
+  font-weight: bold;
+}
+
+.faq_sec h2>span {
+  font-size: 30px;
+  font-weight: bold;
+  color: #B43336;
 }
 
 .faq_sec p.sub_heading {

@@ -55,7 +55,7 @@ export default function Page() {
           {/* Main Content */}
           <div className="col-lg-9">
             <div className="content p-2">
-              <h2 className="fw-bold mb-3 pb-2">
+              <h2 className="fw-bold mb-3">
                 Market Your Business <span>with Aya Sir G!</span>
               </h2>
               <p>
@@ -63,9 +63,9 @@ export default function Page() {
                 how to market your business effectively with us.
               </p>
 
-              <div className="row g-4 mt-2">
+              <div className="row  g-lg-4 g-3">
                 <div className="col-md-12">
-                  <div className="shadow-sm p-4 rounded-3 h-100">
+                  <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
                     <h4 className="fw-bold ps-3 mb-2 border_color">
                       Reach an Engaged Audience
                     </h4>
@@ -83,7 +83,7 @@ export default function Page() {
                 </div>
 
                 <div className="col-md-12">
-                  <div className="shadow-sm p-4 rounded-3 h-100">
+                  <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
                     <h4 className="fw-bold ps-3 mb-2 border_color">
                       Support a Greater Cause
                     </h4>
@@ -99,7 +99,7 @@ export default function Page() {
                 </div>
 
                 <div className="col-md-12">
-                  <div className="shadow-sm p-4 rounded-3 h-100">
+                  <div className="shadow-sm  p-lg-4 p-3 rounded-3 h-100">
                     <h4 className="fw-bold ps-3 mb-2 border_color">
                       Why Partner with Us?
                     </h4>
@@ -115,7 +115,7 @@ export default function Page() {
               </div>
 
               {/* Contact Info */}
-              <div className="contact_box shadow-sm mt-4 p-4 rounded-3">
+              <div className="contact_box shadow-sm mt-3 p-lg-4 p-3 rounded-3">
                 <h5 className="fw-bold mb-2 ps-3 border_color">
                   Connect with Us Today!
                 </h5>

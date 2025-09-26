@@ -65,17 +65,17 @@ import "./our_mission.css";
 export default function page() {
   return (
     <section className="our_mission margin_navbar">
-      <div className="container py-5">
+      <div className="container py-3">
         {/* Heading Section */}
-        <div className="text-center mb-5">
-          <h2 className="fw-bold mb-2 border_color">Our <span>Mission</span></h2>
+        <div className="text-center mb-3">
+          <h2 className="fw-bold mb-2">Our <span>Mission</span></h2>
           <h4 className="fw-semibold">Welcome to Aya Sir G!</h4>
         </div>
 
         {/* Grid Content */}
-        <div className="row g-4">
+        <div className="row g-lg-4 g-3">
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
+            <div className="shadow-sm p-lg-4 p-3 rounded-3 h-100">
               <p>
                 At <b>Aya Sir G!</b> we are committed to creating opportunities
                 for individuals who are eager to work, believe in their abilities,
@@ -92,7 +92,7 @@ export default function page() {
           </div>
 
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
+            <div className="shadow-sm p-lg-4 p-3 rounded-3 h-100">
               <p>
                 We noticed a gap in the market where users, households, families,
                 and industries struggle to find reliable maids, drivers, guards,
@@ -111,7 +111,7 @@ export default function page() {
           </div>
 
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
+            <div className="shadow-sm p-lg-4 p-3 rounded-3 h-100">
               <p>
                 Our mission goes beyond mere connectivity; we aim to uplift
                 Pakistan’s blue-collar workforce by providing them with a digital
@@ -129,7 +129,7 @@ export default function page() {
           </div>
 
           <div className="col-md-6">
-            <div className="shadow-sm p-4 rounded-3 h-100">
+            <div className="shadow-sm p-lg-4 p-3 rounded-3 h-100">
               <p>
                 We consider this platform a form of 
                 <span className="fw-semibold"> Sadaqah Jariyah </span>

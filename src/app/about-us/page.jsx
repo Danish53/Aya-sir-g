@@ -52,24 +52,24 @@ import "./about.css";
 
 export default function AboutPage() {
   return (
-    <section className="about_us margin_navbar py-5 bg-light">
+    <section className="about_us margin_navbar py-3 bg-light">
       <div className="container">
         {/* Heading */}
-        <div className="text-center mb-4">
-          <h2 className="fw-bold" style={{ fontSize: "2.2rem" }}>
+        <div className="text-center mb-3">
+          <h2 className="fw-bold">
             Slogan: <span>Your Trusted Help, Everywhere</span>
           </h2>
-          <p className="mt-3">
+          <p className="mt-2">
             Connecting people with reliable helpers and service providers.
           </p>
         </div>
 
 
-        <div className="row g-4">
+        <div className="row g-lg-4 g-3">
 
           {/* About Section */}
           <div className="col-md-6">
-            <div className="p-4 bg-white h-100 shadow-sm rounded-3">
+            <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
               <h4 className="fw-semibold ps-3 mb-2 border_color">
                 About Aya Sir G!
               </h4>
@@ -87,7 +87,7 @@ export default function AboutPage() {
 
           {/* Mission Section */}
           <div className="col-md-6">
-            <div className="p-4 bg-white h-100 shadow-sm rounded-3">
+            <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
               <h4 className="fw-semibold ps-3 mb-2 border_color">
                 Our Mission
               </h4>
@@ -104,7 +104,7 @@ export default function AboutPage() {
 
           {/* Services Section */}
           <div className="col-md-6">
-            <div className="p-4 bg-white h-100 shadow-sm rounded-3">
+            <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
               <h4 className="fw-semibold ps-3 mb-2 border_color">
                 Wide Range of Services
               </h4>
@@ -119,7 +119,7 @@ export default function AboutPage() {
 
           {/* Opportunities Section */}
           <div className="col-md-6">
-            <div className="p-4 bg-white h-100 shadow-sm rounded-3">
+            <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
               <h4 className="fw-semibold ps-3 mb-2 border_color">
                 Empowering Job Seekers
               </h4>
@@ -137,8 +137,8 @@ export default function AboutPage() {
           
         {/* Closing Slogan */}
         <div className="col-md-12">
-          <div className="p-4 bg-white h-100 shadow-sm rounded-3">
-            <p className="fw-bold fs-5 text-center">
+          <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
+            <p className="fw-bold text-center">
               Our slogan, "Your Trusted Help, Anywhere",
               reflects our dedication to providing reliable services at your convenience.
             </p>
