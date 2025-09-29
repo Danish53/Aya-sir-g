@@ -172,7 +172,7 @@ export default function CustomNavbar() {
               onMouseEnter={() => showuserDetailss(true)}
               onMouseLeave={() => showuserDetailss(false)}
             >
-              <div className="head_section d-flex align-items-center gap-2">
+              <div className="head_section d-flex align-items-center">
 
 
                 {userInfo && (
@@ -192,7 +192,7 @@ export default function CustomNavbar() {
 
                 <div className="name_div">
                   {userToken ? (
-                    <p>{userDetails?.first_name}</p>
+                    <p className="ms-2">{userDetails?.first_name}</p>
                   ) : (
                     // <p onClick={gotoLogin}>Login</p>
                     <button className="btn btn_primary_btn" onClick={gotoLogin}>Login</button>

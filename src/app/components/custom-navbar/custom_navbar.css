@@ -436,6 +436,10 @@ body *[title] {
   background-position: center !important;
 }
 
+/* .goog-te-gadget-simple img:nth-of-type(1) {
+  visibility: hidden !important;
+} */
+
 /* .goog-logo-link,
 .goog-te-gadget span {
   display: block !important;
@@ -477,7 +481,6 @@ body *[title] {
 #google_translate_element {
   margin: auto;
 }
-
 
 iframe .VIpgJd-ZVi9od-vH1Gmf {
   background-color: #FFF !important;

@@ -89,7 +89,7 @@ export default function AboutPage() {
           <div className="col-md-6">
             <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
               <h4 className="fw-semibold ps-3 mb-2 border_color">
-                Our Mission
+                Who We are
               </h4>
               <p>
                 <b>Aya Sir G!</b> is a platform designed to connect blue-collar job
@@ -138,9 +138,11 @@ export default function AboutPage() {
         {/* Closing Slogan */}
         <div className="col-md-12">
           <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
-            <p className="fw-bold text-center">
-              Our slogan, "Your Trusted Help, Anywhere",
-              reflects our dedication to providing reliable services at your convenience.
+            <p className="text-center">
+              Our slogan, <b>"Your Trusted Help, Anywhere,"</b> encapsulates our dedication
+           to providing reliable services at your convenience. We strive to be
+           the go-to platform where users can find trustworthy assistance from
+           verified professionals.
             </p>
           </div>
         </div>

@@ -136,7 +136,7 @@ export default function page() {
 
               {/* Grid Layout for Sections */}
               <div className="row g-lg-4 g-3 mt-1">
-                <div className="col-md-6">
+                <div className="col-md-7">
                   <div className="shadow-sm p-lg-4 p-3 h-100 rounded-3">
                     <h4 className="fw-semibold ps-3 mb-2 border_color">
                       For E-centers: Become a Community Hub
@@ -149,13 +149,14 @@ export default function page() {
                   </div>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-5">
                   <div className=" shadow-sm p-lg-4 p-3 h-100 rounded-3">
                     <h4 className="fw-semibold ps-3 mb-2 border_color">
                       For Individuals: Showcase Your Expertise
                     </h4>
                     <p>
-                      Are you a talented handyman eager to find consistent work and highlight your unique skills? Register with Aya Sir G! to connect directly with clients seeking your specific talents. Build a strong professional reputation through verified jobs and client feedback, ensuring your skills are recognized and rewarded.</p>
+                      Are you a talented handyman eager to find consistent work and highlight your unique skills? </p>
+                      <p>Register with Aya Sir G! to connect directly with clients seeking your specific talents. Build a strong professional reputation through verified jobs and client feedback, ensuring your skills are recognized and rewarded.</p>
                   </div>
                 </div>
 
@@ -187,7 +188,7 @@ export default function page() {
                       <p className="m-0">03292927474</p>
                     </div>
 
-                    <button onClick={gotoContactUs} className="btn btn_primary_btn mt-4 w-100">
+                    <button onClick={gotoContactUs} className="btn btn_primary_btn mt-4" style={{width: "fitcontent"}}>
                       Send a Message or Voice Note
                     </button>
                   </div>
