@@ -154,7 +154,7 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-    // 🔹 Update Info user
+  // 🔹 Update Info user
   const updateAssociatedUserProfile = async (formData) => {
     setLoader(true);
     try {
@@ -243,7 +243,7 @@ export const UserProvider = ({ children }) => {
       });
 
       const data = await res.json();
-      console.log(data, "/api/area-list");
+      // console.log(data, "/api/area-list");
       setLocations(data.data || []);
 
       // if (data.data && data.data.length > 0) {
@@ -261,6 +261,39 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     getLocations();
+  }, []);
+
+  // areas
+  const [area, setArea] = useState([]);
+  console.log(area, "areassssss.s.s.")
+  const getAreas = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/api/area-list`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      console.log(data, "/api/area-list");
+      setArea(data.data || []);
+
+      // if (data.data && data.data.length > 0) {
+      //   setTimeout(() => {
+      //     if (locationDropdownRef.current) {
+      //       locationDropdownRef.current.click();
+      //     }
+      //   }, 100);
+      // }
+    } catch (error) {
+      console.error("Error fetching areas:", error);
+      setArea([]);
+    }
+  };
+
+  useEffect(() => {
+    getAreas();
   }, []);
 
 
@@ -540,7 +573,10 @@ export const UserProvider = ({ children }) => {
         handleResend,
         addBlogComment,
         commentBlog,
-        updateAssociatedUserProfile
+        updateAssociatedUserProfile,
+        area,
+        setArea,
+        getAreas
       }}
     >
       {children}

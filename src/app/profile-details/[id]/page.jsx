@@ -545,13 +545,18 @@ export default function page() {
                     <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Interested Location:
-                        <span className="sub_head">
-                          {Array.isArray(user?.interested_locations)
-                            ? user.interested_locations.map((loc) => loc.name).join(", ")
-                            : ""}
-                        </span>
+                        Interested Locations:
+                        <div className="sub_head">
+                          {Array.isArray(user?.interested_cities_areas) &&
+                            user.interested_cities_areas.map((cityData, index) => (
+                              <p key={index}>
+                                <strong>{cityData?.city?.name}:</strong>{" "}
+                                {cityData?.city?.locations?.map((loc) => loc?.name).join(", ")}
+                              </p>
+                            ))}
+                        </div>
                       </h4>
+
                     </div>
                     <hr />
 

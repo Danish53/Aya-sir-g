@@ -12,7 +12,7 @@ import Tippy from "@tippyjs/react";
 import Image from "next/image";
 
 export default function Card({ data, onLike, router }) {
-  // console.log(data, "user data");
+  console.log(data, "user data");
   // console.log(data, "data user ind.")
   // const [isLiked, setLiked] = useState(false);
   // const handleLiked = () => {
@@ -69,8 +69,8 @@ export default function Card({ data, onLike, router }) {
   // max characters for preview
   const limit = 30;
   const location =
-    Array.isArray(data?.interested_locations) && data.interested_locations.length > 0
-      ? data.interested_locations.map(item => item.name).join(", ")
+    Array.isArray(data?.adress) && data.address.length > 0
+      ? data.address.map(item => item.name).join(", ")
       : "N/A";
 
 
@@ -183,9 +183,9 @@ export default function Card({ data, onLike, router }) {
                 {data?.address && (
                   <div>
                     <p>
-                      <strong>Interested Location: </strong>
-                      <span className="data_pro">{showFull ? location : `${location.slice(0, limit)}${location.length > limit ? "..." : ""}`}
-                        {location.length > limit && (
+                      <strong>Current Location: </strong>
+                      <span className="data_pro">{data?.area_name}, {data?.city_name}
+                        {/* {location.length > limit && (
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -202,7 +202,8 @@ export default function Card({ data, onLike, router }) {
                           >
                             {showFull ? "Less" : "More"}
                           </button>
-                        )}</span>
+                        )} */}
+                        </span>
                     </p>
                   </div>
                 )}

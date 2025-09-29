@@ -67,11 +67,13 @@ export default function MyFormPage() {
         cities,
         locations,
         getLocations,
+        getAreas,
+        area,
         ecenterAdd,
         userInfo,
         ecenterInfo
     } = useContext(UserContext);
-    console.log(locations, "locationsss")
+    // console.log(locations, "locationsss")
 
     const [imagePerview, setImagePreview] = useState("");
     const audioRef = useRef(null);
@@ -533,6 +535,10 @@ export default function MyFormPage() {
         if (selectedCityId) getLocations(selectedCityId);
     }, [selectedCityId]);
 
+    useEffect(() => {
+        getAreas();
+    }, []);
+
     // useEffect(() => {
     //     if (selectedAreaId) getLocations(selectedAreaId);
     // }, [selectedAreaId]);
@@ -543,6 +549,11 @@ export default function MyFormPage() {
     }));
 
     const optionsLocation = locations.map((loc) => ({
+        label: loc.name,
+        value: loc.id,
+    }));
+
+    const optionsAreas = area.map((loc) => ({
         label: loc.name,
         value: loc.id,
     }));
@@ -783,7 +794,7 @@ export default function MyFormPage() {
                                 <label htmlFor="area">Area</label>
                                 <Select
                                     id="area"
-                                    options={optionsLocation}
+                                    options={optionsAreas}
                                     value={options.find(opt => opt.value === parseInt(selectedAreaId))}
                                     onChange={(selectedOption) => {
                                         const areaId = selectedOption ? selectedOption.value : "";
@@ -810,9 +821,9 @@ export default function MyFormPage() {
                         {userType !== "provider" && (
                             <div>
                                 {rows.map((row) => {
-                                    console.log("Selected city:", row.city);
-                                    console.log("Locations:", locations);
-                                    console.log("Filter result:", locations.filter((loc) => loc.city_id === row.city?.value));
+                                    // console.log("Selected city:", row.city);
+                                    // console.log("Locations:", locations);
+                                    // console.log("Filter result:", locations.filter((loc) => loc.city_id === row.city?.value));
                                     const areaOptions = row.city
                                         ? locations
                                             .filter((loc) => String(loc.city_id) === String(row.city?.value))
