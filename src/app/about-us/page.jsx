@@ -57,7 +57,7 @@ export default function AboutPage() {
         {/* Heading */}
         <div className="text-center mb-3">
           <h2 className="fw-bold">
-            Slogan: <span>Your Trusted Help, Everywhere</span>
+            Slogan: <span>“Your Trusted Help, Anywhere.”</span>
           </h2>
           <p className="mt-2">
             Connecting people with reliable helpers and service providers.
@@ -76,11 +76,7 @@ export default function AboutPage() {
               <p>
                 At <b>Aya Sir G!</b>, we understand the importance of trust when inviting
                 someone into your home. Therefore, we prioritize the verification of
-                all service providers. Each individual undergoes a thorough process
-                including CNIC <span className="fw-semibold">(Computerized National Identity Card)</span>, photographs, addresses,
-                and registered contact numbers. This ensures
-                that users can confidently choose from verified profiles when seeking
-                assistance.
+                all service providers. Each individual undergoes a thorough verification process, including CNIC, photographs, permanent address, and registered contact numbers.
               </p>
             </div>
           </div>
@@ -89,15 +85,10 @@ export default function AboutPage() {
           <div className="col-md-6">
             <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
               <h4 className="fw-semibold ps-3 mb-2 border_color">
-                Who We are
+                Our Mission
               </h4>
               <p>
-                <b>Aya Sir G!</b> is a platform designed to connect blue-collar job
-                seekers with users in need of various services, including maids,
-                helpers, plumbers, chefs, drivers, security guards, carpenters, and
-                more. Our mission is to provide a user-friendly platform that
-                facilitates the hiring of trusted individuals for domestic and
-                commercial services.
+                <b>Aya Sir G!</b> is a digital platform that connects blue-collar job seekers with users in need of reliable services.
               </p>
             </div>
           </div>
@@ -109,10 +100,7 @@ export default function AboutPage() {
                 Wide Range of Services
               </h4>
               <p>
-                In addition to individual service providers, our platform also features
-                companies offering services like car washing, party decoration,
-                catering, and more. Our goal is to provide a seamless experience,
-                enabling users to find reliable help without hassle.
+                Our platform doesn’t just feature individuals, it also includes companies offering services like car washing, catering, and party decoration.
               </p>
             </div>
           </div>
@@ -124,28 +112,20 @@ export default function AboutPage() {
                 Empowering Job Seekers
               </h4>
               <p>
-                We are committed to helping blue-collar job seekers or jobless
-                individuals showcase their skills and find reasonable employment
-                opportunities. By allowing users to register based on their
-                availability, we enable them to earn money on an hourly or daily
-                basis. We highly recommend utilizing verified profiles to ensure the
-                utmost trustworthiness of those working in your home.
+                We are committed to empowering blue-collar workers and job seekers by helping them showcase their skills and access fair employment opportunities.
               </p>
             </div>
           </div>
 
-          
-        {/* Closing Slogan */}
-        <div className="col-md-12">
-          <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
-            <p className="text-center">
-              Our slogan, <b>"Your Trusted Help, Anywhere,"</b> encapsulates our dedication
-           to providing reliable services at your convenience. We strive to be
-           the go-to platform where users can find trustworthy assistance from
-           verified professionals.
-            </p>
+
+          {/* Closing Slogan */}
+          <div className="col-md-12">
+            <div className="p-lg-4 p-3 bg-white h-100 shadow-sm rounded-3">
+              <p className="text-center">
+                Our slogan, <b>"Your Trusted Help, Anywhere."</b> reflects our dedication to providing convenient, secure, and reliable services for every household and business need.
+              </p>
+            </div>
           </div>
-        </div>
         </div>
 
       </div>

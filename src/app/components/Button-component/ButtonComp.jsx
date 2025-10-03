@@ -125,11 +125,23 @@ export default function ButtonComp({ searchParamdata }) {
 
     return (
       <div className="pagination d-flex gap-2 justify-content-center mt-4 align-items-center">
-        {currentPage > 1 && (
-          <button className="page-btn" onClick={() => setCurrentPage(currentPage - 1)}>
-            <FaArrowLeft />
-          </button>
-        )}
+        <button
+          className="page-btn"
+          onClick={() => setCurrentPage(1)}
+          disabled={currentPage === 1}
+        >
+          First
+        </button>
+
+        {/* Previous Button */}
+        <button
+          className="page-btn"
+          onClick={() => setCurrentPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          {/* <FaArrowLeft /> */}
+          Pre
+        </button>
         {visiblePages.map((page) => (
           <button
             key={page}
@@ -141,7 +153,13 @@ export default function ButtonComp({ searchParamdata }) {
         ))}
         {currentPage < totalPages && (
           <button className="page-btn" onClick={() => setCurrentPage(currentPage + 1)}>
-            <FaArrowRight />
+            {/* <FaArrowRight /> */}
+            Next
+          </button>
+        )}
+        {currentPage < totalPages && (
+          <button className="page-btn" onClick={() => setCurrentPage(totalPages)}>
+            Last
           </button>
         )}
       </div>
@@ -195,7 +213,7 @@ export default function ButtonComp({ searchParamdata }) {
             ) : (
               <div>
                 {currentUsers.map((user) => (
-                  <CompanyCard key={user.id} data={user} onLike={toggleLike} router={router}  />
+                  <CompanyCard key={user.id} data={user} onLike={toggleLike} router={router} />
                 ))}
               </div>
             )}

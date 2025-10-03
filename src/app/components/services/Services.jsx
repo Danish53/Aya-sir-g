@@ -15,8 +15,7 @@ export default function Services() {
               <p id="heading">Step 1</p>
               <p id="heading">Choose Your Service</p>
               <p id="description">
-                Browse from a wide range of services including maids, drivers,
-                security guards, and more to find what you need.
+                Browse categories like maids, drivers, security guards, plumbers, and more.
               </p>
             </div>
           </div>
@@ -27,10 +26,9 @@ export default function Services() {
             <div className="card p-3 col_height" data-aos="fade-down">
               <img src="/assets/card_img2.png" alt="" />
               <p id="heading">Step 2</p>
-              <p id="heading">Create Your Profile</p>
+              <p id="heading">Sign Up Easily</p>
               <p id="description">
-                Sign up with your phone number and provide basic details to
-                access service providers.
+                Register with your phone number and provide basic details to access providers.
               </p>
             </div>
           </div>
@@ -38,10 +36,9 @@ export default function Services() {
             <div className="card p-3 col_height">
               <img src="/assets/card_img3.png" alt="" />
               <p id="heading">Step 3</p>
-              <p id="heading">Search & Compare</p>
+              <p id="heading">Compare & Select</p>
               <p id="description">
-                Use filters like rating, experience, and location to compare and
-                shortlist the best service providers.
+                Use filters such as ratings, reviews, experience, and location to shortlist.
               </p>
             </div>
           </div>
@@ -51,8 +48,7 @@ export default function Services() {
               <p id="heading">Step 4</p>
               <p id="heading">Connect & Hire</p>
               <p id="description">
-                View contact details and directly call the provider to finalize
-                your hiring process.
+                View contact details and directly call or message the provider to finalize.
               </p>
             </div>
           </div>

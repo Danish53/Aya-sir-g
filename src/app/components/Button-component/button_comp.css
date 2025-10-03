@@ -21,6 +21,7 @@
   cursor: pointer;
   background-color: #d4d2d2;
 }
+
 .button_comp .companies {
   flex: 1;
   background-color: #d4d2d2;
@@ -28,6 +29,7 @@
   color: #424242;
   cursor: pointer;
 }
+
 html[lang="ur"] .button_comp .individual,
 html[lang="ur"] .button_comp .companies {
   text-align: center;
@@ -35,6 +37,7 @@ html[lang="ur"] .button_comp .companies {
   display: flex;
   justify-content: center;
 }
+
 .button_comp .active {
   background-color: var(--red-color) !important;
   color: white;
@@ -44,6 +47,7 @@ html[lang="ur"] .button_comp .companies {
   .button_comp .individual h3 {
     font-size: 21px;
   }
+
   .button_comp .companies h3 {
     font-size: 21px;
   }
@@ -53,8 +57,13 @@ html[lang="ur"] .button_comp .companies {
   .button_comp .individual h3 {
     font-size: 19px !important;
   }
+
   .button_comp .companies h3 {
     font-size: 19px !important;
+  }
+
+  .page-btn {
+    padding: 6px 8px !important;
   }
 }
 
@@ -62,17 +71,18 @@ html[lang="ur"] .button_comp .companies {
   .button_comp .individual h3 {
     font-size: 15px;
   }
+
   .button_comp .companies h3 {
     font-size: 15px;
   }
 }
 
 
-.not_found_design{
+.not_found_design {
   display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50vh;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
 }
 
 
@@ -98,4 +108,3 @@ html[lang="ur"] .button_comp .companies {
   background-color: var(--red-color);
   color: white;
 }
-

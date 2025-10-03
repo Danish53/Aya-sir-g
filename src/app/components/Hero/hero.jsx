@@ -176,9 +176,9 @@ export default function Hero() {
         <div className="container">
           <div className="row section_margin">
             <div className="col-lg-12">
-              <h1 className="hero_heading">From chowks to clicks, Pakistan’s LinkedIn </h1>
-              <h1 className="hero_heading">for blue-collar workers.</h1>
-              <p className="fw-medium my-4">Whether you are searching for work or looking to hire, this is the platform you can trust.</p>
+              <h1 className="hero_heading">From chowks to clicks — the trusted digital platform </h1>
+              <h1 className="hero_heading">for blue-collar workers in Pakistan.</h1>
+              <p className="fw-medium my-4">Whether you’re searching for work or hiring skilled professionals, Aya Sir G! is the platform you can rely on.</p>
             </div>
           </div>
           <div className="row justify-content-center">

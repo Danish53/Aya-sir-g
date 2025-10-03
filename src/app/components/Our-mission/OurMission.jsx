@@ -15,17 +15,9 @@ export default function OurMission() {
             </h3>
             <p id="para">
               <p className="mb-2">Welcome to Aya Sir G!</p>
-              At Aya Sir G! we are committed to creating opportunities for individuals who are eager to work, believe in their abilities, and embrace self-reliance. Inspired by the timeless principle, "Allah helps those who help themselves," we empower people to take initiative and strive for a better future.
+              At Aya Sir G!, we are committed to empowering blue-collar job seekers in Pakistan who are hardworking, self-reliant, and eager to grow. Guided by the timeless principle, ‘Allah helps those who help themselves,’ we encourage individuals to take initiative and shape a better future.
             </p>
-            <p id="para" className="my-2">Having deep roots in Pakistan, we recognize the untapped potential of
-              our youth and workforce, who are talented and hardworking but often
-              lack access to the right platforms for growth. We noticed a gap in the
-              market where users, households, families, and commercial industries
-              struggle to find reliable maids, drivers, guards, and helpers for
-              their domestic and commercial needs. Meanwhile, many blue-collar
-              workers face challenges such as limited education and the inability to
-              showcase their skills effectively, further compounded by a growing
-              trust deficit in today’s hiring practices.</p>
+            <p id="para" className="my-2">With deep roots in Pakistan, we recognize the untapped potential of our youth and workforce. Many are skilled and hardworking but lack access to the right platforms. Families and businesses often struggle to find reliable maids, drivers, guards, and helpers for their needs, while blue-collar workers face challenges such as limited education, lack of digital presence, and trust issues in hiring.</p>
             {/* <Button className="my-3" variant="outline-danger">
               Hire an Employee <FaArrowRight />
             </Button> */}

@@ -2,7 +2,7 @@
 // export const dynamic = "force-dynamic";
 
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { FaCloudUploadAlt, FaEdit, FaEye, FaEyeSlash, FaFileAudio, FaMicrophone, FaPause, FaUpload } from "react-icons/fa";
+import { FaCloudUploadAlt, FaEdit, FaEye, FaEyeSlash, FaFileAudio, FaMicrophone, FaPause, FaPlus, FaUpload } from "react-icons/fa";
 import { MdDelete, MdPause, MdPlayArrow } from "react-icons/md";
 import { MultiSelect } from "react-multi-select-component";
 import { toast, ToastContainer } from "react-toastify";
@@ -93,59 +93,30 @@ export default function MyFormPage() {
     const [selectedLocation, setSelectedLocation] = useState([]);
     const [selectedCities, setSelectedCities] = useState([]);
     const [selectedFields, setSelectedFields] = useState([]);
-    // console.log(selectedCityId, "city id")
-    // const cities = [
-    //     { id: 1, name: "Karachi" },
-    //     { id: 2, name: "Lahore" },
-    //     { id: 3, name: "Islamabad" },
-    // ];
-
-    // const locations = [
-    //     { id: 101, name: "Clifton", city_id: 1 },
-    //     { id: 102, name: "Gulshan", city_id: 1 },
-    //     { id: 201, name: "DHA", city_id: 2 },
-    //     { id: 202, name: "Gulberg", city_id: 2 },
-    //     { id: 301, name: "F-7", city_id: 3 },
-    //     { id: 302, name: "G-10", city_id: 3 },
-    // ];
 
     const [rows, setRows] = useState([{ id: Date.now(), city: null, areas: [] }]);
 
     const handleCityChange = (selectedCity, rowId) => {
-    setRows((prev) => {
-        // pehle row update karo
-        const updated = prev.map((r) =>
-            r.id === rowId ? { ...r, city: selectedCity, areas: [] } : r
+        setRows((prev) =>
+            prev.map((r) =>
+                r.id === rowId ? { ...r, city: selectedCity, areas: [] } : r
+            )
         );
 
-        // agar last row me city select ho gayi -> new row add karo
-        const isLastRow = prev[prev.length - 1].id === rowId;
-        if (isLastRow && selectedCity) {
-            updated.push({
-                id: Date.now(), // unique id
-                city: null,
-                areas: [],
-            });
-        }
+        // Sync with formData
+        setFormData((prev) => {
+            const updatedCities = [
+                ...new Set([
+                    ...(Array.isArray(prev.interested_cities) ? prev.interested_cities : []),
+                    selectedCity?.value,
+                ]),
+            ].filter(Boolean);
 
-        return updated;
-    });
+            return { ...prev, interested_cities: updatedCities };
+        });
 
-    // update formData
-    setFormData((prev) => {
-        const updatedCities = [
-            ...new Set([
-                ...(Array.isArray(prev.interested_cities) ? prev.interested_cities : []),
-                selectedCity?.value,
-            ]),
-        ].filter(Boolean);
-
-        return { ...prev, interested_cities: updatedCities };
-    });
-
-    // 👇 location fetch ke liye
-    setSelectedCityId(selectedCity?.value || null);
-};
+        setSelectedCityId(selectedCity?.value || null);
+    };
 
 
     const handleAreaChange = (selectedAreas, rowId) => {
@@ -563,50 +534,12 @@ export default function MyFormPage() {
         value: loc.id,
     }));
 
-
-    // useEffect(() => {
-    //     if (modalRef.current) {
-    //         const modalInstance = new Modal(modalRef.current, {
-    //             backdrop: "static", // optional
-    //             keyboard: false     // optional
-    //         });
-    //         modalInstance.show();
-    //     }
-    // }, []);
-
-    // const handleVerify = async () => {
-    //     const otpCode = otp.join("");
-
-    //     if (otpCode.length !== 6) {
-    //         toast.error("Please enter 6-digit OTP.");
-    //         return;
-    //     }
-
-    //     setLoading(true);
-    //     try {
-    //         const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/verify-otp-submit`, {
-    //             temp_id: eCenterOtp?.otp_id,
-    //             otp: otpCode,
-    //         });
-
-    //         const resData = response?.data;
-
-    //         if (response.status === 200 && resData?.status === true) {
-    //             toast.success(resData?.message || "OTP verified successfully!");
-    //             setOtp(["", "", "", "", "", ""]);
-    //             // modalInstance.close();
-    //         } else {
-    //             toast.error(resData?.message || "Invalid OTP. Please try again.");
-    //         }
-    //     } catch (error) {
-    //         console.error("OTP verification failed", error);
-    //         const errorMessage = error?.response?.data?.message || "Server error occurred.";
-    //         toast.error(errorMessage);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
+    const addRow = () => {
+        setRows((prev) => [
+            ...prev,
+            { id: Date.now(), city: null, areas: [] },
+        ]);
+    };
 
     return (
         <section className="Form_section">
@@ -645,7 +578,6 @@ export default function MyFormPage() {
                                 type="file"
                                 name="profile_image"
                                 accept="image/*"
-                                capture="user"
                                 onChange={handleFileChange}
                                 ref={fileInputRef}
                                 style={{ display: "none" }}
@@ -859,10 +791,20 @@ export default function MyFormPage() {
                                                         labelledBy="Select Locations"
                                                         hasSelectAll={false}
                                                     />
+                                                    <div style={{ width: "fit-content" }}>
+                                                        <button
+                                                            className="btn btn_danger"
+                                                            type="button"
+                                                            onClick={addRow}
+                                                        >
+                                                            <FaPlus />
+                                                        </button>
+                                                    </div>
                                                     {rows.length > 1 && (
                                                         <div style={{ width: "fit-content" }}>
                                                             <button
                                                                 className="btn btn_danger"
+                                                                type="button"
                                                                 onClick={() => handleDeleteRow(row.id)}
                                                             >
                                                                 <FaDeleteLeft />
