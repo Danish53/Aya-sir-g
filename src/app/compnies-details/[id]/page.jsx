@@ -50,6 +50,7 @@ export default function page() {
   const [showShare, setShowShare] = useState(false);
   // const currentUrl = window.location.href;
   const [currentUrl, setCurrentUrl] = useState("");
+  const [audioLoading, setAudioLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -136,32 +137,30 @@ export default function page() {
 
 
 
-  const handlePlayPause = () => {
+  const handlePlayPause = async () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
+    try {
+      if (isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        await audio.play();
+        setIsPlaying(true);
+      }
+    } catch (err) {
+      console.warn("Audio playback blocked:", err);
     }
-    setIsPlaying(!isPlaying);
   };
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const onLoadedMetadata = () => {
-      setDuration(audio.duration || 0);
-    };
-
-    const onTimeUpdate = () => {
-      setCurrentTime(audio.currentTime || 0);
-    };
-
+    const onLoadedMetadata = () => setDuration(audio.duration || 0);
+    const onTimeUpdate = () => setCurrentTime(audio.currentTime || 0);
     const onEnded = () => {
-      // console.log("✅ Audio ended");
       setIsPlaying(false);
       setCurrentTime(0);
     };
@@ -170,12 +169,29 @@ export default function page() {
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("ended", onEnded);
 
+    // Reset playback position when new audio loads
+    audio.load();
+    setCurrentTime(0);
+
     return () => {
+      audio.pause();
       audio.removeEventListener("loadedmetadata", onLoadedMetadata);
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("ended", onEnded);
     };
   }, [company?.audio_sample]);
+
+  useEffect(() => {
+    const handleUserGesture = () => {
+      const audio = audioRef.current;
+      if (audio) {
+        audio.load();
+      }
+      document.removeEventListener("touchstart", handleUserGesture);
+    };
+    document.addEventListener("touchstart", handleUserGesture);
+  }, []);
+
 
   const handleCopy = () => {
     navigator.clipboard.writeText(currentUrl);
@@ -412,8 +428,24 @@ export default function page() {
                         >
                           <div className="d-flex flex-column w-100">
                             <div className="d-flex gap-2 align-items-center">
-                              {isPlaying ? <FaPause onClick={handlePlayPause} /> : <FaPlay onClick={handlePlayPause} />}
-                              <audio ref={audioRef} src={company.audio_sample} preload="auto" />
+                               {audioLoading ? (
+                                  <div className="spinner-border-audio" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                ) : isPlaying ? (
+                                  <FaPause onClick={handlePlayPause} />
+                                ) : (
+                                  <FaPlay onClick={handlePlayPause} />
+                                )}
+                                <audio
+                                  ref={audioRef}
+                                  src={company?.audio_sample}
+                                  preload="metadata"
+                                  playsInline
+                                  onLoadStart={() => setAudioLoading(true)}      // jab audio load start ho
+                                  onCanPlayThrough={() => setAudioLoading(false)} // jab load complete ho jaye
+                                  onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
+                                />
                               <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
                                 {isPlaying ? (
                                   <div className="wave-animation">

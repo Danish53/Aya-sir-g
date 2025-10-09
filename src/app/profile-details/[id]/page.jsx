@@ -200,7 +200,6 @@ export default function page() {
   }, []);
 
 
-
   if (!user) {
     return (
       <section className="profile_section margin_navbar">
