@@ -188,6 +188,18 @@ export default function page() {
     };
   }, [user?.audio_sample]);
 
+  useEffect(() => {
+    const handleUserGesture = () => {
+      const audio = audioRef.current;
+      if (audio) {
+        audio.load();
+      }
+      document.removeEventListener("touchstart", handleUserGesture);
+    };
+    document.addEventListener("touchstart", handleUserGesture);
+  }, []);
+
+
 
   if (!user) {
     return (
