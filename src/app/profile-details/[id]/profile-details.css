@@ -558,3 +558,20 @@ html[lang="ur"] .direction_ltr .recording .custom-audio-player {
     background-position: 200% 0;
   }
 }
+
+
+
+.spinner-border-audio {
+  width: 14px;
+  height: 14px;
+  border: 1px solid #ccc;
+  border-top-color: var(--red-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
