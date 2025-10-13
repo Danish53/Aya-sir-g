@@ -152,17 +152,14 @@ export default function page() {
     if (isPlaying) {
       audio.pause();
       setIsPlaying(false);
-      return;
-    }
-
-    // ✅ Safari direct play
-    const playPromise = audio.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => setIsPlaying(true))
-        .catch((err) => {
-          console.warn("Playback blocked, show 'Tap to play'", err);
-        });
+    } else {
+      // Make sure audio is loaded
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch((err) => {
+        console.warn("iOS playback blocked, user must tap to play", err);
+        toast.info("Tap play button again to start audio on iOS");
+      });
     }
   };
 
@@ -454,13 +451,19 @@ export default function page() {
                                   </div>
                                 ) : isPlaying ? (
                                   <FaPause onClick={handlePlayPause} />
+                                ) : isIOS ? (
+                                  // Show Tap to Play button on iOS if not playing
+                                  <button onClick={handlePlayPause} className="tap-to-play-btn">
+                                    ▶ Tap to Play
+                                  </button>
                                 ) : (
                                   <FaPlay onClick={handlePlayPause} />
                                 )}
+
                                 <audio
                                   ref={audioRef}
                                   src={user?.audio_sample}
-                                  preload={isIOS ? "none" : "metadata"}
+                                  preload={isIOS ? "auto" : "metadata"}
                                   playsInline
                                   onLoadStart={() => setAudioLoading(true)}
                                   onCanPlayThrough={() => setAudioLoading(false)}
