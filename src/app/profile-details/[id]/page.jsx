@@ -448,30 +448,25 @@ export default function page() {
                           >
                             <div className="d-flex flex-column w-100">
                               <div className="d-flex gap-2 align-items-center">
-                                {isIOS && !isPlaying ? (
-                                  // Always show Tap to Play on iOS if not playing
-                                  <button onClick={handlePlayPause} className="tap-to-play-btn">
-                                    ▶ Tap to Play
-                                  </button>
-                                ) : audioLoading ? (
-                                  <div className="spinner-border-audio" role="status">
-                                    <span className="visually-hidden">Loading...</span>
-                                  </div>
-                                ) : isPlaying ? (
-                                  <FaPause onClick={handlePlayPause} />
-                                ) : (
-                                  <FaPlay onClick={handlePlayPause} />
-                                )}
+                                <div className="audio-player">
+                                  {isIOS && !isPlaying ? (
+                                    <button onClick={handlePlayPause} className="tap-to-play-btn">
+                                      ▶ Tap to Play
+                                    </button>
+                                  ) : (
+                                    <button onClick={handlePlayPause}>
+                                      {isPlaying ? "⏸ Pause" : "▶ Play"}
+                                    </button>
+                                  )}
 
-                                <audio
-                                  ref={audioRef}
-                                  src={user?.audio_sample}
-                                  preload={isIOS ? "auto" : "metadata"}
-                                  playsInline
-                                  onLoadStart={() => setAudioLoading(true)}
-                                  onCanPlayThrough={() => setAudioLoading(false)}
-                                  onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
-                                />
+                                  <audio
+                                    ref={audioRef}
+                                    src={user?.audio_sample}
+                                    preload="auto"
+                                    playsInline
+                                    onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
+                                  />
+                                </div>
                                 <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
                                   {isPlaying ? (
                                     <div className="wave-animation">
