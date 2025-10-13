@@ -53,7 +53,7 @@ export default function CompanyCard({ data, onLike, router }) {
     <section className="company_card">
       <div className="container">
         <Link href={`/compnies-details/${data?.id}`}>
-          <div className="parent_div" onClick={() => router.push(`/compnies-details/${data?.id}`)}>
+          <div className="parent_div">
             <div className="d-flex flex-lg-row flex-column align-items-center gap-3 w-100">
               <div className="first_div">
                 {/* <img src={data?.profile_image ? data?.profile_image : "/assets/hazar.png"} alt="" /> */}

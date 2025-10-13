@@ -82,7 +82,7 @@ export default function Card({ data, onLike, router }) {
             height: showFullFields || showFull ? "auto" : "",
             overflow: "hidden",
             transition: "0.3s ease"
-          }} onClick={() => router.push(`/profile-details/${data?.id}`)}>
+          }}>
             <div className="d-flex justify-content-center flex-column align-items-center w-100">
               {/* <img src={data?.profile_image || "/assets/person_img.png"} alt="person" /> */}
               <div

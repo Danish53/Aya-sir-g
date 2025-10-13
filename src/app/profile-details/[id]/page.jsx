@@ -153,18 +153,15 @@ export default function page() {
       audio.pause();
       setIsPlaying(false);
     } else {
-      audio.play()
-        .then(() => setIsPlaying(true))
-        .catch((err) => {
-          // Only show toast for non-iOS
-          if (!isIOS) {
-            console.warn("Playback blocked", err);
-            toast.info("Tap play button again to start audio");
-          }
-        });
+      // Make sure audio is loaded
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch((err) => {
+        console.warn("iOS playback blocked, user must tap to play", err);
+        toast.info("Tap play button again to start audio on iOS");
+      });
     }
   };
-
 
 
   useEffect(() => {
@@ -212,6 +209,36 @@ export default function page() {
 
     return () => document.removeEventListener("touchstart", handleUserGesture);
   }, []);
+
+  useEffect(() => {
+    const ua = navigator.userAgent;
+    const isIOS = /iPad|iPhone|iPod/.test(ua);
+
+    if (isIOS) {
+      const unlockAudio = () => {
+        const audio = audioRef.current;
+        if (audio) {
+          // Try to play and pause immediately to unlock
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+                console.log("🔓 iOS audio unlocked");
+              })
+              .catch(() => { });
+          }
+        }
+        document.removeEventListener("touchstart", unlockAudio);
+        document.removeEventListener("click", unlockAudio);
+      };
+
+      document.addEventListener("touchstart", unlockAudio);
+      document.addEventListener("click", unlockAudio);
+    }
+  }, []);
+
 
   if (!user) {
     return (
@@ -448,25 +475,24 @@ export default function page() {
                           >
                             <div className="d-flex flex-column w-100">
                               <div className="d-flex gap-2 align-items-center">
-                                <div className="audio-player">
-                                  {isIOS && !isPlaying ? (
-                                    <button onClick={handlePlayPause} className="tap-to-play-btn">
-                                      ▶ Tap to Play
-                                    </button>
-                                  ) : (
-                                    <button onClick={handlePlayPause}>
-                                      {isPlaying ? "⏸ Pause" : "▶ Play"}
-                                    </button>
-                                  )}
-
-                                  <audio
-                                    ref={audioRef}
-                                    src={user?.audio_sample}
-                                    preload="auto"
-                                    playsInline
-                                    onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
-                                  />
-                                </div>
+                                {audioLoading ? (
+                                  <div className="spinner-border-audio" role="status">
+                                    <span className="visually-hidden">Loading...</span>
+                                  </div>
+                                ) : isPlaying ? (
+                                  <FaPause onClick={handlePlayPause} />
+                                ) : (
+                                  <FaPlay onClick={handlePlayPause} />
+                                )}
+                                <audio
+                                  ref={audioRef}
+                                  src={user?.audio_sample}
+                                  preload={isIOS ? "none" : "metadata"}
+                                  playsInline
+                                  onLoadStart={() => setAudioLoading(true)}
+                                  onCanPlayThrough={() => setAudioLoading(false)}
+                                  onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
+                                />
                                 <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
                                   {isPlaying ? (
                                     <div className="wave-animation">
