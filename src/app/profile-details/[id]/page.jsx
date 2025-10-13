@@ -53,6 +53,7 @@ export default function page() {
   // const currentUrl = window.location.href;
   const [currentUrl, setCurrentUrl] = useState("");
   const [audioLoading, setAudioLoading] = useState(false);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -144,7 +145,7 @@ export default function page() {
     return `${minutes}:${seconds}`;
   };
 
-  const handlePlayPause = async () => {
+  const handlePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
@@ -153,13 +154,21 @@ export default function page() {
         audio.pause();
         setIsPlaying(false);
       } else {
-        await audio.play();
-        setIsPlaying(true);
+        const playPromise = audio.play();
+
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => setIsPlaying(true))
+            .catch((err) => {
+              console.warn("Playback blocked, waiting for user gesture:", err);
+            });
+        }
       }
     } catch (err) {
-      console.warn("Audio playback blocked:", err);
+      console.warn("Audio error:", err);
     }
   };
+
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -177,8 +186,8 @@ export default function page() {
     audio.addEventListener("ended", onEnded);
 
     // Reset playback position when new audio loads
-    audio.load();
-    setCurrentTime(0);
+    // audio.load();
+    // setCurrentTime(0);
 
     return () => {
       audio.pause();
@@ -192,11 +201,19 @@ export default function page() {
     const handleUserGesture = () => {
       const audio = audioRef.current;
       if (audio) {
-        audio.load();
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            audio.pause();
+            audio.currentTime = 0;
+          });
+        }
       }
       document.removeEventListener("touchstart", handleUserGesture);
     };
+
     document.addEventListener("touchstart", handleUserGesture);
+    return () => document.removeEventListener("touchstart", handleUserGesture);
   }, []);
 
 
@@ -447,10 +464,10 @@ export default function page() {
                                 <audio
                                   ref={audioRef}
                                   src={user?.audio_sample}
-                                  preload="metadata"
+                                  preload={isIOS ? "none" : "metadata"}
                                   playsInline
-                                  onLoadStart={() => setAudioLoading(true)}      // jab audio load start ho
-                                  onCanPlayThrough={() => setAudioLoading(false)} // jab load complete ho jaye
+                                  onLoadStart={() => setAudioLoading(true)}
+                                  onCanPlayThrough={() => setAudioLoading(false)}
                                   onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
                                 />
                                 <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
