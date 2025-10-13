@@ -155,20 +155,40 @@ export default function page() {
         setIsPlaying(false);
       } else {
         setAudioLoading(true);
-        // ensure playback triggered by a user gesture
+
+        // 🔑 Ensure iOS unlocks audio on direct tap
+        const unlock = () => {
+          audio.play().then(() => {
+            document.removeEventListener("touchend", unlock);
+            document.removeEventListener("click", unlock);
+          }).catch(() => { });
+        };
+
+        document.addEventListener("touchend", unlock);
+        document.addEventListener("click", unlock);
+
+        // ✅ Play the audio
         const playPromise = audio.play();
         if (playPromise !== undefined) {
           await playPromise;
         }
+
         setAudioLoading(false);
         setIsPlaying(true);
       }
     } catch (err) {
-      console.warn("⚠️ iOS blocked playback:", err);
+      console.warn("⚠️ iOS playback blocked once:", err);
       setAudioLoading(false);
-      toast.info("Please tap the play button again to start audio on iOS.");
+
+      // Force re-trigger on next tap
+      const unlock = () => {
+        audio.play().catch(() => { });
+        document.removeEventListener("touchend", unlock);
+      };
+      document.addEventListener("touchend", unlock);
     }
   };
+
 
   useEffect(() => {
     const audio = audioRef.current;
