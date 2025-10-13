@@ -145,47 +145,21 @@ export default function page() {
     return `${minutes}:${seconds}`;
   };
 
-  const handlePlayPause = async () => {
+  const handlePlayPause = () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    try {
-      if (isPlaying) {
-        audio.pause();
-        setIsPlaying(false);
-      } else {
-        setAudioLoading(true);
-
-        // 🔑 Ensure iOS unlocks audio on direct tap
-        const unlock = () => {
-          audio.play().then(() => {
-            document.removeEventListener("touchend", unlock);
-            document.removeEventListener("click", unlock);
-          }).catch(() => { });
-        };
-
-        document.addEventListener("touchend", unlock);
-        document.addEventListener("click", unlock);
-
-        // ✅ Play the audio
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          await playPromise;
-        }
-
-        setAudioLoading(false);
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      // Make sure audio is loaded
+      audio.play().then(() => {
         setIsPlaying(true);
-      }
-    } catch (err) {
-      console.warn("⚠️ iOS playback blocked once:", err);
-      setAudioLoading(false);
-
-      // Force re-trigger on next tap
-      const unlock = () => {
-        audio.play().catch(() => { });
-        document.removeEventListener("touchend", unlock);
-      };
-      document.addEventListener("touchend", unlock);
+      }).catch((err) => {
+        console.warn("iOS playback blocked, user must tap to play", err);
+        toast.info("Tap play button again to start audio on iOS");
+      });
     }
   };
 
@@ -234,35 +208,6 @@ export default function page() {
     document.addEventListener("touchstart", handleUserGesture);
 
     return () => document.removeEventListener("touchstart", handleUserGesture);
-  }, []);
-
-  useEffect(() => {
-    const ua = navigator.userAgent;
-    const isIOS = /iPad|iPhone|iPod/.test(ua);
-
-    if (isIOS) {
-      const unlockAudio = () => {
-        const audio = audioRef.current;
-        if (audio) {
-          // Try to play and pause immediately to unlock
-          const playPromise = audio.play();
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                audio.pause();
-                audio.currentTime = 0;
-                console.log("🔓 iOS audio unlocked");
-              })
-              .catch(() => { });
-          }
-        }
-        document.removeEventListener("touchstart", unlockAudio);
-        document.removeEventListener("click", unlockAudio);
-      };
-
-      document.addEventListener("touchstart", unlockAudio);
-      document.addEventListener("click", unlockAudio);
-    }
   }, []);
 
   if (!user) {
@@ -515,10 +460,8 @@ export default function page() {
                                   preload={isIOS ? "none" : "metadata"}
                                   playsInline
                                   onLoadStart={() => setAudioLoading(true)}
-                                  onCanPlay={() => setAudioLoading(false)}
                                   onCanPlayThrough={() => setAudioLoading(false)}
                                   onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
-                                  onEnded={() => setIsPlaying(false)}
                                 />
                                 <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
                                   {isPlaying ? (
