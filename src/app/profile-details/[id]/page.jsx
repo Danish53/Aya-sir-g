@@ -153,15 +153,18 @@ export default function page() {
       audio.pause();
       setIsPlaying(false);
     } else {
-      // Make sure audio is loaded
-      audio.play().then(() => {
-        setIsPlaying(true);
-      }).catch((err) => {
-        console.warn("iOS playback blocked, user must tap to play", err);
-        toast.info("Tap play button again to start audio on iOS");
-      });
+      audio.play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => {
+          // Only show toast for non-iOS
+          if (!isIOS) {
+            console.warn("Playback blocked", err);
+            toast.info("Tap play button again to start audio");
+          }
+        });
     }
   };
+
 
 
   useEffect(() => {
