@@ -145,29 +145,26 @@ export default function page() {
     return `${minutes}:${seconds}`;
   };
 
-  const handlePlayPause = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
+const handlePlayPause = () => {
+  const audio = audioRef.current;
+  if (!audio) return;
 
-    try {
-      if (isPlaying) {
-        audio.pause();
-        setIsPlaying(false);
-      } else {
-        const playPromise = audio.play();
+  if (isPlaying) {
+    audio.pause();
+    setIsPlaying(false);
+    return;
+  }
 
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => setIsPlaying(true))
-            .catch((err) => {
-              console.warn("Playback blocked, waiting for user gesture:", err);
-            });
-        }
-      }
-    } catch (err) {
-      console.warn("Audio error:", err);
-    }
-  };
+  // ✅ Safari direct play
+  const playPromise = audio.play();
+  if (playPromise !== undefined) {
+    playPromise
+      .then(() => setIsPlaying(true))
+      .catch((err) => {
+        console.warn("Playback blocked, show 'Tap to play'", err);
+      });
+  }
+};
 
 
   useEffect(() => {
@@ -197,24 +194,24 @@ export default function page() {
     };
   }, [user?.audio_sample]);
 
-  useEffect(() => {
-    const handleUserGesture = () => {
-      const audio = audioRef.current;
-      if (audio) {
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => {
-            audio.pause();
-            audio.currentTime = 0;
-          });
-        }
-      }
-      document.removeEventListener("touchstart", handleUserGesture);
-    };
+  // useEffect(() => {
+  //   const handleUserGesture = () => {
+  //     const audio = audioRef.current;
+  //     if (audio) {
+  //       const playPromise = audio.play();
+  //       if (playPromise !== undefined) {
+  //         playPromise.catch(() => {
+  //           audio.pause();
+  //           audio.currentTime = 0;
+  //         });
+  //       }
+  //     }
+  //     document.removeEventListener("touchstart", handleUserGesture);
+  //   };
 
-    document.addEventListener("touchstart", handleUserGesture);
-    return () => document.removeEventListener("touchstart", handleUserGesture);
-  }, []);
+  //   document.addEventListener("touchstart", handleUserGesture);
+  //   return () => document.removeEventListener("touchstart", handleUserGesture);
+  // }, []);
 
 
   if (!user) {
