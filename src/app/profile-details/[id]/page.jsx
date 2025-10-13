@@ -145,24 +145,30 @@ export default function page() {
     return `${minutes}:${seconds}`;
   };
 
-  const handlePlayPause = () => {
+  const handlePlayPause = async () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-    } else {
-      // Make sure audio is loaded
-      audio.play().then(() => {
+    try {
+      if (isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        setAudioLoading(true);
+        // ensure playback triggered by a user gesture
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          await playPromise;
+        }
+        setAudioLoading(false);
         setIsPlaying(true);
-      }).catch((err) => {
-        console.warn("iOS playback blocked, user must tap to play", err);
-        toast.info("Tap play button again to start audio on iOS");
-      });
+      }
+    } catch (err) {
+      console.warn("⚠️ iOS blocked playback:", err);
+      setAudioLoading(false);
+      toast.info("Please tap the play button again to start audio on iOS.");
     }
   };
-
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -238,7 +244,6 @@ export default function page() {
       document.addEventListener("click", unlockAudio);
     }
   }, []);
-
 
   if (!user) {
     return (
@@ -490,8 +495,10 @@ export default function page() {
                                   preload={isIOS ? "none" : "metadata"}
                                   playsInline
                                   onLoadStart={() => setAudioLoading(true)}
+                                  onCanPlay={() => setAudioLoading(false)}
                                   onCanPlayThrough={() => setAudioLoading(false)}
                                   onLoadedMetadata={() => setDuration(audioRef.current?.duration || 0)}
+                                  onEnded={() => setIsPlaying(false)}
                                 />
                                 <div className="wave-animation-container ms-3" style={{ marginRight: "10px" }}>
                                   {isPlaying ? (
