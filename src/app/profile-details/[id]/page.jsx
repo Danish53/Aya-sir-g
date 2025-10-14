@@ -53,7 +53,6 @@ export default function page() {
   // const currentUrl = window.location.href;
   const [currentUrl, setCurrentUrl] = useState("");
   const [audioLoading, setAudioLoading] = useState(false);
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -145,24 +144,22 @@ export default function page() {
     return `${minutes}:${seconds}`;
   };
 
-  const handlePlayPause = () => {
+  const handlePlayPause = async () => {
     const audio = audioRef.current;
     if (!audio) return;
 
-    if (isPlaying) {
-      audio.pause();
-      setIsPlaying(false);
-    } else {
-      // Make sure audio is loaded
-      audio.play().then(() => {
+    try {
+      if (isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        await audio.play();
         setIsPlaying(true);
-      }).catch((err) => {
-        console.warn("iOS playback blocked, user must tap to play", err);
-        toast.info("Tap play button again to start audio on iOS");
-      });
+      }
+    } catch (err) {
+      console.warn("Audio playback blocked:", err);
     }
   };
-
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -180,8 +177,8 @@ export default function page() {
     audio.addEventListener("ended", onEnded);
 
     // Reset playback position when new audio loads
-    // audio.load();
-    // setCurrentTime(0);
+    audio.load();
+    setCurrentTime(0);
 
     return () => {
       audio.pause();
@@ -191,24 +188,24 @@ export default function page() {
     };
   }, [user?.audio_sample]);
 
-  useEffect(() => {
-    if (!isIOS) return;
+  // useEffect(() => {
+  //   if (!isIOS) return;
 
-    const handleUserGesture = () => {
-      const audio = audioRef.current;
-      if (audio) {
-        audio.play().catch(() => {
-          audio.pause();
-          audio.currentTime = 0;
-        });
-      }
-      document.removeEventListener("touchstart", handleUserGesture);
-    };
+  //   const handleUserGesture = () => {
+  //     const audio = audioRef.current;
+  //     if (audio) {
+  //       audio.play().catch(() => {
+  //         audio.pause();
+  //         audio.currentTime = 0;
+  //       });
+  //     }
+  //     document.removeEventListener("touchstart", handleUserGesture);
+  //   };
 
-    document.addEventListener("touchstart", handleUserGesture);
+  //   document.addEventListener("touchstart", handleUserGesture);
 
-    return () => document.removeEventListener("touchstart", handleUserGesture);
-  }, []);
+  //   return () => document.removeEventListener("touchstart", handleUserGesture);
+  // }, []);
 
   if (!user) {
     return (
@@ -457,7 +454,7 @@ export default function page() {
                                 <audio
                                   ref={audioRef}
                                   src={user?.audio_sample}
-                                  preload={isIOS ? "none" : "metadata"}
+                                  preload={"metadata"}
                                   playsInline
                                   onLoadStart={() => setAudioLoading(true)}
                                   onCanPlayThrough={() => setAudioLoading(false)}
