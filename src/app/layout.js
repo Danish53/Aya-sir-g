@@ -1,5 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import { Poppins } from "next/font/google";
+import { Poppins, Geist, Geist_Mono } from "next/font/google";
 import AosWrapper from "./components/AosWrapper";
 import SiteChrome from "./SiteChrome";
 import "./globals.css";
@@ -19,10 +18,11 @@ const geistMono = Geist_Mono({
 });
 
 const poppins = Poppins({
-  subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  subsets: ["latin"], // remove any other implicit ranges
   variable: "--font-poppins",
 });
+
 
 export const metadata = {
   title: "Aya Sir G!",

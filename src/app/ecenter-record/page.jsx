@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext, useRef, Suspense } from "react";
 import "./all_ecenter.css";
 import IndividualCard from "../components/e-center-cards/IndividualCard";
 import { UserContext } from "../userContext";
@@ -9,8 +9,17 @@ import Select from "react-select";
 import { MdDelete, MdPause, MdPlayArrow } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import { toast } from "react-toastify";
+export const dynamic = "force-dynamic";
 
 export default function Page() {
+  return (
+    <Suspense fallback={<div className="text-center py-5">Loading...</div>}>
+      <EcenterInnerPage />
+    </Suspense>
+  );
+}
+
+function EcenterInnerPage() {
   const { userInfo, area } = useContext(UserContext);
   const router = useRouter();
   const [display, setDisplay] = useState(false);

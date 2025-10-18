@@ -169,7 +169,6 @@ export const UserProvider = ({ children }) => {
       });
 
       const result = await res.json();
-      console.log(result, "user update")
       if (res.ok) {
         return { success: true, data: result.data, message: result.message };
       } else {
@@ -265,7 +264,6 @@ export const UserProvider = ({ children }) => {
 
   // areas
   const [area, setArea] = useState([]);
-  console.log(area, "areassssss.s.s.")
   const getAreas = async () => {
     try {
       const res = await fetch(`${baseUrl}/api/area-list`, {
@@ -276,7 +274,6 @@ export const UserProvider = ({ children }) => {
       });
 
       const data = await res.json();
-      console.log(data, "/api/area-list");
       setArea(data.data || []);
 
       // if (data.data && data.data.length > 0) {

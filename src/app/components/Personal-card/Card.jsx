@@ -12,7 +12,6 @@ import Tippy from "@tippyjs/react";
 import Image from "next/image";
 
 export default function Card({ data, onLike, router }) {
-  console.log(data, "user data");
   // console.log(data, "data user ind.")
   // const [isLiked, setLiked] = useState(false);
   // const handleLiked = () => {
