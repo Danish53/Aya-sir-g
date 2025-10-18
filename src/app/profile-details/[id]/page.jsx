@@ -567,7 +567,7 @@ export default function page() {
                     </h4>
                     <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
-                      <h4>Disability: <span className="sub_head">{user?.disability_status === "non" ? "None" : ""}</span></h4>
+                      <h4>Disability: <span className="sub_head">{user?.disability_status}</span></h4>
                     </div>
                     <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
@@ -581,13 +581,16 @@ export default function page() {
                     <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Interested Locations:
                         <div className="sub_head">
                           {Array.isArray(user?.interested_cities_areas) &&
                             user.interested_cities_areas.map((cityData, index) => (
                               <p key={index}>
-                                <strong>{cityData?.city?.name}:</strong>{" "}
-                                {cityData?.city?.locations?.map((loc) => loc?.name).join(", ")}
+                                 <div className="d-flex">
+                                  <h4>Interested Cities: </h4> { cityData?.city?.name}
+                                 </div>
+                                 <div className="d-flex">
+                                  <h4>Interested Locations: </h4> { cityData?.city?.locations?.map((loc) => loc?.name).join(", ")}
+                                 </div>
                               </p>
                             ))}
                         </div>
@@ -608,7 +611,7 @@ export default function page() {
                       <h4>
                         Current Location:
                         <span className="sub_head">
-                          {user?.area_name}, {user?.city_name}
+                           { user?.area_name}, {user?.city_name}
                         </span>
                       </h4>
                     </div>

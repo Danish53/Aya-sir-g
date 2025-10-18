@@ -190,8 +190,6 @@ export default function MyFormPage() {
         // city_id: ""
     });
 
-    console.log(formData, "form data print")
-
     const validateForm = () => {
         const currentRole = (userType || "").toLowerCase();
         const requiredFields = [
@@ -447,7 +445,7 @@ export default function MyFormPage() {
             // console.log("API response:", response);
 
             if (response.success === false && response.result?.status === false && response.result?.errors) {
-                // Validation errors hain
+                // Validation errors
                 const apiErrors = response.result.errors;
                 const firstErrorKey = Object.keys(apiErrors)[0];
                 const firstErrorMsg = apiErrors[firstErrorKey][0];
@@ -492,7 +490,7 @@ export default function MyFormPage() {
             }
         } catch (err) {
             console.error("Catch error:", err);
-            toast.error("Something went wrong.");
+            toast.error("Something went wrong!");
         } finally {
             setLoader(false);
         }
@@ -585,7 +583,6 @@ export default function MyFormPage() {
                         </div>
                         {formErrors.profile_image && <small style={{ color: "red" }}>{formErrors.profile_image}</small>}
                     </div>
-
 
                     {/* First and Last Name */}
                     <div className="row input_one_row">
@@ -723,7 +720,7 @@ export default function MyFormPage() {
 
                         {userType !== "provider" && (
                             <div className="col-lg-6">
-                                <label htmlFor="area">Area</label>
+                                <label htmlFor="area">Current Area</label>
                                 <Select
                                     id="area"
                                     options={optionsAreas}

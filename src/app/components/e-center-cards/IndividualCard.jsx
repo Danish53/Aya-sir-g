@@ -12,7 +12,7 @@ import axios from "axios";
 import { UserContext } from "@/app/userContext";
 import { usePathname } from "next/navigation";
 
-export default function individualcard({ data, fetchData }) {
+export default function individualcard({ data, fetchData, onEditClick }) {
   const pathname = usePathname();
   const { timer, setTimer, handleResend, resendLoading } = useContext(UserContext);
   // Timer countdown
@@ -197,7 +197,13 @@ export default function individualcard({ data, fetchData }) {
   return (
     <section className="personal_card col-lg-6 mb-3">
       <div className="card_div py-3 px-4">
-        <div className="d-flex justify-content-center align-items-center flex-column w-100">
+        <div className="d-flex justify-content-center align-items-center flex-column w-100 position-relative">
+          <button
+            className="btn btn-sm card_btn_background text-white mt-2 position-absolute top-0 right-0" style={{right: "0"}}
+            onClick={onEditClick}
+          >
+            Edit
+          </button>
           <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
           <p className="title">{data?.username || "No Name"}</p>
 
