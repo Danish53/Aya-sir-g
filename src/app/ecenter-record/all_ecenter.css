@@ -267,11 +267,11 @@ input[type=checkbox] {
 
 }
 
-@media screen and (width <= 576px) {
-    .input_one_row div {
-        width: 100% !important;
-    }
-}
+/* @media screen and (width <=576px) {
+  .all_center_page .input_one_row div {
+    width: 100% !important;
+  }
+} */
 
 /* skelton */
 .skeleton_card {
