@@ -10,9 +10,10 @@ import { toast } from "react-toastify";
 // import { Modal } from "bootstrap";
 import axios from "axios";
 import { UserContext } from "@/app/userContext";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function individualcard({ data, fetchData, onEditClick }) {
+  const router = useRouter();
   const pathname = usePathname();
   const { timer, setTimer, handleResend, resendLoading } = useContext(UserContext);
   // Timer countdown
@@ -147,6 +148,7 @@ export default function individualcard({ data, fetchData, onEditClick }) {
         toast.error(json.message || "Failed to send OTP");
       }
     } catch (err) {
+      router.push("/error");
       console.error("Error sending OTP:", err);
       toast.error("Error sending OTP");
     } finally {

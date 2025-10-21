@@ -6,8 +6,10 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import "./blogs.css";
 import { FaArrowLeft, FaArrowRight, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -88,6 +90,7 @@ export default function Page() {
       setTotalPages(result.pagination.total_pages);
       setPerPage(result.pagination.per_page);
     } catch (error) {
+      router.push("/error");
       console.error("Error while fetching blogs:", error);
     } finally {
       setLoading(false);
@@ -111,6 +114,7 @@ export default function Page() {
         ...(result?.data || [])
       ]);
     } catch (error) {
+      router.push("/error");
       console.error("Error while fetching categories:", error);
     }
   };

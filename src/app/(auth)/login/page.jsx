@@ -63,6 +63,7 @@ export default function page() {
         toast.error(data.message)
       }
     } catch (error) {
+      router.push("/error");
       console.log("Error while login:", error.data.message);
       toast.error(error.message || "Error While Login failed to fetch");
     } finally {

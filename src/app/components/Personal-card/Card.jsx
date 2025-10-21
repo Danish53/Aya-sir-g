@@ -76,7 +76,7 @@ export default function Card({ data, onLike, router }) {
   return (
     <section className=" col-lg-6 col-md-6 col-sm-12 mb-lg-4 mb-3">
       <div className="personal_card h-100">
-        <Link href={`/profile-details/${data?.id}`} >
+        <Link href={`/profile-details/${data?.id}`} target="_blank">
           <div className="card_div py-3 px-4 h-100" style={{
             height: showFullFields || showFull ? "auto" : "",
             overflow: "hidden",

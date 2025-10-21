@@ -52,7 +52,7 @@ export default function CompanyCard({ data, onLike, router }) {
   return (
     <section className="company_card">
       <div className="container">
-        <Link href={`/compnies-details/${data?.id}`}>
+        <Link href={`/compnies-details/${data?.id}`} target="_blank">
           <div className="parent_div">
             <div className="d-flex flex-lg-row flex-column align-items-center gap-3 w-100">
               <div className="first_div">

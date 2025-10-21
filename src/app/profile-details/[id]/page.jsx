@@ -542,8 +542,7 @@ export default function page() {
                     </div>
                     <hr />
                     <h4>
-                      CNIC:
-                      <span className="cnic">
+                      CNIC: <span className="cnic">
                         {
                           user?.cnic
                             .split('')
@@ -572,8 +571,7 @@ export default function page() {
                     <hr />
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Field:
-                        <span className="sub_head">{Array.isArray(user?.fields_of_interest)
+                        Field: <span className="sub_head">{Array.isArray(user?.fields_of_interest)
                           ? user.fields_of_interest.map((item) => item.name).join(", ")
                           : "N/A"}</span>
                       </h4>
@@ -585,12 +583,12 @@ export default function page() {
                           {Array.isArray(user?.interested_cities_areas) &&
                             user.interested_cities_areas.map((cityData, index) => (
                               <p key={index}>
-                                 <div className="d-flex">
-                                  <h4>Interested Cities: </h4> { cityData?.city?.name}
-                                 </div>
-                                 <div className="d-flex">
-                                  <h4>Interested Locations: </h4> { cityData?.city?.locations?.map((loc) => loc?.name).join(", ")}
-                                 </div>
+                                <div className="d-flex gap-1">
+                                  <h4>Interested City: </h4> {cityData?.city?.name}
+                                </div>
+                                <div className="d-flex gap-1">
+                                  <h4>Interested Locations: <span className="sub_head">{cityData?.city?.locations?.map((loc) => loc?.name).join(", ")}</span></h4>
+                                </div>
                               </p>
                             ))}
                         </div>
@@ -609,9 +607,8 @@ export default function page() {
                     </div> */}
                     <div className="d-flex align-items-start gap-2 me-lg-2 ">
                       <h4>
-                        Current Location:
-                        <span className="sub_head">
-                           { user?.area_name}, {user?.city_name}
+                        Current Location: <span className="sub_head">
+                          {user?.area_name}
                         </span>
                       </h4>
                     </div>

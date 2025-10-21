@@ -13,8 +13,10 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { IoCopyOutline, IoShareSocial } from "react-icons/io5";
 import { FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const params = useParams();
   const { slug } = params;
   const base_url = process.env.NEXT_PUBLIC_BASE_URL;
@@ -46,6 +48,7 @@ export default function Page() {
       const data = await res.json();
       setBlogData(data.blog_detail);
     } catch (err) {
+      router.push("/error");
       console.error("Failed to fetch:", err);
       setBlogData(null);
     } finally {

@@ -83,6 +83,7 @@ export default function Hero() {
       const data = await res.json();
       setapiCategories2(data.data);
     } catch (error) {
+      router.push("/error");
       console.log("Error while fetching categories");
     }
   };

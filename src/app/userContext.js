@@ -3,7 +3,10 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 export const UserContext = createContext();
+import { useRouter } from "next/navigation";
+
 export const UserProvider = ({ children }) => {
+  const router = useRouter();
   const [userInfo, setUserInfo] = useState(null);
 
   const [apiCategory2, setapiCategories2] = useState([]);
@@ -22,6 +25,7 @@ export const UserProvider = ({ children }) => {
       setapiCategories2(data.data);
     } catch (error) {
       console.log("Error while fetching categories");
+      router.push("/error");
     }
   };
 
@@ -43,6 +47,7 @@ export const UserProvider = ({ children }) => {
       setUserInfo(parsed);
     } catch (err) {
       console.error("Failed to parse token:", err);
+      router.push("/error");
     } finally {
       setLoadingUser(false);
     }
@@ -104,6 +109,7 @@ export const UserProvider = ({ children }) => {
       }
     } catch (error) {
       console.error("Failed to fetch user profile:", error);
+      router.push("/error");
     } finally {
       setLoader(false);
     }
@@ -148,6 +154,7 @@ export const UserProvider = ({ children }) => {
       }
     } catch (error) {
       // console.error("Update failed:", error);
+      router.push("/error");
       return { success: false, message: "Something went wrong." };
     } finally {
       setLoader(false);
@@ -181,6 +188,7 @@ export const UserProvider = ({ children }) => {
       }
     } catch (error) {
       // console.error("Update failed:", error);
+      router.push("/error");
       return { success: false, message: "Something went wrong." };
     } finally {
       setLoader(false);
@@ -220,6 +228,7 @@ export const UserProvider = ({ children }) => {
       //   }
       // }, 100);
     } catch (error) {
+      router.push("/error");
       console.error("Error fetching cities:", error);
       setCities([]);
     }
@@ -253,6 +262,7 @@ export const UserProvider = ({ children }) => {
       //   }, 100);
       // }
     } catch (error) {
+      router.push("/error");
       console.error("Error fetching areas:", error);
       setLocations([]);
     }
@@ -284,6 +294,7 @@ export const UserProvider = ({ children }) => {
       //   }, 100);
       // }
     } catch (error) {
+      router.push("/error");
       console.error("Error fetching areas:", error);
       setArea([]);
     }
@@ -322,6 +333,7 @@ export const UserProvider = ({ children }) => {
         setFilteredUsers([]);
       }
     } catch (error) {
+      router.push("/error");
       console.error("Filter API error", error);
     } finally {
       setLoader(false);
@@ -368,6 +380,7 @@ export const UserProvider = ({ children }) => {
       }
 
     } catch (error) {
+      router.push("/error");
       console.error("Error liking/disliking:", error);
     }
   };
@@ -389,6 +402,7 @@ export const UserProvider = ({ children }) => {
         setServices([]);
       }
     } catch (error) {
+      router.push("/error");
       console.error("Error fetching services:", error);
     } finally {
       setLoader(false);
@@ -423,6 +437,7 @@ export const UserProvider = ({ children }) => {
       }
     } catch (error) {
       // console.error("Update failed:", error);
+      router.push("/error");
       return { success: false, message: "Something went wrong." };
     } finally {
       setLoader(false);
@@ -453,6 +468,7 @@ export const UserProvider = ({ children }) => {
         return { success: false, message: result.message || "add failed." };
       }
     } catch (error) {
+      router.push("/error");
       return { success: false, message: "Something went wrong." };
     } finally {
       setLoader(false);
@@ -491,6 +507,7 @@ export const UserProvider = ({ children }) => {
         toast.error(result.message || "Failed to resend OTP.");
       }
     } catch (error) {
+      router.push("/error");
       toast.error("Something went wrong while resending.");
     } finally {
       setResendLoading(false);
@@ -525,6 +542,7 @@ export const UserProvider = ({ children }) => {
         return { success: false, message: errorMsg };
       }
     } catch (error) {
+      router.push("/error");
       return { success: false, message: "Something went wrong." };
     } finally {
       setLoader(false);

@@ -29,22 +29,6 @@ export default function MyFormPage() {
     const [otp, setOtp] = useState(new Array(6).fill(""));
     const [loading, setLoading] = useState(false);
 
-    // // Input change handler
-    // const handleChangeOtp = (element, index) => {
-    //     if (!isNaN(element.value)) {
-    //         const newOtp = [...otp];
-    //         newOtp[index] = element.value;
-    //         setOtp(newOtp);
-
-    //         // Move to next input automatically
-    //         if (element.value && index < 5) {
-    //             if (typeof window !== 'undefined' && inputRefs.current[index + 1]) {
-    //                 inputRefs.current[index + 1].focus();
-    //             }
-    //         }
-    //     }
-    // };
-
     const blobToBase64 = (blob) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
@@ -53,8 +37,6 @@ export default function MyFormPage() {
             reader.readAsDataURL(blob);
         });
     };
-
-
 
     useEffect(() => {
         const type = searchParams.get("type");
@@ -166,8 +148,8 @@ export default function MyFormPage() {
 
     const [formData, setFormData] = useState({
         profile_image: "",
-        first_name: "",
-        last_name: "",
+        // first_name: "",
+        // last_name: "",
         username: "",
         contact_number: "",
         email: "",
@@ -204,7 +186,8 @@ export default function MyFormPage() {
             "age",
             "fields_of_interest",
             // "description",
-            ...(currentRole === "handyman" ? ["interested_locations", "area_id", "first_name", "last_name", "interested_cities",] : []),
+            ...(currentRole === "handyman" ? ["interested_locations", "area_id", "interested_cities",] : []),
+            // "first_name", "last_name",
             // "billing_address_scan",
             "cnic_scan",
             "picture",
@@ -259,15 +242,6 @@ export default function MyFormPage() {
             }));
         }
     }, [userInfo]);
-
-    // const handleFileChange = (e) => {
-    //     const file = e.target.files[0];
-    //     if (!file) return;
-    //     const reader = new FileReader();
-    //     reader.onloadend = () => setImagePreview(reader.result);
-    //     reader.readAsDataURL(file);
-    //     setFormData((prev) => ({ ...prev, profile_image: file }));
-    // };
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -489,6 +463,7 @@ export default function MyFormPage() {
                 toast.error(response.result?.message || "Something went wrong.");
             }
         } catch (err) {
+            router.push("/error");
             console.error("Catch error:", err);
             toast.error("Something went wrong!");
         } finally {
@@ -586,17 +561,7 @@ export default function MyFormPage() {
 
                     {/* First and Last Name */}
                     <div className="row input_one_row">
-                        {/* <div className="col-lg-6">
-                        <label htmlFor="first_name">First Name</label>
-                        <input name="first_name" placeholder="First Name" onChange={handleChange} />
-                        {formErrors.first_name && <small style={{ color: "red" }}>{formErrors.first_name}</small>}
-                    </div>
-                    <div className="col-lg-6">
-                        <label htmlFor="last_name">Last Name</label>
-                        <input name="last_name" placeholder="Last Name" onChange={handleChange} />
-                        {formErrors.last_name && <small style={{ color: "red" }}>{formErrors.last_name}</small>}
-                    </div> */}
-                        {userType !== "provider" && (
+                        {/* {userType !== "provider" && (
                             <>
                                 <div className="col-lg-6">
                                     <label htmlFor="first_name">First Name</label>
@@ -609,11 +574,16 @@ export default function MyFormPage() {
                                     {formErrors.last_name && <small style={{ color: "red" }}>{formErrors.last_name}</small>}
                                 </div>
                             </>
-                        )}
+                        )} */}
                         <div className="col-lg-6">
-                            <label htmlFor="username">Username</label>
-                            <input name="username" placeholder="Username" value={formData.username || ""} onChange={handleChange} />
+                            <label htmlFor="username">Name</label>
+                            <input name="username" placeholder="Name" value={formData.username || ""} onChange={handleChange} />
                             {formErrors.username && <small style={{ color: "red" }}>{formErrors.username}</small>}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="contact_number">Phone Number</label>
+                            <input name="contact_number" placeholder="03*********" type="number" onChange={handleChange} />
+                            {formErrors.contact_number && <small style={{ color: "red" }}>{formErrors.contact_number}</small>}
                         </div>
                         <div className="col-lg-6">
                             <label htmlFor="email">Email</label>
@@ -648,111 +618,20 @@ export default function MyFormPage() {
                             )}
                         </div>
                         <div className="col-lg-6">
-                            <label htmlFor="contact_number">Contact Number</label>
-                            <input name="contact_number" placeholder="03*********" type="number" onChange={handleChange} />
-                            {formErrors.contact_number && <small style={{ color: "red" }}>{formErrors.contact_number}</small>}
-                        </div>
-                        <div className="col-lg-6">
-                            <label htmlFor="address">Address</label>
-                            <input name="address" placeholder="Address" onChange={handleChange} />
-                            {formErrors.address && <small style={{ color: "red" }}>{formErrors.address}</small>}
-                        </div>
-
-                        <div className="col-lg-6">
-                            <label htmlFor="gender">Gender</label>
-                            <select name="gender" onChange={handleChange}>
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                {/* <option value="others">Others</option> */}
-                            </select>
-                            {formErrors.gender && <small style={{ color: "red" }}>{formErrors.gender}</small>}
-                        </div>
-
-                        <div className="input_select col-lg-6">
-                            <label htmlFor="">Fields of Interest</label>
-                            <MultiSelect options={options} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" portal={document.body} />
-                            {formErrors.fields_of_interest && <small style={{ color: "red" }}>{formErrors.fields_of_interest}</small>}
-                        </div>
-
-                        <div className="col-lg-6">
                             <label htmlFor="cnic">CNIC</label>
                             <input name="cnic" accept="image/*" value={formData.cnic} placeholder="CNIC e.g. 12345-1234567-1" onChange={handleChangeCnic} />
                             {formErrors.cnic && <small style={{ color: "red" }}>{formErrors.cnic}</small>}
                         </div>
                         <div className="col-lg-6">
-                            <label htmlFor="age">Age</label>
-                            <input name="age" placeholder="Age" type="number" onChange={handleChange} />
-                            {formErrors.age && <small style={{ color: "red" }}>{formErrors.age}</small>}
-                        </div>
-
-                        <div className="col-lg-6">
-                            <label htmlFor="cnic_scan">CNIC Scan Copy</label>
+                            <label htmlFor="cnic_scan">CNIC Scan</label>
                             <input type="file" name="cnic_scan" accept="image/*"
                                 capture="environment" onChange={handleImageChange} />
                             {formErrors.cnic_scan && <small style={{ color: "red" }}>{formErrors.cnic_scan}</small>}
                         </div>
-                        <div className="col-lg-6">
-                            <label htmlFor="billing_address_scan">Billing Address Scan</label>
-                            <input type="file" name="billing_address_scan" accept="image/*"
-                                capture="environment" onChange={handleImageChange} />
-                            {/* {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>} */}
-                        </div>
-
-                        {/* <div className="col-lg-6">
-                            <label htmlFor="city">City</label>
-                            <Select
-                                id="city"
-                                options={optionsCity}
-                                value={options.find(opt => opt.value === parseInt(selectedCityId))}
-                                onChange={(selectedOption) => {
-                                    const cityId = selectedOption ? selectedOption.value : "";
-                                    setSelectedCityId(cityId);
-                                    setFormData(prev => ({ ...prev, city_id: cityId }));
-                                }}
-                                placeholder="Select City"
-                                isClearable
-                                isSearchable
-                            />
-                            {formErrors.city_id && <small style={{ color: "red" }}>{formErrors.city_id}</small>}
-                        </div> */}
-
-
-                        {userType !== "provider" && (
-                            <div className="col-lg-6">
-                                <label htmlFor="area">Current Area</label>
-                                <Select
-                                    id="area"
-                                    options={optionsAreas}
-                                    value={options.find(opt => opt.value === parseInt(selectedAreaId))}
-                                    onChange={(selectedOption) => {
-                                        const areaId = selectedOption ? selectedOption.value : "";
-                                        setSelectedAreaId(areaId);
-                                        setFormData(prev => ({ ...prev, area_id: areaId }));
-                                    }}
-                                    placeholder="Select Area"
-                                    isClearable
-                                    isSearchable
-                                />
-                                {formErrors.area_id && <small style={{ color: "red" }}>{formErrors.area_id}</small>}
-                            </div>
-                        )}
-
-                        {/* {userType !== "provider" && (
-                            <div className="input_select col-lg-6">
-                                <><label htmlFor="">Interested Locations</label>
-                                    <MultiSelect options={optionsLocation} hasSelectAll={false} value={selectedLocation} onChange={handleLocationChange} labelledBy="Interested Locations" /></>
-                                {formErrors.interested_locations && <small style={{ color: "red" }}>{formErrors.interested_locations}</small>}
-                            </div>
-                        )} */}
-
-
+                        {/* intrested feilds */}
                         {userType !== "provider" && (
                             <div>
                                 {rows.map((row) => {
-                                    // console.log("Selected city:", row.city);
-                                    // console.log("Locations:", locations);
-                                    // console.log("Filter result:", locations.filter((loc) => loc.city_id === row.city?.value));
                                     const areaOptions = row.city
                                         ? locations
                                             .filter((loc) => String(loc.city_id) === String(row.city?.value))
@@ -818,7 +697,69 @@ export default function MyFormPage() {
 
                             </div>
                         )}
+                        {userType !== "provider" && (
+                            <div className="col-lg-6">
+                                <label htmlFor="area">Current Area</label>
+                                <Select
+                                    id="area"
+                                    options={optionsAreas}
+                                    value={options.find(opt => opt.value === parseInt(selectedAreaId))}
+                                    onChange={(selectedOption) => {
+                                        const areaId = selectedOption ? selectedOption.value : "";
+                                        setSelectedAreaId(areaId);
+                                        setFormData(prev => ({ ...prev, area_id: areaId }));
+                                    }}
+                                    placeholder="Select Area"
+                                    isClearable
+                                    isSearchable
+                                />
+                                {formErrors.area_id && <small style={{ color: "red" }}>{formErrors.area_id}</small>}
+                            </div>
+                        )}
+                        <div className="col-lg-6">
+                            <label htmlFor="address">Current Address</label>
+                            <input name="address" placeholder="Address" onChange={handleChange} />
+                            {formErrors.address && <small style={{ color: "red" }}>{formErrors.address}</small>}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="picture">Police Verification Required Screenshort</label>
+                            <input type="file" name="picture" accept="image/*" onChange={handleImageChange} />
+                            {formErrors.picture && <small style={{ color: "red" }}>{formErrors.picture}</small>}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="age">Age</label>
+                            <input name="age" placeholder="Age" type="number" onChange={handleChange} />
+                            {formErrors.age && <small style={{ color: "red" }}>{formErrors.age}</small>}
+                        </div>
+                        <div className="input_select col-lg-6">
+                            <label htmlFor="">Fields of Interest</label>
+                            <MultiSelect options={options} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" portal={document.body} />
+                            {formErrors.fields_of_interest && <small style={{ color: "red" }}>{formErrors.fields_of_interest}</small>}
+                        </div>
+                        <div className="col-lg-6">
+                            <label htmlFor="billing_address_scan">Billing Address Scan</label>
+                            <input type="file" name="billing_address_scan" accept="image/*"
+                                capture="environment" onChange={handleImageChange} />
+                            {/* {formErrors.billing_address_scan && <small style={{ color: "red" }}>{formErrors.billing_address_scan}</small>} */}
+                        </div>
 
+                        {/* <div className="col-lg-6">
+                            <label htmlFor="city">City</label>
+                            <Select
+                                id="city"
+                                options={optionsCity}
+                                value={options.find(opt => opt.value === parseInt(selectedCityId))}
+                                onChange={(selectedOption) => {
+                                    const cityId = selectedOption ? selectedOption.value : "";
+                                    setSelectedCityId(cityId);
+                                    setFormData(prev => ({ ...prev, city_id: cityId }));
+                                }}
+                                placeholder="Select City"
+                                isClearable
+                                isSearchable
+                            />
+                            {formErrors.city_id && <small style={{ color: "red" }}>{formErrors.city_id}</small>}
+                        </div> */}
                         {/* {userType !== "provider" && (
                             <div className="col-lg-6">
                                 <label htmlFor="description">Description</label>
@@ -826,7 +767,6 @@ export default function MyFormPage() {
                                 {formErrors.description && <small style={{ color: "red" }}>{formErrors.description}</small>}
                             </div>
                         )} */}
-
 
                         {userType !== "provider" && (
                             <div className="col-lg-6">
@@ -836,6 +776,17 @@ export default function MyFormPage() {
                             </div>
                         )}
 
+                        <div className="col-lg-6">
+                            <label htmlFor="gender">Gender</label>
+                            <select name="gender" onChange={handleChange}>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                {/* <option value="others">Others</option> */}
+                            </select>
+                            {formErrors.gender && <small style={{ color: "red" }}>{formErrors.gender}</small>}
+                        </div>
+
                         {userType !== "provider" && (
                             <div className="col-lg-6">
                                 <label htmlFor="experience">Experience</label>
@@ -843,19 +794,12 @@ export default function MyFormPage() {
                                 {formErrors.experience && <small style={{ color: "red" }}>{formErrors.experience}</small>}
                             </div>
                         )}
-
-                        <div className="col-lg-6">
-                            <label htmlFor="picture">Police Verification</label>
-                            <input type="file" name="picture" accept="image/*" onChange={handleImageChange} />
-                            {formErrors.picture && <small style={{ color: "red" }}>{formErrors.picture}</small>}
-                        </div>
-
                     </div>
+
 
                     {/* Audio Sample */}
                     <div className="w-100">
                         <div className="audio-recorder-container">
-
                             {/* Recorder Section */}
                             {!audioURL && (
                                 <div className="recorder-box">
@@ -933,7 +877,6 @@ export default function MyFormPage() {
                             <small style={{ color: "red" }}>{formErrors.audio_sample_blob}</small>
                         )}
                     </div>
-
 
                     {/* Submit */}
                     <div className="form-footer mt-4 text-center w-100">

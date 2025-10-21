@@ -5,6 +5,7 @@ import WishlistComponent from "../components/wishlist/WishlistComponent";
 import { UserContext } from "../userContext";
 import Advartisement from "@/app/components/AdvertisementBar/Advartisement";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 // Skeleton Loader Component
 function SkeletonCard() {
@@ -47,6 +48,7 @@ function SkeletonCard() {
 }
 
 export default function page() {
+  const router = useRouter();
   const { userInfo } = useContext(UserContext);
   const [likedUser, setLikedUser] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -69,6 +71,7 @@ export default function page() {
       const data = await res.json();
       setLikedUser(data?.i_liked || []);
     } catch (err) {
+      router.push("/error");
       console.error("Error fetching liked users", err);
       setLikedUser([]);
     } finally {

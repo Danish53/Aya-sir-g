@@ -84,6 +84,7 @@ export default function page() {
 
       router.push("/register-otp");
     } catch (error) {
+      router.push("/error");
       console.error("Error:", error.message);
       if (!toastFired) {
         toast.error(error.message || "Network error or unexpected issue occurred");

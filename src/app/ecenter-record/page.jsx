@@ -150,6 +150,7 @@ function EcenterInnerPage() {
       // console.log(json, "ecenter");
       setData(json.data || []);
     } catch (err) {
+      router.push("/error");
       console.error("API Error:", err);
     } finally {
       setLoading(false);
@@ -346,22 +347,39 @@ function EcenterInnerPage() {
       }
     }
 
+    const blobToBase64 = (blob) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result); // ✅ prefix ab include rahega
+        reader.onerror = reject;
+        reader.readAsDataURL(blob); // ✅ ye data:audio/mp3;base64, prefix add karta hai
+      });
+    };
+
+
+    // 👇 Convert audio blob to base64 before creating form
+    let updatedFormData = { ...formData };
+    if (formData.audio_sample_blob) {
+      if (typeof formData.audio_sample_blob !== "string") {
+        const base64 = await blobToBase64(formData.audio_sample_blob);
+        updatedFormData.audio_sample_blob = base64;
+      }
+    }
     const form = new FormData();
     form.append("user_id", formData.user_id || "");
     form.append("area_id", formData.area_id || "");
     form.append("address", formData.address || "");
     form.append("description", formData.description || "");
     if (formData.profile_image) form.append("profile_image", formData.profile_image);
-    if (formData.audio_sample_blob)
-      form.append("audio_sample", formData.audio_sample_blob);
-
+    if (updatedFormData.audio_sample_blob)
+      form.append("audio_sample_blob", updatedFormData.audio_sample_blob);
     try {
       setLoader(true);
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/update-profile-data`,
         {
           method: "POST", // or PUT if API supports it
-          // headers: { Authorization: token ? `Bearer ${token}` : "" },
+          headers: { Authorization: token ? `Bearer ${token}` : "" },
           body: form,
         }
       );
@@ -374,6 +392,7 @@ function EcenterInnerPage() {
         toast.error(json.message || "Update failed!");
       }
     } catch (err) {
+      router.push("/error");
       console.error("Update error:", err);
     } finally {
       setLoader(false);
