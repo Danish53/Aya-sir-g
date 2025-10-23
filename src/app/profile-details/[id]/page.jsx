@@ -561,7 +561,6 @@ export default function page() {
                             .replace(/(?<=\d)(?=\d)/g, '*')
                         }
 
-
                       </span>
                     </h4>
                     <hr />
