@@ -54,8 +54,8 @@ p {
   width: 100%;
   height: calc(100vh - 50px);
   font-family: var(--font-poppins), sans-serif;
-  background-image: url("/assets/Image-banner.png");
-  background-position: center 30%;
+  background-image: url("/assets/Image-banner.webp");
+  background-position: center 30%; 
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;

@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import { FaClock, FaEnvelope, FaMap, FaPhone } from "react-icons/fa";
 import { FaPhoneVolume } from "react-icons/fa6";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function page() {
   return (
@@ -59,7 +60,7 @@ export default function page() {
                 </div> */}
                 <div className="w-100 text-center d-flex justify-content-center">
                   <div className="logo_div mt-3 text-center">
-                    <Link href={'/'} className="text-center"><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
+                    <Link href={'/'} className="text-center"><Image src="/assets/ayasirglogo.png" width={100} height={100} style={{height: "auto"}} alt="" className="logo" /></Link>
                     {/* <p id="head">AYA SIR G!</p>
                   <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
                   </div>

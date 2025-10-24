@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Image from "next/image";
 
 export default function page() {
   const [loader, setLoader] = useState(false);
@@ -279,7 +280,7 @@ export default function page() {
           </button>
           <div className="d-flex">
             <div className="logo_div hide_logo" style={{ width: "fit-content", zIndex: 99 }}>
-              <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
+              <Link href={'/'}><Image src="/assets/ayasirglogo.png" width={100} height={100} alt="" className="logo" /></Link>
             </div>
             <div>
               <Link href="/login" id="sign_p" className="term" style={{ textDecoration: "none", textAlign: "center" }}>

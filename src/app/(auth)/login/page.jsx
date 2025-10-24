@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import { UserContext } from "@/app/userContext";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Image from "next/image";
 
 export default function page() {
   const { userInfo, setUserInfo, fetchUserProfile } = useContext(UserContext);
@@ -182,7 +183,7 @@ export default function page() {
                 <hr />
               </div>
               <div className="logo_div mt-5">
-                <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
+                <Link href={'/'}><Image src="/assets/ayasirglogo.png" width={100} height={100} alt="" className="logo" /></Link>
                 {/* <p id="head">AYA SIR G!</p>
                 <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
               </div>

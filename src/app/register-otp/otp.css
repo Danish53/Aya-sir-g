@@ -52,6 +52,7 @@
 
 .logo_div img {
   width: 100% !important;
+  height: 40px;
 }
 
 @media screen and (max-width: 768px) {

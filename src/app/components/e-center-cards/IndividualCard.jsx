@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { UserContext } from "@/app/userContext";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function individualcard({ data, fetchData, onEditClick }) {
   const router = useRouter();
@@ -206,7 +207,7 @@ export default function individualcard({ data, fetchData, onEditClick }) {
           >
             Edit
           </button>
-          <img src={data?.profile_image || "/assets/person_img.png"} alt="person" />
+          <Image width={100} height={100} src={data?.profile_image || "/assets/person_img.png"} alt="person" />
           <p className="title">{data?.username || "No Name"}</p>
 
           <div className="heart_div position-relative">

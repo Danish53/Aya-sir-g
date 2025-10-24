@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import Link from "next/link";
 import { UserContext } from "@/app/userContext";
+import Image from "next/image";
 
 export default function page() {
   const router = useRouter();
@@ -147,7 +148,7 @@ export default function page() {
         </form>
 
         <div className="logo_div mt-3">
-          <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
+          <Link href={'/'}><Image src="/assets/ayasirglogo.png" width={100} height={100} alt="" className="logo" /></Link>
           {/* <p id="head">AYA SIR G!</p>
           <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
         </div>

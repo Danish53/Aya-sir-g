@@ -14,6 +14,7 @@ import { IoCopyOutline, IoShareSocial } from "react-icons/io5";
 import { FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, TelegramIcon, TelegramShareButton, TwitterIcon, TwitterShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Page() {
   const router = useRouter();
@@ -193,7 +194,7 @@ export default function Page() {
     <section className="container margin_navbar">
       <div className="row py-3">
         <div className="col-md-12 img_div">
-          <img src={blogData?.attchments[0]} alt={blogData?.title} />
+          <Image src={blogData?.attchments[0]} width={200} height={200} alt={blogData?.title} />
         </div>
         <div className="col-md-12">
           <div className="flex_div_parent">

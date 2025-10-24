@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { UserContext } from "../userContext";
+import Image from "next/image";
 
 export default function Page() {
   const router = useRouter();
@@ -159,7 +160,8 @@ export default function Page() {
         <div className="widd">
           <div className="logo_div mt-3">
             <Link href={"/"}>
-              <img
+              <Image
+               width={100} height={100}
                 src="/assets/ayasirglogo.png"
                 alt="logo"
                 className="logo"

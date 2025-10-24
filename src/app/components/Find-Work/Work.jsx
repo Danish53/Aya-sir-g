@@ -1,5 +1,6 @@
 import React from "react";
 import "./work.css";
+import Image from "next/image";
 
 export default function Work() {
   return (
@@ -32,7 +33,7 @@ export default function Work() {
             </div>
           </div>
           <div className="col-lg-6 img_col mt-lg-0 mt-3" data-aos="fade-bottom">
-            <img src="/assets/staffs.png" alt="" />
+            <Image src="/assets/staffs.png" width={200} height={200} alt="Image Blue collar" />
           </div>
         </div>
       </div>

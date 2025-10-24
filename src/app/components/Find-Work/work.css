@@ -20,19 +20,19 @@ span.red_title {
   /* max-width: 533px;
   max-height: 443px; */
   width: 100%;
-  height: auto;
-  overflow: none;
+  height: 100%;
+  /* overflow: none; */
 }
 
 .work .col_1 {
   flex: 1 !important;
 }
 
-  .work .col_1 p {
-    font-size: 16px;
-    font-weight: 500;
-    color: #212529;
-  }
+.work .col_1 p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #212529;
+}
 
 @media screen and (max-width: 991px) {
   .work p.section_heading {

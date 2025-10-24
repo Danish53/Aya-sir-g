@@ -528,7 +528,7 @@ export default function page() {
                             </div>
 
                             <div className="d-flex align-items-center">
-                              <img className="mic_icon" src="/assets/taaruf.jpg" alt="" />
+                              <Image className="mic_icon" width={100} height={100} src="/assets/taaruf.jpg" alt="" />
                             </div>
                           </div>
                         </div>

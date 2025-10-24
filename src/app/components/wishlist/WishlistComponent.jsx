@@ -5,6 +5,7 @@ import { FaCheck } from "react-icons/fa";
 import { RiStarFill, RiStarHalfFill, RiStarLine } from "react-icons/ri";
 import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css';
+import Image from "next/image";
 
 export default function WishlistComponent({ data }) {
   // rating
@@ -24,7 +25,7 @@ export default function WishlistComponent({ data }) {
     <div className="wishlistcard py-3 mb-3 h-100">
       <div>
         <div className="info_div">
-          <img src={data?.profile_image || "/assets/raza.png"} alt="" />
+          <Image width={100} height={100} src={data?.profile_image || "/assets/raza.png"} alt="" />
           <h2>{data?.username || ""}</h2>
           <p>{data?.gender === "male" ? "Male" : data?.gender === "female" ? "Female" : ""}, {data?.age || ""} years old</p>
         </div>

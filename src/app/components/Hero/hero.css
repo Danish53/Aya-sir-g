@@ -1,7 +1,7 @@
 .hero_section {
   width: 100%;
   height: calc(100vh - 10px);
-  background-image: url("/assets/Image-banner.png");
+  background-image: url("/assets/Image-banner.webp");
   background-size: cover;
   background-position: center 30%;
   color: white;

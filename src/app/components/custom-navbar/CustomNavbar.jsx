@@ -12,6 +12,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { UserContext } from "@/app/userContext";
 import Myform from "../Myform/Myform";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 const TranslateWrapper = dynamic(() => import("../translateWrapper/TranslateWrapper"), { ssr: false });
 
@@ -101,7 +102,7 @@ export default function CustomNavbar() {
       <div className="container">
         <nav className="nav">
           <div className="logo_div" onClick={() => { setMyNavbar(false) }}>
-            <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="Logo" className="logo" /></Link>
+            <Link href={'/'}><Image src="/assets/ayasirglogo.png" width={100} height={100} alt="Logo" className="logo" /></Link>
           </div>
 
           <div className="nav_items d-flex align-items-center">
@@ -119,7 +120,8 @@ export default function CustomNavbar() {
               <li className="d-block d-md-none" onClick={() => setMyNavbar(false)}>
                 {userToken && (
                   <Link href="/user-profile" className="d-flex align-items-center">
-                    <img
+                    <Image
+                      width={100} height={100}
                       className="icon_person_pic"
                       src={userInfo?.profile_image}
                       alt="profile"
@@ -247,7 +249,7 @@ export default function CustomNavbar() {
             </div>
 
             {
-              userToken? <button className="btn btn_primary_btn ms-3" onClick={gotoContactUs}>Contact us</button> : ""
+              userToken ? <button className="btn btn_primary_btn ms-3" onClick={gotoContactUs}>Contact us</button> : ""
             }
 
           </div>

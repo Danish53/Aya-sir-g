@@ -6,6 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function page() {
   const router = useRouter();
@@ -179,7 +180,7 @@ export default function page() {
         </form>
 
         <div className="logo_div mt-3">
-          <Link href={'/'}><img src="/assets/ayasirglogo.png" alt="" className="logo" /></Link>
+          <Link href={'/'}><Image src="/assets/ayasirglogo.png" width={100} height={100} alt="" className="logo" /></Link>
           {/* <p id="head">AYA SIR G!</p>
           <p id="descri">YOUR TRUSTED EVERYWHERE</p> */}
         </div>

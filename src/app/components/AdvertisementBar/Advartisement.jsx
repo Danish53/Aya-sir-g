@@ -1,31 +1,18 @@
-// import React from "react";
-// import "./advertisement.css";
 
-// export default function Advartisement() {
-//   return (
-//     <section className="advertisementBar">
-//       {/* <p className="advertiment py-2">
-//         A<br />d<br />v<br />e<br />r<br />t<br />i<br />s<br />e<br />m
-//         <br />e
-//         <br />n
-//         <br />t
-//       </p> */}
-//       <img src="/assets/add.jpg" alt="" />
-//     </section>
-//   );
-// } 
+
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import "./advertisement.css";
 import { UserContext } from "@/app/userContext";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Advertisement() {
   const [currentImage, setCurrentImage] = useState(0);
   const { getAllBanners, banners } = useContext(UserContext);
 
   useEffect(() => {
-    getAllBanners(); 
+    getAllBanners();
   }, []);
 
   useEffect(() => {
@@ -43,10 +30,11 @@ export default function Advertisement() {
   return (
     <section className="advertisementBar">
       <Link href={banners[currentImage]?.description || "#"} target="_blank">
-      <img
-        src={banners[currentImage]?.slider_image}
-        alt={banners[currentImage]?.title || `banner-${currentImage}`}
-      />
+        <Image
+          width={100} height={100}
+          src={banners[currentImage]?.slider_image}
+          alt={banners[currentImage]?.title || `banner-${currentImage}`}
+        />
       </Link>
     </section>
   );
