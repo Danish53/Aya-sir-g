@@ -102,7 +102,7 @@ export default function CustomNavbar() {
       <div className="container">
         <nav className="nav">
           <div className="logo_div" onClick={() => { setMyNavbar(false) }}>
-            <Link href={'/'}><Image src="/assets/ayasirglogo.png" width={100} height={100} alt="Logo" className="logo" /></Link>
+            <Link href={'/'}><Image src="/assets/ayasirglogo.png" width={200} height={200} alt="Logo" className="logo" /></Link>
           </div>
 
           <div className="nav_items d-flex align-items-center">
