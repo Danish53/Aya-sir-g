@@ -149,7 +149,7 @@ export default function individualcard({ data, fetchData, onEditClick }) {
         toast.error(json.message || "Failed to send OTP");
       }
     } catch (err) {
-      router.push("/error");
+      // router.push("/error");
       console.error("Error sending OTP:", err);
       toast.error("Error sending OTP");
     } finally {

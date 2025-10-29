@@ -85,7 +85,7 @@ export default function page() {
         toast.error(result.message || "Invalid OTP.");
       }
     } catch (error) {
-      router.push("/error");
+      // router.push("/error");
       // console.error("OTP Verify Error:", error);
       toast.error("Something went wrong.");
     } finally {

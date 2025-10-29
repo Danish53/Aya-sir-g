@@ -71,7 +71,7 @@ export default function page() {
       const data = await res.json();
       setLikedUser(data?.i_liked || []);
     } catch (err) {
-      router.push("/error");
+      // router.push("/error");
       console.error("Error fetching liked users", err);
       setLikedUser([]);
     } finally {

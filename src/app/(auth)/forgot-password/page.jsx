@@ -48,7 +48,7 @@ export default function Page() {
         toast.error("Failed to send OTP.");
       }
     } catch (error) {
-      router.push("/error");
+      // router.push("/error");
       toast.error("Something went wrong while sending OTP.");
     } finally {
       setLoader(false);

@@ -273,7 +273,7 @@ export default function Page() {
         const res = await updateUserProfile(formDataToSend);
         toast.success("Profile Image updated successfully!");
       } catch (error) {
-      router.push("/error");
+      // router.push("/error");
         console.error("Error uploading image:", error);
       } finally {
         setLoader(false);
@@ -308,7 +308,7 @@ export default function Page() {
       // console.log(data, "profilessss")
       setAccounts(data.data.accounts);
     } catch (error) {
-      router.push("/error");
+      // router.push("/error");
       console.log("Error while fetching accounts");
     }
   };

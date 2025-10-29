@@ -68,7 +68,7 @@ export default function page() {
         toast.error(result.message || "Reset failed.");
       }
     } catch (error) {
-      router.push("/error");
+      // router.push("/error");
       // console.error("Reset error:", error);
       toast.error("Something went wrong.");
     } finally {

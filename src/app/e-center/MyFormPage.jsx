@@ -463,7 +463,7 @@ export default function MyFormPage() {
                 toast.error(response.result?.message || "Something went wrong.");
             }
         } catch (err) {
-            router.push("/error");
+            // router.push("/error");
             console.error("Catch error:", err);
             toast.error("Something went wrong!");
         } finally {

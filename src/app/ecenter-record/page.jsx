@@ -150,7 +150,7 @@ function EcenterInnerPage() {
       // console.log(json, "ecenter");
       setData(json.data || []);
     } catch (err) {
-      router.push("/error");
+      // router.push("/error");
       console.error("API Error:", err);
     } finally {
       setLoading(false);
@@ -392,7 +392,7 @@ function EcenterInnerPage() {
         toast.error(json.message || "Update failed!");
       }
     } catch (err) {
-      router.push("/error");
+      // router.push("/error");
       console.error("Update error:", err);
     } finally {
       setLoader(false);

@@ -49,7 +49,7 @@ export default function Page() {
       const data = await res.json();
       setBlogData(data.blog_detail);
     } catch (err) {
-      router.push("/error");
+      // router.push("/error");
       console.error("Failed to fetch:", err);
       setBlogData(null);
     } finally {

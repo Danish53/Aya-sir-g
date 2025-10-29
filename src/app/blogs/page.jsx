@@ -90,7 +90,7 @@ export default function Page() {
       setTotalPages(result.pagination.total_pages);
       setPerPage(result.pagination.per_page);
     } catch (error) {
-      router.push("/error");
+      // router.push("/error");
       console.error("Error while fetching blogs:", error);
     } finally {
       setLoading(false);
@@ -114,7 +114,7 @@ export default function Page() {
         ...(result?.data || [])
       ]);
     } catch (error) {
-      router.push("/error");
+      // router.push("/error");
       console.error("Error while fetching categories:", error);
     }
   };

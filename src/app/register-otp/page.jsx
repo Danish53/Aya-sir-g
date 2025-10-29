@@ -89,7 +89,7 @@ export default function Page() {
         toast.error(result.message || "Invalid OTP.");
       }
     } catch (error) {
-      router.push("/error");
+      // router.push("/error");
       toast.error("Something went wrong.");
     } finally {
       setLoader(false);

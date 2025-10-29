@@ -60,7 +60,7 @@ export default function Page() {
             setRelatedData(data.related_blogs);
             setCommentsData(data.comments);
         } catch (err) {
-            router.push("/error");
+            // router.push("/error");
             console.error("Failed to fetch:", err);
             setBlogData(null);
         } finally {
