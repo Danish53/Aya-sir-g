@@ -690,7 +690,7 @@ export default function page() {
                               <FaPhoneAlt className="phone_icon" />
                               <div className="number">
                                 <p className="number">{user?.contact_number}</p>
-                                <p className="show_num">Show Phone Number</p>
+                                {/* <p className="show_num">Show Phone Number</p> */}
                               </div>
                             </Link>
                           ) : (
