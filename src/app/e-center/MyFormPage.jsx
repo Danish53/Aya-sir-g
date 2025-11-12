@@ -487,7 +487,7 @@ export default function MyFormPage() {
     //     if (selectedAreaId) getLocations(selectedAreaId);
     // }, [selectedAreaId]);
 
-    const options = apiCategory2.map((cat) => ({
+    const optionsCat = apiCategory2.map((cat) => ({
         label: cat.name,
         value: cat.id,
     }));
@@ -703,7 +703,7 @@ export default function MyFormPage() {
                                 <Select
                                     id="area"
                                     options={optionsAreas}
-                                    value={options.find(opt => opt.value === parseInt(selectedAreaId))}
+                                    value={optionsAreas.find(opt => opt.value === parseInt(selectedAreaId))}
                                     onChange={(selectedOption) => {
                                         const areaId = selectedOption ? selectedOption.value : "";
                                         setSelectedAreaId(areaId);
@@ -733,7 +733,7 @@ export default function MyFormPage() {
                         </div>
                         <div className="input_select col-lg-6">
                             <label htmlFor="">Fields of Interest</label>
-                            <MultiSelect options={options} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" portal={document.body} />
+                            <MultiSelect options={optionsCat} hasSelectAll={false} value={selectedFields} onChange={handleFieldsChange} labelledBy="Select Fields" portal={document.body} />
                             {formErrors.fields_of_interest && <small style={{ color: "red" }}>{formErrors.fields_of_interest}</small>}
                         </div>
                         <div className="col-lg-6">
